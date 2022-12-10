@@ -13,7 +13,7 @@ import ImageComponent from "../../Common/ImageComponent";
 
 export default function HeroSlider() {
   return (
-    <>
+    <div style={{ marginTop: "-90px" }}>
       <Swiper
         autoplay={{
           delay: 2500,
@@ -30,11 +30,11 @@ export default function HeroSlider() {
         {[1, 2, 3]?.map((item, index) => {
           return (
             <SwiperSlide key={index}>
-              <div className="relative">
+              <div className="relative ">
                 {" "}
                 <ImageComponent
                   image={sliderImg}
-                  className="h-[500px] w-full object-cover"
+                  className="h-[600px] w-full object-cover"
                 />{" "}
                 <div className="bg-gradient-to-b from-[#222C8C]/50 to-[#222C8C]/0 absolute top-0 w-full h-full">
                   <div className="absolute  bottom-[0%] text-center mx-auto w-full text-white">
@@ -50,6 +50,6 @@ export default function HeroSlider() {
           );
         })}
       </Swiper>
-    </>
+    </div>
   );
 }

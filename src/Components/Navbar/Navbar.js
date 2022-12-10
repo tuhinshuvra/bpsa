@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
 import ButtonComponent from "../Common/ButtonComponent";
@@ -6,10 +6,46 @@ import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [show, setShow] = useState(false);
+  const [navColor, setNavColor] = useState("");
+
+  const controlNavbar = () => {
+    if (typeof window !== "undefined") {
+      console.log(window.scrollY);
+      if (window.scrollY > 400) {
+        setNavColor(true);
+        // if scroll down hide the navbar
+
+        setShow(true);
+      } else {
+        setNavColor(false);
+        // if scroll up show the navbar
+        setShow(false);
+      }
+      // remember current page location to use in the next move
+      setLastScrollY(window.scrollY);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlNavbar);
+
+      // cleanup function
+      return () => {
+        window.removeEventListener("scroll", controlNavbar);
+      };
+    }
+  }, [lastScrollY]);
   return (
-    <div className="">
+    <div style={{ zIndex: 999 }} className="sticky top-0">
       <div className="hidden md:block">
-        <div className=" flex items-center justify-between bg-main px-20 py-2">
+        <div
+          className={`flex items-center justify-between ${
+            navColor ? "bg-main" : "bg-transparent"
+          }  px-20 py-2`}
+        >
           <div className="">
             <ImageComponent
               image={logo}
@@ -89,7 +125,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="md:hidden flex items-center justify-between bg-main px-1 py-2">
+      <div
+        className={`md:hidden flex items-center justify-between ${
+          navColor ? "bg-main" : "bg-transparent"
+        }  px-1 py-2`}
+      >
         <div className="">
           <MobileMenu />
         </div>
