@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "./Components/Footer/Footer";
 import SocialButtonComponent from "./Components/Common/SocialButtonComponent";
+import AboutUsPage from "./Pages/AboutUsPage";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
       <SocialButtonComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutUsPage />} />
       </Routes>
       <Footer />
     </div>

@@ -13,7 +13,7 @@ const Navbar = () => {
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
       console.log(window.scrollY);
-      if (window.scrollY > 400) {
+      if (window.scrollY > 200) {
         setNavColor(true);
         // if scroll down hide the navbar
 
@@ -63,6 +63,16 @@ const Navbar = () => {
               to="/"
             >
               Home
+            </NavLink>
+            <NavLink
+              className={(active) =>
+                active?.isActive
+                  ? "text-white font-semibold hover:text-white"
+                  : "text-white hover:text-white	"
+              }
+              to="/about"
+            >
+              About 
             </NavLink>
             <NavLink
               className={(active) =>

@@ -44,6 +44,16 @@ export default function MobileMenu() {
           >
             Home
           </NavLink>
+          <NavLink
+            className={(active) =>
+              active?.isActive
+                ? "text-white bg-main w-full py-2 text-center font-semibold hover:text-second"
+                : "text-second hover:text-second	 w-full text-center"
+            }
+            to="/about"
+          >
+            About
+          </NavLink>
         </ListItem>
         <ListItem>
           <NavLink
