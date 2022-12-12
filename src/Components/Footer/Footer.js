@@ -97,14 +97,23 @@ const Footer = () => {
         </Row>
         <hr />
         <div className="flex items-center justify-between flex-wrap-reverse">
-          <p>
-            © {new Date().getFullYear()}{" "}
-            <a className="text-white" href="https://www.techsimpleict.com/">
-              TechSimple ICT
-            </a>{" "}
-            . All Right Reserved.
-          </p>
-          <p>
+          <div className="text-sm">
+            <p className="m-0 pb-2">
+              Copyright © {new Date().getFullYear()} All rights reserved.
+              Bangladesh Police Service Association
+            </p>
+            <p>
+              Design and Developed By :
+              <a
+                className="text-white ml-1"
+                href="https://www.techsimpleict.com/"
+              >
+                TechSimple ICT
+              </a>{" "}
+            </p>
+          </div>
+
+          <p className="text-sm">
             PRIVACY POLICY | SOCIAL MEDIA POLICY | COPYRIGHT | FAQ | TERMS OF
             USE
           </p>

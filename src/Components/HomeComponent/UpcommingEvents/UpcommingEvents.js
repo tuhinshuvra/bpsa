@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import HeadingComponent1 from "../../Common/HeadingComponent1";
 import EventSlider from "./EventSlider";
 
-const UpcommingEvents = () => {
+const UpcommingEvents = ({ data }) => {
   return (
     <div className="py-4 mb-4">
       <HeadingComponent1
@@ -12,7 +12,7 @@ const UpcommingEvents = () => {
         className="text-main py-3"
       />
 
-      <EventSlider />
+      <EventSlider data={data} />
     </div>
   );
 };

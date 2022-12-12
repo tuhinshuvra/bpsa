@@ -37,7 +37,8 @@ const galleryData = [
   },
 ];
 
-const GalleryComp = () => {
+const GalleryComp = ({ data }) => {
+  console.log("data-->", data);
   return (
     <div>
       <Container className="py-10">

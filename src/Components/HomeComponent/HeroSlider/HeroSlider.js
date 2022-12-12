@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper";
 import ImageComponent from "../../Common/ImageComponent";
 
-export default function HeroSlider() {
+export default function HeroSlider({ data }) {
   return (
     <div style={{ marginTop: "-90px" }}>
       <Swiper
@@ -27,28 +27,29 @@ export default function HeroSlider() {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-        {[1, 2, 3]?.map((item, index) => {
-          return (
-            <SwiperSlide key={index}>
-              <div className="relative ">
-                {" "}
-                <ImageComponent
-                  image={sliderImg}
-                  className="h-[600px] w-full object-cover"
-                />{" "}
-                <div className="bg-gradient-to-b from-[#222C8C]/50 to-[#222C8C]/0 absolute top-0 w-full h-full">
-                  <div className="absolute  bottom-[0%] text-center mx-auto w-full text-white">
-                    <div className="rounded-md  bg-main w-fit mx-auto">
-                      <h1 className="text-5xl p-3  leading-[70px]">
-                        Bangladesh Police Service Association
-                      </h1>
+        {data &&
+          data?.map((item, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <div className="relative ">
+                  {" "}
+                  <ImageComponent
+                    image={item?.image}
+                    className="h-[600px] w-full object-cover"
+                  />{" "}
+                  <div className="bg-gradient-to-b from-[#222C8C]/50 to-[#222C8C]/0 absolute top-0 w-full h-full">
+                    <div className="absolute  bottom-[0%] text-center mx-auto w-full text-white">
+                      <div className="rounded-md  bg-main w-fit mx-auto">
+                        <h1 className="text-5xl p-3  leading-[70px]">
+                          Bangladesh Police Service Association
+                        </h1>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
     </div>
   );

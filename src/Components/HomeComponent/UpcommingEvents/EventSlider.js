@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation, Autoplay } from "swiper";
 
-export default function EventSlider() {
+export default function EventSlider({ data }) {
   return (
     <div id="eventSlider">
       <Swiper
@@ -42,28 +42,27 @@ export default function EventSlider() {
           },
         }}
       >
-        {[1, 2, 3, 4]?.map((item, index) => {
-          return (
-            <SwiperSlide key={index}>
-              <div className=" flex space-x-2 bg-white shadow-sm border p-3">
-                <h1 className="text-main font-semibold text-6xl -mt-2">
-                  0{index + 1}
-                </h1>
-                <div className="">
-                  <h6 className="text-main">
-                    United Nations Police & Action for Peacekeeping Priorities
-                  </h6>
-                  <p>
-                    Ea nihil putant dictas mel. Ver ear quo fastidii similique.
-                  </p>
-                  <p className="text-main border-b-2 w-fit border-main font-semibold cursor-pointer">
-                    Read more
-                  </p>
+        {data &&
+          data?.map((item, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <div className=" flex space-x-2 bg-white shadow-sm border p-3">
+                  <h1 className="text-main font-semibold text-6xl -mt-2">
+                    0{index + 1}
+                  </h1>
+                  <div className="">
+                    <h6 className="text-main">{item?.title}</h6>
+                    <p className="text-sm text-justify">
+                      {item?.description.slice(0, 100)}
+                    </p>
+                    <p className="text-main border-b-2 w-fit border-main font-semibold cursor-pointer">
+                      Read more
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
     </div>
   );

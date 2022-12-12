@@ -6,6 +6,8 @@ import {
   GetHighlight,
   GetHomeNotice,
   GetHomeSlider,
+  GetMessages,
+  GetSuccessStory,
 } from "../api";
 import Loader from "../Components/Common/Loader";
 import NoticeLine from "../Components/Common/NoticeLine";
@@ -33,13 +35,19 @@ const HomePage = () => {
   const [galleryData, setGalleryData] = useState([]);
   const [galleryError, setGalleryError] = useState("");
   const [galleryLoading, setGalleryLoading] = useState(false);
+  const [successData, setSuccessData] = useState([]);
+  const [successError, setSuccessError] = useState("");
+  const [successLoading, setSuccessLoading] = useState(false);
+  const [messageData, setMessageData] = useState([]);
+  const [messageError, setMessageError] = useState("");
+  const [messageLoading, setMessageLoading] = useState(false);
 
   const getSliderData = async () => {
     try {
       setSliderLoading(true);
       const result = await GetHomeSlider();
       setSliderLoading(false);
-      if (result?.data?.status === "success") {
+      if (result?.status === "success") {
         setSliderData(result?.data?.slider);
       }
     } catch (error) {
@@ -104,12 +112,42 @@ const HomePage = () => {
     }
   };
 
+  const getSuccessStory = async () => {
+    try {
+      setSuccessLoading(true);
+      const result = await GetSuccessStory();
+      setSuccessLoading(false);
+      if (result?.status === "success") {
+        setSuccessData(result?.data?.success);
+      }
+    } catch (error) {
+      setSuccessLoading(false);
+      setSuccessError("Something went wrong");
+    }
+  };
+
+  const getMessage = async () => {
+    try {
+      setMessageLoading(true);
+      const result = await GetMessages();
+      setMessageLoading(false);
+      if (result?.status === "success") {
+        setSuccessData(result?.data?.success);
+      }
+    } catch (error) {
+      setMessageLoading(false);
+      setMessageError("Something went wrong");
+    }
+  };
+
   useEffect(() => {
     getSliderData();
     getNoticeData();
     getHighLightData();
     getEventData();
     getGalleryData();
+    getSuccessStory();
+    getMessage();
   }, []);
 
   if (
@@ -117,14 +155,13 @@ const HomePage = () => {
     noticeLoading ||
     hightLightLoading ||
     eventLoading ||
-    galleryLoading
+    galleryLoading ||
+    successLoading ||
+    messageLoading
   ) {
     return <Loader />;
   }
 
-  console.log("noticeData", noticeData);
-  console.log("hightLightData", hightLightData);
-  console.log("eventData", eventData);
   return (
     <div>
       <HeroSlider data={sliderData} />
@@ -140,7 +177,7 @@ const HomePage = () => {
       <Container>
         <TestimonialComponent />
       </Container>
-      <SummaryComp />
+      <SummaryComp data={successData} />
       <GalleryComp data={galleryData} />
     </div>
   );
