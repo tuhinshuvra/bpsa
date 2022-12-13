@@ -1,0 +1,39 @@
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  text-align: center;
+  width: 100%;
+  height: 300px;
+  background-color: #222d8c9d;
+  padding: 3px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+
+  width: 100%;
+}
+
+.text {
+  color: white;
+  padding: 16px 10px;
+  width: 100%;
+  font-size: 14px;
+}

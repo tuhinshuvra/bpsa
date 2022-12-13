@@ -1,11 +1,23 @@
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
+import { GoLocation } from "react-icons/go";
+import { BsTelephone } from "react-icons/bs";
 
 const FbIcon = FaFacebookF;
 const LinkedInIcon = FaLinkedinIn;
 const TwitterIcon = FaTwitter;
 const ShareIcon = FiShare2;
 const EmailIcon = AiOutlineMail;
+const LocationIcon = GoLocation;
+const PhoneIcon = AiOutlinePhone;
 
-export { FbIcon, LinkedInIcon, TwitterIcon, ShareIcon, EmailIcon };
+export {
+  FbIcon,
+  LinkedInIcon,
+  TwitterIcon,
+  ShareIcon,
+  EmailIcon,
+  LocationIcon,
+  PhoneIcon,
+};

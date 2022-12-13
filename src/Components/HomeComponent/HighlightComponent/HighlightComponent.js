@@ -10,11 +10,25 @@ const HighlightComponent = ({ data }) => {
       <HeadingComponent1 second="Highlight" className="text-main py-3" />
       <Row>
         <Col md={6}>
-          <div className="space-y-2">
-            <ImageComponent
-              image={data[0]?.Cover_Photo}
-              className="w-full h-[400px] object-cover rounded-md"
-            />
+          <div className="space-y-2 ">
+            <div className="relative">
+              <ImageComponent
+                image={data[0]?.Cover_Photo}
+                className="w-full h-[400px] object-cover rounded-md "
+              />
+              <div className="absolute bottom-5 left-5">
+                <p className="bg-second text-white p-2 w-fit rounded-md font-semibold">
+                  NEWS
+                </p>
+              </div>
+              <div className="absolute top-5 right-5">
+                <h5 className="bg-second text-white p-2 w-fit rounded-md font-semibold text-center">
+                  <span>30</span> <br /> <span className="text-2xl">Dec</span>
+                  <br /> <span className="text-3xl">2022</span>
+                </h5>
+              </div>
+            </div>
+
             <h6 className="text-main font-semibold text-lg">
               {data[0]?.Heading}
             </h6>
@@ -29,12 +43,27 @@ const HighlightComponent = ({ data }) => {
             data?.slice(1)?.map((item, index) => {
               return (
                 <Row key={index}>
-                  <Col md={5}>
+                  <Col className="py-2" md={5}>
                     {" "}
-                    <ImageComponent
-                      image={item?.Cover_Photo}
-                      className="w-full h-fit object-cover rounded-md"
-                    />
+                    <div className="relative">
+                      {" "}
+                      <ImageComponent
+                        image={item?.Cover_Photo}
+                        className="w-full h-[120px] object-cover rounded-md"
+                      />
+                      <div className="absolute bottom-0 left-2">
+                        <p className="bg-second text-white p-1 w-fit rounded-md font-semibold text-[12px]">
+                          NEWS
+                        </p>
+                      </div>
+                      <div className="absolute top-2 right-2">
+                        <h6 className="bg-main text-white p-2 w-fit rounded-md font-semibold text-center">
+                          <span>30</span> <br />{" "}
+                          <span className="text-lg">Dec</span>
+                          <br /> <span className="text-xl">2022</span>
+                        </h6>
+                      </div>
+                    </div>
                   </Col>
                   <Col md={7}>
                     {" "}
