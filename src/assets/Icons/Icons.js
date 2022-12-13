@@ -3,6 +3,7 @@ import { FiShare2 } from "react-icons/fi";
 import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { BsTelephone } from "react-icons/bs";
+import { HiOutlineUserGroup } from "react-icons/hi";
 
 const FbIcon = FaFacebookF;
 const LinkedInIcon = FaLinkedinIn;
@@ -11,7 +12,7 @@ const ShareIcon = FiShare2;
 const EmailIcon = AiOutlineMail;
 const LocationIcon = GoLocation;
 const PhoneIcon = AiOutlinePhone;
-
+const UsersIcon = HiOutlineUserGroup;
 export {
   FbIcon,
   LinkedInIcon,
@@ -20,4 +21,5 @@ export {
   EmailIcon,
   LocationIcon,
   PhoneIcon,
+  UsersIcon,
 };

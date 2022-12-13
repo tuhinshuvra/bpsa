@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { UsersIcon } from "../../assets/Icons/Icons";
 import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
@@ -124,12 +125,10 @@ const Navbar = () => {
               Contact
             </NavLink>
           </div>
-          <div className="">
+          <div className="flex bg-second items-center text-white rounded-md px-3 py-2 ">
             {" "}
-            <ButtonComponent
-              title="Member Login"
-              className="bg-second rounded-md px-3 py-2 text-white"
-            />
+            <UsersIcon size={24} className="mr-2" />{" "}
+            <ButtonComponent title="Member Login" className=" " />
           </div>
         </div>
       </div>
@@ -152,7 +151,6 @@ const Navbar = () => {
           </div>
         </div>
         <div className="">
-          {" "}
           <ButtonComponent
             title="Login"
             className="bg-second rounded-md px-3 py-2 text-white"
