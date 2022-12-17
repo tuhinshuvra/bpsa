@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Accordion, Col, Container, Row } from "react-bootstrap";
 import HeadingComponent1 from "../Common/HeadingComponent1";
 import act1 from "../../assets/Image/activities/Vector (2).png";
 import act2 from "../../assets/Image/activities/Vector (3).png";
@@ -14,17 +14,31 @@ const ActivitiesComp = () => {
         <HeadingComponent1
           first="Our "
           second="Activities"
-          className="text-center"
+          className="text-center pb-3"
         />
         <Row>
-          <Col md={3}>
-            <div className="rounded-full ring-1 hover:right-2 hover:ring-second w-fit">
-              {" "}
-              <ImageComponent image={act1} className="p-3  w-[70px] h-[70px]" />
-            </div>
-            <h2>690</h2>
-            <p>Projects Completed</p>
-          </Col>
+          {[1, 2, 3, 4, 5, 6]?.map((item, index) => {
+            return (
+              <Col className="py-2" key={index} md={6}>
+                {" "}
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Accordion Item #1</Accordion.Header>
+                    <Accordion.Body>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </Col>
+            );
+          })}
         </Row>
       </Container>
     </div>

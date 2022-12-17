@@ -55,7 +55,7 @@ const HighlightComponent = ({ data }) => {
           </Col>
           <Col md={6}>
             {data &&
-              data?.slice(1)?.map((item, index) => {
+              data?.slice(1,4)?.map((item, index) => {
                 return (
                   <Row key={index}>
                     <Col className="py-2" md={5}>

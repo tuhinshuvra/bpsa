@@ -11,66 +11,25 @@ const AssociationInfoComponent = () => {
       <Container className="py-12">
         <Row>
           <Col className="py-2" md={6}>
-            <HeadingComponent1 first="About " second="Association" />
-            <p className="font-semibold text-main md:pr-4 text-justify">
+            <HeadingComponent1 first="Learn About Our " second="Association" />
+            {/* <p className="font-semibold text-main md:pr-4 text-justify">
               2022 IACP State & Provincial Police Planning Officers Section
               (SPPPOS) and Academy Directors Section (SPPADS)
-            </p>
+            </p> */}
             <p className="md:pr-4 text-justify">
-              There are many variations of passages of available but the
-              majority have in some form, by injected humou or words which don’t
-              look even slightly believable. There are many variations of but
-              the majority have suffered.
+              বাংলাদেশ পুলিশ সার্ভিসের সদস্যগণ ব্যক্তি ও সমষ্টিগতভাবে বাংলাদেশের
+              জনসাধারণের কল্যাণার্থে নিয়োজিত। এ সার্ভিসের সদস্যগণের পেশাগত মান
+              উন্নয়ন, সমষ্টিগত কল্যাণ, সদস্যদের মাঝে ঐক্য ও সংহতি দৃঢ়করণের
+              লক্ষ্যে একটি সংগঠননের প্রয়োজনীয়তা অনুভূত হওয়ায় বাংলাদেশ পুলিশ
+              সার্ভিস এসোসিয়েশন গঠিত হয়েছে। বাংলাদেশ পুলিশ -এ কর্মরত সহকারী
+              পুলিশ সুপার হতে তদুর্ধ্ব কর্মকর্তাগণ এর সদস্য হিসেবে পরিগণিত হন।
             </p>
           </Col>
           <Col className="py-2" md={6}>
-            <button className="text-white bg-main px-5 py-3">
-              Our Mission
-            </button>
-            <button className="text-white bg-second px-5 py-3">
-              Our Mission
-            </button>
-            <button className="text-white bg-main px-5 py-3">
-              Our Mission
-            </button>
-            <p className="font-semibold py-3">
-              There are many variations of passages of available but the
-              majority have in some form, by injected humou or words which don’t
-              look even slightly believable. There are many variations of but
-              the majority have suffered.
-            </p>
-            <Row className="space-y-4">
-              <Col md={6}>
-                <ImageComponent
-                  image={assImg}
-                  className="w-full h-[200px] object-cover rounded-sm"
-                />
-              </Col>
-              <Col md={6}>
-                <ul className="m-0 p-0 space-y-3">
-                  <li className="flex">
-                    <MdOutlineChevronRight size={24} className="text-second" />
-                    Nsectetur cing elit
-                  </li>
-                  <li className="flex">
-                    <MdOutlineChevronRight size={24} className="text-second" />
-                    Nsectetur cing elit
-                  </li>
-                  <li className="flex">
-                    <MdOutlineChevronRight size={24} className="text-second" />
-                    Nsectetur cing elit
-                  </li>
-                  <li className="flex">
-                    <MdOutlineChevronRight size={24} className="text-second" />
-                    Nsectetur cing elit
-                  </li>
-                  <li className="flex">
-                    <MdOutlineChevronRight size={24} className="text-second" />
-                    Lorem Ipsum on the tend to repeat.
-                  </li>
-                </ul>
-              </Col>
-            </Row>
+            <ImageComponent
+              image={assImg}
+              className="w-full h-[300px] object-contain rounded-md"
+            />
           </Col>
         </Row>
       </Container>

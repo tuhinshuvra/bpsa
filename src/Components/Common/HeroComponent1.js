@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "../../utlis/icons";
 
 const HeroComponent1 = ({ title }) => {
   return (
@@ -10,11 +11,13 @@ const HeroComponent1 = ({ title }) => {
           {title}
         </h2>
         <Container>
-          <button className="bg-white px-10 py-2 border absolute bottom-0  ">
+          <button className="flex items-center bg-white px-6 py-3 border absolute bottom-0  ">
             <Link to="/" className="text-main underline">
               Home
             </Link>{" "}
-            <span className="font-semibold text-2xl text-gray-500">.</span>{" "}
+            <span className="font-semibold text-2xl text-gray-500">
+              <ArrowRight size={24} className="text-second" />
+            </span>{" "}
             <span className="text-second font-semibold ">{title}</span>
           </button>
         </Container>
