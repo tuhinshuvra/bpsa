@@ -13,6 +13,8 @@ import ImageComponent from "../../Common/ImageComponent";
 import Styles from "./TestimonialComponent.module.css";
 import textImg from "../../../assets/Image/Home/Vector.png";
 import ButtonComponent from "../../Common/ButtonComponent";
+import HeadingComponent1 from "../../Common/HeadingComponent1";
+import { Card } from "react-bootstrap";
 
 const TestimonialData = [
   {
@@ -57,10 +59,16 @@ const TestimonialData = [
   },
 ];
 
-const TestimonialComponent = () => {
+const TestimonialComponent = ({ data }) => {
+  console.log(data);
   return (
-    <div className="py-16">
-      <Swiper
+    <div className="py-8">
+      <HeadingComponent1
+        first="Leadership "
+        second="Message"
+        className={`text-center text-main pb-4`}
+      />
+      {/* <Swiper
         navigation={false}
         autoplay={{
           delay: 2500,
@@ -123,7 +131,43 @@ const TestimonialComponent = () => {
             </SwiperSlide>
           );
         })}
-      </Swiper>
+      </Swiper> */}
+      <div className="grid grid-cols-4 gap-4">
+        {data?.map((item, index) => {
+          return (
+            <Card key={index}>
+              <div className={Styles.container}>
+                <ImageComponent
+                  image={item?.photo}
+                  className={`w-full h-[300px] object-fill block mx-auto rounded-t-md mb-3 ${Styles.image}`}
+                />
+
+                <div className={Styles.middle}>
+                  <div className={Styles.text}>
+                    <ImageComponent
+                      image={textImg}
+                      className={`h-[40px] object-fill block mx-auto rounded-md pb-2`}
+                    />
+                    We are for the community. So our focus is on building
+                    stronger trust with the community, and we consider the
+                    responsible members of the community our most potential
+                    weapons in the battle against all sorts of chaos and
+                    criminality.
+                  </div>
+                  <ButtonComponent
+                    title="See More"
+                    className="border border-white px-2 py-1 text-sm text-white"
+                  />
+                </div>
+              </div>
+              <div className="text-center space-y-2">
+                <p className="text-main font-semibold m-0">{item?.name}</p>
+                <p className="text-sm">{item?.title}</p>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 };

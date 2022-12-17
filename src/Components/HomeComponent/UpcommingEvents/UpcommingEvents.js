@@ -9,7 +9,7 @@ const UpcommingEvents = ({ data }) => {
       <HeadingComponent1
         first="Upcoming "
         second="Events"
-        className="text-main py-3"
+        className="text-main py-3 text-center"
       />
 
       <EventSlider data={data} />

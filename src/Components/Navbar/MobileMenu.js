@@ -44,6 +44,8 @@ export default function MobileMenu() {
           >
             Home
           </NavLink>
+        </ListItem>
+        <ListItem>
           <NavLink
             className={(active) =>
               active?.isActive
@@ -125,7 +127,7 @@ export default function MobileMenu() {
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <AiOutlineMenu className="text-white" size={24} />
+            <AiOutlineMenu className="text-white" size={28} />
           </Button>
           <Drawer
             anchor={anchor}

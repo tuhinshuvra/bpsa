@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
+import { PostContactData } from "../../api";
 import { EmailIcon, LocationIcon, PhoneIcon } from "../../assets/Icons/Icons";
 import ButtonComponent from "../Common/ButtonComponent";
 import HeroComponent1 from "../Common/HeroComponent1";
 
 const ContactComponent = () => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [massege, setMassege] = useState("");
+  const [subject, setSubject] = useState("");
+
+  const contactFormHandler = async (e) => {
+    e.preventDefault();
+    let data = {
+      name,
+      phone,
+      email,
+      massege,
+      subject,
+    };
+
+    try {
+      const result = await PostContactData(data);
+      console.log(result?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <HeroComponent1 title="Contact" />
@@ -55,33 +80,58 @@ const ContactComponent = () => {
           Get in Touch
         </h2>
 
-        <Form>
+        <Form onSubmit={contactFormHandler}>
           <Row>
             <Col className="py-2" md={6}>
               <Form.Group className="mb-3">
-                <Form.Control type="text" placeholder="Your Name" />
+                <Form.Control
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  placeholder="Your Name"
+                />
               </Form.Group>
             </Col>
             <Col className="py-2" md={6}>
               <Form.Group className="mb-3">
-                <Form.Control type="text" placeholder="Your Phone" />
+                <Form.Control
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="text"
+                  placeholder="Your Phone"
+                  required
+                />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col className="py-2" md={6}>
               <Form.Group className="mb-3">
-                <Form.Control type="text" placeholder="Your Email" />
+                <Form.Control
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  required
+                  placeholder="Your Email"
+                />
               </Form.Group>
             </Col>
             <Col className="py-2" md={6}>
               <Form.Group className="mb-3">
-                <Form.Control type="text" placeholder="Subject" />
+                <Form.Control
+                  onChange={(e) => setSubject(e.target.value)}
+                  type="text"
+                  placeholder="Subject"
+                  required
+                />
               </Form.Group>
             </Col>
           </Row>
           <Form.Group className="py-2">
-            <Form.Control as="textarea" rows={3} placeholder="Your Message" />
+            <Form.Control
+              onChange={(e) => setMassege(e.target.value)}
+              as="textarea"
+              rows={3}
+              required
+              placeholder="Your Message"
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />

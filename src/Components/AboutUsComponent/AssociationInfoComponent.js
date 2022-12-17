@@ -11,7 +11,7 @@ const AssociationInfoComponent = () => {
       <Container className="py-12">
         <Row>
           <Col className="py-2" md={6}>
-            <HeadingComponent1 first="Learn About Our " second="Association" />
+            <HeadingComponent1 first="About " second="Association" />
             <p className="font-semibold text-main md:pr-4 text-justify">
               2022 IACP State & Provincial Police Planning Officers Section
               (SPPPOS) and Academy Directors Section (SPPADS)

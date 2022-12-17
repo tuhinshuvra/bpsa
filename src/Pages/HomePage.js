@@ -132,7 +132,7 @@ const HomePage = () => {
       const result = await GetMessages();
       setMessageLoading(false);
       if (result?.status === "success") {
-        setSuccessData(result?.data?.success);
+        setMessageData(result?.data?.massege);
       }
     } catch (error) {
       setMessageLoading(false);
@@ -164,10 +164,21 @@ const HomePage = () => {
 
   return (
     <div>
-      <HeroSlider data={sliderData} />
+      <div className="relative w-full">
+        <HeroSlider data={sliderData} />
+        <div
+          style={{ zIndex: 50 }}
+          className="rounded-md absolute w-full mx-auto"
+        >
+          <h1 className="text-lg md:text-5xl p-2 text-center bg-main/70 w-fit text-white rounded-md block mx-auto md:leading-[70px] -mt-[43px]  md:-mt-[86px]">
+            Bangladesh Police Service Association
+          </h1>
+        </div>
+      </div>
+
       <NoticeLine data={noticeData} />
+      <HighlightComponent data={hightLightData} />
       <Container>
-        <HighlightComponent data={hightLightData} />
         <UpcommingEvents data={eventData} />
       </Container>
 
@@ -175,7 +186,7 @@ const HomePage = () => {
         <QuicksLinks />
       </div>
       <Container>
-        <TestimonialComponent />
+        <TestimonialComponent data={messageData} />
       </Container>
       <SummaryComp data={successData} />
       <GalleryComp data={galleryData} />

@@ -31,7 +31,7 @@ const QuicksLinks = () => {
   return (
     <Container>
       <HeadingComponent1
-        first="Quicks  "
+        first="Quick "
         second="Links"
         className="text-main text-center pb-4"
       />

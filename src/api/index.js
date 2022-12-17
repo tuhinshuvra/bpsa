@@ -8,3 +8,6 @@ export const GetSuccessStory = () => getApi("api/success");
 export const GetMessages = () => getApi("api/massege");
 export const GetGalleryData = () => getApi("api/gallery");
 export const GetEventData = () => getApi("api/event");
+
+//contact
+export const PostContactData = (data) => postApi("/api/contacts", data);

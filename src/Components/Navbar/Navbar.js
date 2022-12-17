@@ -153,7 +153,7 @@ const Navbar = () => {
         <div className="">
           <ButtonComponent
             title="Login"
-            className="bg-second rounded-md px-3 py-2 text-white"
+            className="bg-second rounded-md px-3 py-2 text-white mr-4"
           />
         </div>
       </div>
