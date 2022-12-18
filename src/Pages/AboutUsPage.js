@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import ActivitiesComp from "../Components/AboutUsComponent/ActivitiesComp";
+import AssociationDocumentsComponent from "../Components/AboutUsComponent/AssociationDocumentsComponent";
 import AssociationInfoComponent from "../Components/AboutUsComponent/AssociationInfoComponent";
 import FormerLeaderShip from "../Components/AboutUsComponent/FormerLeaderShip";
 import LeaderShipComponent from "../Components/AboutUsComponent/LeaderShipComponent";
@@ -16,6 +17,7 @@ const AboutUsPage = () => {
       <ObjectivesComponent />
       <LeaderShipComponent />
       <FormerLeaderShip />
+      <AssociationDocumentsComponent />
     </div>
   );
 };

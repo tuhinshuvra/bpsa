@@ -132,7 +132,7 @@ const TestimonialComponent = ({ data }) => {
           );
         })}
       </Swiper> */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid md:grid-cols-4 gap-4">
         {data?.map((item, index) => {
           return (
             <Card key={index}>

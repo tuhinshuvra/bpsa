@@ -133,7 +133,7 @@ const FormerLeaderShip = () => {
     setPage(0);
   };
   return (
-    <div>
+    <div className="bg-[#EFF0FC] py-6">
       <Container>
         <HeadingComponent1
           first="Former  "
@@ -164,10 +164,18 @@ const FormerLeaderShip = () => {
                         <TableCell>{row?.session}</TableCell>
                         <TableCell>{row?.presidentName}</TableCell>
                         <TableCell>
-                          <img src={row?.presidentImg} className="h-[70px] w-[70px] rounded-full object-cover" alt="" />
+                          <img
+                            src={row?.presidentImg}
+                            className="h-[70px] w-[70px] rounded-full object-cover"
+                            alt=""
+                          />
                         </TableCell>
                         <TableCell>
-                          <img src={row?.secretaryImg} className="h-[70px] w-[70px] rounded-full object-cover" alt="" />
+                          <img
+                            src={row?.secretaryImg}
+                            className="h-[70px] w-[70px] rounded-full object-cover"
+                            alt=""
+                          />
                         </TableCell>
                         <TableCell>{row?.secretaryName}</TableCell>
                       </TableRow>
@@ -177,7 +185,7 @@ const FormerLeaderShip = () => {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5,10, 25, 100]}
+            rowsPerPageOptions={[5, 10, 25, 100]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}
