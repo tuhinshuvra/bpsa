@@ -17,7 +17,7 @@ const ObjectivesComponent = () => {
           {objectiveData &&
             objectiveData?.map((item, index) => {
               return (
-                <Col className="py-2" key={index} md={3}>
+                <Col className="py-2" key={index} md={4}>
                   <div className="relative">
                     <img
                       src={img1}
