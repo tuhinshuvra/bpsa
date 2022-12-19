@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import HeadingComponent1 from "../../Common/HeadingComponent1";
 import ImageComponent from "../../Common/ImageComponent";
+import GalleryImageCard from "../../GalleryComponent/GalleryImageCard";
 // import img1 from "../../../assets/Image/Gallery/Rectangle 1161.png";
 // import img2 from "../../../assets/Image/Gallery/Rectangle 1163.png";
 // import img3 from "../../../assets/Image/Gallery/Rectangle 1166.png";
@@ -51,10 +52,7 @@ const GalleryComp = ({ data }) => {
             data?.slice(0, 8)?.map((item, index) => {
               return (
                 <Col className="py-2" key={index} md={3}>
-                  <ImageComponent
-                    image={item?.image}
-                    className="w-full h-[250px] object-cover rounded-md"
-                  />
+                  <GalleryImageCard item={item} />
                 </Col>
               );
             })}

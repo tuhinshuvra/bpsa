@@ -6,6 +6,7 @@ import HeadingComponent1 from "../Common/HeadingComponent1";
 import HeroComponent1 from "../Common/HeroComponent1";
 import ImageComponent from "../Common/ImageComponent";
 import Styles from "./GalleryComponent.module.css";
+import GalleryImageCard from "./GalleryImageCard";
 
 const GalleryData = [
   {
@@ -50,7 +51,7 @@ const GalleryData = [
   },
 ];
 
-const GalleryComponent = () => {
+const GalleryComponent = ({ data }) => {
   return (
     <div>
       <HeroComponent1 title="GALLERY" />
@@ -85,27 +86,14 @@ const GalleryComponent = () => {
           </Col>
           <Col md={9}>
             <Row>
-              {GalleryData?.map((item, index) => {
-                return (
-                  <Col key={index} md={4}>
-                    <div className={`relative ${Styles.container}`}>
-                      <ImageComponent
-                        image={item?.image}
-                        className={`w-full h-[300px] object-fill block mx-auto rounded-md mb-3 ${Styles.image}`}
-                      />
-
-                      <div className={Styles.middle}>
-                        <div
-                          className={`w-full h-full flex items-center justify-center flex-col ${Styles.text}`}
-                        >
-                          <h4>{item.title}</h4>
-                          <p>{item?.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
-                );
-              })}
+              {data &&
+                data?.map((item, index) => {
+                  return (
+                    <Col key={index} md={4}>
+                      <GalleryImageCard item={item} />
+                    </Col>
+                  );
+                })}
             </Row>
           </Col>
         </Row>

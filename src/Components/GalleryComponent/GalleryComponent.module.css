@@ -4,6 +4,7 @@
   width: 100%;
   transition: 0.5s ease;
   backface-visibility: hidden;
+  height: 300px;
 }
 
 .middle {
