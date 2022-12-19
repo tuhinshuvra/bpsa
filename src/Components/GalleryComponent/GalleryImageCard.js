@@ -11,16 +11,9 @@ import "react-image-lightbox/style.css";
 //   "//placekitten.com/1500/1500",
 // ];
 
-const GalleryImageCard = ({ item }) => {
+const GalleryImageCard = ({ item, images }) => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [images,setImages]=useState([])
-  console.log(item);
-
-  // useEffect(()=>{
-  //   setImages({..images,item})
-
-  // })
 
   return (
     <div>

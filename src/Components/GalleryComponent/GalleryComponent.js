@@ -1,5 +1,5 @@
 import { List, ListItem } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ButtonComponent from "../Common/ButtonComponent";
 import HeadingComponent1 from "../Common/HeadingComponent1";
@@ -52,6 +52,14 @@ const GalleryData = [
 ];
 
 const GalleryComponent = ({ data }) => {
+  const [images, setImages] = useState("");
+  useEffect(() => {
+    if (data) {
+      let imgData = data?.map((item) => item.image);
+      console.log("imgData", imgData);
+      setImages(imgData);
+    }
+  }, [data]);
   return (
     <div>
       <HeroComponent1 title="GALLERY" />
@@ -90,7 +98,7 @@ const GalleryComponent = ({ data }) => {
                 data?.map((item, index) => {
                   return (
                     <Col key={index} md={4}>
-                      <GalleryImageCard item={item} />
+                      <GalleryImageCard images={images} item={item} />
                     </Col>
                   );
                 })}

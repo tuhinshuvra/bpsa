@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import HeadingComponent1 from "../../Common/HeadingComponent1";
 import ImageComponent from "../../Common/ImageComponent";
@@ -39,6 +39,13 @@ import GalleryImageCard from "../../GalleryComponent/GalleryImageCard";
 // ];
 
 const GalleryComp = ({ data }) => {
+  const [images, setImages] = useState("");
+  useEffect(() => {
+    if (data) {
+      let imgData = data?.slice(0, 8)?.map((item) => item.image);
+      setImages(imgData);
+    }
+  }, [data]);
   return (
     <div>
       <Container className="py-10">
@@ -52,7 +59,7 @@ const GalleryComp = ({ data }) => {
             data?.slice(0, 8)?.map((item, index) => {
               return (
                 <Col className="py-2" key={index} md={3}>
-                  <GalleryImageCard item={item} />
+                  <GalleryImageCard images={images} item={item} />
                 </Col>
               );
             })}
