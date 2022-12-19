@@ -148,11 +148,15 @@ const TestimonialComponent = ({ data }) => {
                       image={textImg}
                       className={`h-[40px] object-fill block mx-auto rounded-md pb-2`}
                     />
-                    We are for the community. So our focus is on building
-                    stronger trust with the community, and we consider the
-                    responsible members of the community our most potential
-                    weapons in the battle against all sorts of chaos and
-                    criminality.
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          item?.note.length > 280
+                            ? item?.note.slice(0, 280) + ".."
+                            : item?.note,
+                      }}
+                      className="text-sm"
+                    ></div>
                   </div>
                   <ButtonComponent
                     title="See More"

@@ -48,7 +48,7 @@ const GalleryComp = ({ data }) => {
         />
         <Row>
           {data &&
-            data?.map((item, index) => {
+            data?.slice(0, 8)?.map((item, index) => {
               return (
                 <Col className="py-2" key={index} md={3}>
                   <ImageComponent
