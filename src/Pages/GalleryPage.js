@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { GetGalleryData } from "../api";
 import Loader from "../Components/Common/Loader";
 import GalleryComponent from "../Components/GalleryComponent/GalleryComponent";
+import { getGalleryCategory } from "../redux/gallery/galleryAction";
 
 const GalleryPage = () => {
+  const dispatch = useDispatch();
+
   const [galleryData, setGalleryData] = useState([]);
   const [galleryError, setGalleryError] = useState("");
   const [galleryLoading, setGalleryLoading] = useState(false);
@@ -23,7 +27,8 @@ const GalleryPage = () => {
 
   useEffect(() => {
     getGalleryData();
-  }, []);
+    dispatch(getGalleryCategory());
+  }, [dispatch]);
 
   if (galleryLoading) {
     return <Loader />;

@@ -24,7 +24,7 @@ const GalleryImageCard = ({ item, images }) => {
         <ImageComponent
           onClick={() => setIsOpen(true)}
           image={item?.image}
-          className={`w-full h-[300px] object-cover block mx-auto rounded-md mb-3 ${Styles.image}`}
+          className={`w-full h-[200px] object-cover block mx-auto rounded-md mb-3 ${Styles.image}`}
         />
 
         <div className={Styles.middle}>

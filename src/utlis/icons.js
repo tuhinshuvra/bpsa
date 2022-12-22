@@ -1,5 +1,6 @@
 import { MdOutlineChevronRight } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
+import { BiFilterAlt } from "react-icons/bi";
 import {
   AiFillFacebook,
   AiFillLinkedin,
@@ -11,5 +12,13 @@ const FbIcon = AiFillFacebook;
 const LinkedInIcon = AiFillLinkedin;
 const TwitterIcon = AiOutlineTwitter;
 const DownloadIcon = FiDownload;
+const FilterIcon = BiFilterAlt;
 
-export { ArrowRight, FbIcon, LinkedInIcon, TwitterIcon, DownloadIcon };
+export {
+  ArrowRight,
+  FbIcon,
+  LinkedInIcon,
+  TwitterIcon,
+  DownloadIcon,
+  FilterIcon,
+};
