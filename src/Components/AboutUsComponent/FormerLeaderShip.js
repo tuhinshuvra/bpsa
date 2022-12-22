@@ -9,6 +9,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Container } from "react-bootstrap";
 import HeadingComponent1 from "../Common/HeadingComponent1";
+import { FormerLeaderData } from "../../api";
+import ImageComponent from "../Common/ImageComponent";
 
 const columns = [
   { label: "Session" },
@@ -123,6 +125,7 @@ const rows = [
 const FormerLeaderShip = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [formerData, setFormerData] = React.useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -132,6 +135,17 @@ const FormerLeaderShip = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const getFormerData = async () => {
+    const result = await FormerLeaderData();
+    if (result?.status === "success") {
+      setFormerData(result?.data?.former);
+    }
+  };
+
+  React.useEffect(() => {
+    getFormerData();
+  }, []);
   return (
     <div className="bg-[#EFF0FC] py-6">
       <Container>
@@ -151,43 +165,50 @@ const FormerLeaderShip = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.code}
-                      >
-                        <TableCell>{row?.session}</TableCell>
-                        <TableCell>{row?.presidentName}</TableCell>
-                        <TableCell>
-                          <img
-                            src={row?.presidentImg}
-                            className="h-[70px] w-[70px] rounded-full object-cover"
-                            alt=""
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <img
-                            src={row?.secretaryImg}
-                            className="h-[70px] w-[70px] rounded-full object-cover"
-                            alt=""
-                          />
-                        </TableCell>
-                        <TableCell>{row?.secretaryName}</TableCell>
-                      </TableRow>
-                    );
-                  })}
+                {formerData &&
+                  formerData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                        >
+                          <TableCell>{row?.Session}</TableCell>
+                          <TableCell>
+                            <h5> {row?.President_Name}</h5>
+                            <p>{row?.President_Designation}</p>
+                          </TableCell>
+                          <TableCell>
+                            <ImageComponent
+                              image={row?.President_Image}
+                              className="h-[70px] w-[70px] rounded-full object-cover"
+                              alt="President "
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <ImageComponent
+                              image={row?.Secretary_Image}
+                              className="h-[70px] w-[70px] rounded-full object-cover"
+                              alt="Secretary "
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <h5>{row?.Secretary_Name}</h5>
+                            <p>{row?.Secretary_Designation}</p>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
               </TableBody>
             </Table>
           </TableContainer>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={formerData.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

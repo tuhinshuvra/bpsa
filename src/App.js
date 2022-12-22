@@ -16,6 +16,7 @@ import SocialButtonComponent from "./Components/Common/SocialButtonComponent";
 import AboutUsPage from "./Pages/AboutUsPage";
 import ContactPage from "./Pages/ContactPage";
 import GalleryPage from "./Pages/GalleryPage";
+import CommitteePage from "./Pages/CommitteePage";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/committee" element={<CommitteePage />} />
       </Routes>
       <Footer />
     </div>

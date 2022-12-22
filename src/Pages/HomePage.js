@@ -4,6 +4,7 @@ import {
   GetEventData,
   GetGalleryData,
   GetHighlight,
+  GetHomeGalleryData,
   GetHomeNotice,
   GetHomeSlider,
   GetMessages,
@@ -101,7 +102,7 @@ const HomePage = () => {
   const getGalleryData = async () => {
     try {
       setGalleryLoading(true);
-      const result = await GetGalleryData();
+      const result = await GetHomeGalleryData();
       setGalleryLoading(false);
       if (result?.status === "success") {
         setGalleryData(result?.data?.gallery);
