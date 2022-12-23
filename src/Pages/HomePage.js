@@ -7,6 +7,8 @@ import {
   GetHomeGalleryData,
   GetHomeNotice,
   GetHomeSlider,
+  GetInternationalLink,
+  GetLocalLink,
   GetMessages,
   GetSuccessStory,
 } from "../api";
@@ -42,6 +44,12 @@ const HomePage = () => {
   const [messageData, setMessageData] = useState([]);
   const [messageError, setMessageError] = useState("");
   const [messageLoading, setMessageLoading] = useState(false);
+  const [localLink, setLocalLink] = useState([]);
+  const [localError, setLocalError] = useState("");
+  const [localLoading, setLocalLoading] = useState(false);
+  const [internationalLink, setInternationalLink] = useState([]);
+  const [internationalError, setInternationalError] = useState("");
+  const [internationalLoading, setInternationalLoading] = useState(false);
 
   const getSliderData = async () => {
     try {
@@ -141,6 +149,24 @@ const HomePage = () => {
     }
   };
 
+  const getLocalLinks = async () => {
+    setLocalLoading(true);
+    const result = await GetLocalLink();
+    setLocalLoading(false);
+    if (result?.status === "success") {
+      setLocalLink(result?.data?.local);
+    }
+  };
+
+  const getInternationalLinks = async () => {
+    setInternationalLoading(true);
+    const result = await GetInternationalLink();
+    setInternationalLoading(false);
+    if (result?.status === "success") {
+      setInternationalLink(result?.data?.international);
+    }
+  };
+
   useEffect(() => {
     getSliderData();
     getNoticeData();
@@ -149,6 +175,8 @@ const HomePage = () => {
     getGalleryData();
     getSuccessStory();
     getMessage();
+    getLocalLinks();
+    getInternationalLinks();
   }, []);
 
   if (
@@ -158,7 +186,9 @@ const HomePage = () => {
     eventLoading ||
     galleryLoading ||
     successLoading ||
-    messageLoading
+    messageLoading ||
+    localLoading ||
+    internationalLoading
   ) {
     return <Loader />;
   }
@@ -184,7 +214,7 @@ const HomePage = () => {
       </Container>
 
       <div className="bg-[#EFF0FC] py-5">
-        <QuicksLinks />
+        <QuicksLinks local={localLink} international={internationalLink} />
       </div>
       <Container>
         <TestimonialComponent data={messageData} />

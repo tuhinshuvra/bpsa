@@ -29,52 +29,64 @@ const TestimonialComponent = ({ data }) => {
       <div className="grid md:grid-cols-3 gap-4 ">
         {data?.map((item, index) => {
           return (
-            <Card
-              className={`${index === 1 ? "" : "md:mt-[30px]"} `}
-              style={{ height: "fit-content" }}
-              key={index}
+            <div
+              className={`${
+                index === 1
+                  ? "sm:order-1 md:order-2"
+                  : "order-2  md:order-none"
+              } `}
             >
-              <div className={Styles.container}>
-                <ImageComponent
-                  image={item?.photo}
-                  className={`w-full ${
-                    index === 1 ? "h-[400px] " : "h-[400px] md:h-[300px]"
-                  } object-fill block mx-auto rounded-t-md mb-3 ${
-                    Styles.image
-                  }`}
-                />
-
-                <div
-                  className={`${
-                    index === 1 ? "h-[400px] " : "h-[400px] md:h-[300px]"
-                  }  ${Styles.middle}`}
-                >
-                  <div className={Styles.text}>
+              <Card
+                className={`${
+                  index === 1 ? "  " : "md:mt-[50px]  md:order-none"
+                } `}
+                key={index}
+                style={{ height: "fit-content" }}
+              >
+                <div>
+                  <div className={Styles.container}>
                     <ImageComponent
-                      image={textImg}
-                      className={`h-[40px] object-fill block mx-auto rounded-md pb-2`}
+                      image={item?.photo}
+                      className={`w-full ${
+                        index === 1 ? "h-[400px] " : "h-[400px] md:h-[350px]"
+                      } object-fill block mx-auto rounded-t-md mb-3 ${
+                        Styles.image
+                      }`}
                     />
+
                     <div
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          item?.note.length > 280
-                            ? item?.note.slice(0, 280) + ".."
-                            : item?.note,
-                      }}
-                      className="text-sm"
-                    ></div>
+                      className={`${
+                        index === 1 ? "h-[400px] " : "h-[400px] md:h-[350px]"
+                      }  ${Styles.middle}`}
+                    >
+                      <div className={Styles.text}>
+                        <ImageComponent
+                          image={textImg}
+                          className={`h-[40px] object-fill block mx-auto rounded-md pb-2`}
+                        />
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              item?.note.length > 280
+                                ? item?.note.slice(0, 280) + ".."
+                                : item?.note,
+                          }}
+                          className="text-sm"
+                        ></div>
+                      </div>
+                      <ButtonComponent
+                        title="See More"
+                        className="border border-white px-2 py-1 text-sm text-white"
+                      />
+                    </div>
                   </div>
-                  <ButtonComponent
-                    title="See More"
-                    className="border border-white px-2 py-1 text-sm text-white"
-                  />
+                  <div className="text-center space-y-2">
+                    <p className="text-main font-semibold m-0">{item?.name}</p>
+                    <p className="text-sm">{item?.title}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="text-center space-y-2">
-                <p className="text-main font-semibold m-0">{item?.name}</p>
-                <p className="text-sm">{item?.title}</p>
-              </div>
-            </Card>
+              </Card>
+            </div>
           );
         })}
       </div>

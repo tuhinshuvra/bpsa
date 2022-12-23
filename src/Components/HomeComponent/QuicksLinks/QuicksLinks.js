@@ -27,7 +27,7 @@ const localLinkData = [
   },
 ];
 
-const QuicksLinks = () => {
+const QuicksLinks = ({ local, international }) => {
   return (
     <Container>
       <HeadingComponent1
@@ -43,12 +43,14 @@ const QuicksLinks = () => {
               <Col md={6}>
                 {" "}
                 <ul>
-                  {localLinkData &&
-                    localLinkData?.map((item, index) => {
+                  {local &&
+                    local?.slice(0, 7).map((item, index) => {
                       return (
                         <li key={index}>
                           <a
-                            href=""
+                            rel="noreferrer"
+                            target="_blank"
+                            href={`${item?.link}`}
                             className="flex items-center space-x-2 text-main py-2 hover:text-second"
                           >
                             <BsArrowRight size={24} className="mr-2" />{" "}
@@ -62,12 +64,14 @@ const QuicksLinks = () => {
               <Col md={6}>
                 {" "}
                 <ul>
-                  {localLinkData &&
-                    localLinkData?.map((item, index) => {
+                  {local &&
+                    local?.slice(7, 14).map((item, index) => {
                       return (
                         <li key={index}>
                           <a
-                            href=""
+                            rel="noreferrer"
+                            target="_blank"
+                            href={`${item?.link}`}
                             className="flex items-center space-x-2 text-main py-2 hover:text-second"
                           >
                             <BsArrowRight size={24} className="mr-2" />{" "}
@@ -88,12 +92,14 @@ const QuicksLinks = () => {
               className="text-white pl-5"
             />
             <ul>
-              {localLinkData &&
-                localLinkData?.map((item, index) => {
+              {international &&
+                international?.slice(0, 7).map((item, index) => {
                   return (
                     <li key={index}>
                       <a
-                        href=""
+                        rel="noreferrer"
+                        target="_blank"
+                        href={`${item?.link}`}
                         className="flex items-center space-x-2 text-white py-2 hover:text-second"
                       >
                         <BsArrowRight size={24} className="mr-2" />{" "}

@@ -10,6 +10,8 @@ export const GetGalleryData = () => getApi("api/gallery");
 export const GetHomeGalleryData = () => getApi("api/get_home_page_gallery");
 export const GetEventData = () => getApi("api/event");
 export const GetGalleryCategory = () => getApi("api/gcategory");
+export const GetLocalLink = () => getApi("api/local");
+export const GetInternationalLink = () => getApi("api/international");
 
 //contact
 export const PostContactData = (data) => postApi("api/contacts", data);
