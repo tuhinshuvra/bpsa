@@ -80,16 +80,6 @@ const Navbar = () => {
                   ? "text-white font-semibold hover:text-white"
                   : "text-white hover:text-white	"
               }
-              to="/services"
-            >
-              Services
-            </NavLink>
-            <NavLink
-              className={(active) =>
-                active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
-              }
               to="/committee"
             >
               Committee
@@ -104,6 +94,17 @@ const Navbar = () => {
             >
               Notice
             </NavLink>
+            <NavLink
+              className={(active) =>
+                active?.isActive
+                  ? "text-white font-semibold hover:text-white"
+                  : "text-white hover:text-white	"
+              }
+              to="/news"
+            >
+              News
+            </NavLink>
+
             <NavLink
               className={(active) =>
                 active?.isActive

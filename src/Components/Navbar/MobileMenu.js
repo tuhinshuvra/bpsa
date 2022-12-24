@@ -62,18 +62,6 @@ export default function MobileMenu() {
             className={(active) =>
               active?.isActive
                 ? "text-white bg-main w-full py-2 text-center font-semibold hover:text-second"
-                : "text-second hover:text-second w-full text-center	"
-            }
-            to="/services"
-          >
-            Services
-          </NavLink>
-        </ListItem>
-        <ListItem>
-          <NavLink
-            className={(active) =>
-              active?.isActive
-                ? "text-white bg-main w-full py-2 text-center font-semibold hover:text-second"
                 : "text-second hover:text-second	 w-full text-center"
             }
             to="/committee"
@@ -81,6 +69,7 @@ export default function MobileMenu() {
             Committee
           </NavLink>
         </ListItem>
+
         <ListItem>
           {" "}
           <NavLink
@@ -94,6 +83,19 @@ export default function MobileMenu() {
             Notice
           </NavLink>
         </ListItem>
+        <ListItem>
+          <NavLink
+            className={(active) =>
+              active?.isActive
+                ? "text-white bg-main w-full py-2 text-center font-semibold hover:text-second"
+                : "text-second hover:text-second w-full text-center	"
+            }
+            to="/news"
+          >
+            News
+          </NavLink>
+        </ListItem>
+
         <ListItem>
           <NavLink
             className={(active) =>
