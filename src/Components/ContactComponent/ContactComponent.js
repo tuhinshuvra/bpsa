@@ -133,13 +133,10 @@ const ContactComponent = () => {
               placeholder="Your Message"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
 
           <ButtonComponent
             type="submit"
-            title="Accept Terms and Conditions"
+            title="Submit"
             className="bg-main px-4 py-3 text-white"
           ></ButtonComponent>
         </Form>

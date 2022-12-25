@@ -31,9 +31,7 @@ const TestimonialComponent = ({ data }) => {
           return (
             <div
               className={`${
-                index === 1
-                  ? "sm:order-1 md:order-2"
-                  : "order-2  md:order-none"
+                index === 1 ? "sm:order-1 md:order-2" : "order-2  md:order-none"
               } `}
             >
               <Card
@@ -82,7 +80,8 @@ const TestimonialComponent = ({ data }) => {
                   </div>
                   <div className="text-center space-y-2">
                     <p className="text-main font-semibold m-0">{item?.name}</p>
-                    <p className="text-sm">{item?.title}</p>
+                    <p className="text-sm">{item?.Official_designation}</p>
+                    <p className="text-sm">{item?.BPSA_Designation}</p>
                   </div>
                 </div>
               </Card>

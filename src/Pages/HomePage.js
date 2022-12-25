@@ -210,16 +210,17 @@ const HomePage = () => {
       <NoticeLine data={noticeData} />
       <HighlightComponent data={hightLightData} />
       <Container>
+        <TestimonialComponent data={messageData} />
+      </Container>
+      <SummaryComp data={successData} />
+      <Container>
         <UpcommingEvents data={eventData} />
       </Container>
 
       <div className="bg-[#EFF0FC] py-5">
         <QuicksLinks local={localLink} international={internationalLink} />
       </div>
-      <Container>
-        <TestimonialComponent data={messageData} />
-      </Container>
-      <SummaryComp data={successData} />
+
       <GalleryComp data={galleryData} />
     </div>
   );

@@ -45,21 +45,21 @@ const summaryData = [
   },
 ];
 
-const SummaryComp = ({data}) => {
+const SummaryComp = ({ data }) => {
   return (
     <div className={`py-10 ${Styles.summaryMain__style}`}>
       <Container>
         <HeadingComponent1
-          first="About"
-          second=" Association"
+          first=" Association -  "
+          second=" At A Glance"
           className="text-white text-center pb-4"
         />
         <Row>
           {data &&
             data?.map((item, index) => {
               return (
-                <Col className="py-2" key={index} md={4}>
-                  <div className="bg-main text-center text-white hover:bg-second py-3  transition-all duration-300">
+                <Col className="py-3 " key={index} md={4}>
+                  <div className="bg-main text-center  text-white hover:bg-second py-2  transition-all duration-300 w-3/4 mx-auto">
                     <ImageComponent
                       image={item?.image}
                       className="block mx-auto object-contain h-[50px] mb-3"
