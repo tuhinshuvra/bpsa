@@ -17,11 +17,14 @@ import AboutUsPage from "./Pages/AboutUsPage";
 import ContactPage from "./Pages/ContactPage";
 import GalleryPage from "./Pages/GalleryPage";
 import CommitteePage from "./Pages/CommitteePage";
+import NewsPage from "./Pages/NewsPage";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   return (
     <div>
       <Navbar />
+      <Toaster reverseOrder={false} />
       <SocialButtonComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -29,6 +32,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/committee" element={<CommitteePage />} />
+        <Route path="/news" element={<NewsPage />} />
       </Routes>
       <Footer />
     </div>

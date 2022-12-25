@@ -17,7 +17,6 @@ import HeadingComponent1 from "../../Common/HeadingComponent1";
 import { Card } from "react-bootstrap";
 
 const TestimonialComponent = ({ data }) => {
-  console.log(data);
   return (
     <div className="py-8">
       <HeadingComponent1
@@ -26,7 +25,7 @@ const TestimonialComponent = ({ data }) => {
         className={`text-center text-main pb-4`}
       />
 
-      <div className="grid md:grid-cols-3 gap-4 ">
+      <div className="grid md:grid-cols-3 gap-10 ">
         {data?.map((item, index) => {
           return (
             <div
@@ -47,7 +46,7 @@ const TestimonialComponent = ({ data }) => {
                       image={item?.photo}
                       className={`w-full ${
                         index === 1 ? "h-[400px] " : "h-[400px] md:h-[350px]"
-                      } object-fill block mx-auto rounded-t-md mb-3 ${
+                      } object-contain block mx-auto rounded-t-md mb-3 ${
                         Styles.image
                       }`}
                     />
@@ -78,7 +77,7 @@ const TestimonialComponent = ({ data }) => {
                       />
                     </div>
                   </div>
-                  <div className="text-center space-y-2">
+                  <div className="text-center space-y-2 pb-3">
                     <p className="text-main font-semibold m-0">{item?.name}</p>
                     <p className="text-sm">{item?.Official_designation}</p>
                     <p className="text-sm">{item?.BPSA_Designation}</p>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
 import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
 import ButtonComponent from "../Common/ButtonComponent";
@@ -7,6 +7,7 @@ import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
   const [navColor, setNavColor] = useState("");
@@ -46,7 +47,7 @@ const Navbar = () => {
             navColor ? "bg-main" : "bg-transparent"
           }  px-20 py-2`}
         >
-          <div className="">
+          <div onClick={() => navigate("/")} className="cursor-pointer">
             <ImageComponent
               image={logo}
               alt="logo"
@@ -143,7 +144,7 @@ const Navbar = () => {
           <MobileMenu />
         </div>
         <div className="">
-          <div className="">
+          <div onClick={() => navigate("/")} className="">
             <ImageComponent
               image={logo}
               alt="logo"

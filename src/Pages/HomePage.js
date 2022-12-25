@@ -207,7 +207,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <NoticeLine data={noticeData} />
+      <NoticeLine />
       <HighlightComponent data={hightLightData} />
       <Container>
         <TestimonialComponent data={messageData} />

@@ -14,7 +14,7 @@ export const GetLocalLink = () => getApi("api/local");
 export const GetInternationalLink = () => getApi("api/international");
 
 //contact
-export const PostContactData = (data) => postApi("api/contacts", data);
+export const PostContactData = (data) => postApi("api/contact", data);
 
 //former
 export const FormerLeaderData = () => getApi("api/former");

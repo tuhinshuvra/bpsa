@@ -4,6 +4,7 @@ import { PostContactData } from "../../api";
 import { EmailIcon, LocationIcon, PhoneIcon } from "../../assets/Icons/Icons";
 import ButtonComponent from "../Common/ButtonComponent";
 import HeroComponent1 from "../Common/HeroComponent1";
+import { toast } from "react-hot-toast";
 
 const ContactComponent = () => {
   const [name, setName] = useState("");
@@ -24,7 +25,11 @@ const ContactComponent = () => {
 
     try {
       const result = await PostContactData(data);
-      console.log(result?.data);
+
+      console.log(result?.status);
+      if (result?.status === "success") {
+        toast.success(result?.massege);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -137,7 +142,7 @@ const ContactComponent = () => {
           <ButtonComponent
             type="submit"
             title="Submit"
-            className="bg-main px-4 py-3 text-white"
+            className="bg-main px-4 py-2 text-white"
           ></ButtonComponent>
         </Form>
       </Container>
