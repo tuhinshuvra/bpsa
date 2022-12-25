@@ -21,3 +21,7 @@ export const FormerLeaderData = () => getApi("api/former");
 
 //committee
 export const GetCommitteeData = () => getApi("api/committee");
+
+//newspage
+
+export const GetNewsData = () => getApi("api/news-update");

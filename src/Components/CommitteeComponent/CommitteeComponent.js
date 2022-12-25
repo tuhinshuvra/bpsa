@@ -28,6 +28,7 @@ const CommitteeComponent = () => {
   const [mainData, setMainData] = React.useState([]);
   const [selectedItem, setSelectedItem] = React.useState("All");
   const [allData, setAllData] = React.useState([]);
+  const [commonGroup, setCommonGroup] = React.useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -36,6 +37,14 @@ const CommitteeComponent = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const commononGroupHandler = () => {
+    const key = "comm_group_slug";
+    const commonFilter = [
+      ...new Map(allData.map((item) => [item[key], item])).values(),
+    ];
+    setCommonGroup(commonFilter);
   };
 
   const formattingData = (data) => {
@@ -60,6 +69,7 @@ const CommitteeComponent = () => {
 
       listItem.push({
         title: ele?.designation,
+        com_group: ele?.comm_group_slug,
         memberInfo: filterData,
       });
     });
@@ -84,9 +94,16 @@ const CommitteeComponent = () => {
     getCommitteeData();
   }, []);
 
+  React.useEffect(() => {
+    if (mainData.length > 0) {
+      commononGroupHandler();
+    }
+  }, [mainData]);
+
   const filterHandler = (title) => {
-    setCommitteeData(mainData?.filter((val) => val?.title === title));
+    setCommitteeData(mainData?.filter((val) => val?.com_group === title));
   };
+
   return (
     <div>
       <HeroComponent1 title="Committee" />
@@ -164,22 +181,22 @@ const CommitteeComponent = () => {
                     }  px-4 py-1 m-1 rounded-sm `}
                     title={`All`}
                   />
-                  {category &&
-                    category?.map((item) => {
+                  {commonGroup &&
+                    commonGroup?.map((item) => {
                       return (
                         <div className="">
                           {" "}
                           <ButtonComponent
                             onClick={() => {
-                              setSelectedItem(item);
-                              filterHandler(item);
+                              setSelectedItem(item?.comm_group_slug);
+                              filterHandler(item?.comm_group_slug);
                             }}
                             className={`${
-                              item === selectedItem
+                              item?.comm_group_slug === selectedItem
                                 ? "bg-second text-white"
                                 : "border border-second"
                             }  px-2 py-1 m-1 rounded-sm `}
-                            title={item}
+                            title={item?.comm_group_slug}
                           />
                         </div>
                       );
