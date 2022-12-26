@@ -9,6 +9,7 @@ import LeaderShipComponent from "../Components/AboutUsComponent/LeaderShipCompon
 import ObjectivesComponent from "../Components/AboutUsComponent/ObjectivesComponent";
 import HeroComponent1 from "../Components/Common/HeroComponent1";
 import Loader from "../Components/Common/Loader";
+import AchievementComponent from "../Components/NewsComponent/AchievementComponent";
 
 const AboutUsPage = () => {
  
@@ -21,6 +22,7 @@ const AboutUsPage = () => {
       <LeaderShipComponent />
       <FormerLeaderShip />
       <AssociationDocumentsComponent />
+      <AchievementComponent/>
     </div>
   );
 };

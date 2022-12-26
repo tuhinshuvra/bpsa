@@ -13,16 +13,17 @@ import NewsCard1 from "./NewsCard1";
 import { Keyboard, Mousewheel, Navigation } from "swiper";
 import ImageComponent from "../Common/ImageComponent";
 import { TimeIcon } from "../../assets/Icons/Icons";
+import Styles from "./Newscomponent.module.css";
 
-const MourningNews = () => {
+const AchievementComponent = () => {
   return (
-    <div className="mb-10">
-      <Container className="bg-main py-5 md:p-5  rounded-lg">
-        <HeadingComponent1
-          first={"Mourning "}
-          second="News"
-          className={"text-white  pl-5 "}
-        />
+    <div className={Styles.achievementBg__style}>
+      <Container>
+        <div className="text-main text-center py-3 pt-5">
+          <h5>Congratulation on </h5>
+          <h2>Achievement</h2>
+        </div>
+
         <Swiper
           cssMode={true}
           navigation={true}
@@ -34,9 +35,17 @@ const MourningNews = () => {
           {[1, 2, 3, 4, 5]?.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <div className="  p-4 text-white">
+                <div className="  p-4 text-main">
                   <Row>
-                    <Col className="order-2 md:order-2" md={8}>
+                    <Col className="text-center " md={4}>
+                      <div className="space-y-2">
+                        <ImageComponent
+                          image={`https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`}
+                          className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
+                        />
+                      </div>
+                    </Col>
+                    <Col className="" md={8}>
                       <p className="text-justify">
                         There are many variations of passages of available but
                         the majority have in some form, by injected humou or
@@ -58,22 +67,6 @@ const MourningNews = () => {
                         are many variations of but the majority have suffered.
                       </p>
                     </Col>
-                    <Col className="text-center sm:order-1 md:order-2" md={4}>
-                      <div className="space-y-2">
-                        <ImageComponent
-                          image={`https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`}
-                          className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
-                        />
-                        <p>Chowdhury Abdullah Al-Mamun BPM (Bar), PPM</p>
-                        <button className="bg-[#86F1EA] text-main py-1 rounded-full px-4">
-                          Inspector
-                        </button>
-                        <div className="flex items-center ">
-                          <TimeIcon size={20} className="mr-1" />
-                          2nd January,1990 - 22nd Dec, 2022
-                        </div>
-                      </div>
-                    </Col>
                   </Row>
                 </div>
               </SwiperSlide>
@@ -85,4 +78,4 @@ const MourningNews = () => {
   );
 };
 
-export default MourningNews;
+export default AchievementComponent;
