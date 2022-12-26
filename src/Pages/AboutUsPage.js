@@ -12,17 +12,16 @@ import Loader from "../Components/Common/Loader";
 import AchievementComponent from "../Components/NewsComponent/AchievementComponent";
 
 const AboutUsPage = () => {
- 
   return (
     <div>
       <HeroComponent1 title="About Us" />
       <AssociationInfoComponent />
-      <ActivitiesComp />
+
       <ObjectivesComponent />
+      <ActivitiesComp />
       <LeaderShipComponent />
       <FormerLeaderShip />
       <AssociationDocumentsComponent />
-      <AchievementComponent/>
     </div>
   );
 };

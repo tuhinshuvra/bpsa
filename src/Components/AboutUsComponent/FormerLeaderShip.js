@@ -14,10 +14,8 @@ import ImageComponent from "../Common/ImageComponent";
 
 const columns = [
   { label: "Session" },
-  { label: "President Name" },
-  { label: "President Image" },
-  { label: "Secretary Image" },
-  { label: "Secretary Name" },
+  { label: "President " },
+  { label: "Secretary " },
 ];
 
 const rows = [
@@ -155,12 +153,23 @@ const FormerLeaderShip = () => {
           className="text-center pb-3 text-main"
         />
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 640 }}>
+          <TableContainer>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   {columns.map((column, index) => (
-                    <TableCell key={index}>{column.label}</TableCell>
+                    <TableCell
+                      style={{
+                        fontWeight: 600,
+                        textAlign: "center",
+                        backgroundColor: "#E7581A",
+                        color: "white",
+                        fontSize: 18,
+                      }}
+                      key={index}
+                    >
+                      {column.label}
+                    </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
@@ -176,28 +185,46 @@ const FormerLeaderShip = () => {
                           tabIndex={-1}
                           key={row.code}
                         >
-                          <TableCell>{row?.Session}</TableCell>
-                          <TableCell>
-                            <h5> {row?.President_Name}</h5>
-                            <p>{row?.President_Designation}</p>
+                          <TableCell className="text-center">
+                            {row?.Session}
                           </TableCell>
-                          <TableCell>
-                            <ImageComponent
-                              image={row?.President_Image}
-                              className="h-[70px] w-[70px] rounded-full object-cover"
-                              alt="President "
-                            />
+                          <TableCell className="text-center  min-w-[250px]  ">
+                            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
+                              {" "}
+                              <ImageComponent
+                                image={row?.President_Image}
+                                className="h-[70px] w-[70px] rounded-full object-cover block mx-auto"
+                                alt="President "
+                              />
+                              <div className="md:pl-3">
+                                <h6 className="font-semibold">
+                                  {" "}
+                                  {row?.President_Name}
+                                </h6>
+                                <p className="text-gray-600">
+                                  {row?.President_Designation}
+                                </p>
+                              </div>
+                            </div>
                           </TableCell>
-                          <TableCell>
-                            <ImageComponent
-                              image={row?.Secretary_Image}
-                              className="h-[70px] w-[70px] rounded-full object-cover"
-                              alt="Secretary "
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <h5>{row?.Secretary_Name}</h5>
-                            <p>{row?.Secretary_Designation}</p>
+
+                          <TableCell className="text-center  min-w-[250px]">
+                            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
+                              {" "}
+                              <ImageComponent
+                                image={row?.Secretary_Image}
+                                className="h-[70px] w-[70px] rounded-full object-cover block mx-auto"
+                                alt="Secretary "
+                              />
+                              <div className="md:pl-3">
+                                <h6 className="font-semibold">
+                                  {row?.Secretary_Name}
+                                </h6>
+                                <p className="text-gray-600">
+                                  {row?.Secretary_Designation}
+                                </p>
+                              </div>
+                            </div>
                           </TableCell>
                         </TableRow>
                       );

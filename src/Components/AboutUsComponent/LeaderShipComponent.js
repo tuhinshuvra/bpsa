@@ -19,11 +19,11 @@ import { FbIcon, LinkedInIcon, TwitterIcon } from "../../utlis/icons";
 const LeaderShipComponent = () => {
   return (
     <div>
-      <Container className="mb-5">
+      <Container className="my-5">
         <HeadingComponent1
           first="Current  "
           second="Leadership"
-          className="text-center pb-3 text-main mb-7"
+          className="text-center pb-3 text-main mb-4"
         />
 
         <Swiper

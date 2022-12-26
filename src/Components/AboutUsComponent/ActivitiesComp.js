@@ -10,20 +10,19 @@ import { activitiesData } from "../../assets/Data/activitiesData";
 
 const ActivitiesComp = () => {
   return (
-    <div className="bg-main py-10 text-white ">
+    <div className="bg-main py-20 text-white ">
       <Container>
         <HeadingComponent1
           first="Our "
           second="Activities"
-          className="text-center pb-3"
+          className="text-center pb-8"
         />
         <Row>
-          {activitiesData &&
-            activitiesData?.map((item, index) => {
-              return (
-                <Col className="py-2" key={index} md={6}>
-                  {" "}
-                  <Accordion>
+          <Col md={6}>
+            {activitiesData &&
+              activitiesData?.slice(0, 3)?.map((item, index) => {
+                return (
+                  <Accordion className="py-3" key={index}>
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>{item?.title}</Accordion.Header>
                       <Accordion.Body>
@@ -36,9 +35,29 @@ const ActivitiesComp = () => {
                       </Accordion.Body>
                     </Accordion.Item>
                   </Accordion>
-                </Col>
-              );
-            })}
+                );
+              })}
+          </Col>
+          <Col md={6}>
+            {activitiesData &&
+              activitiesData?.slice(3)?.map((item, index) => {
+                return (
+                  <Accordion className="py-3" key={index}>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>{item?.title}</Accordion.Header>
+                      <Accordion.Body>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item?.description,
+                          }}
+                          className="text-sm"
+                        ></div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                );
+              })}
+          </Col>
         </Row>
       </Container>
     </div>

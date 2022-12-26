@@ -17,7 +17,7 @@ import ImageComponent from "../Common/ImageComponent";
 
 const AssociationDocumentsComponent = () => {
   return (
-    <div className="py-5">
+    <div className="py-5 ">
       <Container>
         <HeadingComponent1
           first="Association  "
@@ -35,7 +35,7 @@ const AssociationDocumentsComponent = () => {
           {[1, 2, 3, 4, 5]?.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <div className="shadow-lg border p-4">
+                <div className="border p-4 px-5">
                   <Row>
                     <Col md={8}>
                       <h4 className="text-main font-semibold">

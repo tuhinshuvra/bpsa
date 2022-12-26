@@ -4,18 +4,19 @@ import HeadingComponent1 from "../Common/HeadingComponent1";
 import ImageComponent from "../Common/ImageComponent";
 import assImg from "../../assets/Image/Gallery/Rectangle 1161.png";
 import { MdOutlineChevronRight } from "react-icons/md";
+import ButtonComponent from "../Common/ButtonComponent";
 
 const AssociationInfoComponent = () => {
   return (
     <div>
       <Container className="py-12">
+        <HeadingComponent1
+          first="About  "
+          second="Bangladesh Police Service Association"
+          className="text-center text-main pb-4"
+        />
         <Row>
-          <Col className="py-2" md={6}>
-            <HeadingComponent1 first="Learn About Our " second="Association" />
-            {/* <p className="font-semibold text-main md:pr-4 text-justify">
-              2022 IACP State & Provincial Police Planning Officers Section
-              (SPPPOS) and Academy Directors Section (SPPADS)
-            </p> */}
+          <Col className="py-2 order-2 md:order-1" md={6}>
             <p className="md:pr-4 text-justify">
               বাংলাদেশ পুলিশ সার্ভিসের সদস্যগণ ব্যক্তি ও সমষ্টিগতভাবে বাংলাদেশের
               জনসাধারণের কল্যাণার্থে নিয়োজিত। এ সার্ভিসের সদস্যগণের পেশাগত মান
@@ -24,11 +25,15 @@ const AssociationInfoComponent = () => {
               সার্ভিস এসোসিয়েশন গঠিত হয়েছে। বাংলাদেশ পুলিশ -এ কর্মরত সহকারী
               পুলিশ সুপার হতে তদুর্ধ্ব কর্মকর্তাগণ এর সদস্য হিসেবে পরিগণিত হন।
             </p>
+            <ButtonComponent
+              title={"READ MORE"}
+              className="bg-main text-white px-4 py-2"
+            />
           </Col>
-          <Col className="py-2" md={6}>
+          <Col className="py-2 sm:order-1 md:order-2" md={6}>
             <ImageComponent
               image={assImg}
-              className="w-full h-[300px] object-contain rounded-md"
+              className="w-full h-[250px] md:h-[400px] object-cover rounded-md"
             />
           </Col>
         </Row>

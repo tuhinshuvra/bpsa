@@ -106,19 +106,21 @@ const CommitteeComponent = () => {
 
   return (
     <div>
-      <HeroComponent1 title="Committee" />
+      {/* <HeroComponent1 title="Committee" /> */}
       <div className="bg-[#E8FCF2]">
         {" "}
         <Container>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center space-x-4 pt-4">
             <ImageComponent
               image={policeLogo}
               className="w-[100px] h-[100px] object-contain"
             />
             <div className="text-center py-4 ">
               <h2 className="text-sm md:text-2xl font-semibold">
-                বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন কেন্দ্রীয় কার্যনির্বাহী
-                কমিটি-২০২১
+                বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন
+              </h2>
+              <h2 className="text-sm md:text-xl font-semibold">
+                বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন
               </h2>
             </div>{" "}
             <ImageComponent
@@ -214,7 +216,13 @@ const CommitteeComponent = () => {
                         <TableRow>
                           {columns.map((column, index) => (
                             <TableCell
-                              style={{ fontWeight: 600, textAlign: "center" }}
+                              style={{
+                                fontWeight: 600,
+                                textAlign: "center",
+                                backgroundColor: "#E7581A",
+                                color: "white",
+                                fontSize: 18,
+                              }}
                               key={index}
                             >
                               {column.label}

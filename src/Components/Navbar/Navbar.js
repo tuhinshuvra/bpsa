@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
 import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
 import ButtonComponent from "../Common/ButtonComponent";
@@ -7,6 +7,11 @@ import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
+  const location = useLocation();
+  console.log(
+    "🚀 ~ file: Navbar.js:11 ~ Navbar ~ location",
+    location?.pathname
+  );
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
@@ -39,12 +44,15 @@ const Navbar = () => {
       };
     }
   }, [lastScrollY]);
+
   return (
     <div style={{ zIndex: 999 }} className="sticky top-0">
       <div className="hidden md:block">
         <div
           className={`flex items-center justify-between ${
-            navColor ? "bg-main" : "bg-transparent"
+            location?.pathname === "/"
+              ? `${navColor ? "bg-main" : "bg-transparent"}`
+              : "bg-main"
           }  px-20 py-2`}
         >
           <div onClick={() => navigate("/")} className="cursor-pointer">
