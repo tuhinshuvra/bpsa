@@ -96,8 +96,8 @@ const Footer = () => {
           </Col>
         </Row>
         <hr />
-        <div className="flex items-center justify-between flex-wrap-reverse">
-          <div className="text-sm">
+        <div className="flex items-center justify-center flex-wrap-reverse">
+          <div className="text-sm text-center">
             <p className="m-0 pb-2">
               Copyright © {new Date().getFullYear()} All rights reserved.
               Bangladesh Police Service Association
@@ -107,16 +107,18 @@ const Footer = () => {
               <a
                 className="text-white ml-1"
                 href="https://www.techsimpleict.com/"
+                target="_blank"
+                rel="noreferrer"
               >
                 TechSimple ICT
               </a>{" "}
             </p>
           </div>
 
-          <p className="text-sm">
+          {/* <p className="text-sm">
             PRIVACY POLICY | SOCIAL MEDIA POLICY | COPYRIGHT | FAQ | TERMS OF
             USE
-          </p>
+          </p> */}
         </div>
       </Container>
     </div>

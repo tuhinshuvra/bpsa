@@ -17,7 +17,7 @@ import { TimeIcon } from "../../assets/Icons/Icons";
 const MourningNews = () => {
   return (
     <div className="mb-10">
-      <Container className="bg-main py-5 md:p-5  rounded-lg">
+      <Container className="bg-black/80 py-5 md:p-5  rounded-lg">
         <HeadingComponent1
           first={"Mourning "}
           second="News"
@@ -65,10 +65,10 @@ const MourningNews = () => {
                           className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
                         />
                         <p>Chowdhury Abdullah Al-Mamun BPM (Bar), PPM</p>
-                        <button className="bg-[#86F1EA] text-main py-1 rounded-full px-4">
+                        <button className="bg-second text-white py-1 rounded-full px-4">
                           Inspector
                         </button>
-                        <div className="flex items-center ">
+                        <div className="flex items-center justify-center ">
                           <TimeIcon size={20} className="mr-1" />
                           2nd January,1990 - 22nd Dec, 2022
                         </div>

@@ -128,9 +128,9 @@ export default function MobileMenu() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+          <button className="bg-second ml-3" onClick={toggleDrawer(anchor, true)}>
             <AiOutlineMenu className="text-white" size={28} />
-          </Button>
+          </button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

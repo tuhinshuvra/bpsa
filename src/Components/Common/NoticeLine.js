@@ -33,7 +33,7 @@ const NoticeLine = ({ data }) => {
   }
 
   return (
-    <div className="p-3 flex items-center space-x-4 bg-second">
+    <div className="p-3 flex items-center space-x-4 bg-main">
       <ImageComponent image={noticeImg} className="w-[140px] object-contain" />
       <Marquee speed={60} gradient={false}>
         {noticeData &&
@@ -41,11 +41,11 @@ const NoticeLine = ({ data }) => {
             return (
               <div
                 key={index}
-                className={`bg-green-500  ${
-                  index % 2 == 0 ? "text-second" : "text-main"
+                className={`bg-main ${
+                  index % 2 == 0 ? "text-white" : "text-white"
                 }`}
               >
-                <span className="text-2xl font-bold text-second mx-1">.</span>{" "}
+                <span className="text-2xl font-bold text-white mx-1">.</span>{" "}
                 {item?.Heading}{" "}
               </div>
             );

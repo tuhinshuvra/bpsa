@@ -1,0 +1,21 @@
+.activenav__Style {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.activenav__style:hover {
+  border: 1px solid red !important;
+}
+
+.normalnav__Style {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.normalnav__Style:hover {
+  border: 1px solid red !important;
+}

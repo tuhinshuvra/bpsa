@@ -5,6 +5,7 @@ import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
+import Styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const location = useLocation();
@@ -66,8 +67,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/"
             >
@@ -76,8 +77,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/about"
             >
@@ -86,8 +87,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/committee"
             >
@@ -96,8 +97,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/notice"
             >
@@ -106,8 +107,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/news"
             >
@@ -117,8 +118,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/gallery"
             >
@@ -127,15 +128,15 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? "text-white font-semibold hover:text-white"
-                  : "text-white hover:text-white	"
+                  ? `${Styles.activenav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
+                  : `${Styles.normalnav__Style} hover:border-2 hover:border-second px-2 py-1 hover:text-white`
               }
               to="/contact"
             >
               Contact
             </NavLink>
           </div>
-          <div className="flex bg-second items-center text-white rounded-md px-3 py-2 ">
+          <div className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 ">
             {" "}
             <UsersIcon size={24} className="mr-2" />{" "}
             <ButtonComponent title="Member Login" className=" " />
