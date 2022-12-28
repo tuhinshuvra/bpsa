@@ -69,7 +69,7 @@ const CommitteeComponent = () => {
 
       listItem.push({
         title: ele?.designation,
-        com_group: ele?.comm_group_slug,
+        commGroup: ele?.commGroup,
         memberInfo: filterData,
       });
     });
@@ -101,7 +101,7 @@ const CommitteeComponent = () => {
   }, [mainData]);
 
   const filterHandler = (title) => {
-    setCommitteeData(mainData?.filter((val) => val?.com_group === title));
+    setCommitteeData(mainData?.filter((val) => val?.commGroup === title));
   };
 
   return (
@@ -190,15 +190,15 @@ const CommitteeComponent = () => {
                           {" "}
                           <ButtonComponent
                             onClick={() => {
-                              setSelectedItem(item?.comm_group_slug);
-                              filterHandler(item?.comm_group_slug);
+                              setSelectedItem(item?.commGroup);
+                              filterHandler(item?.commGroup);
                             }}
                             className={`${
-                              item?.comm_group_slug === selectedItem
+                              item?.commGroup === selectedItem
                                 ? "bg-second text-white"
                                 : "border border-second"
                             }  px-2 py-1 m-1 rounded-sm `}
-                            title={item?.comm_group_slug}
+                            title={item?.commGroup}
                           />
                         </div>
                       );
