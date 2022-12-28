@@ -21,6 +21,7 @@ import QuicksLinks from "../Components/HomeComponent/QuicksLinks/QuicksLinks";
 import SummaryComp from "../Components/HomeComponent/SummaryComp/SummaryComp";
 import TestimonialComponent from "../Components/HomeComponent/TestimonialComponent/TestimonialComponent";
 import UpcommingEvents from "../Components/HomeComponent/UpcommingEvents/UpcommingEvents";
+import { dateFiltering } from "../utlis/DateFiltering";
 
 const HomePage = () => {
   const [sliderData, setSliderData] = useState([]);
@@ -85,7 +86,8 @@ const HomePage = () => {
       const result = await GetHomeNotice();
       setNoticeLoading(false);
       if (result?.status === "success") {
-        setNoticeData(result?.data?.notice);
+        const filterData = await dateFiltering(result?.data?.notice);
+        setNoticeData(filterData);
       }
     } catch (error) {
       setNoticeLoading(false);
@@ -207,7 +209,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <NoticeLine />
+      <NoticeLine data={noticeData} />
       <HighlightComponent data={hightLightData} />
       <Container>
         <TestimonialComponent data={messageData} />

@@ -15,7 +15,7 @@ import ImageComponent from "../Common/ImageComponent";
 import { TimeIcon } from "../../assets/Icons/Icons";
 import Styles from "./Newscomponent.module.css";
 
-const AchievementComponent = () => {
+const AchievementComponent = ({ data }) => {
   return (
     <div className={Styles.achievementBg__style}>
       <Container>
@@ -32,46 +32,47 @@ const AchievementComponent = () => {
           modules={[Navigation, Mousewheel, Keyboard]}
           className="mySwiper"
         >
-          {[1, 2, 3, 4, 5]?.map((item, index) => {
-            return (
-              <SwiperSlide key={index}>
-                <div className="  p-4 text-main">
-                  <Row>
-                    <Col className="text-center " md={4}>
-                      <div className="space-y-2">
-                        <ImageComponent
-                          image={`https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`}
-                          className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
-                        />
-                      </div>
-                    </Col>
-                    <Col className="" md={8}>
-                      <p className="text-justify">
-                        There are many variations of passages of available but
-                        the majority have in some form, by injected humou or
-                        words which don’t look even slightly believable. There
-                        are many variations of but the majority have suffered
-                        There are many variations of passages of available but
-                        the majority have in some form, by injected humou or
-                        words which don’t look even slightly believable. There
-                        are many variations of but the majority have suffered.
-                        <br />
-                        <br />
-                        There are many variations of passages of available but
-                        the majority have in some form, by injected humou or
-                        words which don’t look even slightly believable. There
-                        are many variations of but the majority have suffered
-                        There are many variations of passages of available but
-                        the majority have in some form, by injected humou or
-                        words which don’t look even slightly believable. There
-                        are many variations of but the majority have suffered.
-                      </p>
-                    </Col>
-                  </Row>
-                </div>
-              </SwiperSlide>
-            );
-          })}
+          {data &&
+            data?.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className="  p-4 text-main">
+                    <Row>
+                      <Col className="text-center " md={4}>
+                        <div className="space-y-2">
+                          <ImageComponent
+                            image={`https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`}
+                            className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
+                          />
+                        </div>
+                      </Col>
+                      <Col className="" md={8}>
+                        <p className="text-justify">
+                          There are many variations of passages of available but
+                          the majority have in some form, by injected humou or
+                          words which don’t look even slightly believable. There
+                          are many variations of but the majority have suffered
+                          There are many variations of passages of available but
+                          the majority have in some form, by injected humou or
+                          words which don’t look even slightly believable. There
+                          are many variations of but the majority have suffered.
+                          <br />
+                          <br />
+                          There are many variations of passages of available but
+                          the majority have in some form, by injected humou or
+                          words which don’t look even slightly believable. There
+                          are many variations of but the majority have suffered
+                          There are many variations of passages of available but
+                          the majority have in some form, by injected humou or
+                          words which don’t look even slightly believable. There
+                          are many variations of but the majority have suffered.
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
       </Container>
     </div>

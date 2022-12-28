@@ -10,7 +10,7 @@ const HighlightComponent = ({ data }) => {
     <div className="bg-emerald-100/50 py-4">
       <Container>
         <HeadingComponent1
-          second="Highlight"
+          second="Highlights"
           className="text-main pb-4 text-center"
         />
         <Row>

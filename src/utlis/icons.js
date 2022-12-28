@@ -1,6 +1,7 @@
 import { MdOutlineChevronRight } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
 import { BiFilterAlt } from "react-icons/bi";
+import { IoMdArrowDropright } from "react-icons/io";
 import {
   AiFillFacebook,
   AiFillLinkedin,
@@ -13,6 +14,7 @@ const LinkedInIcon = AiFillLinkedin;
 const TwitterIcon = AiOutlineTwitter;
 const DownloadIcon = FiDownload;
 const FilterIcon = BiFilterAlt;
+const ArrowRightIcon = IoMdArrowDropright;
 
 export {
   ArrowRight,
@@ -21,4 +23,5 @@ export {
   TwitterIcon,
   DownloadIcon,
   FilterIcon,
+  ArrowRightIcon,
 };

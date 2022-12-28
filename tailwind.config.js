@@ -7,6 +7,9 @@ module.exports = {
         main: "#2B72EF",
         second: "#E82632",
       },
+      borderRadius: {
+        main: "4px",
+      },
     },
   },
   plugins: [],

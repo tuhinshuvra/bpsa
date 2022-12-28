@@ -4,48 +4,52 @@ import ImageComponent from "./ImageComponent";
 import Marquee from "react-fast-marquee";
 import { GetHomeNotice } from "../../api";
 import Loader from "./Loader";
+import { ArrowRightIcon } from "../../utlis/icons";
 
 const NoticeLine = ({ data }) => {
-  const [noticeData, setNoticeData] = useState([]);
-  const [noticeError, setNoticeError] = useState("");
-  const [noticeLoading, setNoticeLoading] = useState(false);
+  // const [noticeData, setNoticeData] = useState([]);
+  // const [noticeError, setNoticeError] = useState("");
+  // const [noticeLoading, setNoticeLoading] = useState(false);
 
-  const getNoticeData = async () => {
-    try {
-      setNoticeLoading(true);
-      const result = await GetHomeNotice();
-      setNoticeLoading(false);
-      if (result?.status === "success") {
-        setNoticeData(result?.data?.notice);
-      }
-    } catch (error) {
-      setNoticeLoading(false);
-      setNoticeError("Something went wrong");
-    }
-  };
+  // const getNoticeData = async () => {
+  //   try {
+  //     setNoticeLoading(true);
+  //     const result = await GetHomeNotice();
+  //     setNoticeLoading(false);
+  //     if (result?.status === "success") {
+  //       setNoticeData(result?.data?.notice);
+  //     }
+  //   } catch (error) {
+  //     setNoticeLoading(false);
+  //     setNoticeError("Something went wrong");
+  //   }
+  // };
 
-  useState(() => {
-    getNoticeData();
-  }, []);
+  // useState(() => {
+  //   getNoticeData();
+  // }, []);
 
-  if (noticeLoading) {
-    return <Loader />;
-  }
+  // if (noticeLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="p-3 flex items-center space-x-4 bg-main">
-      <ImageComponent image={noticeImg} className="w-[140px] object-contain" />
-      <Marquee speed={60} gradient={false}>
-        {noticeData &&
-          noticeData?.map((item, index) => {
+      <span className="text-white tracking-wider font-semibold">LATEST</span>
+      {/* <ImageComponent image={noticeImg} className="w-[140px] object-contain" /> */}
+      <Marquee pauseOnHover={true} speed={60} gradient={false}>
+        {data &&
+          data?.map((item, index) => {
             return (
               <div
                 key={index}
-                className={`bg-main ${
-                  index % 2 == 0 ? "text-white" : "text-white"
+                className={`bg-main flex items-center  cursor-pointer ${
+                  index % 2 === 0 ? "text-white" : "text-white"
                 }`}
               >
-                <span className="text-2xl font-bold text-white mx-1">.</span>{" "}
+                <span className="  text-white mx-4">
+                  {/* <ArrowRightIcon /> */} |
+                </span>{" "}
                 {item?.Heading}{" "}
               </div>
             );

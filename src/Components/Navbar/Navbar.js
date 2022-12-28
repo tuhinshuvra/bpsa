@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
+import logo from "../../assets/Image/logo/BPSA-11.jpg";
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
@@ -9,10 +9,7 @@ import Styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const location = useLocation();
-  console.log(
-    "🚀 ~ file: Navbar.js:11 ~ Navbar ~ location",
-    location?.pathname
-  );
+
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);

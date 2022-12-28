@@ -24,4 +24,9 @@ export const GetCommitteeData = () => getApi("api/committee");
 
 //newspage
 
-export const GetNewsData = () => getApi("api/news-update");
+export const GetNewsUpdateData = () => getApi("api/news-update");
+export const GetNewsData = () => getApi("api/news");
+export const GetMourningNewsData = () => getApi("api/news-morning");
+export const GetActivityUpdateData = () => getApi("api/news-activity-Update");
+export const GetCongratulationsAchievement = () =>
+  getApi("api/news-congratulation-on-achievenemnt");

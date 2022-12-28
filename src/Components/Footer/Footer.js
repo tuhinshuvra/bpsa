@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FbIcon, LinkedInIcon, TwitterIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/BPSF Logo SVG 1.png";
+import logo from "../../assets/Image/logo/BPSA-11.jpg";
 import ImageComponent from "../Common/ImageComponent";
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
       <Container>
         <Row className="space-y-3">
           <Col className="space-y-4" md={3}>
-            <ImageComponent image={logo} />
+            <ImageComponent image={logo} className="w-[100px] block mx-auto" />
             <h4>Bangladesh Police Service Association </h4>
             <div className="flex">
               {" "}
