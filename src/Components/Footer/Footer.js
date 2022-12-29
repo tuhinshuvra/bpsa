@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FbIcon, LinkedInIcon, TwitterIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/BPSA-11.jpg";
+import logo from "../../assets/Image/logo/WhatsApp Image 2022-12-28 at 23.33.42.jpg";
 import ImageComponent from "../Common/ImageComponent";
 
 const Footer = () => {

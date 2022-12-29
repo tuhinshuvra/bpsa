@@ -8,10 +8,13 @@ const NewComp = ({ data }) => {
   return (
     <div>
       <Container className="py-10">
-        <HeadingComponent1 second="News" className="text-main mb-4" />
-        <Row className="my-6  ">
-          <Col className="py-3" md={6}>
-            <NewsCard1 className=" h-[250px] md:h-[300px]" item={data[0]} />
+        <HeadingComponent1
+          second="Association News"
+          className="text-main mb-4"
+        />
+        <Row className=" ">
+          <Col className="py-3 " md={6}>
+            <NewsCard1 className=" h-[250px] md:h-[312px]" item={data[0]} />
           </Col>
           <Col className="md:py-3" md={6}>
             <Row className="">

@@ -21,7 +21,7 @@ const columns = [{ label: "পরিচিতি" }, { label: "নাম, পদ
 
 const CommitteeComponent = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(2);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [committeeData, setCommitteeData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [category, setCategory] = React.useState([]);
@@ -29,6 +29,9 @@ const CommitteeComponent = () => {
   const [selectedItem, setSelectedItem] = React.useState("All");
   const [allData, setAllData] = React.useState([]);
   const [commonGroup, setCommonGroup] = React.useState([]);
+  const [responseData, setResponseData] = React.useState([]);
+  const [igpData, setIgpData] = React.useState("");
+  console.log("🚀 ~ file: CommitteeComponent.js:34 ~ CommitteeComponent ~ igpData", igpData)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -85,6 +88,11 @@ const CommitteeComponent = () => {
 
     if (result?.status === "success") {
       let data = result?.data?.committees;
+      const filterIgp = await data?.filter(
+        (item) => item?.comm_group_slug === "IGP"
+      );
+      setIgpData(filterIgp);
+      setResponseData(data);
       setAllData(data);
       formattingData(data);
     }
@@ -101,7 +109,7 @@ const CommitteeComponent = () => {
   }, [mainData]);
 
   const filterHandler = (title) => {
-    setCommitteeData(mainData?.filter((val) => val?.commGroup === title));
+    setResponseData(allData?.filter((val) => val?.commGroup === title));
   };
 
   return (
@@ -120,7 +128,7 @@ const CommitteeComponent = () => {
                 বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন
               </h2>
               <h2 className="text-sm md:text-xl font-semibold">
-                বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন
+                কেন্দ্রীয় কার্যনির্বাহী কমিটি-২০২১
               </h2>
             </div>{" "}
             <ImageComponent
@@ -148,9 +156,11 @@ const CommitteeComponent = () => {
                     onChange={(e) => {
                       let searchData = e.target.value;
                       if (searchData) {
-                        let filterData = allData?.filter(
+                        let filterData = responseData?.filter(
                           (item) =>
-                            item?.Name?.includes(searchData) ||
+                            item?.Name?.toLowerCase()?.includes(
+                              searchData?.toLowerCase()
+                            ) ||
                             item?.designation
                               ?.toLowerCase()
                               .includes(searchData.toLowerCase()) ||
@@ -159,8 +169,8 @@ const CommitteeComponent = () => {
                             ) ||
                             item?.PIMS_ID === searchData
                         );
-                        console.log(filterData);
-                        formattingData(filterData);
+
+                        setResponseData(filterData);
                       } else if (!searchData) {
                         getCommitteeData();
                       }
@@ -173,7 +183,7 @@ const CommitteeComponent = () => {
                 <div className="flex items-center  flex-wrap  mt-3">
                   <ButtonComponent
                     onClick={() => {
-                      setCommitteeData(mainData);
+                      setResponseData(allData);
                       setSelectedItem("All");
                     }}
                     className={`${
@@ -231,8 +241,8 @@ const CommitteeComponent = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {committeeData &&
-                          committeeData
+                        {responseData &&
+                          responseData
                             .slice(
                               page * rowsPerPage,
                               page * rowsPerPage + rowsPerPage
@@ -242,16 +252,41 @@ const CommitteeComponent = () => {
                                 <>
                                   <TableRow hover key={index}>
                                     <TableCell
-                                      rowspan={row?.memberInfo.length + 1}
+                                      style={{
+                                        borderRight: "1px solid #F5F5F5",
+                                      }}
                                     >
-                                      <p className="font-semibold text-center text-lg">
+                                      <p className=" text-center ">
                                         {" "}
-                                        {row?.title}
+                                        {row?.commGroup}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell>
+                                      <p className=" text-center ">
+                                        {" "}
+                                        <div className="flex items-center flex-col md:flex-row ">
+                                          <ImageComponent
+                                            image={row?.photo}
+                                            className=" w-[70px] h-[70px]  md:w-[100px] md:h-[100px] object-fill mb-2 md:mr-3"
+                                          />
+                                          <div>
+                                            <p className="text-md  m-0 pb-1">
+                                              {" "}
+                                              {row?.Name}
+                                            </p>
+                                            <p className="mb-1 text-sm text-gray-600">
+                                              {row?.Officail_Designation}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                              মোবাইল নম্বর: {row?.Mobile_Number}
+                                            </p>
+                                          </div>
+                                        </div>
                                       </p>
                                     </TableCell>
                                   </TableRow>
 
-                                  {row?.memberInfo?.map((item, index) => {
+                                  {/* {row?.memberInfo?.map((item, index) => {
                                     return (
                                       <TableRow key={index}>
                                         <TableCell
@@ -281,7 +316,7 @@ const CommitteeComponent = () => {
                                         </TableCell>
                                       </TableRow>
                                     );
-                                  })}
+                                  })} */}
                                 </>
                               );
                             })}
@@ -289,9 +324,9 @@ const CommitteeComponent = () => {
                     </Table>
                   </TableContainer>
                   <TablePagination
-                    rowsPerPageOptions={[2, 5, 10, 25, 100]}
+                    rowsPerPageOptions={[10, 20, 50, 100]}
                     component="div"
-                    count={committeeData.length}
+                    count={responseData.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

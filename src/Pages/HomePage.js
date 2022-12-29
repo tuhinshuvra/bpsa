@@ -72,7 +72,8 @@ const HomePage = () => {
       const result = await GetHighlight();
       setHightLightLoading(false);
       if (result?.status === "success") {
-        setHightLightData(result?.data?.highlight);
+        const filterData = await dateFiltering(result?.data?.highlight);
+        setHightLightData(filterData);
       }
     } catch (error) {
       setHightLightLoading(false);

@@ -4,6 +4,7 @@ import hightLightImg from "../../../assets/Image/Home/Rectangle 1142.png";
 import ImageComponent from "../../Common/ImageComponent";
 import { Col, Container, Row } from "react-bootstrap";
 import moment from "moment";
+import { TimeIcon } from "../../../assets/Icons/Icons";
 
 const HighlightComponent = ({ data }) => {
   return (
@@ -22,14 +23,17 @@ const HighlightComponent = ({ data }) => {
                   className="w-full h-[200px]  md:h-[400px] object-cover rounded-md "
                 />
                 <div className="absolute bottom-5 left-5">
-                  <p className="bg-second text-white p-2 w-fit rounded-md font-semibold">
-                    {data[0]?.Category}
+                  <p className="bg-main/60 text-white p-2 w-fit rounded-md font-semibold">
+                    <span className="flex items-center text-white w-fit rounded-md font-semibold text-center ">
+                      <TimeIcon className="mr-1" size={20} />{" "}
+                      {moment(data?.[0]?.Pub_Date).format("ll")}
+                    </span>
                   </p>
                 </div>
                 <div className="absolute top-5 right-5">
-                  <h5 className="bg-second text-white p-2 w-fit rounded-md font-semibold text-center ">
-                    {moment(data?.[0]?.Pub_Date).format("ll")}
-                  </h5>
+                  <p className="bg-second/60 text-white px-3 py-1 w-fit rounded-md font-semibold text-center ">
+                    {data[0]?.Category}
+                  </p>
                 </div>
               </div>
 
@@ -55,7 +59,7 @@ const HighlightComponent = ({ data }) => {
           </Col>
           <Col md={6}>
             {data &&
-              data?.slice(1,4)?.map((item, index) => {
+              data?.slice(1, 4)?.map((item, index) => {
                 return (
                   <Row key={index}>
                     <Col className="py-2" md={5}>
@@ -67,23 +71,26 @@ const HighlightComponent = ({ data }) => {
                           className="w-full h-[200px] md:h-[120px] object-cover rounded-md"
                         />
                         <div className="absolute bottom-0 left-2">
-                          <p className="bg-second text-white p-1 w-fit rounded-md font-semibold text-[12px]">
-                            {item?.Category}
+                          <p className="bg-main/80 flex items-center text-white p-1 w-fit rounded-md font-semibold text-[12px]">
+                            {" "}
+                            <TimeIcon className="mr-1" size={18} />{" "}
+                            {moment(item?.Pub_Date).format("ll")}
                           </p>
                         </div>
                         <div className="absolute top-2 right-2">
-                          <h6 className="bg-main text-white p-2 w-fit rounded-md font-semibold text-center">
-                            {moment(item?.Pub_Date).format("ll")}
-                          </h6>
+                          <span className="bg-second text-white px-2 py-1 w-fit rounded-md text-sm text-center">
+                            {" "}
+                            {item?.Category}
+                          </span>
                         </div>
                       </div>
                     </Col>
                     <Col md={7}>
                       {" "}
                       <div className="">
-                        <h6 className="text-main font-semibold text-lg md:text-sm">
+                        <p className="text-main font-semibold  md:text-sm">
                           {item?.Heading}
-                        </h6>
+                        </p>
                         <div
                           dangerouslySetInnerHTML={{
                             __html: item?.Sub_Heading,

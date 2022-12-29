@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/BPSA-11.jpg";
+import logo from "../../assets/Image/logo/WhatsApp Image 2022-12-28 at 23.33.42.jpg";
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
@@ -133,7 +133,12 @@ const Navbar = () => {
               Contact
             </NavLink>
           </div>
-          <div className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 ">
+          <div
+            onClick={() => {
+              navigate("/login");
+            }}
+            className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 "
+          >
             {" "}
             <UsersIcon size={24} className="mr-2" />{" "}
             <ButtonComponent title="Member Login" className=" " />
@@ -160,6 +165,9 @@ const Navbar = () => {
         </div>
         <div className="">
           <ButtonComponent
+            onClick={() => {
+              navigate("/login");
+            }}
             title="Login"
             className="bg-second rounded-md px-3 py-2 text-white mr-4"
           />

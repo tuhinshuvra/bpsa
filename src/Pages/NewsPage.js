@@ -29,8 +29,7 @@ const NewsPage = () => {
 
     setLoading(false);
     if (result?.status === "success") {
-      const filterData = await dateFiltering(result?.data?.newsupdate);
-      setNewsLine(filterData);
+      setNewsLine(result?.data?.newsupdate);
     }
   };
 
@@ -40,8 +39,8 @@ const NewsPage = () => {
 
     setLoading(false);
     if (result?.status === "success") {
-      const filterNews = await dateFiltering(result?.data?.news);
-      setNewsData(filterNews);
+      // const filterNews = await dateFiltering(result?.data?.news);
+      setNewsData(result?.data?.news);
     }
   };
 
@@ -51,8 +50,8 @@ const NewsPage = () => {
 
     setLoading(false);
     if (result?.status === "success") {
-      const filterMourning = await dateFiltering(result?.data?.news_morning);
-      setMourningNews(filterMourning);
+      // const filterMourning = await dateFiltering(result?.data?.news_morning);
+      setMourningNews(result?.data?.news_morning);
     }
   };
 
@@ -62,11 +61,11 @@ const NewsPage = () => {
 
     setLoading(false);
     if (result?.status === "success") {
-      const filterData = await dateFiltering(
-        result?.data?.news_activity_Update
-      );
+      // const filterData = await dateFiltering(
+      //   result?.data?.news_activity_Update
+      // );
 
-      setActivityUpdate(filterData);
+      setActivityUpdate(result?.data?.news_activity_Update);
     }
   };
 
@@ -76,10 +75,10 @@ const NewsPage = () => {
 
     setLoading(false);
     if (result?.status === "success") {
-      const filterData = await dateFiltering(
-        result?.data?.news_congratulation_on_achievenemnt
-      );
-      setAchievement(filterData);
+      // const filterData = await dateFiltering(
+      //   result?.data?.news_congratulation_on_achievenemnt
+      // );
+      setAchievement(result?.data?.news_congratulation_on_achievenemnt);
     }
   };
 
@@ -99,9 +98,9 @@ const NewsPage = () => {
       <HeroComponent1 title="NEWS" />
       <NoticeLine data={newsLine} />
       <NewComp data={newsData} />
-      <MourningNews data={mourningNews} />
       <ActivityUpdate data={activityUpdate} />
       <AchievementComponent data={achievement} />
+      <MourningNews data={mourningNews} />
     </div>
   );
 };

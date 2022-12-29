@@ -64,8 +64,8 @@ const SummaryComp = ({ data }) => {
                       image={item?.image}
                       className="block mx-auto object-contain h-[50px] mb-3"
                     />
-                    <p className="font-semibold m-0">{item?.title}</p>
-                    <h2>{item?.status}</h2>
+                    <p className="text-md m-0">{item?.title}</p>
+                    <h2 className="text-[24px]">{item?.note}</h2>
                   </div>
                 </Col>
               );

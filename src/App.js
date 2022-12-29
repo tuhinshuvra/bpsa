@@ -19,6 +19,7 @@ import GalleryPage from "./Pages/GalleryPage";
 import CommitteePage from "./Pages/CommitteePage";
 import NewsPage from "./Pages/NewsPage";
 import { Toaster } from "react-hot-toast";
+import LoginPage from "./Pages/LoginPage";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/committee" element={<CommitteePage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
       <Footer />
     </div>

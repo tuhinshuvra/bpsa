@@ -11,7 +11,7 @@ const SocialButtonComponent = () => {
   return (
     <div
       style={{ zIndex: 9999 }}
-      className=" fixed bg-red-700 top-[35%] md:top-36 right-0"
+      className="invisible fixed bg-red-700 top-[35%] md:top-36 right-0 md:block "
     >
       <div className="bg-[#475993] p-2">
         <FbIcon className="text-white" size={24} />

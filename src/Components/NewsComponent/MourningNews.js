@@ -41,12 +41,11 @@ const MourningNews = ({ data }) => {
                       <Col className="order-2 md:order-2" md={8}>
                         <div className="space-y-3">
                           <h4>{item?.Heading}</h4>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item?.Sub_Heading,
-                            }}
-                            className="text-sm"
-                          ></div>
+                          <div className="flex items-center mt-2 ">
+                            <TimeIcon size={20} className="mr-1" />
+                            {dateFormatOne(item?.Pub_Date)}
+                          </div>
+
                           <div
                             dangerouslySetInnerHTML={{
                               __html: item?.Details,
@@ -65,12 +64,12 @@ const MourningNews = ({ data }) => {
                           <button className="bg-second text-white py-1 rounded-full px-4">
                             Inspector
                           </button> */}
-                          {item?.End_Date && (
-                            <div className="flex items-center justify-center mt-4 ">
-                              <TimeIcon size={20} className="mr-1" />
-                              {dateFormatOne(item?.End_Date)}
-                            </div>
-                          )}
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item?.Sub_Heading,
+                            }}
+                            className="text-sm mt-3"
+                          ></div>
                         </div>
                       </Col>
                     </Row>

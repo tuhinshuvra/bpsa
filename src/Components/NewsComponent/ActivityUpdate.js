@@ -9,8 +9,8 @@ const ActivityUpdate = ({ data }) => {
       <Container>
         <HeadingComponent1
           first={`Activity `}
-          second="Update"
-          className="text-main mb-6 mt-[60px]"
+          second="News"
+          className="text-main mb-8 text-center "
         />
         <Row className="space-y-5 md:space-y-0">
           <Col md={6}>
