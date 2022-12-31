@@ -6,6 +6,7 @@ import {
   GetNewsData,
   GetNewsUpdateData,
 } from "../api";
+import CommonHead from "../Components/Common/CommonHead";
 import HeroComponent1 from "../Components/Common/HeroComponent1";
 import Loader from "../Components/Common/Loader";
 import NoticeLine from "../Components/Common/NoticeLine";
@@ -95,6 +96,7 @@ const NewsPage = () => {
   }
   return (
     <div>
+      <CommonHead title="NEWS" />
       <HeroComponent1 title="NEWS" />
       <NoticeLine data={newsLine} />
       <NewComp data={newsData} />

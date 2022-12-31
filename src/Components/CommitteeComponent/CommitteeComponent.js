@@ -16,6 +16,7 @@ import policeLogo from "../../assets/Image/logo/police logo.jpg";
 import bpsaLogo from "../../assets/Image/logo/bpsa logo red.jpg";
 import TextField from "@mui/material/TextField";
 import ButtonComponent from "../Common/ButtonComponent";
+import PaginationComponent from "../Common/PaginationComponent";
 
 const columns = [{ label: "পরিচিতি" }, { label: "নাম, পদবি " }];
 
@@ -31,7 +32,16 @@ const CommitteeComponent = () => {
   const [commonGroup, setCommonGroup] = React.useState([]);
   const [responseData, setResponseData] = React.useState([]);
   const [igpData, setIgpData] = React.useState("");
-  console.log("🚀 ~ file: CommitteeComponent.js:34 ~ CommitteeComponent ~ igpData", igpData)
+  const [start, setStart] = React.useState(0);
+  const [end, setEnd] = React.useState(10);
+  const [showperPage, setShowPerPage] = React.useState(10);
+
+  const handleChange = (event, value) => {
+    setPage(value);
+
+    setStart(showperPage * value - showperPage);
+    setEnd(showperPage * value);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -47,7 +57,13 @@ const CommitteeComponent = () => {
     const commonFilter = [
       ...new Map(allData.map((item) => [item[key], item])).values(),
     ];
-    setCommonGroup(commonFilter);
+    console.log(
+      "🚀 ~ file: CommitteeComponent.js:60 ~ commononGroupHandler ~ commonFilter",
+      commonFilter
+    );
+    setCommonGroup(
+      commonFilter.filter((item) => item?.comm_group_slug !== "IGP")
+    );
   };
 
   const formattingData = (data) => {
@@ -91,12 +107,14 @@ const CommitteeComponent = () => {
       const filterIgp = await data?.filter(
         (item) => item?.comm_group_slug === "IGP"
       );
-      setIgpData(filterIgp);
-      setResponseData(data);
+      setIgpData(filterIgp[0]);
+      setResponseData(data?.filter((item) => item?.comm_group_slug !== "IGP"));
       setAllData(data);
       formattingData(data);
     }
   };
+
+  console.log(igpData);
 
   React.useEffect(() => {
     getCommitteeData();
@@ -137,13 +155,12 @@ const CommitteeComponent = () => {
             />
           </div>
           <h5 className="text-center text-sm md:text-xl">
-            প্রধান পৃষ্ঠপোষক : ড. বেনজীর আহমেদ বিপিএম(বার) <br /> ইন্সপেক্টর
-            জেনারেল অব পুলিশ, বাংলাদেশ
+            {igpData?.Name} <br /> {igpData?.Officail_Designation}
           </h5>
 
           <div className="text-center">
             <ImageComponent
-              image={`https://images.unsplash.com/photo-1610312435975-2b4b94820009?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80`}
+              image={igpData?.photo}
               className="w-[150px] h-[150px] object-cover rounded-md block mx-auto my-3"
             />
           </div>
@@ -242,51 +259,46 @@ const CommitteeComponent = () => {
                       </TableHead>
                       <TableBody>
                         {responseData &&
-                          responseData
-                            .slice(
-                              page * rowsPerPage,
-                              page * rowsPerPage + rowsPerPage
-                            )
-                            .map((row, index) => {
-                              return (
-                                <>
-                                  <TableRow hover key={index}>
-                                    <TableCell
-                                      style={{
-                                        borderRight: "1px solid #F5F5F5",
-                                      }}
-                                    >
-                                      <p className=" text-center ">
-                                        {" "}
-                                        {row?.commGroup}
-                                      </p>
-                                    </TableCell>
-                                    <TableCell>
-                                      <p className=" text-center ">
-                                        {" "}
-                                        <div className="flex items-center flex-col md:flex-row ">
-                                          <ImageComponent
-                                            image={row?.photo}
-                                            className=" w-[70px] h-[70px]  md:w-[100px] md:h-[100px] object-fill mb-2 md:mr-3"
-                                          />
-                                          <div>
-                                            <p className="text-md  m-0 pb-1">
-                                              {" "}
-                                              {row?.Name}
-                                            </p>
-                                            <p className="mb-1 text-sm text-gray-600">
-                                              {row?.Officail_Designation}
-                                            </p>
-                                            <p className="text-sm text-gray-600">
-                                              মোবাইল নম্বর: {row?.Mobile_Number}
-                                            </p>
-                                          </div>
+                          responseData.slice(start, end).map((row, index) => {
+                            return (
+                              <>
+                                <TableRow hover key={index}>
+                                  <TableCell
+                                    style={{
+                                      borderRight: "1px solid #F5F5F5",
+                                    }}
+                                  >
+                                    <p className=" text-center font-semibold">
+                                      {" "}
+                                      {row?.designation}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell>
+                                    <p className=" text-center ">
+                                      {" "}
+                                      <div className="flex items-center flex-col md:flex-row ">
+                                        <ImageComponent
+                                          image={row?.photo}
+                                          className=" w-[70px] h-[70px]  md:w-[100px] md:h-[100px] object-fill mb-2 md:mr-3"
+                                        />
+                                        <div>
+                                          <p className="text-md  m-0 pb-1 font-semibold">
+                                            {" "}
+                                            {row?.Name}
+                                          </p>
+                                          <p className="mb-1 text-sm text-gray-600">
+                                            {row?.Officail_Designation}
+                                          </p>
+                                          <p className="text-sm text-gray-600">
+                                            মোবাইল নম্বর: {row?.Mobile_Number}
+                                          </p>
                                         </div>
-                                      </p>
-                                    </TableCell>
-                                  </TableRow>
+                                      </div>
+                                    </p>
+                                  </TableCell>
+                                </TableRow>
 
-                                  {/* {row?.memberInfo?.map((item, index) => {
+                                {/* {row?.memberInfo?.map((item, index) => {
                                     return (
                                       <TableRow key={index}>
                                         <TableCell
@@ -317,13 +329,13 @@ const CommitteeComponent = () => {
                                       </TableRow>
                                     );
                                   })} */}
-                                </>
-                              );
-                            })}
+                              </>
+                            );
+                          })}
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  <TablePagination
+                  {/* <TablePagination
                     rowsPerPageOptions={[10, 20, 50, 100]}
                     component="div"
                     count={responseData.length}
@@ -331,6 +343,16 @@ const CommitteeComponent = () => {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                  /> */}
+                  <PaginationComponent
+                    count={Math.ceil(responseData?.length / showperPage)}
+                    pageNumber={page}
+                    handleChange={handleChange}
+                    className="flex items-center justify-between px-10 py-3"
+                    start={start}
+                    end={end}
+                    total={responseData?.length}
+                    isShow={true}
                   />
                 </Paper>
               )}

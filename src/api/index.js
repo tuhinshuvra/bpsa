@@ -30,3 +30,6 @@ export const GetMourningNewsData = () => getApi("api/news-morning");
 export const GetActivityUpdateData = () => getApi("api/news-activity-Update");
 export const GetCongratulationsAchievement = () =>
   getApi("api/news-congratulation-on-achievenemnt");
+
+  //Documents
+export const GetDocumentsData = () => getApi("api/document");

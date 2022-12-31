@@ -11,6 +11,7 @@ import { Container } from "react-bootstrap";
 import HeadingComponent1 from "../Common/HeadingComponent1";
 import { FormerLeaderData } from "../../api";
 import ImageComponent from "../Common/ImageComponent";
+import PaginationComponent from "../Common/PaginationComponent";
 
 const columns = [
   { label: "Session" },
@@ -121,9 +122,12 @@ const rows = [
 ];
 
 const FormerLeaderShip = () => {
+  const [start, setStart] = React.useState(0);
+  const [end, setEnd] = React.useState(10);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [formerData, setFormerData] = React.useState([]);
+  const [showperPage, setShowPerPage] = React.useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -139,6 +143,13 @@ const FormerLeaderShip = () => {
     if (result?.status === "success") {
       setFormerData(result?.data?.former);
     }
+  };
+
+  const handleChange = (event, value) => {
+    setPage(value);
+
+    setStart(showperPage * value - showperPage);
+    setEnd(showperPage * value);
   };
 
   React.useEffect(() => {
@@ -176,7 +187,7 @@ const FormerLeaderShip = () => {
               <TableBody>
                 {formerData &&
                   formerData
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .slice(start, end)
                     .map((row) => {
                       return (
                         <TableRow
@@ -185,18 +196,18 @@ const FormerLeaderShip = () => {
                           tabIndex={-1}
                           key={row.code}
                         >
-                          <TableCell className="text-center">
-                            {row?.Session}
+                          <TableCell className="text-center font-semibold">
+                            <h6 className="font-semibold">{row?.Session}</h6>
                           </TableCell>
-                          <TableCell className="text-center  min-w-[250px]  ">
-                            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
+                          <TableCell className=" min-w-[250px]  ">
+                            <div className="flex flex-col  md:flex-row space-y-2 md:space-y-0">
                               {" "}
                               <ImageComponent
                                 image={row?.President_Image}
-                                className="h-[70px] w-[70px] rounded-full object-cover block mx-auto"
+                                className="h-[70px] w-[70px] rounded-full object-cover block mx-auto "
                                 alt="President "
                               />
-                              <div className="md:pl-3">
+                              <div className="md:pl-6 ">
                                 <h6 className="font-semibold">
                                   {" "}
                                   {row?.President_Name}
@@ -208,7 +219,7 @@ const FormerLeaderShip = () => {
                             </div>
                           </TableCell>
 
-                          <TableCell className="text-center  min-w-[250px]">
+                          <TableCell className=" min-w-[250px]">
                             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
                               {" "}
                               <ImageComponent
@@ -216,7 +227,7 @@ const FormerLeaderShip = () => {
                                 className="h-[70px] w-[70px] rounded-full object-cover block mx-auto"
                                 alt="Secretary "
                               />
-                              <div className="md:pl-3">
+                              <div className="md:pl-6 ">
                                 <h6 className="font-semibold">
                                   {row?.Secretary_Name}
                                 </h6>
@@ -232,7 +243,7 @@ const FormerLeaderShip = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+          {/* <TablePagination
             rowsPerPageOptions={[5, 10, 25, 100]}
             component="div"
             count={formerData.length}
@@ -240,6 +251,16 @@ const FormerLeaderShip = () => {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+          /> */}
+          <PaginationComponent
+            count={Math.ceil(formerData?.length / showperPage)}
+            pageNumber={page}
+            handleChange={handleChange}
+            className="flex items-center justify-between px-10 py-3"
+            start={start}
+            end={end}
+            total={formerData?.length}
+            isShow={true}
           />
         </Paper>
       </Container>

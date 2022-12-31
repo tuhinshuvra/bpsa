@@ -12,6 +12,7 @@ import {
   GetMessages,
   GetSuccessStory,
 } from "../api";
+import CommonHead from "../Components/Common/CommonHead";
 import Loader from "../Components/Common/Loader";
 import NoticeLine from "../Components/Common/NoticeLine";
 import GalleryComp from "../Components/HomeComponent/GalleryComp/GalleryComp";
@@ -198,6 +199,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <CommonHead title="Home" />
       <div className="relative w-full">
         <HeroSlider data={sliderData} />
         <div

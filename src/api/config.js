@@ -1,5 +1,5 @@
 const config = {
-  serverURL: "https://csslsecurity.com/devbs/back-end/public/",
+  serverURL: "https://app.bpsa.com.bd/public/",
 };
 
 export default config;

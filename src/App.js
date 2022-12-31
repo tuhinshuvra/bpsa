@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -20,11 +20,14 @@ import CommitteePage from "./Pages/CommitteePage";
 import NewsPage from "./Pages/NewsPage";
 import { Toaster } from "react-hot-toast";
 import LoginPage from "./Pages/LoginPage";
+import ScrollToTop from "./Components/Common/ScrollToTop";
+import NewsDetailsPage from "./Components/NewsComponent/NewsDetailsPage";
 
 export default function App() {
   return (
     <div>
       <Navbar />
+      <ScrollToTop />
       <Toaster reverseOrder={false} />
       <SocialButtonComponent />
       <Routes>
@@ -35,6 +38,7 @@ export default function App() {
         <Route path="/committee" element={<CommitteePage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/news/:newsId" element={<NewsDetailsPage />} />
       </Routes>
       <Footer />
     </div>
