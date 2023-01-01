@@ -57,10 +57,7 @@ const CommitteeComponent = () => {
     const commonFilter = [
       ...new Map(allData.map((item) => [item[key], item])).values(),
     ];
-    console.log(
-      "🚀 ~ file: CommitteeComponent.js:60 ~ commononGroupHandler ~ commonFilter",
-      commonFilter
-    );
+
     setCommonGroup(
       commonFilter.filter((item) => item?.comm_group_slug !== "IGP")
     );
@@ -274,14 +271,14 @@ const CommitteeComponent = () => {
                                     </p>
                                   </TableCell>
                                   <TableCell>
-                                    <p className=" text-center ">
+                                    <p className="  ">
                                       {" "}
                                       <div className="flex items-center flex-col md:flex-row ">
                                         <ImageComponent
                                           image={row?.photo}
-                                          className=" w-[70px] h-[70px]  md:w-[100px] md:h-[100px] object-fill mb-2 md:mr-3"
+                                          className=" w-[70px] h-[70px]  md:w-[100px] md:h-[100px] object-cover mb-2 "
                                         />
-                                        <div>
+                                        <div className="ml-4 md:text-left">
                                           <p className="text-md  m-0 pb-1 font-semibold">
                                             {" "}
                                             {row?.Name}

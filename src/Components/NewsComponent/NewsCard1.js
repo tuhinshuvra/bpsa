@@ -1,12 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { TimeIcon } from "../../assets/Icons/Icons";
 import img1 from "../../assets/Image/Gallery/Rectangle 1161.png";
 import { dateFormatOne } from "../../utlis/dateFormat";
 import ImageComponent from "../Common/ImageComponent";
 
 const NewsCard1 = ({ className, item }) => {
+  const navigate = useNavigate();
   return (
-    <div className="relative w-full cursor-pointer ">
+    <div
+      onClick={() => {
+        navigate(`/news/${item?.id}`);
+      }}
+      className="relative w-full cursor-pointer "
+    >
       <ImageComponent
         image={item?.Cover_Photo}
         className={`w-full ${className} object-cover rounded-md text-main`}

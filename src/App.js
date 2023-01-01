@@ -21,7 +21,7 @@ import NewsPage from "./Pages/NewsPage";
 import { Toaster } from "react-hot-toast";
 import LoginPage from "./Pages/LoginPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
-import NewsDetailsPage from "./Components/NewsComponent/NewsDetailsPage";
+import NewsDetailsPage from "./Pages/NewsDetailsPage";
 
 export default function App() {
   return (

@@ -5,8 +5,10 @@ import ImageComponent from "../../Common/ImageComponent";
 import { Col, Container, Row } from "react-bootstrap";
 import moment from "moment";
 import { TimeIcon } from "../../../assets/Icons/Icons";
+import { Link, useNavigate } from "react-router-dom";
 
 const HighlightComponent = ({ data }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-emerald-100/50 py-4">
       <Container>
@@ -47,14 +49,13 @@ const HighlightComponent = ({ data }) => {
                 className="text-sm"
               ></div>
 
-              <a
-                href={`${data[0]?.Document_Link}`}
-                target="_blank"
+              <Link
+                to={`/news/${data[0]?.id}`}
                 className="text-main border-b-2 w-fit border-main font-semibold cursor-pointer"
                 rel="noreferrer"
               >
                 Read more
-              </a>
+              </Link>
             </div>
           </Col>
           <Col md={6}>
@@ -64,7 +65,12 @@ const HighlightComponent = ({ data }) => {
                   <Row key={index}>
                     <Col className="py-2" md={5}>
                       {" "}
-                      <div className="relative">
+                      <div
+                        onClick={() => {
+                          navigate(`/news/${item?.id}`);
+                        }}
+                        className="relative cursor-pointer"
+                      >
                         {" "}
                         <ImageComponent
                           image={item?.Cover_Photo}
@@ -97,14 +103,12 @@ const HighlightComponent = ({ data }) => {
                           }}
                           className="text-sm"
                         ></div>
-                        <a
-                          href={`${item?.Document_Link}`}
-                          target="_blank"
+                        <Link
+                          to={`/news/${item?.id}`}
                           className="text-main border-b-2 w-fit border-main font-semibold cursor-pointer"
-                          rel="noreferrer"
                         >
                           Read more
-                        </a>
+                        </Link>
                       </div>
                     </Col>
                   </Row>

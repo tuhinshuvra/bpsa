@@ -35,9 +35,9 @@ export default function HeroSlider({ data }) {
                     className="h-[300px] md:h-[600px] w-full object-cover"
                   />{" "}
                   <div className="bg-gradient-to-b from-[#222C8C]/50 to-[#222C8C]/0 absolute top-0 w-full h-full">
-                    <div className="absolute  top-[78%] text-center mx-auto w-full text-white">
+                    <div className="absolute top-[62%]  md:top-[78%] text-center mx-auto w-full text-white">
                       <div className="   ">
-                        <h3 className="text-lg md:text-2xl rounded-md max-w-[842px] mx-auto p-1 px-2 bg-main/70 mb-2 ">
+                        <h3 className="text-lg md:text-xl rounded-md max-w-[842px] mx-auto p-1 px-2 bg-main/70 mb-2 ">
                           {item?.title}
                         </h3>
                         {/* <p className="text-sm md:text-lg px-3 py-1 bg-main/70 rounded-md  w-fit mx-auto ">

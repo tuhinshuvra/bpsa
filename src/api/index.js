@@ -1,4 +1,4 @@
-import { getApi, postApi, postFormData, putApi } from "./request";
+import { getApi, postApi } from "./request";
 
 //home page
 export const GetHomeSlider = () => getApi("api/slider");
@@ -30,6 +30,7 @@ export const GetMourningNewsData = () => getApi("api/news-morning");
 export const GetActivityUpdateData = () => getApi("api/news-activity-Update");
 export const GetCongratulationsAchievement = () =>
   getApi("api/news-congratulation-on-achievenemnt");
+export const GetNewsDetails = (newsId) => getApi(`api/get_news/${newsId}`);
 
-  //Documents
+//Documents
 export const GetDocumentsData = () => getApi("api/document");
