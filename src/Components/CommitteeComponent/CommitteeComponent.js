@@ -243,7 +243,7 @@ const CommitteeComponent = () => {
                               style={{
                                 fontWeight: 600,
                                 textAlign: "center",
-                                backgroundColor: "#E7581A",
+                                backgroundColor: "#009688",
                                 color: "white",
                                 fontSize: 18,
                               }}

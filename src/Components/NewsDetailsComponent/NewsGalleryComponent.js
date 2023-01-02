@@ -13,7 +13,7 @@ const NewsGalleryComponent = () => {
             <Col className="p-2" key={index} md={4}>
               <ImageComponent
                 image={`https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80`}
-                className="w-full h-[100px] object-cover rounded-md"
+                className="w-full h-[250px] md:h-[100px] object-cover rounded-md"
               />
             </Col>
           );

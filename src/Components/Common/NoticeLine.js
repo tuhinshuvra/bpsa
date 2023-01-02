@@ -5,8 +5,10 @@ import Marquee from "react-fast-marquee";
 import { GetHomeNotice } from "../../api";
 import Loader from "./Loader";
 import { ArrowRightIcon } from "../../utlis/icons";
+import { useNavigate } from "react-router-dom";
 
 const NoticeLine = ({ data }) => {
+  const navigate = useNavigate();
   // const [noticeData, setNoticeData] = useState([]);
   // const [noticeError, setNoticeError] = useState("");
   // const [noticeLoading, setNoticeLoading] = useState(false);
@@ -42,6 +44,7 @@ const NoticeLine = ({ data }) => {
           data?.map((item, index) => {
             return (
               <div
+                onClick={() => navigate(`/news/${item?.id}`)}
                 key={index}
                 className={`bg-main flex items-center  cursor-pointer ${
                   index % 2 === 0 ? "text-white" : "text-white"

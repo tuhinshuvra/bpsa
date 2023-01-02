@@ -173,7 +173,7 @@ const FormerLeaderShip = () => {
                       style={{
                         fontWeight: 600,
                         textAlign: "center",
-                        backgroundColor: "#E7581A",
+                        backgroundColor: "#009688",
                         color: "white",
                         fontSize: 18,
                       }}
@@ -186,60 +186,58 @@ const FormerLeaderShip = () => {
               </TableHead>
               <TableBody>
                 {formerData &&
-                  formerData
-                    .slice(start, end)
-                    .map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.code}
-                        >
-                          <TableCell className="text-center font-semibold">
-                            <h6 className="font-semibold">{row?.Session}</h6>
-                          </TableCell>
-                          <TableCell className=" min-w-[250px]  ">
-                            <div className="flex flex-col  md:flex-row space-y-2 md:space-y-0">
-                              {" "}
-                              <ImageComponent
-                                image={row?.President_Image}
-                                className="h-[70px] w-[70px] rounded-full object-cover block mx-auto "
-                                alt="President "
-                              />
-                              <div className="md:pl-6 ">
-                                <h6 className="font-semibold">
-                                  {" "}
-                                  {row?.President_Name}
-                                </h6>
-                                <p className="text-gray-600">
-                                  {row?.President_Designation}
-                                </p>
-                              </div>
+                  formerData.slice(start, end).map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.code}
+                      >
+                        <TableCell className="text-center font-semibold">
+                          <h6 className="font-semibold">{row?.Session}</h6>
+                        </TableCell>
+                        <TableCell className=" min-w-[250px]  ">
+                          <div className="flex flex-col  md:flex-row space-y-2 md:space-y-0">
+                            {" "}
+                            <ImageComponent
+                              image={row?.President_Image}
+                              className="h-[70px] w-[70px] rounded-full object-cover block mx-auto "
+                              alt="President "
+                            />
+                            <div className="md:pl-6 ">
+                              <h6 className="font-semibold">
+                                {" "}
+                                {row?.President_Name}
+                              </h6>
+                              <p className="text-gray-600">
+                                {row?.President_Designation}
+                              </p>
                             </div>
-                          </TableCell>
+                          </div>
+                        </TableCell>
 
-                          <TableCell className=" min-w-[250px]">
-                            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
-                              {" "}
-                              <ImageComponent
-                                image={row?.Secretary_Image}
-                                className="h-[70px] w-[70px] rounded-full object-cover block mx-auto"
-                                alt="Secretary "
-                              />
-                              <div className="md:pl-6 ">
-                                <h6 className="font-semibold">
-                                  {row?.Secretary_Name}
-                                </h6>
-                                <p className="text-gray-600">
-                                  {row?.Secretary_Designation}
-                                </p>
-                              </div>
+                        <TableCell className=" min-w-[250px]">
+                          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
+                            {" "}
+                            <ImageComponent
+                              image={row?.Secretary_Image}
+                              className="h-[70px] w-[70px] rounded-full object-cover block mx-auto"
+                              alt="Secretary "
+                            />
+                            <div className="md:pl-6 ">
+                              <h6 className="font-semibold">
+                                {row?.Secretary_Name}
+                              </h6>
+                              <p className="text-gray-600">
+                                {row?.Secretary_Designation}
+                              </p>
                             </div>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>

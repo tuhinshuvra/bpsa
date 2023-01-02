@@ -13,6 +13,7 @@ const NewsDetailsPage = () => {
   const [newsLine, setNewsLine] = useState("");
   const [newsDetails, setNewsDetails] = useState("");
   const [loading, setLoading] = useState(false);
+  const [relatedNews, setRelatedNews] = useState([]);
   const { newsId } = useParams();
 
   const getNewsLine = async () => {
@@ -35,7 +36,8 @@ const NewsDetailsPage = () => {
 
     setLoading(false);
     if (result?.status === "success") {
-      setNewsDetails(result?.data?.news[0]);
+      setNewsDetails(result?.data?.news);
+      setRelatedNews(result?.data?.sameNews);
     }
   };
   useEffect(() => {
@@ -57,11 +59,11 @@ const NewsDetailsPage = () => {
             <NewsDetailsInfoComponent data={newsDetails} />
           </Col>
           <Col md={4}>
-            <NewsCategoriesComponent />
+            {/* <NewsCategoriesComponent /> */}
             <NewsGalleryComponent data={newsDetails} />
           </Col>
         </Row>
-        <RelatedPostsComponent />
+        <RelatedPostsComponent data={relatedNews} />
       </Container>
     </div>
   );

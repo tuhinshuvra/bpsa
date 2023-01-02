@@ -22,6 +22,7 @@ import { Toaster } from "react-hot-toast";
 import LoginPage from "./Pages/LoginPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
+import MessageDetailsPage from "./Pages/MessageDetailsPage";
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/news" element={<NewsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
+        <Route path="/message/:messageId" element={<MessageDetailsPage />} />
       </Routes>
       <Footer />
     </div>

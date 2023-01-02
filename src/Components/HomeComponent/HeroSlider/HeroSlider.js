@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 // import required modules
-import { Autoplay, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 import ImageComponent from "../../Common/ImageComponent";
 
 export default function HeroSlider({ data }) {
@@ -15,13 +15,14 @@ export default function HeroSlider({ data }) {
   return (
     <div style={{ marginTop: "-90px", zIndex: 10 }}>
       <Swiper
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 3500,
+        //   disableOnInteraction: false,
+        // }}
+        navigation={true}
         speed={2000}
         loop={true}
-        modules={[Autoplay]}
+        modules={[ Navigation]}
         className="mySwiper"
       >
         {data &&
@@ -34,7 +35,7 @@ export default function HeroSlider({ data }) {
                     image={item?.image}
                     className="h-[300px] md:h-[600px] w-full object-cover"
                   />{" "}
-                  <div className="bg-gradient-to-b from-[#222C8C]/50 to-[#222C8C]/0 absolute top-0 w-full h-full">
+                  <div className="">
                     <div className="absolute top-[62%]  md:top-[78%] text-center mx-auto w-full text-white">
                       <div className="   ">
                         <h3 className="text-lg md:text-xl rounded-md max-w-[842px] mx-auto p-1 px-2 bg-main/70 mb-2 ">

@@ -2,6 +2,7 @@ import React from "react";
 import { TimeIcon } from "../../assets/Icons/Icons";
 import { dateFormatOne } from "../../utlis/dateFormat";
 import ImageComponent from "../Common/ImageComponent";
+import ButtonComponent from "../Common/ButtonComponent";
 
 const NewsDetailsInfoComponent = ({ data }) => {
   console.log(
@@ -17,12 +18,21 @@ const NewsDetailsInfoComponent = ({ data }) => {
       </div>
       <ImageComponent
         image={data?.Cover_Photo}
-        className="w-full h-[300px] object-cover rounded-md"
+        className="w-full h-[300px] object-cover rounded-md mt-4"
       />
       <div
         dangerouslySetInnerHTML={{ __html: data?.Details }}
         className="text-justify my-5"
       ></div>
+      {data?.Document_Link && (
+        <a href={data?.Document_Link} target="_blank" rel="noreferrer">
+          {" "}
+          <ButtonComponent
+            className={"bg-second text-white px-4 py-2"}
+            title="View Document"
+          />
+        </a>
+      )}
     </div>
   );
 };

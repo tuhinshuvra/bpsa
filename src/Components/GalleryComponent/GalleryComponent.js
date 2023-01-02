@@ -11,7 +11,7 @@ import PaginationComponent from "../Common/PaginationComponent";
 import Styles from "./GalleryComponent.module.css";
 import GalleryImageCard from "./GalleryImageCard";
 
-const GalleryComponent = ({ data }) => {
+const GalleryComponent = ({ data, video }) => {
   const [page, setPage] = React.useState(1);
   const [galleryData, setGalleryData] = useState(data);
   const { galleryCategory } = useSelector((state) => state.gallery);
@@ -19,6 +19,7 @@ const GalleryComponent = ({ data }) => {
   const [end, setEnd] = useState(9);
   const [showperPage, setShowPerPage] = useState(9);
   const [showFilter, setShowFilter] = useState(true);
+  const [selectTitle, setSelectTitle] = useState("Photos");
 
   const [images, setImages] = useState("");
   useEffect(() => {
@@ -46,10 +47,12 @@ const GalleryComponent = ({ data }) => {
         />
         <div className=" space-x-4 flex ">
           <ButtonComponent
+            onClick={() => setSelectTitle("Photos")}
             title="Photos"
             className="px-5 py-2 text-white bg-second"
           />
           <ButtonComponent
+            onClick={() => setSelectTitle("video")}
             title="Videos"
             className="px-5 py-2 text-white bg-main"
           />
@@ -61,48 +64,76 @@ const GalleryComponent = ({ data }) => {
           <FilterIcon size={24} className="mr-3" />
           Filter
         </button>
-        <Row className="mt-5">
-          {showFilter && (
-            <Col md={3}>
-              <ul className="m-0 p-0 cursor-pointer">
-                <li onClick={() => setGalleryData(data)}>All</li>
-                <hr />
-                {galleryCategory &&
-                  galleryCategory?.map((item, index) => {
-                    return (
-                      <div
-                        onClick={() => {
-                          setGalleryData(
-                            data?.filter((val) => val?.gcat_id == item.id)
-                          );
-                        }}
-                        key={index}
-                      >
-                        <li>{item?.name}</li>
-                        <hr />
-                      </div>
-                    );
-                  })}
-              </ul>
-            </Col>
-          )}
 
-          <Col md={9}>
-            <Row>
-              {galleryData &&
-                galleryData?.slice(start, end)?.map((item, index) => {
+        {selectTitle === "Photos" && (
+          <div className="">
+            <Row className="mt-5">
+              {showFilter && (
+                <Col md={3}>
+                  <ul className="m-0 p-0 cursor-pointer">
+                    <li onClick={() => setGalleryData(data)}>All</li>
+                    <hr />
+                    {galleryCategory &&
+                      galleryCategory?.map((item, index) => {
+                        return (
+                          <div
+                            onClick={() => {
+                              setGalleryData(
+                                data?.filter((val) => val?.gcat_id == item.id)
+                              );
+                            }}
+                            key={index}
+                          >
+                            <li>{item?.name}</li>
+                            <hr />
+                          </div>
+                        );
+                      })}
+                  </ul>
+                </Col>
+              )}
+
+              <Col md={9}>
+                <Row>
+                  {galleryData &&
+                    galleryData?.slice(start, end)?.map((item, index) => {
+                      return (
+                        <Col key={index} md={4}>
+                          <GalleryImageCard images={images} item={item} />
+                        </Col>
+                      );
+                    })}
+                </Row>
+              </Col>
+            </Row>
+          </div>
+        )}
+
+        {selectTitle === "video" && (
+          <div>
+            <Row className="py-4">
+              {video &&
+                video?.map((item, index) => {
                   return (
-                    <Col key={index} md={4}>
-                      <GalleryImageCard images={images} item={item} />
+                    <Col key={index} md={8} className="mx-auto">
+                      <div
+                        className="w-full"
+                        dangerouslySetInnerHTML={{ __html: item?.ylink }}
+                      ></div>
                     </Col>
                   );
                 })}
             </Row>
-          </Col>
-        </Row>
+          </div>
+        )}
+
         <div className="text-center flex items-center justify-center py-4">
           <PaginationComponent
-            count={Math.ceil(galleryData?.length / showperPage)}
+            count={
+              selectTitle === "video"
+                ? Math.ceil(video?.length / showperPage)
+                : Math.ceil(galleryData?.length / showperPage)
+            }
             pageNumber={page}
             handleChange={handleChange}
           />

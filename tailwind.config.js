@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         main: "#2B72EF",
         second: "#009688",
+        bgColor: "#EFF0FC",
       },
       borderRadius: {
         main: "4px",

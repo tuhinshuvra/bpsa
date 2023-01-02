@@ -15,8 +15,10 @@ import textImg from "../../../assets/Image/Home/Vector.png";
 import ButtonComponent from "../../Common/ButtonComponent";
 import HeadingComponent1 from "../../Common/HeadingComponent1";
 import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const TestimonialComponent = ({ data }) => {
+  const navigate = useNavigate();
   return (
     <div className="py-8">
       <HeadingComponent1
@@ -29,6 +31,7 @@ const TestimonialComponent = ({ data }) => {
         {data?.map((item, index) => {
           return (
             <div
+              key={index}
               className={`${
                 index === 1 ? "sm:order-1 md:order-2" : "order-2  md:order-none"
               } `}
@@ -72,6 +75,7 @@ const TestimonialComponent = ({ data }) => {
                         ></div>
                       </div>
                       <ButtonComponent
+                        onClick={() => navigate(`/message/${item?.id}`)}
                         title="See More"
                         className="border border-white px-2 py-1 text-sm text-white"
                       />

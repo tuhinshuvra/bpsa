@@ -29,22 +29,22 @@ const Footer = () => {
                   About us
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link className="text-white" to="/message">
                   Message
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link className="text-white" to="/executive-board">
                   Executive Board
                 </Link>
-              </li>
+              </li> */}
               <li>
-                {" "}
-                <Link className="text-white" to="/notice">
-                  Notice
+                <Link className="text-white" to="/committee">
+                  Committee
                 </Link>
               </li>
+
               <li>
                 <Link className="text-white" to="/news">
                   News
@@ -58,7 +58,7 @@ const Footer = () => {
             </ul>
           </Col>
           <Col md={3}>
-            <ul className="space-y-3 m-0 p-0">
+            {/* <ul className="space-y-3 m-0 p-0">
               <p className="font-semibold text-lg"> Important Links</p>
               <li>
                 {" "}
@@ -87,12 +87,16 @@ const Footer = () => {
                   BD Army
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </Col>
           <Col md={3}>
             <p className="font-semibold text-lg"> Contact</p>
-            <p> Email: contact@bpsa.org </p>
-            <p> Phone: +880176155413 Mintu Road, Panthapath, Dhaka-1208</p>
+            <p> Email: bpsa2020@gmail.com</p>
+            <p> Phone: +880248320808 </p>
+            <p>
+              Room No-606 (5th Floor) Dhaka Metropolitan Police Headquarters 36
+              Sohid Captain Monsur Ali Soroni, Dhaka-1000
+            </p>
           </Col>
         </Row>
         <hr />

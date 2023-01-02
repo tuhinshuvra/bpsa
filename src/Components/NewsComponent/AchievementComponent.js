@@ -41,32 +41,23 @@ const AchievementComponent = ({ data }) => {
                       <Col className="text-center " md={4}>
                         <div className="space-y-2">
                           <ImageComponent
-                            image={`https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`}
+                            image={item?.Cover_Photo}
                             className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
                           />
                         </div>
                       </Col>
                       <Col className="" md={8}>
-                        <p className="text-justify">
-                          There are many variations of passages of available but
-                          the majority have in some form, by injected humou or
-                          words which don’t look even slightly believable. There
-                          are many variations of but the majority have suffered
-                          There are many variations of passages of available but
-                          the majority have in some form, by injected humou or
-                          words which don’t look even slightly believable. There
-                          are many variations of but the majority have suffered.
-                          <br />
-                          <br />
-                          There are many variations of passages of available but
-                          the majority have in some form, by injected humou or
-                          words which don’t look even slightly believable. There
-                          are many variations of but the majority have suffered
-                          There are many variations of passages of available but
-                          the majority have in some form, by injected humou or
-                          words which don’t look even slightly believable. There
-                          are many variations of but the majority have suffered.
-                        </p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item?.Sub_Heading,
+                          }}
+                          className="text-justify"
+                        ></div>{" "}
+                        <br />
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item?.Details }}
+                          className="text-justify"
+                        ></div>
                       </Col>
                     </Row>
                   </div>
