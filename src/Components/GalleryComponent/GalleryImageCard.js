@@ -37,12 +37,12 @@ const GalleryImageCard = ({ item, images }) => {
               }}
               className="text-lg"
             ></div>
-            <div
+            {/* <div
               dangerouslySetInnerHTML={{
                 __html: item?.description,
               }}
               className="text-sm"
-            ></div>
+            ></div> */}
           </div>
         </div>
       </div>

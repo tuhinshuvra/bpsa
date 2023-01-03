@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
-import { Keyboard, Mousewheel, Navigation } from "swiper";
+import { Autoplay, Keyboard, Mousewheel, Navigation } from "swiper";
 
 import { Col, Container, Row } from "react-bootstrap";
 import { DownloadIcon } from "../../utlis/icons";
@@ -53,8 +53,13 @@ const AssociationDocumentsComponent = () => {
           navigation={true}
           mousewheel={true}
           keyboard={true}
-          modules={[Navigation, Mousewheel, Keyboard]}
-          className="mySwiper"
+          loop={true}
+          speed={2000}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          modules={[Navigation, Mousewheel, Keyboard, Autoplay]}
         >
           {documentData &&
             documentData?.map((item, index) => {
@@ -62,11 +67,8 @@ const AssociationDocumentsComponent = () => {
                 <SwiperSlide key={index}>
                   <div className="border p-4 px-5">
                     <Row>
+                      <h4 className="text-main font-semibold text-center mb-3">{item?.title}</h4>
                       <Col md={8}>
-                        <h4 className="text-main font-semibold">
-                          {item?.title}
-                        </h4>
-
                         <div
                           dangerouslySetInnerHTML={{ __html: item?.summary }}
                           className="text-justify"
@@ -76,15 +78,15 @@ const AssociationDocumentsComponent = () => {
                         <div className="relative">
                           <ImageComponent
                             image={item?.c_photo}
-                            className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg"
+                            className="w-full md:w-[250px] h-[250px] object-cover  mb-1  "
                           />
 
-                          <div className="w-full md:w-[250px] h-[250px] bg-main/50 absolute top-0 rounded-lg">
+                          <div className="w-full md:w-[250px] h-[250px]  absolute top-0 ">
                             <a
                               href={item?.file}
                               target="_blank"
                               rel="noreferrer"
-                              className="absolute bottom-[5px] left-2 m-0 text-white flex items-center cursor-pointer"
+                              className="absolute bottom-[5px] left-2 m-0  flex items-center cursor-pointer"
                             >
                               <DownloadIcon
                                 className="bg-second text-white mr-1 rounded-md p-1"

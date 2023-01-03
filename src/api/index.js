@@ -36,3 +36,5 @@ export const GetNewsDetails = (newsId) => getApi(`api/get_news/${newsId}`);
 export const GetDocumentsData = () => getApi("api/document");
 
 export const GetVideosData = () => getApi("api/video");
+
+export const GetLeadershipData = () => getApi("api/leadership ");

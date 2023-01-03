@@ -6,7 +6,7 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: "Noto Sans Bengali", sans-serif ;
+  font-family: "Noto Sans Bengali", sans-serif;
   font-family: "Roboto", sans-serif;
 }
 
@@ -31,7 +31,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 }
 
 .swiper-button-next {
-  color: #24335b !important;
+  color: #009688 !important;
 
   height: fit-content;
   padding: 10px;
@@ -40,7 +40,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 }
 
 .swiper-button-prev {
-  color: #24335b !important;
+  color: #009688 !important;
 
   height: fit-content;
   padding: 10px;
@@ -50,7 +50,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 
 .swiper-button-next::after {
   font-family: "swiper-icons";
-  font-size: 20px !important;
+  font-size: 25px !important;
   text-transform: none !important;
   letter-spacing: 0;
   text-transform: none;
@@ -59,7 +59,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 }
 .swiper-button-prev::after {
   font-family: "swiper-icons";
-  font-size: 20px !important;
+  font-size: 25px !important;
   text-transform: none !important;
   letter-spacing: 0;
   text-transform: none;
