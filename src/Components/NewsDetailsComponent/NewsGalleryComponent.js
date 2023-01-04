@@ -1,24 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import HeadingComponentTwo from "../Common/HeadingComponentTwo";
 import ImageComponent from "../Common/ImageComponent";
+import ImagePreview from "../Common/ImagePreview";
 
-const NewsGalleryComponent = () => {
+const NewsGalleryComponent = ({ data }) => {
+  const [galleryData, setGalleryData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  useEffect(() => {
+    if (data) {
+      let gData = JSON.parse(data?.gimage);
+
+      setGalleryData(
+        gData?.map(
+          (item) =>
+            "http://www.csslsecurity.com/devbs/back-end/public/uploads/post/" +
+            item
+        )
+      );
+    }
+  }, [data]);
+
   return (
     <div>
       <HeadingComponentTwo title={"Gallery"} />
       <Row className="">
-        {[12, 3, 4, 5, 67, 8]?.map((item, index) => {
-          return (
-            <Col className="p-2" key={index} md={4}>
-              <ImageComponent
-                image={`https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80`}
-                className="w-full h-[250px] md:h-[100px] object-cover rounded-md"
-              />
-            </Col>
-          );
-        })}
+        {galleryData &&
+          galleryData?.map((item, index) => {
+            return (
+              <Col
+                onClick={() => {
+                  setIsOpen(true);
+                  setPhotoIndex(index);
+                }}
+                className="p-2"
+                key={index}
+                md={4}
+              >
+                <ImageComponent
+                  image={item}
+                  className="w-full h-[250px] md:h-[100px] object-cover rounded-md cursor-pointer"
+                />
+              </Col>
+            );
+          })}
       </Row>
+
+      <ImagePreview
+        images={galleryData}
+        isOpen={isOpen}
+        photoIndex={photoIndex}
+        setPhotoIndex={setPhotoIndex}
+        setIsOpen={setIsOpen}
+      />
     </div>
   );
 };

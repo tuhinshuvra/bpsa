@@ -13,12 +13,12 @@ const NewsDetailsInfoComponent = ({ data }) => {
     <div>
       <h4 className="text-main">{data?.Heading}</h4>
       <div className="flex items-center space-x-2">
-        <TimeIcon />
+        <TimeIcon className="mr-1"/>
         {dateFormatOne(data?.Pub_Date)}
       </div>
       <ImageComponent
         image={data?.Cover_Photo}
-        className="w-full h-[300px] object-cover rounded-md mt-4"
+        className="w-full h-[400px] object-cover rounded-md mt-4"
       />
       <div
         dangerouslySetInnerHTML={{ __html: data?.Details }}

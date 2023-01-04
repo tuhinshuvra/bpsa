@@ -104,7 +104,7 @@ const ContactComponent = () => {
 
       <Container className="py-5">
         <h2 className="text-center py-3 text-main font-semibold">
-          Get in Touch
+          We Value Your Feedback
         </h2>
 
         <Form onSubmit={contactFormHandler}>
@@ -160,12 +160,13 @@ const ContactComponent = () => {
               placeholder="Your Message"
             />
           </Form.Group>
-
-          <ButtonComponent
-            type="submit"
-            title="Submit"
-            className="bg-main px-4 py-2 text-white"
-          ></ButtonComponent>
+          <div className="text-center">
+            <ButtonComponent
+              type="submit"
+              title="Submit"
+              className="bg-main px-4 py-2 text-white"
+            ></ButtonComponent>
+          </div>
         </Form>
       </Container>
     </div>

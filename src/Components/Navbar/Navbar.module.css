@@ -5,9 +5,9 @@
   text-transform: uppercase;
 }
 
-.activenav__style:hover {
-  border: 1px solid red !important;
-}
+/* .activenav__style {
+  color: red !important;
+} */
 
 .normalnav__Style {
   color: white;
@@ -17,5 +17,4 @@
 }
 
 .normalnav__Style:hover {
-  border: 1px solid red !important;
 }

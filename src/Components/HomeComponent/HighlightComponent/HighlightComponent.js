@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 const HighlightComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-emerald-100/50 py-4">
+    <div className="bg-bgColor py-4">
       <Container>
         <HeadingComponent1
           second="Highlights"

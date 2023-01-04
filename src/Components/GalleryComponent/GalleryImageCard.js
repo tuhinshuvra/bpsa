@@ -3,6 +3,7 @@ import ImageComponent from "../Common/ImageComponent";
 import Styles from "./GalleryComponent.module.css";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import ImagePreview from "../Common/ImagePreview";
 
 // const images = [
 //   "//placekitten.com/1500/500",
@@ -11,14 +12,17 @@ import "react-image-lightbox/style.css";
 //   "//placekitten.com/1500/1500",
 // ];
 
-const GalleryImageCard = ({ item, images }) => {
+const GalleryImageCard = ({ item, images, index }) => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
       <div
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          setPhotoIndex(index);
+        }}
         className={`relative ${Styles.container}`}
       >
         <ImageComponent
@@ -47,7 +51,7 @@ const GalleryImageCard = ({ item, images }) => {
         </div>
       </div>
 
-      {isOpen && (
+      {/* {isOpen && (
         <Lightbox
           mainSrc={images[photoIndex]}
           nextSrc={images[(photoIndex + 1) % images.length]}
@@ -60,7 +64,15 @@ const GalleryImageCard = ({ item, images }) => {
             setPhotoIndex((photoIndex + 1) % images.length)
           }
         />
-      )}
+      )} */}
+
+      <ImagePreview
+        images={images}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        photoIndex={photoIndex}
+        setPhotoIndex={setPhotoIndex}
+      />
     </div>
   );
 };

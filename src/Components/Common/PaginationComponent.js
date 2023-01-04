@@ -16,7 +16,7 @@ const PaginationComponent = ({
   // };
 
   return (
-    <div className={className}>
+    <div className={`${className} flex-col md:flex-row`}>
       {isShow && (
         <div className="">
           Showing {start + 1} to {end} of {total} entires

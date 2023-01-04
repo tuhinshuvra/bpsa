@@ -38,9 +38,9 @@ export default function HeroSlider({ data }) {
                   <div className="">
                     <div className="absolute top-[62%]  md:top-[78%] text-center mx-auto w-full text-white">
                       <div className="   ">
-                        <h3 className="text-lg md:text-xl rounded-md max-w-[842px] mx-auto p-1 px-2 bg-main/70 mb-2 ">
+                        {/* <h3 className="text-lg md:text-xl rounded-md max-w-[842px] mx-auto p-1 px-2 bg-main/70 mb-2 ">
                           {item?.title}
-                        </h3>
+                        </h3> */}
                         {/* <p className="text-sm md:text-lg px-3 py-1 bg-main/70 rounded-md  w-fit mx-auto ">
                           {item?.description}
                         </p> */}

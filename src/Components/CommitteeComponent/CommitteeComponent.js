@@ -21,7 +21,7 @@ import PaginationComponent from "../Common/PaginationComponent";
 const columns = [{ label: "পরিচিতি" }, { label: "নাম, পদবি " }];
 
 const CommitteeComponent = () => {
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [committeeData, setCommitteeData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -41,15 +41,6 @@ const CommitteeComponent = () => {
 
     setStart(showperPage * value - showperPage);
     setEnd(showperPage * value);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   const commononGroupHandler = () => {
@@ -111,8 +102,6 @@ const CommitteeComponent = () => {
     }
   };
 
-  console.log(igpData);
-
   React.useEffect(() => {
     getCommitteeData();
   }, []);
@@ -122,6 +111,9 @@ const CommitteeComponent = () => {
       commononGroupHandler();
     }
   }, [mainData]);
+
+  console.log("allData", allData);
+  console.log("responseData", responseData);
 
   const filterHandler = (title) => {
     setResponseData(allData?.filter((val) => val?.commGroup === title));
@@ -152,7 +144,7 @@ const CommitteeComponent = () => {
             />
           </div>
           <h5 className="text-center text-sm md:text-xl">
-            {igpData?.Name} <br /> {igpData?.Officail_Designation}
+            {igpData?.designation}
           </h5>
 
           <div className="text-center">
@@ -161,6 +153,9 @@ const CommitteeComponent = () => {
               className="w-[150px] h-[150px] object-cover rounded-md block mx-auto my-3"
             />
           </div>
+          <h5 className="text-center text-sm md:text-xl">
+            {igpData?.Name} <br /> {igpData?.Officail_Designation}
+          </h5>
 
           <Row>
             <Col md={8} className="mx-auto my-4">
@@ -216,6 +211,9 @@ const CommitteeComponent = () => {
                             onClick={() => {
                               setSelectedItem(item?.commGroup);
                               filterHandler(item?.commGroup);
+                              setPage(1);
+                              setStart(showperPage * 1 - showperPage);
+                              setEnd(showperPage * 1);
                             }}
                             className={`${
                               item?.commGroup === selectedItem

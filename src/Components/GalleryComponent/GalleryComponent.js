@@ -10,6 +10,7 @@ import ImageComponent from "../Common/ImageComponent";
 import PaginationComponent from "../Common/PaginationComponent";
 import Styles from "./GalleryComponent.module.css";
 import GalleryImageCard from "./GalleryImageCard";
+import ReactPlayer from "react-player";
 
 const GalleryComponent = ({ data, video }) => {
   const [page, setPage] = React.useState(1);
@@ -49,12 +50,20 @@ const GalleryComponent = ({ data, video }) => {
           <ButtonComponent
             onClick={() => setSelectTitle("Photos")}
             title="Photos"
-            className="px-5 py-2 text-white bg-second"
+            className={`px-5 py-2  ${
+              selectTitle === "Photos"
+                ? "bg-second text-white"
+                : "border-2 border-main text-main "
+            }`}
           />
           <ButtonComponent
             onClick={() => setSelectTitle("video")}
             title="Videos"
-            className="px-5 py-2 text-white bg-main"
+            className={`px-5 py-2  ${
+              selectTitle === "video"
+                ? "bg-second text-white border-2 border-second"
+                : "border-2 border-main text-main "
+            }`}
           />
         </div>
         <button
@@ -99,7 +108,11 @@ const GalleryComponent = ({ data, video }) => {
                     galleryData?.slice(start, end)?.map((item, index) => {
                       return (
                         <Col key={index} md={4}>
-                          <GalleryImageCard images={images} item={item} />
+                          <GalleryImageCard
+                            images={images}
+                            item={item}
+                            index={index}
+                          />
                         </Col>
                       );
                     })}
@@ -115,11 +128,19 @@ const GalleryComponent = ({ data, video }) => {
               {video &&
                 video?.map((item, index) => {
                   return (
-                    <Col key={index} md={8} className="mx-auto">
-                      <div
+                    <Col key={index} md={8} className="mx-auto ">
+                      {/* <div
                         className="w-full"
                         dangerouslySetInnerHTML={{ __html: item?.ylink }}
-                      ></div>
+                      ></div> */}
+                      <div className="py-3 w-full">
+                        <ReactPlayer
+                          width="100%"
+                          height="400px"
+                          url={item?.ylink}
+                          controls
+                        />
+                      </div>
                     </Col>
                   );
                 })}

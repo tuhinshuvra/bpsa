@@ -13,11 +13,19 @@ const Footer = () => {
           <Col className="space-y-4" md={3}>
             <ImageComponent image={logo} className="w-[100px] block mx-auto" />
             <h4>Bangladesh Police Service Association </h4>
+            <p className="mt-3">Follow Us</p>
             <div className="flex">
               {" "}
-              <FbIcon size={24} className=" text-white" />
-              <LinkedInIcon size={24} className="mx-4 text-white" />
-              <TwitterIcon size={24} className=" text-white" />
+              <a
+                href="https://www.facebook.com/bdpolsa"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {" "}
+                <FbIcon size={24} className=" text-white" />
+              </a>
+              {/* <LinkedInIcon size={24} className="mx-4 text-white" />
+              <TwitterIcon size={24} className=" text-white" /> */}
             </div>
           </Col>
           <Col md={3}>
