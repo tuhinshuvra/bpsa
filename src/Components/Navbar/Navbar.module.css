@@ -3,6 +3,10 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
+  background-color: #2b72ef;
+  border-radius: 4px;
+
+  padding: 8px 20px;
 }
 
 /* .activenav__style {
@@ -14,6 +18,10 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
+  border-radius: 4px;
+  background-color: #2b72ef;
+  margin: 0px 20px;
+  padding: 8px 20px;
 }
 
 .normalnav__Style:hover {

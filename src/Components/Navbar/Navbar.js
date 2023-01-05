@@ -64,8 +64,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white `
               }
               to="/"
             >
@@ -74,8 +74,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
               }
               to="/about"
             >
@@ -84,8 +84,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
               }
               to="/committee"
             >
@@ -94,8 +94,8 @@ const Navbar = () => {
             {/* <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
               }
               to="/notice"
             >
@@ -104,8 +104,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
               }
               to="/news"
             >
@@ -115,8 +115,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
               }
               to="/gallery"
             >
@@ -125,8 +125,8 @@ const Navbar = () => {
             <NavLink
               className={(active) =>
                 active?.isActive
-                  ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
-                  : `${Styles.normalnav__Style}  px-2 py-1 hover:text-white`
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
               }
               to="/contact"
             >
