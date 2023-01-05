@@ -112,9 +112,6 @@ const CommitteeComponent = () => {
     }
   }, [mainData]);
 
-  console.log("allData", allData);
-  console.log("responseData", responseData);
-
   const filterHandler = (title) => {
     setResponseData(allData?.filter((val) => val?.commGroup === title));
   };
@@ -143,7 +140,7 @@ const CommitteeComponent = () => {
               className="w-[100px] h-[100px] object-contain"
             />
           </div>
-          <h5 className="text-center text-sm md:text-xl">
+          <h5 className="text-center text-sm font-semibold md:text-xl">
             {igpData?.designation}
           </h5>
 
@@ -284,9 +281,9 @@ const CommitteeComponent = () => {
                                           <p className="mb-1 text-sm text-gray-600">
                                             {row?.Officail_Designation}
                                           </p>
-                                          <p className="text-sm text-gray-600">
+                                          {/* <p className="text-sm text-gray-600">
                                             মোবাইল নম্বর: {row?.Mobile_Number}
-                                          </p>
+                                          </p> */}
                                         </div>
                                       </div>
                                     </p>

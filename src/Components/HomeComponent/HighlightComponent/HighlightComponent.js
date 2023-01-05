@@ -13,6 +13,7 @@ const HighlightComponent = ({ data }) => {
     <div className="bg-bgColor py-4">
       <Container>
         <HeadingComponent1
+          first="Activity "
           second="Highlights"
           className="text-main pb-4 text-center"
         />

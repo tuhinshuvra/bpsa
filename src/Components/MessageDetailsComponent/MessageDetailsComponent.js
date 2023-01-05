@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import img1 from "../../assets/Image/messages/President_2021_Stamp.jpg";
 import img2 from "../../assets/Image/messages/আসাদুজ্জামান.jpg";
 import img3 from "../../assets/Image/messages/IGP_Image.jpeg";
 import ImageComponent from "../Common/ImageComponent";
+import { GetMessageDetails } from "../../api";
+import { useParams } from "react-router-dom";
 
 // const messageData = [
 //   {
@@ -28,6 +30,19 @@ import ImageComponent from "../Common/ImageComponent";
 
 const MessageDetailsComponent = () => {
   const [messageShow, setMessageShow] = useState("Chief");
+  const { messageId } = useParams();
+
+  const getDetials = async () => {
+    const result = await GetMessageDetails(messageId);
+    console.log(
+      "🚀 ~ file: MessageDetailsComponent.js:35 ~ getDetials ~ result",
+      result
+    );
+  };
+
+  useEffect(() => {
+    getDetials();
+  }, []);
   return (
     <div>
       <div className="bg-main w-full py-10 text-center text-white">

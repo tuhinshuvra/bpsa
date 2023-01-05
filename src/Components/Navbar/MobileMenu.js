@@ -70,7 +70,7 @@ export default function MobileMenu() {
           </NavLink>
         </ListItem>
 
-        <ListItem>
+        {/* <ListItem>
           {" "}
           <NavLink
             className={(active) =>
@@ -82,7 +82,7 @@ export default function MobileMenu() {
           >
             Notice
           </NavLink>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <NavLink
             className={(active) =>
@@ -128,7 +128,10 @@ export default function MobileMenu() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <button className="bg-second ml-3" onClick={toggleDrawer(anchor, true)}>
+          <button
+            className="bg-second ml-3"
+            onClick={toggleDrawer(anchor, true)}
+          >
             <AiOutlineMenu className="text-white" size={28} />
           </button>
           <Drawer

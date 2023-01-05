@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/WhatsApp Image 2022-12-30 at 11.31.44.jpg";
+import logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
@@ -91,7 +91,7 @@ const Navbar = () => {
             >
               Committee
             </NavLink>
-            <NavLink
+            {/* <NavLink
               className={(active) =>
                 active?.isActive
                   ? `${Styles.activenav__Style}  px-2 py-1 hover:text-white`
@@ -100,7 +100,7 @@ const Navbar = () => {
               to="/notice"
             >
               Notice
-            </NavLink>
+            </NavLink> */}
             <NavLink
               className={(active) =>
                 active?.isActive

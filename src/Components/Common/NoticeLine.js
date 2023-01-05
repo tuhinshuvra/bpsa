@@ -36,10 +36,12 @@ const NoticeLine = ({ data }) => {
   // }
 
   return (
-    <div className="p-3 flex items-center space-x-4 bg-main">
-      <span className="text-white tracking-wider font-semibold">LATEST</span>
+    <div className="p-2 md:p-3 flex items-center space-x-2 md:space-x-4 bg-main">
+      <span className="text-white md:tracking-widest font-semibold text-xs md:text-[16px]">
+        LATEST
+      </span>
       {/* <ImageComponent image={noticeImg} className="w-[140px] object-contain" /> */}
-      <Marquee pauseOnHover={true} speed={20} gradient={false}>
+      <Marquee pauseOnHover={true} speed={14} gradient={false}>
         {data &&
           data?.map((item, index) => {
             return (

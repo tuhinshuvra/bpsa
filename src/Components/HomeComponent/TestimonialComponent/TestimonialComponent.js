@@ -83,8 +83,16 @@ const TestimonialComponent = ({ data }) => {
                   </div>
                   <div className="text-center space-y-2 pb-3">
                     <p className="text-main font-semibold m-0">{item?.name}</p>
-                    <p className="text-sm">{item?.Official_designation}</p>
-                    <p className="text-sm">{item?.BPSA_Designation}</p>
+                    <p className="text-sm p-0 m-0">
+                      {item?.Official_designation}
+                    </p>
+                    <p className="p-0 m-0">ও</p>
+                    <p className="text-sm">
+                      {item?.BPSA_Designation.split(",")[0]}
+                    </p>
+                    <p className="text-sm">
+                      {item?.BPSA_Designation.split(",")[1]}
+                    </p>
                   </div>
                 </div>
               </Card>

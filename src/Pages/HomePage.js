@@ -218,9 +218,9 @@ const HomePage = () => {
         <TestimonialComponent data={messageData} />
       </Container>
       <SummaryComp data={successData} />
-      <Container>
+      {/* <Container>
         <UpcommingEvents data={eventData} />
-      </Container>
+      </Container> */}
 
       <div className="bg-[#EFF0FC] py-5">
         <QuicksLinks local={localLink} international={internationalLink} />

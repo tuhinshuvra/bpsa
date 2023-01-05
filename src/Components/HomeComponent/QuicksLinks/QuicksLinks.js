@@ -38,7 +38,10 @@ const QuicksLinks = ({ local, international }) => {
       <Row>
         <Col md={7}>
           <Paper className="p-2">
-            <HeadingComponent1 second="Local" className="text-main pl-5" />
+            <HeadingComponent1
+              second="Local"
+              className="text-main pl-5 text-center py-2"
+            />
             <Row>
               <Col md={6}>
                 {" "}
@@ -89,7 +92,7 @@ const QuicksLinks = ({ local, international }) => {
           <div className="p-2 bg-main rounded-md">
             <HeadingComponent1
               second="International"
-              className="text-white pl-5"
+              className="text-white pl-5 text-center py-2"
             />
             <ul>
               {international &&

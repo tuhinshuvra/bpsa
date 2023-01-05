@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FbIcon, LinkedInIcon, TwitterIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/WhatsApp Image 2022-12-30 at 11.31.44.jpg";
+import logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
 import ImageComponent from "../Common/ImageComponent";
 
 const Footer = () => {
@@ -11,11 +11,14 @@ const Footer = () => {
       <Container>
         <Row className="space-y-3">
           <Col className="space-y-4" md={3}>
-            <ImageComponent image={logo} className="w-[100px] block mx-auto" />
+            <ImageComponent
+              image={logo}
+              className="w-[70px]  object-contain block mx-auto"
+            />
             <h4>Bangladesh Police Service Association </h4>
-            <p className="mt-3">Follow Us</p>
-            <div className="flex">
-              {" "}
+
+            <div className="flex items-center">
+              <p className="mt-3">Follow Us:</p>{" "}
               <a
                 href="https://www.facebook.com/bdpolsa"
                 target="_blank"
