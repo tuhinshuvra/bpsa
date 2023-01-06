@@ -9,17 +9,18 @@ const NewComp = ({ data }) => {
     <div>
       <Container className="py-10">
         <HeadingComponent1
-          second="Association News"
-          className="text-main mb-4"
+          first="Association"
+          second=" News"
+          className="text-main mb-4 text-center"
         />
         <Row className=" ">
           <Col className="py-3 " md={6}>
-            <NewsCard1 className=" h-[250px] md:h-[312px]" item={data[0]} />
+            <NewsCard1 className=" h-[250px] md:h-[490px]" item={data[0]} />
           </Col>
           <Col className="md:py-3" md={6}>
             <Row className="">
               {data &&
-                data?.slice(1).map((item, index) => {
+                data?.slice(1, 8).map((item, index) => {
                   return (
                     <Col key={index} className="pb-3" md={6}>
                       <NewsCard1

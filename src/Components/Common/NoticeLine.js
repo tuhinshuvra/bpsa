@@ -31,9 +31,9 @@ const NoticeLine = ({ data }) => {
   //   getNoticeData();
   // }, []);
 
-  // if (noticeLoading) {
-  //   return <Loader />;
-  // }
+  if (!data) {
+    return <Loader />;
+  }
 
   return (
     <div className="p-2 md:p-3 flex items-center space-x-2 md:space-x-4 bg-main">
@@ -41,7 +41,7 @@ const NoticeLine = ({ data }) => {
         LATEST
       </span>
       {/* <ImageComponent image={noticeImg} className="w-[140px] object-contain" /> */}
-      <Marquee pauseOnHover={true} speed={14} gradient={false}>
+      <Marquee pauseOnHover={true} gradient={false}>
         {data &&
           data?.map((item, index) => {
             return (

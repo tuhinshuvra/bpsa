@@ -22,7 +22,7 @@ const MourningNews = ({ data }) => {
         <HeadingComponent1
           first={"Mourning "}
           second="News"
-          className={"text-white  pl-5 "}
+          className={"text-white  pl-5 text-center "}
         />
         <Swiper
           cssMode={true}

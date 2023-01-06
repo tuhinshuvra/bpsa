@@ -48,7 +48,7 @@ const LeaderShipComponent = () => {
           navigation={true}
           mousewheel={true}
           keyboard={true}
-          // loop={true}
+          loop={true}
           // speed={2000}
           // autoplay={{
           //   delay: 5000,
@@ -96,7 +96,7 @@ const LeaderShipComponent = () => {
                           কেন্দ্রীয় কার্যনির্বাহী কমিটি-২০২১
                         </h6>
                         <h6 className="text-main font-semibold text-center">
-                          বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন
+                          বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
                         </h6> */}
                         <div
                           className="text-justify"

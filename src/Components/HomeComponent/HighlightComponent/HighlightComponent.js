@@ -19,7 +19,12 @@ const HighlightComponent = ({ data }) => {
         />
         <Row>
           <Col md={6}>
-            <div className="space-y-2 ">
+            <div
+              onClick={() => {
+                navigate(`/news/${data[0]?.id}`);
+              }}
+              className="space-y-2 cursor-pointer "
+            >
               <div className="relative">
                 <ImageComponent
                   image={data[0]?.Cover_Photo}
@@ -50,13 +55,13 @@ const HighlightComponent = ({ data }) => {
                 className="text-sm"
               ></div>
 
-              <Link
+              {/* <Link
                 to={`/news/${data[0]?.id}`}
                 className="text-main border-b-2 w-fit border-main font-semibold cursor-pointer"
                 rel="noreferrer"
               >
                 Read more
-              </Link>
+              </Link> */}
             </div>
           </Col>
           <Col md={6}>
@@ -94,22 +99,32 @@ const HighlightComponent = ({ data }) => {
                     </Col>
                     <Col md={7}>
                       {" "}
-                      <div className="">
+                      <div
+                        onClick={() => {
+                          navigate(`/news/${item?.id}`);
+                        }}
+                        className="cursor-pointer"
+                      >
                         <p className="text-main font-semibold  md:text-sm">
-                          {item?.Heading}
+                          {item?.Heading.length > 80
+                            ? item?.Heading.slice(0, 80) + ".."
+                            : item?.Heading}
                         </p>
                         <div
                           dangerouslySetInnerHTML={{
-                            __html: item?.Sub_Heading,
+                            __html:
+                              item?.Sub_Heading.length > 145
+                                ? item?.Sub_Heading.slice(0, 145) + ".."
+                                : item?.Sub_Heading,
                           }}
-                          className="text-sm"
+                          className="text-sm text-justify"
                         ></div>
-                        <Link
+                        {/* <Link
                           to={`/news/${item?.id}`}
                           className="text-main border-b-2 w-fit border-main font-semibold cursor-pointer"
                         >
                           Read more
-                        </Link>
+                        </Link> */}
                       </div>
                     </Col>
                   </Row>

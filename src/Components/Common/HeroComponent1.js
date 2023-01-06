@@ -11,14 +11,19 @@ const HeroComponent1 = ({ title }) => {
           {title}
         </h2>
         <Container>
-          <button className="flex items-center bg-white px-6 py-3 border absolute bottom-0  ">
-            <Link to="/" className="text-main underline">
+          <button className="flex items-center bg-white py-1 px-2 md:px-6 md:py-3 border absolute bottom-0  ">
+            <Link
+              to="/"
+              className="text-main underline text-[14px] md:text-[16px]"
+            >
               Home
             </Link>{" "}
-            <span className="font-semibold text-2xl text-gray-500">
-              <ArrowRight size={24} className="text-second" />
+            <span className=" font-semibold  text-gray-500">
+              <ArrowRight size={22} className="text-second" />
             </span>{" "}
-            <span className="text-second font-semibold ">{title}</span>
+            <span className="text-second font-semibold text-[12px] md:text-[14px]">
+              {title}
+            </span>
           </button>
         </Container>
       </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import config from "../../api/config";
 import HeadingComponentTwo from "../Common/HeadingComponentTwo";
 import ImageComponent from "../Common/ImageComponent";
 import ImagePreview from "../Common/ImagePreview";
@@ -15,16 +16,14 @@ const NewsGalleryComponent = ({ data }) => {
 
       setGalleryData(
         gData?.map(
-          (item) =>
-            "http://www.csslsecurity.com/devbs/back-end/public/uploads/post/" +
-            item
+          (item) => "http://app.bpsa.com.bd/public/uploads/post/" + item
         )
       );
     }
   }, [data]);
 
   return (
-    <div>
+    <div className="md:mt-[120px] md:pl-4">
       <HeadingComponentTwo title={"Gallery"} />
       <Row className="">
         {galleryData &&

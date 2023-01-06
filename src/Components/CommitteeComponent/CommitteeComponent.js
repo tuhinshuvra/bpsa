@@ -129,7 +129,7 @@ const CommitteeComponent = () => {
             />
             <div className="text-center py-4 ">
               <h2 className="text-sm md:text-2xl font-semibold">
-                বাংলাদেশ পুলিশ সার্ভিস এসোসিয়েশন
+                বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
               </h2>
               <h2 className="text-sm md:text-xl font-semibold">
                 কেন্দ্রীয় কার্যনির্বাহী কমিটি-২০২১

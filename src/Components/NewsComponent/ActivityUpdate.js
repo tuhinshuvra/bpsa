@@ -10,7 +10,7 @@ const ActivityUpdate = ({ data }) => {
         <HeadingComponent1
           first={`Activity `}
           second="News"
-          className="text-main mb-8 text-center "
+          className="text-main  text-center pb-4 "
         />
         <Row className="space-y-5 md:space-y-0">
           <Col md={6}>
