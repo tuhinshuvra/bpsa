@@ -60,7 +60,7 @@ const MessageDetailsComponent = () => {
     getDetials();
   }, []);
 
-  if (loading) {
+  if (loading || !msgData) {
     return <Loading />;
   }
   return (

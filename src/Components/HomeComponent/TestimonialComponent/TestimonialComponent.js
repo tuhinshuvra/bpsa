@@ -69,12 +69,9 @@ const TestimonialComponent = ({ data }) => {
                         />
                         <div
                           dangerouslySetInnerHTML={{
-                            __html:
-                              item?.note.length > 280
-                                ? item?.note.slice(0, 280) + ".."
-                                : item?.note,
+                            __html: item?.note,
                           }}
-                          className="text-sm"
+                          className="text-sm max-h-[200px] overflow-hidden"
                         ></div>
                       </div>
                       <ButtonComponent
@@ -85,7 +82,9 @@ const TestimonialComponent = ({ data }) => {
                     </div>
                   </div>
                   <div className="text-center flex flex-col  p-2">
-                    <p className="text-main font-semibold m-0 text-md leading-6 h-[50px] overflow-clip pb-1">{item?.name}</p>
+                    <p className="text-main font-semibold m-0 text-md leading-6 h-[50px] overflow-clip pb-1">
+                      {item?.name}
+                    </p>
                     <span className="text-sm p-0 m-0">
                       {item?.Official_designation}
                     </span>
