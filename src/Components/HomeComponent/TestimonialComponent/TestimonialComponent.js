@@ -37,8 +37,11 @@ const TestimonialComponent = ({ data }) => {
               } `}
             >
               <Card
+                onClick={() => navigate(`/message/${item?.id}`)}
                 className={`${
-                  index === 1 ? "  " : "md:mt-[50px]  md:order-none"
+                  index === 1
+                    ? " cursor-pointer "
+                    : "md:mt-[50px]  md:order-none cursor-pointer"
                 } `}
                 key={index}
                 style={{ height: "fit-content" }}
@@ -81,18 +84,18 @@ const TestimonialComponent = ({ data }) => {
                       />
                     </div>
                   </div>
-                  <div className="text-center space-y-2 pb-3">
-                    <p className="text-main font-semibold m-0">{item?.name}</p>
-                    <p className="text-sm p-0 m-0">
+                  <div className="text-center flex flex-col  p-2">
+                    <p className="text-main font-semibold m-0 text-md leading-6 h-[50px] overflow-clip pb-1">{item?.name}</p>
+                    <span className="text-sm p-0 m-0">
                       {item?.Official_designation}
-                    </p>
-                    <p className="p-0 m-0">ও</p>
-                    <p className="text-sm">
+                    </span>
+                    <span className="p-0 m-0">ও</span>
+                    <span className="text-sm">
                       {item?.BPSA_Designation.split(",")[0]}
-                    </p>
-                    <p className="text-sm">
+                    </span>
+                    <span className="text-sm">
                       {item?.BPSA_Designation.split(",")[1]}
-                    </p>
+                    </span>
                   </div>
                 </div>
               </Card>

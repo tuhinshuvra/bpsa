@@ -133,12 +133,13 @@ const GalleryComponent = ({ data, video }) => {
                         className="w-full"
                         dangerouslySetInnerHTML={{ __html: item?.ylink }}
                       ></div> */}
-                      <div className="py-3 w-full">
+                      <div className="py-3 w-full h-[400px] player-wrapper">
                         <ReactPlayer
-                          width="100%"
-                          height="400px"
+                          className="react-player"
                           url={item?.ylink}
                           controls
+                          width="100%"
+                          height="100%"
                         />
                       </div>
                     </Col>

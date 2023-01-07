@@ -147,7 +147,7 @@ const CommitteeComponent = () => {
           <div className="text-center">
             <ImageComponent
               image={igpData?.photo}
-              className="w-[150px] h-[150px] object-cover rounded-md block mx-auto my-3"
+              className="w-[150px] h-[150px] object-contain rounded-md block mx-auto my-3"
             />
           </div>
           <h5 className="text-center text-sm md:text-xl">

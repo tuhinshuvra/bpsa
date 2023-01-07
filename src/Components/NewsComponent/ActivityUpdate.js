@@ -5,7 +5,7 @@ import NewsCard2 from "./NewsCard2";
 
 const ActivityUpdate = ({ data }) => {
   return (
-    <div>
+    <div className="bg-bgColor">
       <Container>
         <HeadingComponent1
           first={`Activity `}

@@ -39,4 +39,4 @@ export const GetVideosData = () => getApi("api/video");
 
 export const GetLeadershipData = () => getApi("api/leadership ");
 
-export const GetMessageDetails = (id) => getApi(`api/get_massege/id`);
+export const GetMessageDetails = (id) => getApi(`api/get_massege/${id}`);

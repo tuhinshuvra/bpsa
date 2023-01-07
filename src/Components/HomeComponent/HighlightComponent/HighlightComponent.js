@@ -110,14 +110,12 @@ const HighlightComponent = ({ data }) => {
                             ? item?.Heading.slice(0, 80) + ".."
                             : item?.Heading}
                         </p>
+
                         <div
                           dangerouslySetInnerHTML={{
-                            __html:
-                              item?.Sub_Heading.length > 145
-                                ? item?.Sub_Heading.slice(0, 145) + ".."
-                                : item?.Sub_Heading,
+                            __html: item?.Sub_Heading,
                           }}
-                          className="text-sm text-justify"
+                          className="text-sm text-justify text-black  "
                         ></div>
                         {/* <Link
                           to={`/news/${item?.id}`}
