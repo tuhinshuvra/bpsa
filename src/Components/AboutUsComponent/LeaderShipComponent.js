@@ -63,12 +63,12 @@ const LeaderShipComponent = () => {
                 <SwiperSlide key={index}>
                   <div className=" border p-4">
                     <Row>
-                      <Col className="text-center" md={4}>
+                      <Col className="text-center" md={5}>
                         <ImageComponent
                           image={item?.photo}
                           className="w-[200px] h-[200px] block mx-auto mb-1 object-contain"
                         />
-                        <p className="text-main text-lg m-0 mb-2 ">
+                        <p className="text-main text-md m-0 mb-2 ">
                           {item?.name}
                         </p>
 
@@ -88,7 +88,7 @@ const LeaderShipComponent = () => {
                         <TwitterIcon size={28} />
                       </div> */}
                       </Col>
-                      <Col md={8}>
+                      <Col md={7}>
                         {/* <h6 className="text-main font-semibold text-center">
                           {item?.BPSA_Designation}
                         </h6>
