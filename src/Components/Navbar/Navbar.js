@@ -53,14 +53,25 @@ const Navbar = () => {
               : "bg-main"
           }  px-20 py-2`}
         >
-          <div onClick={() => navigate("/")} className="cursor-pointer">
+          <div
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate("/");
+            }}
+            className="cursor-pointer"
+          >
             <ImageComponent
               image={logo}
               alt="logo"
               className="w-[70px]  object-contain"
             />
           </div>
-          <div className="flex items-end space-x-5 ">
+          <div
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+            className="flex items-end space-x-5 "
+          >
             <NavLink
               className={(active) =>
                 active?.isActive

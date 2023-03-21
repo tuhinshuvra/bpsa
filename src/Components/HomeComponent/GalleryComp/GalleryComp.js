@@ -28,7 +28,7 @@ const GalleryComp = ({ data }) => {
             data?.slice(0, 8)?.map((item, index) => {
               return (
                 <Col className="py-2" key={index} md={3}>
-                  <GalleryImageCard images={images} item={item} />
+                  <GalleryImageCard images={images} item={item} index={index} />
                 </Col>
               );
             })}

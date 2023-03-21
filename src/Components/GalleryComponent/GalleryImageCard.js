@@ -13,6 +13,10 @@ import ImagePreview from "../Common/ImagePreview";
 // ];
 
 const GalleryImageCard = ({ item, images, index }) => {
+  console.log(
+    "🚀 ~ file: GalleryImageCard.js:16 ~ GalleryImageCard ~ index:",
+    index
+  );
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,30 +45,9 @@ const GalleryImageCard = ({ item, images, index }) => {
               }}
               className="text-lg"
             ></div>
-            {/* <div
-              dangerouslySetInnerHTML={{
-                __html: item?.description,
-              }}
-              className="text-sm"
-            ></div> */}
           </div>
         </div>
       </div>
-
-      {/* {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + images.length - 1) % images.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % images.length)
-          }
-        />
-      )} */}
 
       <ImagePreview
         images={images}

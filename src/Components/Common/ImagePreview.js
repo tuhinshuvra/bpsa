@@ -9,10 +9,9 @@ const ImagePreview = ({
   photoIndex,
 }) => {
   console.log(
-    "🚀 ~ file: ImagePreview.js:5 ~ ImagePreview ~ isOpen",
-    typeof isOpen
+    "🚀 ~ file: ImagePreview.js:5 ~ ImagePreview ~ images",
+    photoIndex
   );
-  console.log("🚀 ~ file: ImagePreview.js:5 ~ ImagePreview ~ images", images);
   // const [photoIndex, setPhotoIndex] = useState(0);
 
   return (
