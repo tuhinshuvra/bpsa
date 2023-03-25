@@ -19,7 +19,7 @@ const PaginationComponent = ({
     <div className={`${className} flex-col md:flex-row`}>
       {isShow && (
         <div className="">
-          Showing {start + 1} to {end} of {total} entires
+          Showing {start + 1} to {total >= end ? end : total} of {total} entires
         </div>
       )}
 

@@ -18,7 +18,7 @@ const NewsDetailsInfoComponent = ({ data }) => {
       </div>
       <ImageComponent
         image={data?.Cover_Photo}
-        className="w-full h-[400px] object-cover rounded-md mt-4"
+        className="w-full md:h-[400px] object-contain rounded-md mt-4"
       />
       <div
         dangerouslySetInnerHTML={{ __html: data?.Details }}

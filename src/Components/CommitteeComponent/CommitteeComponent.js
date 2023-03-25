@@ -289,38 +289,6 @@ const CommitteeComponent = () => {
                                     </p>
                                   </TableCell>
                                 </TableRow>
-
-                                {/* {row?.memberInfo?.map((item, index) => {
-                                    return (
-                                      <TableRow key={index}>
-                                        <TableCell
-                                          style={{
-                                            borderLeft: "1px solid #E0E0E0",
-                                          }}
-                                        >
-                                          <div className="flex items-center flex-col md:flex-row ">
-                                            <ImageComponent
-                                              image={item?.photo}
-                                              className=" w-[100px] h-[100px]  md:w-[130px] md:h-[130px] object-fill mb-2 md:mr-3"
-                                            />
-                                            <div>
-                                              <p className="text-md font-semibold m-0 pb-1">
-                                                {" "}
-                                                {item?.Name}
-                                              </p>
-                                              <p className="mb-1">
-                                                {item?.Officail_Designation}
-                                              </p>
-                                              <p>
-                                                মোবাইল নম্বর:{" "}
-                                                {item?.Mobile_Number}
-                                              </p>
-                                            </div>
-                                          </div>
-                                        </TableCell>
-                                      </TableRow>
-                                    );
-                                  })} */}
                               </>
                             );
                           })}

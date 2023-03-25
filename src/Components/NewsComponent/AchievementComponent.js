@@ -15,8 +15,10 @@ import ImageComponent from "../Common/ImageComponent";
 import { TimeIcon } from "../../assets/Icons/Icons";
 import Styles from "./Newscomponent.module.css";
 import HeadingComponentTwo from "../Common/HeadingComponentTwo";
+import { useNavigate } from "react-router-dom";
 
 const AchievementComponent = ({ data }) => {
+  const navigate = useNavigate();
   return (
     <div className=" mb-5">
       <div className={Styles.achievementBg__style}>
@@ -44,8 +46,12 @@ const AchievementComponent = ({ data }) => {
               data?.map((item, index) => {
                 return (
                   <SwiperSlide key={index}>
-                    <div className="  p-4 text-main">
-                      <Row>
+                    <div className="  p-4 text-main cursor-pointer">
+                      <Row
+                        onClick={() => {
+                          navigate("/news/" + item?.id);
+                        }}
+                      >
                         <Col className="text-center " md={4}>
                           <div className="space-y-2">
                             <ImageComponent
