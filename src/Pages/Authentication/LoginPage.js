@@ -13,7 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Col, Row } from "react-bootstrap";
-import CommonHead from "../Components/Common/CommonHead";
+import CommonHead from "../../Components/Common/CommonHead";
+import './Login.css';
 
 function Copyright(props) {
   return (
