@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  BrowserRouter,
-  Routes,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, BrowserRouter, Routes, } from "react-router-dom";
 import { ProtectedRoute } from "./Components/Common/ProtectedRoute";
 import Navbar from "./Components/Navbar/Navbar";
 import HomePage from "./Pages/HomePage";
@@ -24,6 +18,7 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import LoginPage from "./Pages/Authentication/LoginPage";
+import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 
 export default function App() {
   return (
@@ -41,6 +36,7 @@ export default function App() {
         <Route path="/news" element={<NewsPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
       </Routes>

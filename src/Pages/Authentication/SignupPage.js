@@ -1,60 +1,198 @@
-import React from 'react';
-import './Login.css';
 import { TextField } from '@mui/material';
+import { BsPersonCircle } from 'react-icons/bs';
+import useTitle from '../../hooks/useTitle';
+import { Link } from 'react-router-dom';
+import './Login.css';
+import { useState } from 'react';
 
 const SignupPage = () => {
+    useTitle("SignUp");
+    const [enableOtp, setEnableOtp] = useState(false);
+    const [otpVerified, setOtpVerified] = useState(false);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const fullName = form.full_name.value;
+        const userName = form.user_name.value;
+        const password = form.password.value;
+
+        const userData = {
+            name: fullName,
+            user_name: userName,
+            password: password,
+            role: 'general',
+        }
+        console.log("User Data", userData);
+    }
+
+    const handleVerifyUniqueId = (event) => {
+        event.preventDefault();
+        const form = event.target.form;
+        if (!form) {
+            console.error("Form element not found");
+            return;
+        }
+
+        const birth_date = form.birth_date.value;
+        const unique_id = form.unique_id.value;
+
+        const uniqueData = {
+            birth_date: birth_date,
+            unique_id: unique_id,
+        }
+
+        setOtpVerified(true);
+        console.log("uniqueData", uniqueData);
+    }
+
+
     return (
         <div className=' container my-4'>
             <div className=' col-lg-4 col-md-6 mx-auto'>
 
-                <h2 className=' text-center fs-3'>Signup</h2>
-                <form>
-                    <div className="mb-3">
-                        <label for="full_name" className="form-label">Full Name</label>
-                        <input type="text" name='full_name' className="form-control" id="full_name" placeholder='Enter full name' autoFocus required />
+                <div className=' d-flex flex-column align-items-center'>
+                    <BsPersonCircle className='signup_person'></BsPersonCircle>
+                    <h2 className=' text-center fs-3'>Sign up</h2>
+                </div>
+
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        label="Full Name"
+                        name="full_name"
+                        id="full_name"
+                        type="text"
+                        margin="normal"
+                        required
+                        fullWidth
+                    />
+
+                    <TextField
+                        label="Birth Date"
+                        name="birth_date"
+                        id="birth_date"
+                        type="date"
+                        margin="normal"
+                        required
+                        fullWidth
+                    />
+
+                    <TextField
+                        label="Unique ID"
+                        name="unique_id"
+                        id="unique_id"
+                        type="text"
+                        margin="normal"
+                        required
+                        fullWidth
+                    />
+
+                    <div onClick={() => setEnableOtp(true)} className=' text-center'>
+                        <button onClick={handleVerifyUniqueId} className=' btn btn-primary btn-sm '>Verify</button>
                     </div>
 
-                    <div className="mb-3">
-                        <label for="birth_date" className="form-label">Birth Date</label>
-                        <input type="date" name='birth_date' className="form-control" id="birth_date" required />
-                    </div>
+                    {enableOtp ?
+                        <TextField
+                            label="OTP"
+                            name="otp"
+                            id="otp"
+                            type="text"
+                            margin="normal"
+                            disabled={false}
+                            required
+                            fullWidth
+                        />
+                        :
+                        <TextField
+                            label="OTP"
+                            name="otp"
+                            id="otp"
+                            type="text"
+                            margin="normal"
+                            disabled={true}
+                            required
+                            fullWidth
+                        />
+                    }
 
-                    <div className="mb-3">
-                        <label for="unique_id" className="form-label">Unique ID</label>
-                        <input type="text" name='birth_date' className="form-control" id="unique_id" placeholder='Enter unique id' required />
-                    </div>
+                    {otpVerified ?
+                        <>
+                            <TextField
+                                label="User name"
+                                name="user_name"
+                                id="user_name"
+                                type="text"
+                                margin="normal"
+                                disabled={false}
+                                required
+                                fullWidth
+                            />
 
-                    <div className=' text-center'>
-                        <button className=' btn btn-primary btn-sm '>Verify</button>
-                    </div>
+                            <TextField
+                                label="Password"
+                                name="password"
+                                id="password"
+                                type="password"
+                                margin="normal"
+                                disabled={false}
+                                required
+                                fullWidth
+                            />
+                            <TextField
+                                label="Retype Password"
+                                name="confirm_password"
+                                id="confirm_password"
+                                type="password"
+                                margin="normal"
+                                disabled={false}
+                                required
+                                fullWidth
+                            />
+                        </>
+                        :
+                        <>
+                            <TextField
+                                label="User name"
+                                name="user_name"
+                                id="user_name"
+                                type="text"
+                                margin="normal"
+                                disabled={true}
+                                required
+                                fullWidth
+                            />
 
-                    <div className="mb-3">
-                        <label for="otp" className="form-label">OTP</label>
-                        <input type="text" name='otp' className="form-control" id="otp" placeholder='Enter OTP' required />
-                    </div>
+                            <TextField
+                                label="Password"
+                                name="password"
+                                id="password"
+                                type="password"
+                                margin="normal"
+                                disabled={true}
+                                required
+                                fullWidth
+                            />
+                            <TextField
+                                label="Retype Password"
+                                name="confirm_password"
+                                id="confirm_password"
+                                type="password"
+                                margin="normal"
+                                disabled={true}
+                                required
+                                fullWidth
+                            />
+                        </>
+                    }
 
 
-                    <div className="mb-3">
-                        <label for="user_name" className="form-label">User name</label>
-                        <input type="text" className="form-control" id="user_name" required />
-                    </div>
-
-                    <div className="mb-3">
-                        <label for="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="password" placeholder='Enter password' required />
-                    </div>
-
-                    <div className="mb-3">
-                        <label for="confirm_password" className="form-label">Retype Password</label>
-                        <input type="password" className="form-control" id="confirm_password" placeholder='Retype password' required />
-                    </div>
-
-                    <div className=' d-flex justify-between'>
+                    <div className=' d-flex justify-between mt-3'>
                         <button type="reset" className="btn btn-warning btn-sm">Reset</button>
                         <button type="submit" className="btn btn-primary btn-sm">Submit</button>
                     </div>
-                </form>
 
+                    <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
+                </form>
 
             </div>
         </div>
