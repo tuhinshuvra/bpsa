@@ -43,3 +43,28 @@ export const postFormData = async (action, formData) => {
     return error.response?.data
   }
 }
+
+
+export const postAuthFormData = async (action, formData) => {
+  try {
+    const response = await Axios.post(`${config.authServerURL}${action}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response?.data
+  } catch (error) {
+    return error.response?.data
+  }
+}
+
+export const authGetApi = async (action, url) => {
+  try {
+    let apiUrl = `${config.authServerURL}${action}`
+    const response = await Axios.get(apiUrl)
+
+    return response?.data
+  } catch (error) {
+    return error.response?.data
+  }
+}

@@ -1,10 +1,13 @@
 import { TextField } from '@mui/material';
+import axios from 'axios';
 import { BsPersonCircle } from 'react-icons/bs';
 import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import './Login.css';
+import { authPostApi } from '../../api/request';
+import { PostSignupData } from '../../api';
 
 const SignupPage = () => {
     useTitle("SignUp");
@@ -19,6 +22,8 @@ const SignupPage = () => {
     };
 
 
+
+
     // this function is used to veriry unique id
     const handleVerifyUniqueId = (event) => {
         event.preventDefault();
@@ -28,114 +33,124 @@ const SignupPage = () => {
             return;
         }
 
-        const birth_date = form.birth_date.value;
         const unique_id = form.unique_id.value;
+        console.log("unique_id : ", unique_id);
 
-        const uniqueData = {
-            birth_date: birth_date,
-            unique_id: unique_id,
-        };
-
-        fetch(`serverAddress/api/verify`, {
-            method: "POST",
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`, {
+            method: "GET",
             headers: {
                 "content-type": "application/json",
             },
-            body: JSON.stringify(uniqueData),
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log("Registered User Data :", data);
-                toast.success("OTP Send Successfully, Please check your phone for otp.");
+                // console.log("Verify unique Id", data);
+                if (data.value === 1) {
+                    // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
+                    toast.success("Unique ID Verified Successfully!");
+                    form.reset();
+                    setOtpVerified(true);
+                }
+                else {
+                    toast.error("Unique ID Verification Failed!");
+                }
 
-                form.reset();
+
                 // After successful OTP verification, set otpVerified to true
-                setOtpVerified(true);
+                // setOtpVerified(true);
             })
             .catch((error) => {
-                console.log("Error Occured: ", error.response.data);
+                console.log("Error Occurred:", error.response.data);
                 setErrorMessage(error.response.data.error);
             });
     };
 
+
     // this function is used to veriry otp during typing
-    const handleOtpTyping = (event) => {
-        const otp = event.target.value;
+    // const handleOtpTyping = (event) => {
+    //     const otp = event.target.value;
 
-        const otpData = {
-            otp: otp,
-        };
+    //     const otpData = {
+    //         otp: otp,
+    //     };
 
-        fetch(`serverAddress/api/verify-otp`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(otpData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("OTP Verification Data :", data);
-                if (data.verified) {
-                    toast.success("OTP Verified Successfully.");
-                    setOtpVerified(true); // Set otpVerified to true if OTP is verified
-                } else {
-                    toast.error("OTP Verification Failed. Please try again.");
-                    setOtpVerified(false); // Set otpVerified to false if OTP verification fails
-                }
-            })
-            .catch((error) => {
-                console.log("Error Occurred during OTP Verification: ", error);
-                toast.error("Error occurred during OTP verification. Please try again later.");
-                setOtpVerified(false); // Set otpVerified to false if OTP verification fails
-            });
-    };
+    //     fetch(`serverAddress/api/verify-otp`, {
+    //         method: "POST",
+    //         headers: {
+    //             "content-type": "application/json",
+    //         },
+    //         body: JSON.stringify(otpData),
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log("OTP Verification Data :", data);
+    //             if (data.verified) {
+    //                 toast.success("OTP Verified Successfully.");
+    //                 setOtpVerified(true); 
+    //             } else {
+    //                 toast.error("OTP Verification Failed. Please try again.");
+    //                 setOtpVerified(false); 
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log("Error Occurred during OTP Verification: ", error);
+    //             toast.error("Error occurred during OTP verification. Please try again later.");
+    //             setOtpVerified(false);
+    //         });
+    // };
 
     // this function is used to post sign up data
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.target;
+
         const fullName = form.full_name.value;
         const userName = form.user_name.value;
         const password = form.password.value;
         const retypePassword = form.confirm_password.value;
 
 
-
-        // Check if the passwords match
         if (!checkPasswordMatch(password, retypePassword)) {
-            // Passwords don't match, show an error message or take appropriate action
             setErrorMessage("Passwords do not match");
             return;
         }
 
-        const userData = {
+        const data = {
             name: fullName,
-            user_name: userName,
+            email: userName,
             password: password,
-            role: 'general',
+            password_confirmation: retypePassword,
+            // role: 'general',
         }
-        console.log("User Data", userData);
+        console.log("User Data", data);
 
-        fetch(`serverAddress/api/signup`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(userData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Registered User Data :", data);
-                toast.success("Congratulation! Member has Successfully Sign Up.");
-                form.reset();
-                navigate("/");
-            })
-            .catch(error => {
-                console.log("Error Occured: ", error.response.data)
-                setErrorMessage(error.response.data.error)
-            })
 
+
+        try {
+            const response = await fetch("https://dev.bpsa.com.bd/api/signup", {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+
+            });
+            // console.log("JSON.stringify(data)", JSON.stringify(data));
+            // console.log("response.ok", response.ok);
+
+            if (!response.ok) {
+                console.log("HTTP Status Code:", response.status);
+                throw new Error('Network response was not ok');
+            }
+
+            const responseData = await response.json();
+            console.log("Registered User Data :", responseData);
+            toast.success("Congratulation! Member has Successfully Sign Up.");
+            navigate("/login");
+        } catch (error) {
+            console.log("An error occurred:", error);
+            setErrorMessage("An error occurred while processing your request.");
+        }
     }
 
 
@@ -150,21 +165,6 @@ const SignupPage = () => {
 
 
                 <form onSubmit={handleSubmit}>
-
-                    <TextField
-                        label="Birth Date"
-                        name="birth_date"
-                        id="birth_date"
-                        type="date"
-                        margin="normal"
-
-                        fullWidth
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-
-
                     <TextField
                         label="Unique ID"
                         name="unique_id"
@@ -175,11 +175,25 @@ const SignupPage = () => {
                         fullWidth
                     />
 
+
+                    {/* <TextField
+                        label="Birth Date"
+                        name="birth_date"
+                        id="birth_date"
+                        type="date"
+                        margin="normal"
+
+                        fullWidth
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    /> */}
+
                     <div onClick={() => setEnableOtp(true)} className=' text-center'>
                         <button onClick={handleVerifyUniqueId} className=' btn btn-primary btn-sm '>Verify</button>
                     </div>
 
-                    {enableOtp ?
+                    {/* {enableOtp ?
                         <TextField
                             label="OTP"
                             name="otp"
@@ -202,7 +216,7 @@ const SignupPage = () => {
                             required
                             fullWidth
                         />
-                    }
+                    } */}
 
                     {otpVerified ?
                         <>
@@ -261,6 +275,7 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
+
                             <TextField
                                 label="User name"
                                 name="user_name"
