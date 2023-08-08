@@ -5,10 +5,10 @@ import { useEffect } from 'react';
 const MemberAllBlocks = () => {
     const [data, setData] = useState();
     const user = {
-      email: "mdraselislam1944@gmail.com",
-      password: "kax9vr2u",
+        email: "mdraselislam1944@gmail.com",
+        password: "kax9vr2u",
     };
-    
+
     return (
         <div>
             <h1 className='text-center'>My Blogs</h1>
@@ -27,13 +27,7 @@ const MemberAllBlocks = () => {
                     <img src={img}></img>
                 </div>
                 <div className='col-span-1'>
-                    <details className="dropdown mb-32">
-                        <summary className="m-1 btn btn-info">Action</summary>
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                            <li><a>Pending</a></li>
-                            <li><a>Approved</a></li>
-                        </ul>
-                    </details>
+                    <button className='btn btn-info'>pending</button>
                 </div>
             </div>
         </div>

@@ -11,8 +11,8 @@ const MemberBlockDetails = () => {
                     জঙ্গিবাদ দমনে বাংলাদেশ পুলিশের গর্বিত সদস্যদের ভুমিকা দেশে বিদেশে সমাদৃত । ২০১৬ সালে গুলশানের হলি আর্টিজান বেকারীতে জঙ্গি হামলায় ডিএমপির সহকারী পুলিশ কমিশনার রবিউল ইসলাম এবং বনানী থানার তৎকালীন অফিসার ইনচার্জ সালাউদ্দিন খান দুঃসাহসী উদ্ধার অভিযান পরিচালনা করতে গিয়ে নিহত হন।
                 </p>
                 <div className='flex justify-between items-center'>
-                    <div>
-                        <p >Blogger: Md Rasel Islam</p>
+                    <div className='flex'>
+                        <p className='mr-5'>Blogger: Md Rasel Islam</p>
                         <p>Published: 07/08/2023</p>
                     </div>
                     <div>
