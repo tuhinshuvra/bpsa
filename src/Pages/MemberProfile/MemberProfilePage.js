@@ -1,6 +1,7 @@
-import React from 'react';
 import MemberImg from '../../assets/Image/messages/President_2021_Stamp.jpg'
+import BlogImg from '../../assets/Image/blog/blog_image.png'
 import './MemberProfilePage.css';
+import { Link } from 'react-router-dom';
 
 const MemberProfilePage = () => {
 
@@ -8,182 +9,163 @@ const MemberProfilePage = () => {
         <div className=' col-md-10 mx-auto'>
 
             <section style={{ backgroundColor: "#eee" }}>
-                <div class="container py-5">
-                    <div class="row">
-                        <div class="col">
-                            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                                <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">User</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Member Profile</li>
-                                </ol>
+                <div className="container py-5">
+                    <div className="row">
+                        <div className="col">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
+                                <h3 className=' text-center'>Profile</h3>
                             </nav>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card mb-4">
-                                <div class="card-body text-center">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                                        class="rounded-circle img-fluid" style={{ width: "150px" }} />
-                                    <h5 class="my-3">John Smith</h5>
-                                    <p class="text-muted mb-1">Full Stack Developer</p>
-                                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                                    <div class="d-flex justify-content-center mb-2">
-                                        <button type="button" class="btn btn-primary">Follow</button>
-                                        <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div className="card mb-4">
+                                <div className="card-body  ">
+                                    <img src={MemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto " style={{ width: "150px" }} />
+
+                                    <div className=' text-center'>
+                                        <h6 className=" my-0">Abul Kashem(আবুল কাসেম)</h6>
+                                        <h6 className=" my-0 ">Designation : AIG</h6>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card mb-4 mb-lg-0">
-                                <div class="card-body p-0">
-                                    <ul class="list-group list-group-flush rounded-3">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                            <i class="fas fa-globe fa-lg text-warning"></i>
-                                            <p class="mb-0">https://mdbootstrap.com</p>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                            <i class="fab fa-github fa-lg" style={{ color: "#333333" }}></i>
-                                            <p class="mb-0">mdbootstrap</p>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                            <i class="fab fa-twitter fa-lg" style={{ color: "#55acee" }}></i>
-                                            <p class="mb-0">@mdbootstrap</p>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                            <i class="fab fa-instagram fa-lg" style={{ color: "#ac2bac" }}></i>
-                                            <p class="mb-0">mdbootstrap</p>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                            <i class="fab fa-facebook-f fa-lg" style={{ color: "#3b5998" }}></i>
-                                            <p class="mb-0">mdbootstrap</p>
-                                        </li>
-                                    </ul>
+                                    <div className='col-md-8 mx-auto d-flex flex-column justify-content-lg-start'>
+                                        <p className="text-muted my-0">BP/SIV No.  : BP750510460</p>
+                                        <p className="text-muted my-0">Rank        : SP</p>
+                                        <p className="text-muted my-0">Main Unit   : ABPN</p>
+                                        <p className="text-muted my-0">Unit        : CTSB</p>
+                                        <p className="text-muted my-0">BCS Batch   : 23</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Full Name</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">Johnatan Smith</p>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Email</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">example@example.com</p>
+                        <div className="col-lg-8">
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="card mb-4 mb-md-0">
+                                        <div className="card-body">
+                                            <p className="mb-4">Father’s Name : Abbas Uddin</p>
+                                            <p className="mb-4">Mother’s Name: Momena Khatun</p>
+                                            <p className="mb-4">DOB          : 15/06/1987</p>
+                                            <p className="mb-4">Religion     : Islam</p>
+                                            <p className="mb-4">Religion     : Islam</p>
+                                            <p className="mb-4">Blood Group    : O- </p>
                                         </div>
                                     </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Phone</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">(097) 234-5678</p>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Mobile</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">(098) 765-4321</p>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Address</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="card mb-4 mb-md-0">
+                                        <div className="card-body">
+                                            <p className="mb-4">Marital Status : Married</p>
+                                            <p className="mb-4">Own District   : Sylhet</p>
+                                            <p className="mb-4">Mobile no      : 01234567890</p>
+                                            <p className="mb-4">Phone no(govt) : 012345634324</p>
+                                            <p className="mb-4">Highest Degree : MSC in Mathematics</p>
+                                            <p className="mb-4">Prize Achieve  : 5</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card mb-4 mb-md-0">
-                                        <div class="card-body">
-                                            <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                                            </p>
-                                            <p class="mb-1" style={{ fontSize: ".77rem" }}>Web Design</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                                            <div class="progress rounded mb-2" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row mt-5 mb-2">
+                        <div className="col">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
+                                <h5 className=' text-center'>My Blogs</h5>
+                            </nav>
+                        </div>
+                    </div>
+                    {/* member all blog */}
+
+                    <div>
+                        <div className="card my-1"  >
+                            <div className="d-flex ">
+                                <div className="col-md-9">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Blog title</h5>
+                                        <p className="card-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, molestias itaque, porro a, fugiat eaque soluta repellendus earum quasi odit blanditiis explicabo ratione sed dolorum!    </p>
+                                        <div className=' col-md-5 me-auto d-flex'>
+
+                                            <p className="card-text"><small className="text-body-secondary"> <b> Blogger:</b> Abul Kashem </small></p>
+                                            <p className="card-text"><small className="text-body-secondary"> <b> Published:</b> 2023/08/12</small></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="card mb-4 mb-md-0">
-                                        <div class="card-body">
-                                            <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                                            </p>
-                                            <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                                            <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                                            <div class="progress rounded mb-2" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                <div className="col-md-2 my-auto">
+                                    <img src={BlogImg} className="memberBlogImg rounded-lg" alt="..." />
+                                </div>
+                                <div className="col-md-1 my-auto">
+                                    <p className=' fw-bold '>Approved</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card my-1"  >
+                            <div className="d-flex ">
+                                <div className="col-md-9">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Blog title</h5>
+                                        <p className="card-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, molestias itaque, porro a, fugiat eaque soluta repellendus earum quasi odit blanditiis explicabo ratione sed dolorum!    </p>
+                                        <div className=' col-md-5 me-auto d-flex'>
+
+                                            <p className="card-text"><small className="text-body-secondary"> <b> Blogger:</b> Abul Kashem </small></p>
+                                            <p className="card-text"><small className="text-body-secondary"> <b> Published:</b> 2023/08/12</small></p>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="col-md-2 my-auto">
+                                    <img src={BlogImg} className="memberBlogImg rounded-lg" alt="..." />
+                                </div>
+                                <div className="col-md-1 my-auto">
+                                    <p className=' fw-bold '>Approved</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card my-1"  >
+                            <div className="d-flex ">
+                                <div className="col-md-9">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Blog title</h5>
+                                        <p className="card-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, molestias itaque, porro a, fugiat eaque soluta repellendus earum quasi odit blanditiis explicabo ratione sed dolorum!    </p>
+                                        <div className=' col-md-5 me-auto d-flex'>
+
+                                            <p className="card-text"><small className="text-body-secondary"> <b> Blogger:</b> Abul Kashem </small></p>
+                                            <p className="card-text"><small className="text-body-secondary"> <b> Published:</b> 2023/08/12</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-2 my-auto">
+                                    <img src={BlogImg} className="memberBlogImg rounded-lg" alt="..." />
+                                </div>
+                                <div className="col-md-1 my-auto">
+                                    <p className=' fw-bold '>Approved</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* pagination */}
+                <div className=' d-flex justify-content-center'>
+
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <Link class="page-link">Previous</Link>
+                            </li>
+                            <li class="page-item"><Link class="page-link" href="#">1</Link></li>
+                            <li class="page-item active" aria-current="page">
+                                <Link class="page-link" href="#">2</Link>
+                            </li>
+                            <li class="page-item"><Link class="page-link" href="#">3</Link></li>
+                            <li class="page-item">
+                                <Link class="page-link" href="#">Next</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </section>
+
 
 
         </div>
