@@ -40,8 +40,8 @@ const EntryBlog = () => {
             {/* video url we can be entry */}
             {/* <input type='text' name='block_video' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter blog video url'></input><br/> */}
           <div className='flex justify-around mx-[22vw] mt-2 mb-5'>
-          <input className='btn btn-info w-full max-w-[10vw]' type="reset" value="reset"/>
-          <input  className='btn btn-info w-full max-w-[10vw] ' type="submit" value="submit"/>
+          <input className='btn btn-info lg:w-full  lg:max-w-[10vw]' type="reset" value="reset"/>
+          <input  className='btn btn-info lg:w-full lg:max-w-[10vw] ' type="submit" value="submit"/>
           </div>
            </form>
         </div>
