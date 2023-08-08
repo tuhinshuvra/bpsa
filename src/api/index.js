@@ -1,4 +1,4 @@
-import { getApi, postApi, postAuthFormData } from "./request";
+import { getApi, postApi, authPostApi } from "./request";
 
 //home page
 export const GetHomeSlider = () => getApi("api/slider");
@@ -42,5 +42,5 @@ export const GetLeadershipData = () => getApi("api/leadership ");
 export const GetMessageDetails = (id) => getApi(`api/get_massege/${id}`);
 
 //Authentication
-export const PostSignupData = (data) => postAuthFormData("api/signup", data);
-export const PostLoginData = (data) => postAuthFormData("api/login", data);
+export const PostSignupData = (data) => authPostApi("api/signup", data);
+export const PostLoginData = (data) => authPostApi("api/login", data);

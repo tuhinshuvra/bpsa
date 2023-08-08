@@ -19,6 +19,8 @@ import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import LoginPage from "./Pages/Authentication/LoginPage";
 import ForgotPassword from "./Pages/Authentication/ForgotPassword";
+import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
+import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
 
 export default function App() {
   return (
@@ -39,6 +41,8 @@ export default function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
+        <Route path="/memberProfile" element={<MemberProfilePage />} />
+        <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
       </Routes>
       <Footer />
     </div>

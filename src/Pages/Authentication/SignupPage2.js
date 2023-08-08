@@ -1,13 +1,15 @@
 import { TextField } from '@mui/material';
+import axios from 'axios';
 import { BsPersonCircle } from 'react-icons/bs';
 import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { PostSignupData } from '../../api';
 import './Login.css';
+import { authPostApi } from '../../api/request';
+import { PostSignupData } from '../../api';
 
-const SignupPage = () => {
+const SignupPage2 = () => {
     useTitle("SignUp");
     const [enableOtp, setEnableOtp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -30,7 +32,7 @@ const SignupPage = () => {
         }
 
         const unique_id = form.unique_id.value;
-        // console.log("unique_id : ", unique_id);
+        console.log("unique_id : ", unique_id);
 
         fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`, {
             method: "GET",
@@ -60,6 +62,7 @@ const SignupPage = () => {
                 setErrorMessage(error.response.data.error);
             });
     };
+
 
     // this function is used to veriry otp during typing
     // const handleOtpTyping = (event) => {
@@ -94,9 +97,6 @@ const SignupPage = () => {
     //         });
     // };
 
-
-
-
     // this function is used to post sign up data
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -107,26 +107,49 @@ const SignupPage = () => {
         const password = form.password.value;
         const retypePassword = form.confirm_password.value;
 
-        let data = {
+
+        if (!checkPasswordMatch(password, retypePassword)) {
+            setErrorMessage("Passwords do not match");
+            return;
+        }
+
+        const data = {
             name: fullName,
             email: userName,
             password: password,
-            confirm_password: retypePassword,
-        };
+            password_confirmation: retypePassword,
+            // role: 'general',
+        }
+        console.log("User Data", data);
 
-        console.log("Signup Data: ", data);
+
 
         try {
-            const result = await PostSignupData(data);
+            const response = await fetch("https://dev.bpsa.com.bd/api/signup", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
 
-            console.log(result?.status);
-            if (result?.status === "success") {
-                toast.success(result?.massege);
+            });
+            // console.log("JSON.stringify(data)", JSON.stringify(data));
+            // console.log("response.ok", response.ok);
+
+            if (!response.ok) {
+                console.log("HTTP Status Code:", response.status);
+                throw new Error('Network response was not ok');
             }
+
+            const responseData = await response.json();
+            console.log("Registered User Data :", responseData);
+            toast.success("Congratulation! Member has Successfully Sign Up.");
+            navigate("/login");
         } catch (error) {
-            console.log(error);
+            console.log("An error occurred:", error);
+            setErrorMessage("An error occurred while processing your request.");
         }
-    };
+    }
 
 
     return (
@@ -137,6 +160,7 @@ const SignupPage = () => {
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
+
 
                 <form onSubmit={handleSubmit}>
                     <TextField
@@ -299,4 +323,4 @@ const SignupPage = () => {
     );
 };
 
-export default SignupPage;
+export default SignupPage2;
