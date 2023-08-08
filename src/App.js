@@ -17,10 +17,9 @@ import SignupPage from "./Pages/Authentication/SignupPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
-import LoginPage from "./Pages/Authentication/LoginPage";
-import ForgotPassword from "./Pages/Authentication/ForgotPassword";
-import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
-import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
+import EntryBlog from "./Pages/Blogs/EntryBlog";
+import BlogDetails from "./Pages/Blogs/BlogDetails";
+import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 export default function App() {
   return (
@@ -43,6 +42,9 @@ export default function App() {
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
+        <Route path="/block_entry" element={<EntryBlog/>} />
+        <Route path="/block_det" element={<BlogDetails/>} />
+        <Route path="/member_block_details" element={<MemberBlockDetails/>}/>
       </Routes>
       <Footer />
     </div>
