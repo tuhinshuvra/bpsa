@@ -23,6 +23,8 @@ const ContactComponent = () => {
       subject,
     };
 
+    // console.log("Contact Data: ", data);
+
     try {
       const result = await PostContactData(data);
 

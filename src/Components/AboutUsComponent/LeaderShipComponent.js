@@ -17,7 +17,7 @@ import ImageComponent from "../Common/ImageComponent";
 import { FbIcon, LinkedInIcon, TwitterIcon } from "../../utlis/icons";
 import img1 from "../../assets/Image/messages/IGP_Image.jpeg";
 import img2 from "../../assets/Image/messages/President_2021_Stamp.jpg";
-import img3 from "../../assets/Image/messages/আসাদুজ্জামান.jpg";
+import img3 from "../../assets/Image/messages/assaduzzaman.jpg";
 import { GetLeadershipData } from "../../api";
 
 const LeaderShipComponent = () => {

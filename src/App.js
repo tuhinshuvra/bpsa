@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  BrowserRouter,
-  Routes,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, BrowserRouter, Routes, } from "react-router-dom";
 import { ProtectedRoute } from "./Components/Common/ProtectedRoute";
 import Navbar from "./Components/Navbar/Navbar";
 import HomePage from "./Pages/HomePage";
@@ -19,7 +13,7 @@ import GalleryPage from "./Pages/GalleryPage";
 import CommitteePage from "./Pages/CommitteePage";
 import NewsPage from "./Pages/NewsPage";
 import { Toaster } from "react-hot-toast";
-import LoginPage from "./Pages/LoginPage";
+import SignupPage from "./Pages/Authentication/SignupPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
@@ -41,9 +35,13 @@ export default function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/committee" element={<CommitteePage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
+        <Route path="/memberProfile" element={<MemberProfilePage />} />
+        <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
         <Route path="/block_entry" element={<EntryBlog/>} />
         <Route path="/block_det" element={<BlogDetails/>} />
         <Route path="/member_block_details" element={<MemberBlockDetails/>}/>
