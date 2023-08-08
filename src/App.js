@@ -23,6 +23,7 @@ import LoginPage from "./Pages/LoginPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
+import EntryBlog from "./Pages/Blogs/EntryBlog";
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
+        <Route path="/block_entry" element={<EntryBlog/>} />
       </Routes>
       <Footer />
     </div>
