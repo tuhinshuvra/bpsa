@@ -18,8 +18,8 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
-import BlogDetails from "./Pages/Blogs/BlogDetails";
 import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
+ 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
@@ -44,6 +44,7 @@ export default function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
+ 
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
         <Route path="/block_entry" element={<EntryBlog />} />
