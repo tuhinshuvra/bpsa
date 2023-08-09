@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import img1 from "../../assets/Image/messages/President_2021_Stamp.jpg";
-import img2 from "../../assets/Image/messages/আসাদুজ্জামান.jpg";
+import img2 from "../../assets/Image/messages/assaduzzaman.jpg";
 import img3 from "../../assets/Image/messages/IGP_Image.jpeg";
 import ImageComponent from "../Common/ImageComponent";
 import { GetMessageDetails } from "../../api";
