@@ -4,7 +4,6 @@ import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { PostSignupData } from '../../api';
 import './Login.css';
 
 const SignupPage = () => {
@@ -98,35 +97,45 @@ const SignupPage = () => {
 
 
     // this function is used to post sign up data
-    const handleSubmit = async (event) => {
+
+    const handleOnSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
 
         const fullName = form.full_name.value;
-        const userName = form.user_name.value;
+        const email = form.user_name.value;
         const password = form.password.value;
-        const retypePassword = form.confirm_password.value;
+        const confirmPassword = form.confirm_password.value;
 
-        let data = {
+        const userData = {
             name: fullName,
-            email: userName,
+            email: email,
             password: password,
-            confirm_password: retypePassword,
-        };
-
-        console.log("Signup Data: ", data);
-
-        try {
-            const result = await PostSignupData(data);
-
-            console.log(result?.status);
-            if (result?.status === "success") {
-                toast.success(result?.massege);
-            }
-        } catch (error) {
-            console.log(error);
+            password_confirmation: confirmPassword,
         }
-    };
+        console.log("userData : ", userData);
+
+        fetch(`https://dev.bpsa.com.bd/api/signup`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Registerd User Data : ', data);
+                if (data) {
+                    form.reset()
+                    toast.success('Congratulation! User created successfully.')
+                }
+
+            })
+            .catch(error => {
+                console.log("Error Occured: ", error.response.data)
+                setErrorMessage(error.response.data.error)
+            })
+    }
 
 
     return (
@@ -138,7 +147,7 @@ const SignupPage = () => {
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleOnSubmit}>
                     <TextField
                         label="Unique ID"
                         name="unique_id"
