@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
 import logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
 import Styles from "./Navbar.module.css";
+import { useContext } from "react";
+import { AllContext } from "../../hooks/ContextData";
+import { signout } from "../../utlis/helper";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
   const location = useLocation();
+  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
 
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -43,15 +48,23 @@ const Navbar = () => {
     }
   }, [lastScrollY]);
 
+
+  const handleSignOut = () => {
+    signout(() => {
+      setUser("");
+      toast.success('User Logout Successfully')
+      navigate("/login")
+    })
+  }
+
   return (
     <div style={{ zIndex: 999 }} className="sticky top-0">
       <div className="hidden md:block">
         <div
-          className={`flex items-center justify-between ${
-            location?.pathname === "/"
-              ? `${navColor ? "bg-main" : "bg-transparent"}`
-              : "bg-main"
-          }  px-20 py-2`}
+          className={`flex items-center justify-between ${location?.pathname === "/"
+            ? `${navColor ? "bg-main" : "bg-transparent"}`
+            : "bg-main"
+            }  px-20 py-2`}
         >
           <div
             onClick={() => {
@@ -144,23 +157,40 @@ const Navbar = () => {
               Contact
             </NavLink>
           </div>
-          <div
-            onClick={() => {
-              navigate("/login");
-            }}
-            className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 "
-          >
-            {" "}
-            <UsersIcon size={24} className="mr-2" />{" "}
-            <ButtonComponent title="Member Login" className=" " />
-          </div>
+
+          {user?.email ?
+            <>
+              <div className=" bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 " >{user?.name}</div>
+              {/* <div className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 " >Blog</div> */}
+              <div onClick={handleSignOut} className=" bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 ">Sign Out</div>
+            </>
+            :
+            <>
+              <div onClick={() => { navigate("/login"); }}
+                className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 "
+              >
+                <UsersIcon size={24} className="mr-2" />{" "}
+                <ButtonComponent title="Member Login" className=" " />
+              </div>
+            </>
+          }
+
+
+
+
+
+
+
+
+
+
         </div>
+
       </div>
 
       <div
-        className={`md:hidden flex items-center justify-between ${
-          navColor ? "bg-main" : "bg-transparent"
-        }  px-1 py-2`}
+        className={`md:hidden flex items-center justify-between ${navColor ? "bg-main" : "bg-transparent"
+          }  px-1 py-2`}
       >
         <div className="">
           <MobileMenu />
@@ -183,6 +213,7 @@ const Navbar = () => {
             className="bg-second rounded-md px-3 py-2 text-white mr-4"
           />
         </div>
+
       </div>
     </div>
   );
