@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import './Login.css';
 
 const SignupPage = () => {
+
     useTitle("SignUp");
     const [enableOtp, setEnableOtp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");

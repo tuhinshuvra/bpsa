@@ -12,7 +12,7 @@ import "./Login.css";
 
 const LoginPage = () => {
   useTitle("Login");
-  const { user, setUser, userDetails, setUserDetails, isLoading, setIsLoading, authError, setAuthError, authSuccess, setAuthSuccess } = useContext(AllContext);
+  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
   const [loginData, setLoginData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordAllert, setPasswordAllert] = useState("");
@@ -37,6 +37,7 @@ const LoginPage = () => {
     console.log("loginData : ", loginData);
 
 
+
     //password validation by some condition
     if (password === undefined || email === undefined) {
       setErrorMessage("please fill the form");
@@ -48,7 +49,7 @@ const LoginPage = () => {
 
     axios({
       method: "POST",
-      url: `serveradddress/api/signin`,
+      url: `https://dev.bpsa.com.bd/api/login`,
       data: { email, password },
     })
       .then((response) => {
@@ -60,7 +61,8 @@ const LoginPage = () => {
           if (user.email) {
             toast.success('The User Successfully Logged In')
           }
-          setIsLoading(false);
+          console.log("Logged in UserName:", user.name)
+          setLoading(false);
           navigate("/", { replace: true });
           console.log("cookie local save ", isAuth());
         });
@@ -85,9 +87,9 @@ const LoginPage = () => {
         <form onSubmit={handleLogin}>
           <TextField
             onBlur={handleOnBlur}
-            label="User name"
-            name="user_name"
-            id="user_name"
+            label="User Name"
+            name="email"
+            id="email"
             type="text"
             margin="normal"
             required
