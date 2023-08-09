@@ -47,9 +47,9 @@ export default function App() {
  
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
-        <Route path="/block_entry" element={<EntryBlog />} />
-        <Route path="/block_det" element={<BlogDetails />} />
-        <Route path="/member_block_details" element={<MemberBlockDetails />} />
+        <Route path="/blog_entry" element={<EntryBlog />} />
+        <Route path="/blog_det" element={<BlogDetails />} />
+        <Route path="/member_blog_details" element={<MemberBlockDetails />} />
       </Routes>
       <Footer />
     </div>
