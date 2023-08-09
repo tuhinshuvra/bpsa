@@ -1,6 +1,7 @@
 import React from 'react';
 import img from "../Blogs/s1.jpg"
 const MemberBlockDetails = () => {
+    
     return (
         <div>
             <h1 className=' mt-3 text-center'>Exploring the Fascinating World of Artificial Intelligence</h1>
