@@ -47,7 +47,7 @@ export default function App() {
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
         <Route path="/block_entry" element={<EntryBlog/>} />
         <Route path="/admin_all_blocks" element={<AdminAllBlocks/>}/>
-        <Route path="/member_block_details" element={<MemberBlockDetails/>}/>
+        <Route path="/member_block_details/:id" element={<MemberBlockDetails/>}/>
         <Route path="/member_all_blocks" element={<MemberAllBlocks/>}/>
       </Routes>
       <Footer />

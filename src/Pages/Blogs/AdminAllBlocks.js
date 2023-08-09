@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import img from "../Blogs/s1.jpg";
+import { Link } from 'react-router-dom';
 
 const AdminAllBlocks = () => {
     let count=1;
@@ -54,6 +55,7 @@ const AdminAllBlocks = () => {
                                         <li><a>Disabled</a></li>
                                     </ul>
                                 </details>
+                                <Link to={`/member_block_details/${blog.id}`} className='btn btn-info'>details</Link>
                                 <p className='mt-5'>Published: 07/08/2023</p>
                             </div>
                         </div>
