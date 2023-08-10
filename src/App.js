@@ -45,6 +45,7 @@ export default function App() {
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
  
+ 
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
         <Route path="/blog_entry" element={<EntryBlog />} />

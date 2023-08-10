@@ -1,14 +1,10 @@
 import React from 'react';
 import img from "../Blogs/s1.jpg";
-import { useState } from 'react';
-import { useEffect } from 'react';
 const MemberAllBlocks = () => {
-    const [data, setData] = useState();
     const user = {
         email: "mdraselislam1944@gmail.com",
         password: "kax9vr2u",
     };
-
     return (
         <div>
             <h1 className='text-center'>My Blogs</h1>
