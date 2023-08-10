@@ -1,0 +1,28 @@
+.proCartBody {
+    min-height: 360px;
+}
+
+.proCartBody:hover {
+    background-color: rgb(235, 238, 243);
+}
+
+.memberProfileImg {
+    width: 200px;
+}
+
+.memberBlogImg {
+    width: 160px;
+}
+
+.memberProFont {
+    font-size: 15px;
+    line-height: 1.1;
+}
+
+.blogArea {
+    /* background-color: aliceblue; */
+}
+
+.blogArea:hover {
+    background-color: rgb(235, 238, 243);
+}

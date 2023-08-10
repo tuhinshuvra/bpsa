@@ -12,7 +12,7 @@ const Loader = () => {
           radius="9"
           ariaLabel="three-dots-loading"
           wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
+          wrapperclassName="dna-wrapper"
           color="#009688"
         />
       </div>

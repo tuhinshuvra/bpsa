@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  BrowserRouter,
-  Routes,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, BrowserRouter, Routes, } from "react-router-dom";
 import { ProtectedRoute } from "./Components/Common/ProtectedRoute";
 import Navbar from "./Components/Navbar/Navbar";
 import HomePage from "./Pages/HomePage";
@@ -19,14 +13,17 @@ import GalleryPage from "./Pages/GalleryPage";
 import CommitteePage from "./Pages/CommitteePage";
 import NewsPage from "./Pages/NewsPage";
 import { Toaster } from "react-hot-toast";
-import LoginPage from "./Pages/LoginPage";
+import SignupPage from "./Pages/Authentication/SignupPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
 import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
-import MemberAllBlocks from "./Pages/Blogs/MemberAllBlocks";
-import AdminAllBlocks from "./Pages/Blogs/AdminAllBlocks";
+ 
+import LoginPage from "./Pages/Authentication/LoginPage";
+import ForgotPassword from "./Pages/Authentication/ForgotPassword";
+import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
+import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
 
 export default function App() {
   return (
@@ -42,13 +39,18 @@ export default function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/committee" element={<CommitteePage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
-        <Route path="/block_entry" element={<EntryBlog/>} />
-        <Route path="/admin_all_blocks" element={<AdminAllBlocks/>}/>
-        <Route path="/member_block_details/:id" element={<MemberBlockDetails/>}/>
-        <Route path="/member_all_blocks" element={<MemberAllBlocks/>}/>
+ 
+ 
+        <Route path="/memberProfile" element={<MemberProfilePage />} />
+        <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
+        <Route path="/blog_entry" element={<EntryBlog />} />
+        <Route path="/blog_det" element={<BlogDetails />} />
+        <Route path="/member_blog_details" element={<MemberBlockDetails />} />
       </Routes>
       <Footer />
     </div>
