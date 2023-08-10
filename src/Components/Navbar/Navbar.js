@@ -18,6 +18,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
+  const [showSignOut, setShowSignOut] = useState(false);
   const [navColor, setNavColor] = useState("");
 
   const controlNavbar = () => {
@@ -158,30 +159,48 @@ const Navbar = () => {
             </NavLink>
           </div>
 
-          {user?.email ?
+
+          {user?.email
+            ?
             <>
-              <div className=" bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 " >{user?.name}</div>
-              {/* <div className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 " >Blog</div> */}
-              <div onClick={handleSignOut} className=" bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 ">Sign Out</div>
+              <div class="dropdown">
+                <Link
+                  className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle nav_btn"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {user?.name}
+                </Link>
+                <ul class="dropdown-menu">
+                  <li><Link class="btn btn-secondary btn-sm w-full" to="/memberProfile">Profile</Link></li>
+                  <li>
+                    <Link class="btn btn-secondary  btn-sm w-full my-1" to="/profile">Blog</Link>
+                  </li>
+                  <li>
+                    <div
+                      onClick={handleSignOut}
+                      className="btn btn-warning  btn-sm w-full"
+                    >
+                      Sign Out
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </>
             :
             <>
-              <div onClick={() => { navigate("/login"); }}
-                className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 "
+              <div
+                onClick={() => {
+                  navigate("/login");
+                }}
+                className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 cursor-pointer"
               >
-                <UsersIcon size={24} className="mr-2" />{" "}
-                <ButtonComponent title="Member Login" className=" " />
+                <UsersIcon size={24} className="mr-2" />
+                <ButtonComponent title="Member Login" className="" />
               </div>
-            </>
-          }
 
 
-
-
-
-
-
-
+            </>}
 
 
         </div>
