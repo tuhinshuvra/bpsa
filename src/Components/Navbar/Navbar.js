@@ -172,9 +172,9 @@ const Navbar = () => {
                   {user?.name}
                 </Link>
                 <ul class="dropdown-menu">
-                  <li><Link class="btn btn-secondary btn-sm w-full" to="/memberProfile">Profile</Link></li>
+                  <li><Link class="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
                   <li>
-                    <Link class="btn btn-secondary  btn-sm w-full my-1" to="/profile">Blog</Link>
+                    <Link class="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link>
                   </li>
                   <li>
                     <div

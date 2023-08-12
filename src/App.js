@@ -19,14 +19,14 @@ import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
  
+import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
+
 import LoginPage from "./Pages/Authentication/LoginPage";
-import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
 import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
-import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
-import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
-import MemberAllBlog from "./Pages/Blogs/MemberAllBlog";
-import UpdateBlog from "./Pages/Blogs/UpdateBlog";
+ 
+ 
+import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 
 export default function App() {
   return (
@@ -44,19 +44,18 @@ export default function App() {
         <Route path="/news" element={<NewsPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/forgotpassword" element={<ForgetPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
- 
- 
+
+
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
 
         <Route path="/blog_entry" element={<EntryBlog />} />
-        <Route path="/blog_details/:id" element={<MemberBlogDetails />} />
-        <Route path="/adminAllBlog" element={<AdminAllBlog/>}/>
-        <Route path="/memberAllBlog" element={<MemberAllBlog/>}/>
-        <Route path="/updateBlog/:id" element={<UpdateBlog/>}/>
+ 
+
+        <Route path="/member_blog_details" element={<MemberBlockDetails />} />
       </Routes>
       <Footer />
     </div>
