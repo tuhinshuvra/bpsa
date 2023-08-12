@@ -15,19 +15,36 @@ const LoginPage = () => {
   const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
   const [loginData, setLoginData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-  const [passwordAllert, setPasswordAllert] = useState("");
+  const [resetPassword, setResetPassword] = useState(false);
+
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  // const handleOnBlur = (event) => {
+  //   const field = event.target.name;
+  //   const value = event.target.value;
+
+  //   const newLoginData = { ...loginData }
+  //   newLoginData[field] = value;
+  //   setLoginData(newLoginData);
+  // }
 
   const handleOnBlur = (event) => {
     const field = event.target.name;
     const value = event.target.value;
 
-    const newLoginData = { ...loginData }
+    const newLoginData = { ...loginData };
     newLoginData[field] = value;
     setLoginData(newLoginData);
-  }
+
+    if (field === 'email') {
+      setResetPassword(!!value); // Set resetPassword to true if value is truthy (email is filled)
+    }
+  };
+
+
+
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -39,13 +56,13 @@ const LoginPage = () => {
 
 
     //password validation by some condition
-    if (password === undefined || email === undefined) {
-      setErrorMessage("please fill the form");
-    } else if (password.length < 8) {
-      setPasswordAllert("Password must be minimum 8 characters");
-    } else if (password.length > 8) {
-      setPasswordAllert("");
-    }
+    // if (password === undefined || email === undefined) {
+    //   setErrorMessage("please fill the form");
+    // } else if (password.length < 8) {
+    //   setPasswordAllert("Password must be minimum 8 characters");
+    // } else if (password.length > 8) {
+    //   setPasswordAllert("");
+    // }
 
     axios({
       method: "POST",
@@ -112,7 +129,7 @@ const LoginPage = () => {
 
           <div className=' d-flex justify-content-between my-2'>
 
-            <Link to="/forgotpassword" variant="body2">
+            <Link to="/forgotpassword" variant="body2" disabled={!resetPassword}>
               Forgot password?
             </Link>
 

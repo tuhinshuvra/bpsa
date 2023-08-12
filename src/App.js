@@ -21,9 +21,9 @@ import EntryBlog from "./Pages/Blogs/EntryBlog";
 import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
-import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
 import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
+import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 
 export default function App() {
   return (
@@ -41,7 +41,7 @@ export default function App() {
         <Route path="/news" element={<NewsPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/forgotpassword" element={<ForgetPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
 
