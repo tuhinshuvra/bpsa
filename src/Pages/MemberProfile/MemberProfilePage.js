@@ -5,6 +5,10 @@ import './MemberProfilePage.css';
 
 const MemberProfilePage = () => {
 
+    const handleUploadProfileImage = () => {
+        console.log("Profile Image uploaded");
+    }
+
     return (
         <div className=' col-md-10 mx-auto'>
 
@@ -20,9 +24,13 @@ const MemberProfilePage = () => {
 
                     <div className="row">
                         <div className="col-lg-4">
-                            <div className="card  proCartBody shadow-lg ">
-                                <div className=" card-body   ">
+                            <div className="card  proCartBody shadow-lg">
+                                <div className="card-body">
                                     <img src={MemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg " style={{ width: "150px" }} />
+
+                                    <div className=' text-center'>
+                                        <Link className=' btn btn-sm btn-primary w-50' onClick={handleUploadProfileImage} >Image Upload</Link>
+                                    </div>
 
                                     <div className=' text-center'>
                                         <h6 className="my-0">Abul Kashem(আবুল কাসেম)</h6>
@@ -69,6 +77,12 @@ const MemberProfilePage = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div className=' d-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <Link className=' text-white btn btn-sm btn-primary' to="/memberProfileUpdate" >Enter Co Curricular Activities</Link>
+                    </div>
+
+
 
                     <div className="row mt-5 mb-2">
                         <div className="col">
