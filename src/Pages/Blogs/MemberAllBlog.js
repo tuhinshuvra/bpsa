@@ -1,6 +1,6 @@
 import React from 'react';
 import img from "../Blogs/s1.jpg";
-const MemberAllBlocks = () => {
+const MemberAllBlog = () => {
     const user = {
         email: "mdraselislam1944@gmail.com",
         password: "kax9vr2u",
@@ -30,4 +30,4 @@ const MemberAllBlocks = () => {
     );
 };
 
-export default MemberAllBlocks;
+export default MemberAllBlog;

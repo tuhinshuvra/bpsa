@@ -1,6 +1,11 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AllContext } from '../../hooks/ContextData';
 const EntryBlog = () => {
+  const {user}=useContext(AllContext);
 
+  console.log(user);
+  
   const handleBlock = async (event) => {
     event.preventDefault();
     const form = event.target;
