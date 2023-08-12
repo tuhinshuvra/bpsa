@@ -44,7 +44,7 @@ const SignupPage = () => {
                 if (data.value === 1) {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
-                    form.reset();
+                    // form.reset();
                     setOtpVerified(true);
                 }
                 else {
@@ -110,7 +110,7 @@ const SignupPage = () => {
     const handleOnSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-
+        const uniqueId = form.unique_id.value;
         const fullName = form.full_name.value;
         const email = form.user_name.value;
         const password = form.password.value;
@@ -121,6 +121,7 @@ const SignupPage = () => {
             email: email,
             password: password,
             password_confirmation: confirmPassword,
+            UniqueID: uniqueId,
         }
         console.log("userData : ", userData);
 
