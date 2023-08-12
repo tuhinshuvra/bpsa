@@ -18,11 +18,13 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
+ 
 import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
 import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
+ 
 import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 
 export default function App() {
@@ -48,7 +50,9 @@ export default function App() {
 
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
+
         <Route path="/blog_entry" element={<EntryBlog />} />
+
         <Route path="/member_blog_details" element={<MemberBlockDetails />} />
       </Routes>
       <Footer />

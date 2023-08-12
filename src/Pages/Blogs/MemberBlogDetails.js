@@ -3,7 +3,7 @@ import img from "../Blogs/s1.jpg"
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-const MemberBlockDetails = () => {
+const MemberBlogDetails = () => {
     const { id } = useParams();
     const [blog, setBlogs] = useState([]);
     useEffect(() => {
@@ -45,4 +45,4 @@ const MemberBlockDetails = () => {
     );
 };
 
-export default MemberBlockDetails; 
+export default MemberBlogDetails; 

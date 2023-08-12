@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import img from "../Blogs/s1.jpg";
 import { Link } from 'react-router-dom';
 
-const AdminAllBlocks = () => {
+const AdminAllBlog = () => {
     let count=1;
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
@@ -66,4 +66,4 @@ const AdminAllBlocks = () => {
     );
 };
 
-export default AdminAllBlocks;
+export default AdminAllBlog;
