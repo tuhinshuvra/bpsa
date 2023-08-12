@@ -26,6 +26,7 @@ import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePa
 import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
 import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
 import MemberAllBlog from "./Pages/Blogs/MemberAllBlog";
+import UpdateBlog from "./Pages/Blogs/UpdateBlog";
 
 export default function App() {
   return (
@@ -52,9 +53,10 @@ export default function App() {
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
 
         <Route path="/blog_entry" element={<EntryBlog />} />
-        <Route path="/member_blog_details" element={<MemberBlogDetails />} />
+        <Route path="/blog_details/:id" element={<MemberBlogDetails />} />
         <Route path="/adminAllBlog" element={<AdminAllBlog/>}/>
         <Route path="/memberAllBlog" element={<MemberAllBlog/>}/>
+        <Route path="/updateBlog/:id" element={<UpdateBlog/>}/>
       </Routes>
       <Footer />
     </div>
