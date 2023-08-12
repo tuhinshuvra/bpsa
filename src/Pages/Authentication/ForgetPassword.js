@@ -1,17 +1,20 @@
 import { TextField } from '@mui/material';
-import { BsPersonCircle } from 'react-icons/bs';
+import { MdOutlineLockReset } from "react-icons/md";
 import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import './Login.css';
 
-const SignupPage = () => {
-    useTitle("SignUp");
+const ForgetPassword = () => {
 
+    useTitle("passwordReset");
     const [enableOtp, setEnableOtp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
+
+
+
 
     const navigate = useNavigate();
 
@@ -95,36 +98,24 @@ const SignupPage = () => {
     // };
 
 
-    //password validation by some condition
-    //    if (password === undefined || email === undefined) {
-    //     setErrorMessage("please fill the form");
-    //   } else if (password.length < 8) {
-    //     setPasswordAllert("Password must be minimum 8 characters");
-    //   } else if (password.length > 8) {
-    //     setPasswordAllert("");
-    //   }
-
 
 
     // this function is used to post sign up data
+
     const handleOnSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
 
-        const fullName = form.full_name.value;
-        const email = form.user_name.value;
         const password = form.password.value;
-        const confirmPassword = form.confirm_password.value;
+        // const confirmPassword = form.confirm_password.value;
 
         const userData = {
-            name: fullName,
-            email: email,
-            password: password,
-            password_confirmation: confirmPassword,
+            Newpassword: password,
+            // password_confirmation: confirmPassword,
         }
         console.log("userData : ", userData);
 
-        fetch(`https://dev.bpsa.com.bd/api/signup`, {
+        fetch(`http://dev.bpsa.com.bd/api/change-password`, {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -133,10 +124,10 @@ const SignupPage = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Registerd User Data : ', data);
+                console.log('Reseted Password Data : ', data);
                 if (data) {
                     form.reset()
-                    toast.success('Congratulation! User created successfully.')
+                    toast.success('Congratulation! Password updated successfully.')
                 }
 
             })
@@ -152,8 +143,8 @@ const SignupPage = () => {
             <div className=' col-lg-4 col-md-6 mx-auto'>
 
                 <div className=' d-flex flex-column align-items-center'>
-                    <BsPersonCircle className='signup_person'></BsPersonCircle>
-                    <h2 className=' text-center fs-3'>Sign up</h2>
+                    <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
+                    <h2 className=' text-center fs-3'>Password Reset</h2>
                 </div>
 
                 <form onSubmit={handleOnSubmit}>
@@ -213,28 +204,6 @@ const SignupPage = () => {
                     {otpVerified ?
                         <>
                             <TextField
-                                label="Full Name"
-                                name="full_name"
-                                id="full_name"
-                                type="text"
-                                margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-
-                            <TextField
-                                label="User name"
-                                name="user_name"
-                                id="user_name"
-                                type="text"
-                                margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-
-                            <TextField
                                 label="Password"
                                 name="password"
                                 id="password"
@@ -257,27 +226,6 @@ const SignupPage = () => {
                         </>
                         :
                         <>
-                            <TextField
-                                label="Full Name"
-                                name="full_name"
-                                id="full_name"
-                                type="text"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-
-                            <TextField
-                                label="User name"
-                                name="user_name"
-                                id="user_name"
-                                type="text"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
 
                             <TextField
                                 label="Password"
@@ -309,12 +257,11 @@ const SignupPage = () => {
                         <button type="submit" className="btn btn-primary btn-sm">Submit</button>
                     </div>
 
-                    <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
+                    {/* <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p> */}
                 </form>
-
             </div>
         </div>
     );
 };
 
-export default SignupPage;
+export default ForgetPassword;
