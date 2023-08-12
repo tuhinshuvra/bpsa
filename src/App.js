@@ -25,6 +25,7 @@ import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
 import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
  
+ 
 import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 
 export default function App() {
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
 
         <Route path="/blog_entry" element={<EntryBlog />} />
+ 
 
         <Route path="/member_blog_details" element={<MemberBlockDetails />} />
       </Routes>
