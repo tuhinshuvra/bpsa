@@ -43,27 +43,31 @@ const LoginPage = () => {
     }
   };
 
-
-
+  //password validation by some condition
+  // if (password === undefined || email === undefined) {
+  //   setErrorMessage("please fill the form");
+  // } else if (password.length < 8) {
+  //   setPasswordAllert("Password must be minimum 8 characters");
+  // } else if (password.length > 8) {
+  //   setPasswordAllert("");
+  // }
 
   const handleLogin = (event) => {
     event.preventDefault();
 
     const { email, password } = loginData;
 
-    console.log("loginData : ", loginData);
-
-
-
-    //password validation by some condition
-    // if (password === undefined || email === undefined) {
-    //   setErrorMessage("please fill the form");
-    // } else if (password.length < 8) {
-    //   setPasswordAllert("Password must be minimum 8 characters");
-    // } else if (password.length > 8) {
-    //   setPasswordAllert("");
+    // if (!email) {
+    //   setErrorMessage("Please fill the user name field");
+    //   return; // Stop further processing
     // }
 
+    // if (!password) {
+    //   setErrorMessage("Please fill the password field");
+    //   return; // Stop further processing
+    // }
+
+    // Continue with login logic
     axios({
       method: "POST",
       url: `https://dev.bpsa.com.bd/api/login`,
@@ -85,12 +89,12 @@ const LoginPage = () => {
         });
       })
       .catch((error) => {
-        setErrorMessage(error.response.data.error);
-        console.log("SIGN IN ERROR", error.response.data);
+        setErrorMessage(error.response.data.error || "An error occurred");
+        console.log("SIGN IN ERROR", error.response.data.msg);
+        setErrorMessage(error.response.data.msg)
+
       });
-
-
-  }
+  };
 
   return (
     <div className=' container my-4'>
@@ -99,6 +103,8 @@ const LoginPage = () => {
           <FaLock className='signup_person'></FaLock>
           <h2 className=' text-center fs-3'>Log in</h2>
         </div>
+
+        <h5 className=' text-danger fw-bold  text-center'>{errorMessage}</h5>
 
 
         <form onSubmit={handleLogin}>

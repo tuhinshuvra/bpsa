@@ -26,10 +26,10 @@ const MemberProfilePage = () => {
                         <div className="col-lg-4">
                             <div className="card  proCartBody shadow-lg">
                                 <div className="card-body">
-                                    <img src={MemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg " style={{ width: "150px" }} />
+                                    <img src={MemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "150px" }} />
 
-                                    <div className=' text-center'>
-                                        <Link className=' btn btn-sm btn-primary w-50' onClick={handleUploadProfileImage} >Image Upload</Link>
+                                    <div className='text-center'>
+                                        <Link className='imageUpload' onClick={handleUploadProfileImage} >Image Upload</Link>
                                     </div>
 
                                     <div className=' text-center'>

@@ -30,7 +30,11 @@ export default function App() {
     <div>
       <Navbar />
       <ScrollToTop />
-      <Toaster reverseOrder={false} />
+      <Toaster
+        containerStyle={{
+          marginTop: '145px',
+        }}
+      />
       <SocialButtonComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
