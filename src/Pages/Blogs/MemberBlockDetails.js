@@ -11,7 +11,7 @@ const MemberBlockDetails = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
-                    setBlogs(result.data.blog.find(blog=>blog.id==id));
+                    setBlogs(result.data.blog.find(blog => blog.id == id));
                 } else {
                     console.error("Invalid API response:", result);
                 }
@@ -20,14 +20,16 @@ const MemberBlockDetails = () => {
                 console.error("API request error:", error);
             });
     }, []);
-    console.log(blog.title)
+    console.log(blog?.title)
     return (
-        <div>
+        <div className=' my-5'>
 
-            <h1 className=' mt-3 text-center'>{blog.title}</h1>
+            {/* <h1 className=' mt-3 text-center'>{blog?.title}</h1> */}
+            <h3 className=' text-center'>জঙ্গিবাদ দমনে বাংলাদেশ পুলিশের গর্বিত সদস্যদের ভুমিকা</h3>
             <div className='mx-[10vw] my-[3vh]'>
-                <img className='w-full h-[60vh]' src={blog.image}></img>
-                <p className='my-3'>{blog.description}</p>
+                {/* <img className='w-full h-[60vh]' src={blog?.image}></img> */}
+                <img className='w-full h-[60vh]' src={img}></img>
+                <p className='my-3'>{blog?.description}</p>
                 <p>
                     জঙ্গিবাদ দমনে বাংলাদেশ পুলিশের গর্বিত সদস্যদের ভুমিকা দেশে বিদেশে সমাদৃত । ২০১৬ সালে গুলশানের হলি আর্টিজান বেকারীতে জঙ্গি হামলায় ডিএমপির সহকারী পুলিশ কমিশনার রবিউল ইসলাম এবং বনানী থানার তৎকালীন অফিসার ইনচার্জ সালাউদ্দিন খান দুঃসাহসী উদ্ধার অভিযান পরিচালনা করতে গিয়ে নিহত হন।
                 </p>
@@ -37,7 +39,7 @@ const MemberBlockDetails = () => {
                         <p>Published: 07/08/2023</p>
                     </div>
                     <div>
-                        <button className='btn btn-info'>{blog.status}</button>
+                        {/* <button className='btn btn-info'>{blog?.status}</button> */}
                     </div>
                 </div>
             </div>
