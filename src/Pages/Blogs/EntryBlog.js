@@ -1,6 +1,8 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AllContext } from '../../hooks/ContextData';
 const EntryBlog = () => {
-
+  const {user}=useContext(AllContext);
   const handleBlock = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -9,8 +11,8 @@ const EntryBlog = () => {
       summary: form.block_summery.value, // Corrected 'summery' to 'summary'
       description: form.block_description.value,
       status: "pending",
+      member_id:user?.id,
     };
-  
     const imageFile = form.image.files[0];
     const formData = new FormData();
     formData.append('image', imageFile);

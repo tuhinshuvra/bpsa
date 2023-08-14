@@ -56,6 +56,7 @@ export default function App() {
         <Route path="/memberCoCurriculamActivitiesEntry" element={<MemberCoCurriculamActivitiesEntry />} />
 
 
+
         <Route path="/blog_entry" element={<EntryBlog />} />
         <Route path="/member_blog_details" element={<MemberBlockDetails />} />
         <Route path="/allApprovedBlogs" element={<AllApprovedBlogs />} />
