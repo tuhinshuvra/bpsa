@@ -7,13 +7,20 @@ import { toast } from 'react-hot-toast';
 import './Login.css';
 
 const SignupPage = () => {
-
     useTitle("SignUp");
+
     const [enableOtp, setEnableOtp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
+    const [verifyMessage, setVerifyMessage] = useState(false);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const [passwordValid, setPasswordValid] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const navigate = useNavigate();
+
 
     const checkPasswordMatch = (password, retypePassword) => {
         return password === retypePassword;
@@ -44,8 +51,9 @@ const SignupPage = () => {
                 if (data.value === 1) {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
-                    form.reset();
+                    // form.reset();
                     setOtpVerified(true);
+                    setVerifyMessage(true);
                 }
                 else {
                     toast.error("Unique ID Verification Failed!");
@@ -95,24 +103,47 @@ const SignupPage = () => {
     // };
 
 
+    //password validation by some condition
+    //    if (password === undefined || email === undefined) {
+    //     setErrorMessage("please fill the form");
+    //   } else if (password.length < 8) {
+    //     setPasswordAllert("Password must be minimum 8 characters");
+    //   } else if (password.length > 8) {
+    //     setPasswordAllert("");
+    //   }
+
 
 
     // this function is used to post sign up data
-
     const handleOnSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-
+        const uniqueId = form.unique_id.value;
         const fullName = form.full_name.value;
         const email = form.user_name.value;
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
+
+
+        if (!checkPasswordMatch(password, confirmPassword)) {
+            setPasswordsMatch(false);
+            return;
+        }
+
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[1234567890])[A-Za-z\d@$!%*?&]{8,}$/;
+        const isPasswordValid = passwordPattern.test(password);
+
+        if (!isPasswordValid) {
+            setPasswordValid(false);
+            return;
+        }
 
         const userData = {
             name: fullName,
             email: email,
             password: password,
             password_confirmation: confirmPassword,
+            UniqueID: uniqueId,
         }
         console.log("userData : ", userData);
 
@@ -130,6 +161,7 @@ const SignupPage = () => {
                     form.reset()
                     toast.success('Congratulation! User created successfully.')
                 }
+                navigate("/login");
 
             })
             .catch(error => {
@@ -137,6 +169,7 @@ const SignupPage = () => {
                 setErrorMessage(error.response.data.error)
             })
     }
+
 
 
     return (
@@ -147,6 +180,20 @@ const SignupPage = () => {
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
+
+                {!passwordsMatch && (
+                    <p className="text-center text-danger fw-bold fs-6">Passwords do not match.</p>
+                )}
+
+                {/* {verifyMessage && (
+                    <p className="text-center text-danger fw-bold fs-6">Unique ID verified Successfully!</p>
+                )} */}
+
+
+                {passwordValid ? <></> :
+                    <><p className=' text-warning'>Password must be at least 8 characters and contain an uppercase letter, a lowercase letter, and a numeric number.</p></>
+                }
+
 
                 <form onSubmit={handleOnSubmit}>
                     <TextField
@@ -226,6 +273,7 @@ const SignupPage = () => {
                                 fullWidth
                             />
 
+
                             <TextField
                                 label="Password"
                                 name="password"
@@ -281,6 +329,9 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
+
+
+
                             <TextField
                                 label="Retype Password"
                                 name="confirm_password"
@@ -293,6 +344,8 @@ const SignupPage = () => {
                             />
                         </>
                     }
+
+
 
                     <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
 

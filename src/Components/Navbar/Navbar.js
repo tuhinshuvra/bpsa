@@ -163,7 +163,7 @@ const Navbar = () => {
           {user?.email
             ?
             <>
-              <div class="dropdown">
+              <div className="dropdown">
                 <Link
                   className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle nav_btn"
                   data-bs-toggle="dropdown"
@@ -171,11 +171,11 @@ const Navbar = () => {
                 >
                   {user?.name}
                 </Link>
-                <ul class="dropdown-menu">
-                  <li><Link class="btn btn-secondary btn-sm w-full" to="/memberProfile">Profile</Link></li>
-                  <li>
-                    <Link class="btn btn-secondary  btn-sm w-full my-1" to="/profile">Blog</Link>
-                  </li>
+                <ul className="dropdown-menu">
+                  <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
+                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/allApprovedBlogs">All Blog </Link></li> */}
+                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/allApprovedBlogs">My Blogs </Link></li> */}
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
                   <li>
                     <div
                       onClick={handleSignOut}
@@ -198,11 +198,7 @@ const Navbar = () => {
                 <UsersIcon size={24} className="mr-2" />
                 <ButtonComponent title="Member Login" className="" />
               </div>
-
-
             </>}
-
-
         </div>
 
       </div>
