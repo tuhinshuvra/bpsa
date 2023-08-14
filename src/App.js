@@ -22,6 +22,12 @@ import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
+import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
+import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
+import MemberAllBlog from "./Pages/Blogs/MemberAllBlog";
+import UpdateBlog from "./Pages/Blogs/UpdateBlog";
+import Blog_details from "./Pages/Blogs/Blog_details";
+import PublishedBlogs from "./Pages/Blogs/PublishedBlogs";
 import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 import AllApprovedBlogs from "./Pages/Blogs/AllApprovedBlogs";
 import MemberImageUpload from "./Pages/MemberProfile/MemberImageUpload";
@@ -61,6 +67,12 @@ export default function App() {
 
 
         <Route path="/blog_entry" element={<EntryBlog />} />
+        <Route path="/blog_details/:id" element={<MemberBlogDetails />} />
+        <Route path="/adminAllBlog" element={<AdminAllBlog/>}/>
+        <Route path="/memberAllBlog" element={<MemberAllBlog/>}/>
+        <Route path="/updateBlog/:id" element={<UpdateBlog/>}/>
+        <Route path="/blogDetails/:id" element={<Blog_details/>}/>
+        <Route path="/publishedBlogs" element={<PublishedBlogs/>}/>
         <Route path="/member_blog_details" element={<MemberBlockDetails />} />
         <Route path="/allApprovedBlogs" element={<AllApprovedBlogs />} />
       </Routes>

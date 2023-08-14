@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import img from "../Blogs/s1.jpg";
 import { Link } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { useContext } from 'react';
@@ -9,11 +8,12 @@ const AdminAllBlog = () => {
     let count=1;
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
-        fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`)
+        fetch("https://dev.bpsa.com.bd/api/blog")
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
-                    setBlogs(result.data.blog);
+                    setBlogs(result.data.blog.filter(blog=>blog.status!="Approved"));
+
                 } else {
                     console.error("Invalid API response:", result);
                 }
@@ -43,7 +43,7 @@ const AdminAllBlog = () => {
                                         <p>{blog.summary}</p>
 
                                         <Link to={`/blog_details/${blog.id}`} className='btn btn-info'>details</Link>
-                                        <Link to={`/updateBlog/${blog.id}`} className='mx-4 btn btn-info'>update</Link>
+                                        
                                     </div>
                                 </div>
                             </div>
