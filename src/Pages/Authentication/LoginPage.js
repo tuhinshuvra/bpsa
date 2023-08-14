@@ -42,10 +42,10 @@ const LoginPage = () => {
         setErrorMessage("");
         authenticate(response.data, () => {
           setUser(isAuth());
-          if (user.email) {
-            toast.success('The User Successfully Logged In')
+          if (response.status === 201) {
+            toast.success('BPSA Member Successfully Logged In')
           }
-          console.log("Logged in UserName:", user.name)
+          // console.log("Logged in UserName:", response.data.user.name)
           setLoading(false);
           navigate("/", { replace: true });
           console.log("cookie local save ", isAuth());
