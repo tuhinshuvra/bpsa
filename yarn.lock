@@ -1796,6 +1796,7 @@
     "redux-thunk" "^2.4.2"
     "reselect" "^4.1.7"
 
+
 "@remix-run/router@1.0.5":
   "integrity" "sha512-my0Mycd+jruq/1lQuO5LBB6WTlL/e8DTCYWp44DfMTDcXz8DcTlgF0ISaLsGewt+ctHN+yA8xMq3q/N7uWJPug=="
   "resolved" "https://registry.npmjs.org/@remix-run/router/-/router-1.0.5.tgz"
@@ -8181,6 +8182,7 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz"
   "version" "0.11.0"
 
+ 
 "react-router-dom@^6.4.4":
   "integrity" "sha512-a7HsgikBR0wNfroBHcZUCd9+mLRqZS8R5U1Z1mzLWxFXEkUT3vR1XXmSIVoVpxVX8Bar0nQYYYc9Yipq8dWwAA=="
   "resolved" "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.4.5.tgz"
@@ -8194,7 +8196,7 @@
   "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.4.5.tgz"
   "version" "6.4.5"
   dependencies:
-    "@remix-run/router" "1.0.5"
+    "@remix-run/router" "1.8.0"
 
 "react-scripts@5.0.1":
   "integrity" "sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ=="
