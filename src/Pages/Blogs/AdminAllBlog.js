@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { useContext } from 'react';
+import useTitle from '../../hooks/useTitle';
 
 const AdminAllBlog = () => {
+    useTitle("Admin'sAllBlog")
     const { user } = useContext(AllContext);
     let count = 1;
     const [blogs, setBlogs] = useState([]);

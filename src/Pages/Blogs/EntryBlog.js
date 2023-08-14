@@ -3,8 +3,10 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 const EntryBlog = () => {
-  const navigate=useNavigate();
+  useTitle("Blog Entry")
+  const navigate = useNavigate();
   const { user } = useContext(AllContext);
   const [errorMessage, setErrorMessage] = useState('');
 

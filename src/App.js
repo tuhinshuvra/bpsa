@@ -28,7 +28,6 @@ import UpdateBlog from "./Pages/Blogs/UpdateBlog";
 import Blog_details from "./Pages/Blogs/Blog_details";
 import PublishedBlogs from "./Pages/Blogs/PublishedBlogs";
 import ForgetPassword from "./Pages/Authentication/ForgetPassword";
-import AllApprovedBlogs from "./Pages/Blogs/AllApprovedBlogs";
 import MemberImageUpload from "./Pages/MemberProfile/MemberImageUpload";
 import MemberCoCurriculamActivitiesEntry from "./Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
 import AllEventPage from "./Pages/Event/AllEventPage";
@@ -74,7 +73,6 @@ export default function App() {
         <Route path="/blogDetails/:id" element={<Blog_details />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
         <Route path="/member_blog_details" element={<MemberBlockDetails />} />
-        <Route path="/allApprovedBlogs" element={<AllApprovedBlogs />} />
       </Routes>
       <Footer />
     </div>

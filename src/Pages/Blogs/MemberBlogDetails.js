@@ -5,12 +5,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
+import useTitle from '../../hooks/useTitle';
 const MemberBlogDetails = () => {
+    useTitle("BlogDetails");
     const { id } = useParams();
     const { user } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     useEffect(() => {
         fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`)
             .then(res => res.json())
@@ -35,26 +37,26 @@ const MemberBlogDetails = () => {
         event.preventDefault();
         console.log(blogStatus);
         console.log(blog.user_id);
-        const data={
-            blog_id:id,
-            status:blogStatus,
+        const data = {
+            blog_id: id,
+            status: blogStatus,
         }
         console.log(data)
-       await fetch("https://dev.bpsa.com.bd/api/blog-status",{
-            method:"POST",
-            headers:{
+        await fetch("https://dev.bpsa.com.bd/api/blog-status", {
+            method: "POST",
+            headers: {
                 'Content-Type': 'application/json',
             },
-            body:JSON.stringify(data),
+            body: JSON.stringify(data),
         })
-        .then(res=>res.json())
-        .then(result=>{
-            alert(result.message);
-            navigate("/adminAllBlog");
-        })
-        .catch(error=>{
-            console.log(error);
-        })
+            .then(res => res.json())
+            .then(result => {
+                alert(result.message);
+                navigate("/adminAllBlog");
+            })
+            .catch(error => {
+                console.log(error);
+            })
     };
     return (
         <div>

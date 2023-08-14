@@ -2,12 +2,10 @@ import MemberImg from '../../assets/Image/messages/President_2021_Stamp.jpg'
 import BlogImg from '../../assets/Image/blog/blog_image.png'
 import { Link } from 'react-router-dom';
 import './MemberProfilePage.css';
+import useTitle from '../../hooks/useTitle';
 
 const MemberProfilePage = () => {
-
-    const handleUploadProfileImage = () => {
-        console.log("Profile Image uploaded");
-    }
+    useTitle("Profile");
 
     return (
         <div className=' col-md-10 mx-auto'>

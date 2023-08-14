@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
+import useTitle from '../../hooks/useTitle';
 const Blog_Details = () => {
+    useTitle("BlogDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
     console.log(source);
