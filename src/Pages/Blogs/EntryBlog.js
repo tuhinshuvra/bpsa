@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import JoditEditor from 'jodit-react';
 const EntryBlog = () => {
-  const navigate=useNavigate();
+
+  const [content, setContent] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const config = useMemo(() => {
+      return {
+          placeholder: isEditing ? '' : 'description',
+          height: 350,
+      };
+  }, [isEditing]);
+
+  const handleFocus = () => {
+      setIsEditing(true);
+  };
+
+  const handleBlur = () => {
+      setIsEditing(false);
+  };
+  const parser = new DOMParser();
+  const parsedDocument = parser.parseFromString(content, 'text/html');
+  const rootElement = parsedDocument.documentElement;
+  const textValue = rootElement.textContent.trim();
+
+
+  const navigate = useNavigate();
   const { user } = useContext(AllContext);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -15,7 +40,7 @@ const EntryBlog = () => {
     const blog = {
       title: form.block_title.value,
       summary: form.block_summery.value,
-      description: form.block_description.value,
+      description: textValue,
       status: 'pending',
       member_id: user?.id,
       memberName: user?.name,
@@ -74,15 +99,24 @@ const EntryBlog = () => {
   return (
     <div className='w-full'>
       <h1 className='text-center text-4xl mt-5 text-main'>Blog Entry</h1>
-      <form className='text-center my-3' onSubmit={handleBlock}>
-        <input type='text' name='block_title' className='input input-bordered w-full max-w-4xl my-2' placeholder='Enter block title' required></input><br />
-        <input type='text' name='block_summery' className='input input-bordered w-full max-w-4xl my-2' placeholder='Enter blog Summary'></input><br />
-        <textarea rows="10" cols="50" name='block_description' className='input input-bordered w-full max-w-4xl my-2' placeholder='Enter blog Description' required></textarea><br />
-        <input type='file' name='image' className='input input-bordered w-full max-w-4xl my-2' placeholder='Enter blog image'></input><br />
+      <form className='my-3 mx-[5vw]' onSubmit={handleBlock}>
+        <input type='text' name='block_title' className='input input-bordered w-[89vw] my-2' placeholder='Enter block title' required></input><br />
+        <input type='text' name='block_summery' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Summary'></input><br />
+
+        <JoditEditor 
+                    value={content}
+                    tabIndex={12}
+                    config={config}
+                    onChange={newContent => setContent(newContent)}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                />
+        {/* <textarea rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
+        <input type='file' name='image' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog image'></input><br />
         {/* video url we can be entry */}
-        {/* <input type='text' name='block_video' className='input input-bordered w-full max-w-4xl my-2' placeholder='Enter blog video url'></input><br/> */}
-        <div className='flex justify-around mx-[1vw] mt-2 mb-5'>
-          <input className='btn btn-info lg:w-full  lg:max-w-[10vw]' type="reset" value="reset" />
+        {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
+        <div className='flex justify-between mt-2 mb-5'>
+          <input de className='btn btn-info lg:w-full  lg:max-w-[10vw]' type="reset" value="reset" />
           <input className='btn btn-info lg:w-full lg:max-w-[10vw] ' type="submit" value="submit" />
         </div>
       </form>

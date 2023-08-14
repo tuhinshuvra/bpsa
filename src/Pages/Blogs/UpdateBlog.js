@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import JoditEditor from 'jodit-react';
 const UpdateBlog = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { user } = useContext(AllContext);
   const { id } = useParams();
   const [blog, setBlogs] = useState([]);
@@ -23,17 +24,51 @@ const UpdateBlog = () => {
         console.error("API request error:", error);
       });
   }, [user.id, id]);
+  const [content, setContent] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  useEffect(() => {
+    if (blog?.description) {
+      setContent(`<p>${blog.description}</p>`);
+    }
+  }, [blog]);
+  const config = useMemo(() => {
+    return {
+      placeholder: isEditing ? '' : 'description',
+      height: 350,
+    };
+  }, [isEditing]);
+
+  const handleFocus = () => {
+    setIsEditing(true);
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false);
+  };
+  const parser = new DOMParser();
+  const parsedDocument = parser.parseFromString(content, 'text/html');
+  const rootElement = parsedDocument.documentElement;
+  const textValue = rootElement.textContent.trim();
+
+
+
+
+
+
+
+
+
   const handleBlock = async (event) => {
     event.preventDefault();
     const form = event.target;
     const NewBlog = {
       title: form.block_title.value,
       summary: form.block_summery.value, // Corrected 'summery' to 'summary'
-      description: form.block_description.value,
+      description: textValue,
       status: "pending",
       member_id: user?.id,
       memberName: user?.name,
-      blog_id:id,
+      blog_id: id,
     };
     if (!form.image.files[0]) {
       NewBlog.image = blog.image;
@@ -46,9 +81,9 @@ const UpdateBlog = () => {
         body: JSON.stringify(NewBlog),
       })
         .then(res => res.json())
-        .then(result =>{
+        .then(result => {
           alert("blog updated successfully");
-          navigate( "/updateBlog/"+id);
+          navigate("/updateBlog/" + id);
         })
         .catch(error => console.log(error));
     }
@@ -78,8 +113,8 @@ const UpdateBlog = () => {
             .then(res => res.json())
             .then(result => {
               alert("blog updated successfully");
-              navigate( "/updateBlog/"+id);
-             
+              navigate("/updateBlog/" + id);
+
             })
             .catch(error => console.log(error));
         } else {
@@ -93,16 +128,24 @@ const UpdateBlog = () => {
   return (
     <div className='w-full'>
       <h1 className='text-center text-4xl mt-5'>Blog Update</h1>
-      <form className='text-center my-3' onSubmit={handleBlock}>
-        <input defaultValue={blog.title} type='text' name='block_title' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter block title' required></input><br />
-        <input defaultValue={blog?.summary} type='text' name='block_summery' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter blog Summary'></input><br />
-        <textarea defaultValue={blog.description} rows="10" cols="50" name='block_description' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter blog Description' required></textarea><br />
+      <form className='mx-[5vw] my-3' onSubmit={handleBlock}>
+        <input defaultValue={blog.title} type='text' name='block_title' className='input input-bordered w-[89vw] my-2' placeholder='Enter block title' required></input><br />
+        <input defaultValue={blog?.summary} type='text' name='block_summery' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Summary'></input><br />
+        <JoditEditor
+          value={content}
+          tabIndex={12}
+          config={config}
+          onChange={newContent => setContent(newContent)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        {/* <textarea defaultValue={blog.description} rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
         {blog.image && <img src={blog.image} alt="Blog" className='mx-auto rounded-lg' style={{ maxWidth: '100px' }} />}
         <p className='text-center'>you can change your blog picture</p>
-        <input type='file' name='image' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter blog image'></input>
+        <input type='file' name='image' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog image'></input>
         {/* video url we can be entry */}
-        {/* <input type='text' name='block_video' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter blog video url'></input><br/> */}
-        <div className='flex justify-around mx-[22vw] mt-2 mb-5'>
+        {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
+        <div className='flex justify-between  mt-2 mb-5'>
           <input className='btn btn-info lg:w-full  lg:max-w-[10vw]' type="reset" value="reset" />
           <input className='btn btn-info lg:w-full lg:max-w-[10vw] ' type="submit" value="submit" />
         </div>
