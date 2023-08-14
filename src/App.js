@@ -22,7 +22,6 @@ import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
-import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
 import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
 import MemberAllBlog from "./Pages/Blogs/MemberAllBlog";
 import UpdateBlog from "./Pages/Blogs/UpdateBlog";
@@ -34,6 +33,7 @@ import MemberImageUpload from "./Pages/MemberProfile/MemberImageUpload";
 import MemberCoCurriculamActivitiesEntry from "./Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
 import AllEventPage from "./Pages/Event/AllEventPage";
 import EventDetailsPage from "./Pages/Event/EventDetailsPage";
+import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
 
 export default function App() {
   return (
@@ -68,11 +68,11 @@ export default function App() {
 
         <Route path="/blog_entry" element={<EntryBlog />} />
         <Route path="/blog_details/:id" element={<MemberBlogDetails />} />
-        <Route path="/adminAllBlog" element={<AdminAllBlog/>}/>
-        <Route path="/memberAllBlog" element={<MemberAllBlog/>}/>
-        <Route path="/updateBlog/:id" element={<UpdateBlog/>}/>
-        <Route path="/blogDetails/:id" element={<Blog_details/>}/>
-        <Route path="/publishedBlogs" element={<PublishedBlogs/>}/>
+        <Route path="/adminAllBlog" element={<AdminAllBlog />} />
+        <Route path="/memberAllBlog" element={<MemberAllBlog />} />
+        <Route path="/updateBlog/:id" element={<UpdateBlog />} />
+        <Route path="/blogDetails/:id" element={<Blog_details />} />
+        <Route path="/publishedBlogs" element={<PublishedBlogs />} />
         <Route path="/member_blog_details" element={<MemberBlockDetails />} />
         <Route path="/allApprovedBlogs" element={<AllApprovedBlogs />} />
       </Routes>
