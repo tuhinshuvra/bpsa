@@ -1,0 +1,112 @@
+.eventsCarousol {
+    /* width: 350px; */
+    border: 1px solid #6C066E;
+    border-radius: 20px;
+}
+
+.cardArea {
+    margin: 0 5px;
+}
+
+.cardImage {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.carButton [data-bs-target] {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: #e8818a !important;
+    border-radius: 50%;
+}
+
+.cardTitle {
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 42px;
+
+    color: #6C066E;
+}
+
+.subTitle {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* .eventCarButton [data-bs-target] {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: #e8818a !important;
+    border-radius: 50%;
+} */
+
+
+
+
+
+.cardBg {
+    --bs-card-bg: none !important;
+}
+
+element.style {}
+
+.border-0 {
+    border: 0 !important;
+}
+
+
+
+.carButton [data-bs-target] {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50%;
+    margin-bottom: -45px;
+}
+
+.cardTitle {
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 42px;
+
+    color: #6C066E;
+}
+
+.subTitle {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.eventCarButton [data-bs-target] {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50%;
+    margin-bottom: -45px;
+}
+
+
+
+/* media query */
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+    .eventsCarousol {
+        width: 270px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .eventsCarousol {
+        width: 205px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767.98px) {}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+    .eventsCarousol {
+        width: 274px;
+        margin: 0px 14%;
+    }
+}

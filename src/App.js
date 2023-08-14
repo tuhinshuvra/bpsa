@@ -26,6 +26,8 @@ import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 import AllApprovedBlogs from "./Pages/Blogs/AllApprovedBlogs";
 import MemberImageUpload from "./Pages/MemberProfile/MemberImageUpload";
 import MemberCoCurriculamActivitiesEntry from "./Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
+import AllEventPage from "./Pages/Event/AllEventPage";
+import EventDetailsPage from "./Pages/Event/EventDetailsPage";
 
 export default function App() {
   return (
@@ -54,7 +56,8 @@ export default function App() {
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberImageUpload" element={<MemberImageUpload />} />
         <Route path="/memberCoCurriculamActivitiesEntry" element={<MemberCoCurriculamActivitiesEntry />} />
-
+        <Route path="/events" element={<AllEventPage />} />
+        <Route path="/events/:eventId" element={<EventDetailsPage />} />
 
 
         <Route path="/blog_entry" element={<EntryBlog />} />

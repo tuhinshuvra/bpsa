@@ -153,6 +153,16 @@ const Navbar = () => {
                   ? `${Styles.activenav__Style}   hover:text-white`
                   : `${Styles.normalnav__Style}   hover:text-white`
               }
+              to="/events"
+            >
+              Events
+            </NavLink>
+            <NavLink
+              className={(active) =>
+                active?.isActive
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
+              }
               to="/contact"
             >
               Contact
@@ -165,7 +175,7 @@ const Navbar = () => {
             <>
               <div className="dropdown">
                 <Link
-                  className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle nav_btn"
+                  className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
@@ -173,8 +183,8 @@ const Navbar = () => {
                 </Link>
                 <ul className="dropdown-menu">
                   <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
-                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/allApprovedBlogs">All Blog </Link></li> */}
-                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/allApprovedBlogs">My Blogs </Link></li> */}
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/allApprovedBlogs">All Blog </Link></li>
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/allApprovedBlogs">My Blogs </Link></li>
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
                   <li>
                     <div

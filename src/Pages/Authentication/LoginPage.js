@@ -10,6 +10,7 @@ import { AllContext } from '../../hooks/ContextData';
 import { toast } from 'react-hot-toast';
 import { useRef } from 'react';
 import "./Login.css";
+import Loader from '../../Components/Common/Loader';
 
 const LoginPage = () => {
   useTitle("Login");
@@ -58,6 +59,10 @@ const LoginPage = () => {
       });
   };
 
+  if (loading) {
+    <Loader></Loader>
+  }
+
   return (
     <div className=' container my-4'>
       <div className=' col-lg-4 col-md-6 mx-auto'>
@@ -100,7 +105,7 @@ const LoginPage = () => {
           />
 
 
-          <button className=' w-full btn btn-primary my-2'>Sign in</button>
+          <button type='submit' className=' w-full btn btn-primary my-2'>Sign in</button>
 
           <div className=' d-flex justify-content-between my-2'>
 
