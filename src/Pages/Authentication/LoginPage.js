@@ -8,6 +8,7 @@ import axios from 'axios';
 import { authenticate, isAuth } from '../../utlis/helper';
 import { AllContext } from '../../hooks/ContextData';
 import { toast } from 'react-hot-toast';
+import { useRef } from 'react';
 import "./Login.css";
 
 const LoginPage = () => {
@@ -18,51 +19,16 @@ const LoginPage = () => {
   const [resetPassword, setResetPassword] = useState(false);
 
 
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const handleOnBlur = (event) => {
-  //   const field = event.target.name;
-  //   const value = event.target.value;
-
-  //   const newLoginData = { ...loginData }
-  //   newLoginData[field] = value;
-  //   setLoginData(newLoginData);
-  // }
-
-  const handleOnBlur = (event) => {
-    const field = event.target.name;
-    const value = event.target.value;
-
-    const newLoginData = { ...loginData };
-    newLoginData[field] = value;
-    setLoginData(newLoginData);
-
-    if (field === 'email') {
-      setResetPassword(!!value); // Set resetPassword to true if value is truthy (email is filled)
-    }
-  };
-
-
-
-
   const handleLogin = (event) => {
     event.preventDefault();
-
-    const { email, password } = loginData;
-
-    console.log("loginData : ", loginData);
-
-
-
-    //password validation by some condition
-    // if (password === undefined || email === undefined) {
-    //   setErrorMessage("please fill the form");
-    // } else if (password.length < 8) {
-    //   setPasswordAllert("Password must be minimum 8 characters");
-    // } else if (password.length > 8) {
-    //   setPasswordAllert("");
-    // }
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
 
     axios({
       method: "POST",
@@ -85,12 +51,12 @@ const LoginPage = () => {
         });
       })
       .catch((error) => {
-        setErrorMessage(error.response.data.error);
-        console.log("SIGN IN ERROR", error.response.data);
+        setErrorMessage(error.response.data.error || "An error occurred");
+        console.log("SIGN IN ERROR", error.response.data.msg);
+        setErrorMessage(error.response.data.msg)
+
       });
-
-
-  }
+  };
 
   return (
     <div className=' container my-4'>
@@ -100,10 +66,12 @@ const LoginPage = () => {
           <h2 className=' text-center fs-3'>Log in</h2>
         </div>
 
+        <h5 className=' text-danger fw-bold  text-center'>{errorMessage}</h5>
+
 
         <form onSubmit={handleLogin}>
           <TextField
-            onBlur={handleOnBlur}
+            inputRef={emailRef}
             label="User Name"
             name="email"
             id="email"
@@ -111,10 +79,11 @@ const LoginPage = () => {
             margin="normal"
             required
             fullWidth
+            autoFocus={false} // Set to false to prevent autofocus
           />
 
           <TextField
-            onBlur={handleOnBlur}
+            inputRef={passwordRef}
             label="Password"
             name="password"
             id="password"
@@ -122,10 +91,16 @@ const LoginPage = () => {
             margin="normal"
             required
             fullWidth
+            autoFocus={true} // Set to true to autofocus on this field
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                handleLogin(event);
+              }
+            }}
           />
 
-          <button className=' w-full btn btn-primary my-2'>Sign in</button>
 
+          <button className=' w-full btn btn-primary my-2'>Sign in</button>
 
           <div className=' d-flex justify-content-between my-2'>
 
