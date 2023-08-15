@@ -1,5 +1,5 @@
 .proCartBody {
-    min-height: 360px;
+    min-height: 390px;
 }
 
 .proCartBody:hover {
@@ -25,4 +25,20 @@
 
 .blogArea:hover {
     background-color: rgb(235, 238, 243);
+}
+
+.imageUpload {
+    background-color: rgb(32, 79, 235);
+    font-size: 14px;
+    color: white;
+    width: 50px;
+    height: 10px;
+    padding: 2px 4px;
+    border-radius: 6px;
+    margin: 0 0;
+}
+
+.imageUpload:hover {
+    background-color: rgb(17, 46, 139);
+    color: white;
 }

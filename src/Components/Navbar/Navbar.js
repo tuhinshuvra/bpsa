@@ -153,6 +153,16 @@ const Navbar = () => {
                   ? `${Styles.activenav__Style}   hover:text-white`
                   : `${Styles.normalnav__Style}   hover:text-white`
               }
+              to="/events"
+            >
+              Events
+            </NavLink>
+            <NavLink
+              className={(active) =>
+                active?.isActive
+                  ? `${Styles.activenav__Style}   hover:text-white`
+                  : `${Styles.normalnav__Style}   hover:text-white`
+              }
               to="/contact"
             >
               Contact
@@ -163,19 +173,20 @@ const Navbar = () => {
           {user?.email
             ?
             <>
-              <div class="dropdown">
+              <div className="dropdown">
                 <Link
-                  className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle nav_btn"
+                  className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   {user?.name}
                 </Link>
-                <ul class="dropdown-menu">
-                  <li><Link class="btn btn-secondary btn-sm w-full" to="/memberProfile">Profile</Link></li>
-                  <li>
-                    <Link class="btn btn-secondary  btn-sm w-full my-1" to="/profile">Blog</Link>
-                  </li>
+                <ul className="dropdown-menu">
+                  <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/publishedBlogs">All Blog </Link></li>
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li>
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
+                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
                   <li>
                     <div
                       onClick={handleSignOut}
@@ -198,11 +209,7 @@ const Navbar = () => {
                 <UsersIcon size={24} className="mr-2" />
                 <ButtonComponent title="Member Login" className="" />
               </div>
-
-
             </>}
-
-
         </div>
 
       </div>

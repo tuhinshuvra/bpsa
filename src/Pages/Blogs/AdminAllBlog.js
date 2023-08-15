@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { useContext } from 'react';
+import useTitle from '../../hooks/useTitle';
 
 const AdminAllBlog = () => {
-    const {user}=useContext(AllContext);
-    let count=1;
+    useTitle("Admin'sAllBlog")
+    const { user } = useContext(AllContext);
+    let count = 1;
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
         fetch("https://dev.bpsa.com.bd/api/blog")
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
-                    setBlogs(result.data.blog.filter(blog=>blog.status!="Approved"));
+                    setBlogs(result.data.blog.filter(blog => blog.status != "Approved"));
 
                 } else {
                     console.error("Invalid API response:", result);
@@ -35,7 +37,7 @@ const AdminAllBlog = () => {
                                     <p className='text-3xl me-2'>{count++}.</p>
                                     <div>
                                         <h3>
-                                           {blog.title}
+                                            {blog.title}
                                         </h3>
                                         <p>
                                             {blog.description}
@@ -43,7 +45,7 @@ const AdminAllBlog = () => {
                                         <p>{blog.summary}</p>
 
                                         <Link to={`/blog_details/${blog.id}`} className='btn btn-info'>details</Link>
-                                        
+
                                     </div>
                                 </div>
                             </div>

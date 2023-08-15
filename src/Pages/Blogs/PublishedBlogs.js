@@ -2,8 +2,10 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const PublishedBlogs = () => {
+    useTitle("PublishedBlog");
     let count = 1;
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {

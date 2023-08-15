@@ -18,24 +18,32 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
- 
+import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
+
 import LoginPage from "./Pages/Authentication/LoginPage";
-import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
-import MemberProfileUpdatePage from "./Pages/MemberProfile/MemberProfileUpdatePage";
 import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
-import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
 import MemberAllBlog from "./Pages/Blogs/MemberAllBlog";
 import UpdateBlog from "./Pages/Blogs/UpdateBlog";
 import Blog_details from "./Pages/Blogs/Blog_details";
 import PublishedBlogs from "./Pages/Blogs/PublishedBlogs";
+import ForgetPassword from "./Pages/Authentication/ForgetPassword";
+import MemberImageUpload from "./Pages/MemberProfile/MemberImageUpload";
+import MemberCoCurriculamActivitiesEntry from "./Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
+import AllEventPage from "./Pages/Event/AllEventPage";
+import EventDetailsPage from "./Pages/Event/EventDetailsPage";
+import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
 
 export default function App() {
   return (
     <div>
       <Navbar />
       <ScrollToTop />
-      <Toaster reverseOrder={false} />
+      <Toaster
+        containerStyle={{
+          marginTop: '145px',
+        }}
+      />
       <SocialButtonComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -44,23 +52,27 @@ export default function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/committee" element={<CommitteePage />} />
         <Route path="/news" element={<NewsPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/news/:newsId" element={<NewsDetailsPage />} />
         <Route path="/message/:messageId" element={<MessageDetailsPage />} />
- 
- 
+
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgetPassword />} />
         <Route path="/memberProfile" element={<MemberProfilePage />} />
-        <Route path="/memberProfileUpdate" element={<MemberProfileUpdatePage />} />
+        <Route path="/memberImageUpload" element={<MemberImageUpload />} />
+        <Route path="/memberCoCurriculamActivitiesEntry" element={<MemberCoCurriculamActivitiesEntry />} />
+        <Route path="/events" element={<AllEventPage />} />
+        <Route path="/events/:eventId" element={<EventDetailsPage />} />
+
 
         <Route path="/blog_entry" element={<EntryBlog />} />
         <Route path="/blog_details/:id" element={<MemberBlogDetails />} />
-        <Route path="/adminAllBlog" element={<AdminAllBlog/>}/>
-        <Route path="/memberAllBlog" element={<MemberAllBlog/>}/>
-        <Route path="/updateBlog/:id" element={<UpdateBlog/>}/>
-        <Route path="/blogDetails/:id" element={<Blog_details/>}/>
-        <Route path="/publishedBlogs" element={<PublishedBlogs/>}/>
+        <Route path="/adminAllBlog" element={<AdminAllBlog />} />
+        <Route path="/memberAllBlog" element={<MemberAllBlog />} />
+        <Route path="/updateBlog/:id" element={<UpdateBlog />} />
+        <Route path="/blogDetails/:id" element={<Blog_details />} />
+        <Route path="/publishedBlogs" element={<PublishedBlogs />} />
+        <Route path="/member_blog_details" element={<MemberBlockDetails />} />
       </Routes>
       <Footer />
     </div>

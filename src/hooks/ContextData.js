@@ -6,7 +6,7 @@ export const AllContext = createContext();
 const ContextData = ({ children }) => {
     const [user, setUser] = useState(isAuth());
     const [userDetails, setUserDetails] = useState(isAuth());
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [authError, setAuthError] = useState("");
     const [authSuccess, setAuthSuccess] = useState("");
     const [token, setToken] = useState("");
