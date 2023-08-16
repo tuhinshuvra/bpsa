@@ -14,28 +14,31 @@ const AllMemberDirectoryPage = () => {
 
     return (
         <div className=" container">
-            <h1 className=' fw-bold text-center text-success my-4'>Member Directory</h1>
+            <h1 className=' fw-bold text-center text-success my-3'>Member Directory</h1>
             <div className=" d-flex memberDirectory ">
                 <div className=" col-lg-3   px-2">
                     <p className=" fs-5 fw-bold text-center   rounded-lg py-1 text-white ">Search Pannel</p>
 
                     <form onClick={handleSearchResult}>
-                        <input type="text" name="bcs_batch" aria-label="bcs_batch" className="form-control" placeholder="Enter BCS Batch" />
-                        <input type="text" name="designation" aria-label="designation" className="form-control my-4" placeholder="Enter Designation" />
-                        <input type="text" name="unit" aria-label="unit" className="form-control" placeholder="Enter Unit" />
-                        <input type="text" name="sub_unit" aria-label="sub_unit" className="form-control my-4" placeholder="Enter Sub Unit" />
-                        <input type="text" name="district" aria-label="district" className="form-control" placeholder="Enter District" />
-                        <input type="text" name="rank" aria-label="rank" className="form-control my-4" placeholder="Enter Rank" />
-                        <input type="text" name="name" aria-label="name" className="form-control" placeholder="Enter Name" />
-                        <input type="text" name="phone" aria-label="phone" className="form-control my-4" placeholder="Enter Phone No" />
-                        <input type="text" name="email" aria-label="email" className="form-control my-4" placeholder="Enter Email Address" />
-                        <input type="text" name="bloodGroup" aria-label="bloodGroup" className="form-control my-4" placeholder="Enter Blood Group" />
-                        <div className=" d-flex  justify-content-between   align-items-center rounded-md py-1 bg-white ">
-                            <label for="birthDate" class="form-label ms-2 my-auto text-muted">Birth Date</label>
-                            <input type="date" name="birthDate" aria-label="birthDate" className=" p-1 rounded-lg" placeholder="Enter birthDate" />
+                        <input type="text" name="bcs_batch" aria-label="bcs_batch" className="form-control searchField" placeholder="Enter BCS Batch" />
+                        <input type="text" name="designation" aria-label="designation" className="form-control my-3 searchField" placeholder="Enter Designation" />
+                        <input type="text" name="unit" aria-label="unit" className="form-control searchField" placeholder="Enter Unit" />
+                        <input type="text" name="sub_unit" aria-label="sub_unit" className="form-control my-3 searchField" placeholder="Enter Sub Unit" />
+                        <input type="text" name="district" aria-label="district" className="form-control searchField" placeholder="Enter District" />
+                        <input type="text" name="rank" aria-label="rank" className="form-control my-3 searchField" placeholder="Enter Rank" />
+                        <input type="text" name="name" aria-label="name" className="form-control searchField" placeholder="Enter Name" />
+                        <input type="text" name="phone" aria-label="phone" className="form-control my-3 searchField" placeholder="Enter Phone No" />
+                        <input type="text" name="email" aria-label="email" className="form-control my-3 searchField" placeholder="Enter Email Address" />
+                        <input type="text" name="bloodGroup" aria-label="bloodGroup" className="form-control my-3 searchField" placeholder="Enter Blood Group" />
+                        <input type="text" name="bloodGroup" aria-label="bloodGroup" className="form-control my-3 searchField" placeholder="Enter Blood Group" />
+                        <input type="number" name="birthYear" id="birthYear" min="1900" max="2099" step="1" className="form-control my-3 searchField" placeholder="Enter Birth Year" />
+                        <div className=" d-flex  justify-content-between   align-items-center rounded-md py-1 bg-white searchField">
+                            <label for="birthDate" class="form-label ms-2 my-auto text-muted">Enter Birth Date</label>
+                            <input type="date" name="birthDate" aria-label="birthDate" className=" p-1 rounded-lg " placeholder="Enter Birth Date" />
                         </div>
-                        <input type="text" name="degree" aria-label="degree" className="form-control my-4" placeholder="Enter Degree" />
-                        <input type="text" name="religion" aria-label="religion" className="form-control my-4" placeholder="Enter Religion" />
+
+                        <input type="text" name="degree" aria-label="degree" className="form-control my-3 searchField" placeholder="Enter Degree" />
+                        <input type="text" name="religion" aria-label="religion" className="form-control my-3 searchField" placeholder="Enter Religion" />
                         <button type="submit" className=" btn btn-success w-full btn-sm mt-4">Search</button>
                     </form>
                 </div>
