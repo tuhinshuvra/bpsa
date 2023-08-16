@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DirectoryImg from '../../assets/Image/messages/assaduzzaman.jpg';
 import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
 
+    const navigate = useNavigate();
+
     const handleSearchResult = () => {
         console.log('Handle Search Result');
+        navigate('/memberDirectorySearchResult')
+
     }
 
     return (
