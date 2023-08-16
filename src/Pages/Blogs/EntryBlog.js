@@ -10,18 +10,18 @@ const EntryBlog = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const config = useMemo(() => {
-      return {
-          placeholder: isEditing ? '' : 'description',
-          height: 350,
-      };
+    return {
+      placeholder: isEditing ? '' : 'description',
+      height: 350,
+    };
   }, [isEditing]);
 
   const handleFocus = () => {
-      setIsEditing(true);
+    setIsEditing(true);
   };
 
   const handleBlur = () => {
-      setIsEditing(false);
+    setIsEditing(false);
   };
   const parser = new DOMParser();
   const parsedDocument = parser.parseFromString(content, 'text/html');
@@ -101,24 +101,24 @@ const EntryBlog = () => {
     <div className='w-full'>
       <h1 className='text-center text-4xl mt-5 text-main'>Blog Entry</h1>
       <form className='my-3 mx-[5vw]' onSubmit={handleBlock}>
-        <input type='text' name='block_title' className='input input-bordered w-[89vw] my-2' placeholder='Enter block title' required></input><br />
-        <input type='text' name='block_summery' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Summary'></input><br />
+        <input type='text' name='block_title' className='input input-bordered w-[89vw] my-2 bg-white' placeholder='Enter block title' required></input><br />
 
-        <JoditEditor 
-                    value={content}
-                    tabIndex={12}
-                    config={config}
-                    onChange={newContent => setContent(newContent)}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                />
+        <JoditEditor
+          value={content}
+          tabIndex={12}
+          config={config}
+          onChange={newContent => setContent(newContent)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        <input type='text' name='block_summery' className='input input-bordered w-[89vw] my-2 bg-white' placeholder='Enter blog Summary'></input><br />
         {/* <textarea rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
-        <input type='file' name='image' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog image'></input><br />
+        <input type='file' name='image' className='input input-bordered w-[89vw] my-2 bg-white' placeholder='Enter blog image'></input><br />
         {/* video url we can be entry */}
         {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
         <div className='flex justify-between mt-2 mb-5'>
-          <input de className='btn btn-info lg:w-full  lg:max-w-[10vw]' type="reset" value="reset" />
-          <input className='btn btn-info lg:w-full lg:max-w-[10vw] ' type="submit" value="submit" />
+          <input de className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="reset" value="reset" />
+          <input className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="submit" value="submit" />
         </div>
       </form>
     </div>

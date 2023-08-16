@@ -146,8 +146,8 @@ const UpdateBlog = () => {
         {/* video url we can be entry */}
         {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
         <div className='flex justify-between  mt-2 mb-5'>
-          <input className='btn btn-info lg:w-full  lg:max-w-[10vw]' type="reset" value="reset" />
-          <input className='btn btn-info lg:w-full lg:max-w-[10vw] ' type="submit" value="submit" />
+        <input de className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="reset" value="reset" />
+          <input className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="submit" value="submit" />
         </div>
       </form>
     </div>

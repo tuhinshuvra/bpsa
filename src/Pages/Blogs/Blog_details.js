@@ -35,11 +35,11 @@ const Blog_Details = () => {
                 <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog.image}></img>
                 <p className='my-3'>{blog.description}</p>
                 <p>{blog.summary}</p>
-                <div className='flex justify-between items-center'>
-                    <div className='flex'>
+                <div className='flex justify-between items-center my-4 shadow py-3  px-10'>
+                    <div className='flex justify-between items-center'>
                         <p className='mr-5'>Blogger: {blog?.memberName}</p>
                         <p>Published: 07/08/2023</p>
-                        <Link to={`/${source}`} className='btn btn-info mx-5' >Back</Link>
+                        <Link to={`/${source}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg ' >Back</Link>
                     </div>
                     <div className='mb-10'>
                     </div>

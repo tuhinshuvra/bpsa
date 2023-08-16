@@ -18,7 +18,6 @@ const AboutUsPage = () => {
       <CommonHead title="About" />
       <HeroComponent1 title="About Us" />
       <AssociationInfoComponent />
-
       <ObjectivesComponent />
       <ActivitiesComp />
       <LeaderShipComponent />

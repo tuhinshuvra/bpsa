@@ -10,43 +10,131 @@ const MemberAllBlog = () => {
     const { user } = useContext(AllContext);
     let count = 1;
     const [blogs, setBlogs] = useState();
+    const [pendingBlogs, setPendingBlogs] = useState();
     useEffect(() => {
         fetch(" https://dev.bpsa.com.bd/api/blog")
             .then(res => res.json())
             .then(result => {
-                const filterData = result.data.blog.filter(blog => blog?.memberName == user.name);
+                const filterData = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status == "Approved");
                 setBlogs(filterData);
+                const filterData2 = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status != "Approved");
+                setPendingBlogs(filterData2);
             })
             .catch(error => console.log(error));
     }, [])
     if (blogs) {
         console.log(blogs);
     }
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options);
+    }
+
     return (
         <div>
-            <h1 className='text-center text-main my-5'>My Blogs</h1>
+            <div className="row mt-5 mb-2">
+                <div className="col">
+                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
+                        <h4 className=' text-center'>Approved Blogs </h4>
+                    </nav>
+                </div>
+            </div>
             {
-                blogs && blogs.map(blog => <div className='lg:grid lg:grid-cols-6 gap-4 my-5 mx-5' key={blog.id}>
-                    <div className='col-span-3'>
-                        <Link to={`/blogDetails/${blog.id}?source=memberAllBlog`}>
-                            <div className='flex -mx-6'>
-                                <h3 className='me-2'>{count++}.</h3>
-                                <h3 className='text-main'>{blog?.title}</h3>
+                blogs && blogs.map(blog => (
+                    <div className="card blogArea my-1" key={blog?.id}>
+                        <div className="d-flex">
+                            <div className="col-md-10">
+                                <div className="card-body">
+                                    <h5 className=" ">{blog?.title}</h5>
+                                    <p className=" my-0 ">{blog?.description}</p>
+                                    <p>{blog.summary}</p>
+                                    <div className=' d-flex justify-content-evenly'>
+                                        <div className=' d-flex col-md-5 me-auto   my-0'>
+                                            <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+
+                                            <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                            {/* <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p> */}
+                                        </div>
+                                        <div>
+                                            <Link to={`/blogDetails/${blog.id}?source=memberAllBlog`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Show Details</Link>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <p>{blog?.description}</p>
-                            <p>{blog?.summary}</p>
-                        </Link>
+                            <div className="col-md-2 my-auto">
+                                <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
+                            </div>
+
+                        </div>
                     </div>
-                    <div className='col-span-2'>
-                        <img className='rounded-lg h-[30vh] w-[25vw]' src={blog?.image}></img>
-                    </div>
-                    <div className='col-span-1 grid mx-[5vw] '>
-                        <button className='btn btn-info'>{blog?.status}</button>
-                        <Link to={`/updateBlog/${blog?.id}`} className='btn btn-info  mt-[10vh]'>Edit</Link>
-                    </div>
-                </div>)
+                ))
             }
+            <div className='my-5'>
+                <div className="row mt-5 mb-2">
+                    <div className="col">
+                        <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
+                            <h4 className=' text-center'>Pending Blogs </h4>
+                        </nav>
+                    </div>
+                </div>
+                {
+                    pendingBlogs && pendingBlogs.map(blog => (
+                        <div className="card blogArea my-1" key={blog?.id}>
+                            <div className="d-flex">
+                                <div className="col-md-10">
+                                    <div className="card-body">
+                                        <h5 className=" ">{blog?.title}</h5>
+                                        <p className=" my-0 ">{blog?.description}</p>
+                                        <p>{blog.summary}</p>
+                                        <div className=' d-flex justify-content-evenly'>
+                                            <div className=' d-flex col-md-5 me-auto   my-0'>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p>
+                                            </div>
+                                            <div>
+                                                <Link to={`/blogDetails/${blog.id}?source=memberAllBlog`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg'>Show Details</Link>
+                                                <Link to={`/updateBlog/${blog?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Edit</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-2 my-auto">
+                                    <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
+                                </div>
+
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
+        // <div>
+        //     <h1 className='text-center text-main my-5'>My Blogs</h1>
+        //     {
+        //         blogs && blogs.map(blog => <div className='lg:grid lg:grid-cols-6 gap-4 my-5 mx-5' key={blog.id}>
+        //             <div className='col-span-3'>
+        //                 <Link to={`/blogDetails/${blog.id}?source=memberAllBlog`}>
+        //                     <div className='flex -mx-6'>
+        //                         <h3 className='me-2'>{count++}.</h3>
+        //                         <h3 className='text-main'>{blog?.title}</h3>
+        //                     </div>
+        //                     <p className='text-black'>{blog?.description}</p>
+        //                     <p className='text-black'>{blog?.summary}</p>
+        //                 </Link>
+        //             </div>
+        //             <div className='col-span-2'>
+        //                 <img className='rounded-lg h-[30vh] w-[25vw]' src={blog?.image}></img>
+        //             </div>
+        //             <div className='col-span-1 grid mx-[5vw] '>
+        //                 <button className='btn btn-info'>{blog?.status}</button>
+        //                 <Link to={`/updateBlog/${blog?.id}`} className='btn btn-info  mt-[10vh]'>Edit</Link>
+        //             </div>
+        //         </div>)
+        //     }
+        // </div>
     );
 };
 
