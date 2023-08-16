@@ -1,0 +1,31 @@
+.memberDirectory {
+    margin: 0 0 80px 0;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: rgb(94, 104, 239);
+}
+
+.defaultDataShow {
+    background-color: rgb(157, 190, 244);
+    border-radius: 10px;
+    padding: 7px;
+    margin: 0 10px 10px 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px 0px;
+
+}
+
+.cardArea {
+    /* background-color: rgb(161, 244, 180) */
+}
+
+.cardImg {
+    padding: 6px;
+    border-radius: 15px;
+}
+
+.cardText {
+    text-align: center;
+    line-height: 20px;
+}
