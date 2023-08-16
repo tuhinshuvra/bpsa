@@ -33,6 +33,8 @@ import MemberCoCurriculamActivitiesEntry from "./Pages/MemberProfile/MemberCoCur
 import AllEventPage from "./Pages/Event/AllEventPage";
 import EventDetailsPage from "./Pages/Event/EventDetailsPage";
 import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
+import AllMemberDirectoryPage from "./Pages/AllMemberDirectory/AllMemberDirectoryPage";
+import AllMemberDirectorySearchResultPage from "./Pages/AllMemberDirectory/AllMemberDirectorySearchResultPage";
 
 export default function App() {
   return (
@@ -61,6 +63,8 @@ export default function App() {
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberImageUpload" element={<MemberImageUpload />} />
         <Route path="/memberCoCurriculamActivitiesEntry" element={<MemberCoCurriculamActivitiesEntry />} />
+        <Route path="/memberDirectory" element={<AllMemberDirectoryPage />} />
+        <Route path="/memberDirectorySearchResult" element={<AllMemberDirectorySearchResultPage />} />
         <Route path="/events" element={<AllEventPage />} />
         <Route path="/events/:eventId" element={<EventDetailsPage />} />
 
