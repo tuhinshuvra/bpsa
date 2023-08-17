@@ -24,41 +24,49 @@ const AdminAllBlog = () => {
                 console.error("API request error:", error);
             });
     }, []);
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options);
+    }
     console.log(blogs);
     return (
         <div>
-            <h1 className='text-center'>All Blogs</h1>
+            <div className="row mt-5 mb-2">
+                <div className="col">
+                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
+                        <h4 className=' text-center'>Members All Blogs </h4>
+                    </nav>
+                </div>
+            </div>
             {
                 blogs.map(blog => (
-                    <div key={blog.id}>
-                        <div className='lg:grid lg:grid-cols-6 gap-4 my-5 mx-5'>
-                            <div className='col-span-3'>
-                                <div className=' flex items-start'>
-                                    <p className='text-3xl me-2'>{count++}.</p>
+                    <div className="card blogArea my-1"  key={blog?.id}>
+                    <div className="d-flex">
+                        <div className="col-md-10">
+                            <div className="card-body">
+                                <h5 className=" ">{blog?.title}</h5>
+                                <p className=" my-0 ">{blog?.description}</p>
+                                <p>{blog.summary}</p>
+                                <div className=' d-flex justify-content-evenly'>
+                                    <div className=' d-flex col-md-5 me-auto   my-0'>
+                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+
+                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p>
+                                    </div>
                                     <div>
-                                        <h3>
-                                            {blog.title}
-                                        </h3>
-                                        <p>
-                                            {blog.description}
-                                        </p>
-                                        <p>{blog.summary}</p>
-
-                                        <Link to={`/blog_details/${blog.id}`} className='btn btn-info'>details</Link>
-
+                                        <Link to={`/blog_details/${blog?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Show Details</Link>
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-span-2'>
-                                <img className='h-[20vh] w-[25vw] rounded' src={blog.image}></img>
-                                <p className='my-2'>Blogger: Md Rasel Islam</p>
-                            </div>
-                            <div className='col-span-1'>
-                                <button className='btn btn-info '>{blog.status}</button>
-                                <p className='mt-5'>Published: 07/08/2023</p>
-                            </div>
                         </div>
+                        <div className="col-md-2 my-auto">
+                            <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
+                        </div>
+
                     </div>
+                </div>
                 ))
             }
         </div>
