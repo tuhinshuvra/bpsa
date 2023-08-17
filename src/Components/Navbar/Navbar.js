@@ -175,7 +175,7 @@ const Navbar = () => {
             <>
               <div className="dropdown">
                 <Link
-                  className=" bg-success  text-white rounded-md px-3 py-2    dropdown-toggle"
+                  className=" bg-success  text-white rounded-md px-4 py-2    dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
