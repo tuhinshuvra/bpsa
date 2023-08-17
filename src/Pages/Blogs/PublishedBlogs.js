@@ -29,11 +29,11 @@ const PublishedBlogs = () => {
         return date.toLocaleDateString('en-US', options);
     }
     return (
-        <div>
+        <div className=' container '>
             <div className="row mt-5 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                        <h4 className=' text-center'>Published Blogs </h4>
+                        <h3 className=' text-center text-primary fw-bold'>Published Blogs </h3>
                     </nav>
                 </div>
             </div>
@@ -54,7 +54,7 @@ const PublishedBlogs = () => {
                                             {/* <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p> */}
                                         </div>
                                         <div>
-                                            <Link to={`/blogDetails/${blog.id}?source=publishedBlogs`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Show Details</Link>
+                                            <Link to={`/blogDetails/${blog.id}?source=publishedBlogs`} className=' btn btn-primary btn-sm  '>Show Details</Link>
                                         </div>
                                     </div>
                                 </div>
