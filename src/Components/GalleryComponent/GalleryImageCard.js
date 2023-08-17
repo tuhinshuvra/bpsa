@@ -13,10 +13,10 @@ import ImagePreview from "../Common/ImagePreview";
 // ];
 
 const GalleryImageCard = ({ item, images, index }) => {
-  console.log(
-    "🚀 ~ file: GalleryImageCard.js:16 ~ GalleryImageCard ~ index:",
-    index
-  );
+  // console.log(
+  //   "🚀 ~ file: GalleryImageCard.js:16 ~ GalleryImageCard ~ index:",
+  //   index
+  // );
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 

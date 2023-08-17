@@ -9,8 +9,7 @@ const ImagePreview = ({
   photoIndex,
 }) => {
   console.log(
-    "🚀 ~ file: ImagePreview.js:5 ~ ImagePreview ~ images",
-    photoIndex
+    // "🚀 ~ file: ImagePreview.js:5 ~ ImagePreview ~ images",    photoIndex
   );
   // const [photoIndex, setPhotoIndex] = useState(0);
 

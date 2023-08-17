@@ -185,7 +185,7 @@ const Navbar = () => {
                   <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberDirectory">Directory</Link></li>
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/publishedBlogs">All Blog </Link></li>
-                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li>
+                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
                   <li>
