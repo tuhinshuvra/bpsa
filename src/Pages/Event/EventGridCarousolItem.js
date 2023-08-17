@@ -7,6 +7,7 @@ const EventGridCarousolItem = ({ titleOne, titleTwo, titleThree, subTitleOne, su
     return (
         <div className="d-flex justify-content-between mb-5 mb-md-5 mb-3">
 
+
             <div className="cardArea" data-aos="flip-left">
                 <div className="card border-0 "  >
                     <div className="eventsCarousol" >
@@ -23,6 +24,8 @@ const EventGridCarousolItem = ({ titleOne, titleTwo, titleThree, subTitleOne, su
                     </div>
                 </div>
             </div>
+
+
 
             <div className="cardArea d-none  d-md-block " data-aos="flip-right">
                 <div className="card  border-0 " >
