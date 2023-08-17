@@ -4,6 +4,7 @@ import { AllContext } from '../../hooks/ContextData';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import JoditEditor from 'jodit-react';
+import { toast } from 'react-hot-toast';
 const EntryBlog = () => {
 
   const [content, setContent] = useState('');
@@ -79,7 +80,7 @@ const EntryBlog = () => {
         if (createBlogResponse.ok) {
           const createBlogResult = await createBlogResponse.json();
           console.log(createBlogResult);
-          alert('Blog created successfully');
+          toast.success('Blog created successfully');
           form.reset();
           setErrorMessage('');
         } else {

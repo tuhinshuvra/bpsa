@@ -76,7 +76,7 @@ export default function App() {
         <Route path="/updateBlog/:id" element={<UpdateBlog />} />
         <Route path="/blogDetails/:id" element={<Blog_details />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
-        <Route path="/member_blog_details" element={<MemberBlockDetails />} />
+        {/* <Route path="/member_blog_details" element={<MemberBlockDetails />} /> */}
       </Routes>
       <Footer />
     </div>

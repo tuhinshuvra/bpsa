@@ -1,54 +1,59 @@
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { AllContext } from '../../hooks/ContextData';
 
 const MemberCoCurriculamActivitiesEntry = () => {
     useTitle("Profile Update");
+    const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
+
+
 
     const [value, setValue] = useState('');
 
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
+    // const handleChange = (event) => {
+    //     setValue(event.target.value);
+    // };
 
 
     // this function is used to post sign up data
     const handleOnSubmit = (event) => {
-        navigate("/memberProfile")
-        // event.preventDefault();
-        // const form = event.target;
-        // const fullName = form.full_name.value;
+        // navigate("/memberProfile")
+        event.preventDefault();
+        const form = event.target;
+        const CoCurriculumActivities = form.CoCurriculumActivities.value;
 
-        // const userData = {
-        //     name: fullName,
-        // }
-        // console.log("userData : ", userData);
+        const userData = {
+            CoCurriculumActivities: CoCurriculumActivities,
+            image: user.image,
+        }
+        console.log("userData : ", userData);
 
-        // fetch(`https://dev.bpsa.com.bd/api/profile-update`, {
-        //     method: "POST",
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(userData)
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Inserted Data : ', data);
-        //         if (data) {
-        //             form.reset()
-        //             toast.success('Co-Curricular Activities saved successfully.')
-        //             navigate("/memberProfile");
-        //         }
+        fetch(`https://dev.bpsa.com.bd/api/profile-update/${user?.id}`, {
+            method: "PUT",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Inserted Data : ', data);
+                if (data) {
+                    form.reset()
+                    toast.success('Co-Curricular Activities saved successfully.')
+                    navigate("/memberProfile");
+                }
 
-        //     })
-        //     .catch(error => {
-        //         console.log("Error Occured: ", error.response.data)
-        //         // setErrorMessage(error.response.data.error)
-        //     })
+            })
+            .catch(error => {
+                console.log("Error Occured: ", error)
+                // setErrorMessage(error.response.data.error)
+            })
     }
 
 
@@ -63,7 +68,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
                 <form onSubmit={handleOnSubmit}>
 
                     <div class="form-floating">
-                        <textarea onChange={handleChange} class="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxlength="100"></textarea>
+                        <textarea name='CoCurriculumActivities' class="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxlength="100" />
                         <label for="floatingTextarea">Enter Co-Curricular Activities</label>
                     </div>
 

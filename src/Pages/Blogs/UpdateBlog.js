@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import JoditEditor from 'jodit-react';
+import { toast } from 'react-hot-toast';
 const UpdateBlog = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
@@ -82,7 +83,7 @@ const UpdateBlog = () => {
       })
         .then(res => res.json())
         .then(result => {
-          alert("blog updated successfully");
+          toast.success("blog updated successfully");
           navigate("/updateBlog/" + id);
         })
         .catch(error => console.log(error));
@@ -146,7 +147,7 @@ const UpdateBlog = () => {
         {/* video url we can be entry */}
         {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
         <div className='flex justify-between  mt-2 mb-5'>
-        <input de className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="reset" value="reset" />
+          <input de className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="reset" value="reset" />
           <input className='text-white uppercase bg-main px-[2vw] py-[2vh]  rounded-lg ' type="submit" value="submit" />
         </div>
       </form>

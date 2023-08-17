@@ -14,7 +14,7 @@ const AllEventPage = () => {
     // const { date, description, events, id, image, start_date, status, time, title, video_link } = allEvents;
     const navigate = useNavigate();
 
-    console.log("allEvents : ", allEvents);
+    // console.log("allEvents : ", allEvents);
 
     useEffect(() => {
         fetch("http://dev.bpsa.com.bd/api/event")
