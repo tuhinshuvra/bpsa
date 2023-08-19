@@ -1,4 +1,4 @@
-import MemberImg from '../../assets/Image/messages/President_2021_Stamp.jpg'
+import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
 import BlogImg from '../../assets/Image/blog/blog_image.png'
 import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
@@ -52,7 +52,15 @@ const MemberProfilePage = () => {
                         <div className="col-lg-4">
                             <div className="card  proCartBody shadow-lg">
                                 <div className="card-body">
-                                    <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "150px" }} />
+                                    {user?.image ? <>
+
+                                        <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "150px" }} />
+                                    </> :
+                                        <>
+                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "150px" }} />
+                                        </>
+
+                                    }
 
                                     <div className='text-center'>
                                         <Link className='imageUpload' to="/memberImageUpload" >Image Upload</Link>
@@ -65,7 +73,7 @@ const MemberProfilePage = () => {
                                         <h6 className="my-0 ">Designation : AIG</h6>
                                     </div>
                                     <div className='col-md-7 mx-auto d-flex flex-column justify-content-lg-start memberProFont'>
-                                        <p className="  my-0"> <b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="  my-0"> <b> BP/SIV No.</b>: {user?.UniqueID}</p>
                                         <p className="  my-0"> <b> Rank</b>   : SP</p>
                                         <p className="  my-0"><b>Main Unit</b>: ABPN</p>
                                         <p className="  my-0"><b>Unit     </b>: CTSB</p>
