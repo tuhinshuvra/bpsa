@@ -40,7 +40,7 @@ const EntryBlog = () => {
 
     const blog = {
       title: form.block_title.value,
-      summary: form.block_summery.value,
+      summery:form.block_summery.value,
       description: textValue,
       status: 'pending',
       member_id: user?.id,
@@ -64,7 +64,7 @@ const EntryBlog = () => {
 
       if (imageData.data && imageData.data.display_url) {
         blog.image = imageData.data.display_url;
-
+        console.log(blog)
         const createBlogResponse = await fetch(
           'https://dev.bpsa.com.bd/api/blog-create',
           {
