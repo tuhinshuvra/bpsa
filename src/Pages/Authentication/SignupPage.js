@@ -4,7 +4,6 @@ import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useForm } from "react-hook-form";
 import './Login.css';
 
 const SignupPage = () => {
@@ -53,23 +52,22 @@ const SignupPage = () => {
     // this function is used to veriry unique id
     const handleVerifyUniqueId = (event) => {
         event.preventDefault();
-        const form = event.target.form;
-        if (!form) {
-            console.error("Form element not found");
-            return;
-        }
-
+        const form = event.target;
+        // if (!form) {
+        //     console.error("Form element not found");
+        //     return;
+        // }
         const unique_id = form.unique_id.value;
         const birth_year = form.birth_year.value;
 
-        const signupData = {
+        const verifyData = {
             unique_id: unique_id,
-            birth_year: birth_year,
+            // birth_year: birth_year,
         }
 
-        console.log("signupData : ", signupData);
+        console.log("signupData : ", verifyData);
 
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`, {
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${verifyData}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -218,8 +216,8 @@ const SignupPage = () => {
                     <><p className=' text-warning'>Password must be at least 8 characters and contain an uppercase letter, a lowercase letter, and a numeric number.</p></>
                 }
 
-
-                <form onSubmit={handleOnSubmit}>
+                {/* handle unique id verification  form*/}
+                <form onSubmit={handleVerifyUniqueId}>
                     <TextField
                         label="Unique ID"
                         name="unique_id"
@@ -228,6 +226,7 @@ const SignupPage = () => {
                         margin="normal"
 
                         fullWidth
+                        required
                     />
 
                     <TextField
@@ -243,17 +242,24 @@ const SignupPage = () => {
                                 max: new Date().getFullYear(), // Set a maximum value as the current year
                             },
                         }}
+                        required
                     />
 
-
-                    <div onClick={() => setEnableOtp(true)} className=' text-center'>
-                        <button onClick={handleVerifyUniqueId} className=' btn btn-primary btn-sm '>Verify</button>
+                    <div className=' text-center'>
+                        <button type='submit' className=' btn btn-primary btn-sm '>Verify</button>
                     </div>
+                </form>
 
+
+                {/* handle otp verification form */}
+                <form>
                     {enableOtp ?
                         <div className=' d-flex   align-items-baseline  '>
                             {/* <button className='btn btn-primary btn-sm'>Counter</button> */}
-                            <p className='btn btn-primary'>{formatTime(remainingTime)}</p>
+                            <div className=' d-flex justify-content-center align-items-center  '>
+                                <button className='btn btn-primary '>{formatTime(remainingTime)}</button>
+                            </div>
+
                             <TextField
                                 className=' mx-1'
                                 label="OTP"
@@ -291,40 +297,7 @@ const SignupPage = () => {
                                 id="full_name"
                                 type="text"
                                 margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-
-                            <TextField
-                                label="User name"
-                                name="user_name"
-                                id="user_name"
-                                type="text"
-                                margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-
-
-                            <TextField
-                                label="Password"
-                                name="password"
-                                id="password"
-                                type="password"
-                                margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-                            <TextField
-                                label="Retype Password"
-                                name="confirm_password"
-                                id="confirm_password"
-                                type="password"
-                                margin="normal"
-                                disabled={false}
+                                disabled={true}
                                 required
                                 fullWidth
                             />
@@ -341,7 +314,52 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
+                        </>
+                    }
+                    <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
+                </form>
 
+                {/* new user creation form */}
+                <form onSubmit={handleOnSubmit}>
+
+
+                    {otpVerified ?
+                        <>
+                            <TextField
+                                label="User name"
+                                name="user_name"
+                                id="user_name"
+                                type="text"
+                                margin="normal"
+                                disabled={false}
+                                required
+                                fullWidth
+                            />
+
+                            <TextField
+                                label="Password"
+                                name="password"
+                                id="password"
+                                type="password"
+                                margin="normal"
+                                disabled={false}
+                                required
+                                fullWidth
+                            />
+
+                            <TextField
+                                label="Retype Password"
+                                name="confirm_password"
+                                id="confirm_password"
+                                type="password"
+                                margin="normal"
+                                disabled={false}
+                                required
+                                fullWidth
+                            />
+                        </>
+                        :
+                        <>
                             <TextField
                                 label="User name"
                                 name="user_name"
@@ -363,8 +381,6 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
-
-
 
                             <TextField
                                 label="Retype Password"
