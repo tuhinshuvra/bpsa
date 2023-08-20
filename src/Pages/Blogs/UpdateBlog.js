@@ -6,13 +6,19 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-hot-toast';
+import { getCookie } from '../../utlis/helper';
 const UpdateBlog = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
   const { id } = useParams();
   const [blog, setBlogs] = useState([]);
   useEffect(() => {
-    fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`)
+    fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`,{
+      method: 'GET',
+      headers: {
+          'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+      },
+    })
       .then(res => res.json())
       .then(result => {
         if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
@@ -54,11 +60,6 @@ const UpdateBlog = () => {
 
 
 
-
-
-
-
-
   const handleBlock = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -77,14 +78,16 @@ const UpdateBlog = () => {
       fetch("https://dev.bpsa.com.bd/api/blog-update", {
         method: "POST",
         headers: {
+          'Authorization': `Bearer ${getCookie("token")}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(NewBlog),
       })
         .then(res => res.json())
         .then(result => {
+          console.log(result);
           toast.success("blog updated successfully");
-          navigate("/updateBlog/" + id);
+          navigate(`/blogDetails/${id}`);
         })
         .catch(error => console.log(error));
     }
@@ -107,14 +110,15 @@ const UpdateBlog = () => {
           fetch("https://dev.bpsa.com.bd/api/blog-update", {
             method: "POST",
             headers: {
+              'Authorization': `Bearer ${getCookie("token")}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(NewBlog),
           })
             .then(res => res.json())
             .then(result => {
-              alert("blog updated successfully");
-              navigate("/updateBlog/" + id);
+              toast.success("blog updated successfully");
+              navigate(`/blogDetails/${id}`);
 
             })
             .catch(error => console.log(error));

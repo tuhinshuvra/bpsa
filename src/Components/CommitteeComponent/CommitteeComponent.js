@@ -89,6 +89,7 @@ const CommitteeComponent = () => {
   const getCommitteeData = async () => {
     setLoading(true);
     const result = await GetCommitteeData();
+    console.log(result);
 
     if (result?.status === "success") {
       let data = result?.data?.committees;

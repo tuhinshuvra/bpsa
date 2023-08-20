@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { useContext } from 'react';
 import useTitle from '../../hooks/useTitle';
+import { getCookie } from '../../utlis/helper';
 
 const AdminAllBlog = () => {
     useTitle("Admin'sAllBlog")
@@ -10,7 +11,12 @@ const AdminAllBlog = () => {
     let count = 1;
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
-        fetch("https://dev.bpsa.com.bd/api/blog")
+        fetch("https://dev.bpsa.com.bd/api/blog", {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+            },
+        })
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
@@ -46,7 +52,7 @@ const AdminAllBlog = () => {
                             <div className="col-md-10">
                                 <div className="card-body">
                                     <h5 className=" ">{blog?.title}</h5>
-                                    <p className=" my-0 ">{blog?.description}</p>
+                                    {/* <p className=" my-0 ">{blog?.description}</p> */}
                                     <p>{blog.summary}</p>
                                     <div className=' d-flex justify-content-evenly'>
                                         <div className=' d-flex col-md-5 me-auto   my-0'>

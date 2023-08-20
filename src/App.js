@@ -35,6 +35,8 @@ import EventDetailsPage from "./Pages/Event/EventDetailsPage";
 import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
 import AllMemberDirectoryPage from "./Pages/AllMemberDirectory/AllMemberDirectoryPage";
 import AllMemberDirectorySearchResultPage from "./Pages/AllMemberDirectory/AllMemberDirectorySearchResultPage";
+import NewCommittee from "./Components/CommitteeComponent/NewCommittee";
+import PublishBLogDetails from "./Pages/Blogs/PublishBLogDetails";
 
 export default function App() {
   return (
@@ -76,7 +78,9 @@ export default function App() {
         <Route path="/updateBlog/:id" element={<UpdateBlog />} />
         <Route path="/blogDetails/:id" element={<Blog_details />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
+        <Route path="/publishedBlogDetail/:id" element={<PublishBLogDetails />} />
         {/* <Route path="/member_blog_details" element={<MemberBlockDetails />} /> */}
+        <Route path="/newCommittee" element={<NewCommittee />} />
       </Routes>
       <Footer />
     </div>

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
+import { getCookie } from '../../utlis/helper';
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");
     const { id } = useParams();
@@ -14,7 +15,12 @@ const MemberBlogDetails = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`)
+        fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+            },
+        })
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
@@ -28,7 +34,7 @@ const MemberBlogDetails = () => {
             });
     }, []);
     // console.log(blog);
-    const { selectedStatus, setSelectedStatus } = useState(blog.status);
+    const { selectedStatus, setSelectedStatus } = useState(blog?.status);
     const [blogStatus, setBlogStatus] = useState(blog?.status);
     const handleStatusChange = (newStatus) => {
         setBlogStatus(newStatus);
@@ -45,6 +51,7 @@ const MemberBlogDetails = () => {
         await fetch("https://dev.bpsa.com.bd/api/blog-status", {
             method: "POST",
             headers: {
+                'Authorization': `Bearer ${getCookie("token")}`, 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -60,11 +67,11 @@ const MemberBlogDetails = () => {
     };
     return (
         <div>
-            <h3 className='mt-10 text-center text-main'>{blog.title}</h3>
+            <h3 className='mt-10 text-center text-main'>{blog?.title}</h3>
             <div className='mx-[5vw] my-[1vh]'>
-                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog.image}></img>
-                <p className='my-3'>{blog.description}</p>
-                <p>{blog.summary}</p>
+                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog?.image}></img>
+                <p className='my-3'>{blog?.description}</p>
+                <p>{blog?.summary}</p>
                 <div className='flex justify-between items-center'>
                     <div className='flex'>
                         <p className='mr-5'>Blogger: {blog?.memberName}</p>
@@ -88,7 +95,7 @@ const MemberBlogDetails = () => {
                                     value={blogStatus}
                                     onChange={(e) => handleStatusChange(e.target.value)}
                                     className='select select-bordered w-full max-w-xs' >
-                                    <option disabled selected>{blog.status}</option>
+                                    <option disabled selected>{blog?.status}</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Ask for Review">Ask for Review</option>
                                     <option value="Disabled">Disabled</option>

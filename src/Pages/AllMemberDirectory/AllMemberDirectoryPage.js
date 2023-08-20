@@ -9,7 +9,6 @@ const AllMemberDirectoryPage = () => {
     const handleSearchResult = () => {
         console.log('Handle Search Result');
         navigate('/memberDirectorySearchResult')
-
     }
 
     return (

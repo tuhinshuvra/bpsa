@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
+import { getCookie } from '../../utlis/helper';
 const MemberAllBlog = () => {
     useTitle("MemberAllBlog")
     const { user } = useContext(AllContext);
@@ -12,8 +13,18 @@ const MemberAllBlog = () => {
     const [blogs, setBlogs] = useState();
     const [pendingBlogs, setPendingBlogs] = useState();
     useEffect(() => {
-        fetch(" https://dev.bpsa.com.bd/api/blog")
-            .then(res => res.json())
+        fetch("https://dev.bpsa.com.bd/api/blog", {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+            },
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response was not ok, status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(result => {
                 const filterData = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status == "Approved");
                 setBlogs(filterData);
@@ -47,8 +58,8 @@ const MemberAllBlog = () => {
                             <div className="col-md-10">
                                 <div className="card-body">
                                     <h5 className=" ">{blog?.title}</h5>
-                                    <p className=" my-0 ">{blog?.description}</p>
-                                    <p>{blog.summary}</p>
+                                    {/* <p className=" my-0 ">{blog?.description}</p> */}
+                                    <p>{blog?.summary}</p>
                                     <div className=' d-flex justify-content-evenly'>
                                         <div className=' d-flex col-md-5 me-auto   my-0'>
                                             <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
@@ -85,7 +96,7 @@ const MemberAllBlog = () => {
                                 <div className="col-md-10">
                                     <div className="card-body">
                                         <h5 className=" ">{blog?.title}</h5>
-                                        <p className=" my-0 ">{blog?.description}</p>
+                                        {/* <p className=" my-0 ">{blog?.description}</p> */}
                                         <p>{blog.summary}</p>
                                         <div className=' d-flex justify-content-evenly'>
                                             <div className=' d-flex col-md-5 me-auto   my-0'>
@@ -95,7 +106,7 @@ const MemberAllBlog = () => {
                                                 <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p>
                                             </div>
                                             <div>
-                                                <Link to={`/blogDetails/${blog.id}?source=memberAllBlog`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg'>Show Details</Link>
+                                                <Link to={`/blogDetails/${blog?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg'>Show Details</Link>
                                                 <Link to={`/updateBlog/${blog?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Edit</Link>
                                             </div>
                                         </div>
