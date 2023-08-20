@@ -67,8 +67,8 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
                 <form onSubmit={handleOnSubmit}>
 
-                    <div class="form-floating">
-                        <textarea name='CoCurriculumActivities' class="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxlength="100" />
+                    <div className="form-floating">
+                        <textarea name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxlength="100" />
                         <label for="floatingTextarea">Enter Co-Curricular Activities</label>
                     </div>
 

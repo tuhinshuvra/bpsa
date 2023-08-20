@@ -39,7 +39,8 @@ const ContactComponent = () => {
 
   return (
     <div>
-      <HeroComponent1 title="Contact" />
+      {/* <HeroComponent1 title="Contact" /> */}
+      <h1 className='fw-bold text-center text-success my-4'>CONTACT</h1>
       <div className="bg-bgColor py-3">
         <Container>
           {" "}

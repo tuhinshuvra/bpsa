@@ -63,7 +63,7 @@ const MemberImageUpload = () => {
             <form onSubmit={handleImageUpload} className='text-center my-3' >
                 {/* <input type='file' name='image' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter member image'></input><br /> */}
                 <input type="file" name="image" className="form-control my-2" id="image" aria-describedby="emailHelp" />
-                <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' class="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxLength="100" hidden />
+                <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxLength="100" hidden />
 
                 <div className=' d-flex justify-content-between '>
                     <input className='btn btn-sm btn-primary' type="reset" value="reset" />
