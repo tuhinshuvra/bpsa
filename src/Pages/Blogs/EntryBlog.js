@@ -41,7 +41,7 @@ const EntryBlog = () => {
 
     const blog = {
       title: form.block_title.value,
-      summery:form.block_summery.value,
+      summery: form.block_summery.value,
       description: textValue,
       status: 'pending',
       member_id: user?.id,
@@ -105,7 +105,8 @@ const EntryBlog = () => {
     <div className='  col-md-10 mx-auto'>
       <h1 className='text-center text-4xl mt-5 text-main'>Blog Entry</h1>
       <form className='my-3 mx-[5vw]' onSubmit={handleBlock}>
-        <input type='text' name='block_title' className='input input-bordered w-full my-2 bg-white' placeholder='Enter block title' required></input><br />
+        <input type='text' name='block_title' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog title' required></input><br />
+        <input type='text' name='block_summery' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog summary'></input><br />
 
         <JoditEditor
           value={content}
@@ -115,14 +116,14 @@ const EntryBlog = () => {
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        <input type='text' name='block_summery' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog Summary'></input><br />
+
         {/* <textarea rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
         <input type='file' name='image' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog image'></input><br />
         {/* video url we can be entry */}
         {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
         <div className='flex justify-between mt-2 mb-5'>
-          <input de className='btn btn-primary btn-sm  w-24 h-12' type="reset" value="reset" />
-          <input className='btn btn-primary  btn-sm w-24 h-12' type="submit" value="submit" />
+          <input de className='btn btn-primary btn-sm  w-25 h-12' type="reset" value="reset" />
+          <input className='btn btn-primary  btn-sm w-25 h-12' type="submit" value="submit" />
         </div>
       </form>
     </div>

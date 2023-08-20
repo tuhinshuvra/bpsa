@@ -48,7 +48,7 @@ const PublishedBlogs = () => {
     }
 
     return (
-        <div className=' container '>
+        <div className=' container mb-md-4 '>
             <div className="row mt-5 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
