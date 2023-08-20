@@ -35,13 +35,16 @@ const Blog_Details = () => {
                 console.error("API request error:", error);
             });
     }, []);
+    if(blog){
+        console.log(blog?.summery);
+    }
     return (
         <div>
-            <h3 className='mt-10 text-center text-main'>{blog.title}</h3>
+            <h3 className='mt-10 text-center text-main'>{blog?.title}</h3>
             <div className='mx-[5vw] my-[1vh]'>
-                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog.image}></img>
-                <p className='my-3'>{blog.description}</p>
-                <p>{blog.summary}</p>
+                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog?.image}></img>
+                <p className='my-5'>{blog?.description}</p>
+                <p>{blog?.summery}</p>
                 <div className='flex justify-between items-center my-4 shadow py-3  px-10'>
                     <div className='flex justify-between items-center'>
                         <p className='mr-5'>Blogger: {blog?.memberName}</p>
