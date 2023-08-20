@@ -17,6 +17,7 @@ const AllMemberDirectoryPage = () => {
 
     const navigate = useNavigate();
 
+ 
     console.log("Search Data : ", searchData);
 
     const getSearchData = (event) => {

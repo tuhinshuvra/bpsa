@@ -5,8 +5,8 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-hot-toast';
+import { getCookie } from '../../utlis/helper';
 const EntryBlog = () => {
-
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
@@ -71,6 +71,7 @@ const EntryBlog = () => {
           {
             method: 'POST',
             headers: {
+              'Authorization': `Bearer ${getCookie("token")}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(blog),
@@ -81,7 +82,9 @@ const EntryBlog = () => {
           const createBlogResult = await createBlogResponse.json();
           console.log(createBlogResult);
           toast.success('Blog created successfully');
+
           form.reset();
+          navigate("/memberAllBlog");
           setErrorMessage('');
         } else {
           const errorResponse = await createBlogResponse.text();
@@ -118,8 +121,8 @@ const EntryBlog = () => {
         {/* video url we can be entry */}
         {/* <input type='text' name='block_video' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog video url'></input><br/> */}
         <div className='flex justify-between mt-2 mb-5'>
-          <input de className='btn btn-primary btn-sm  w-25' type="reset" value="reset" />
-          <input className='btn btn-primary  btn-sm w-25' type="submit" value="submit" />
+          <input de className='btn btn-primary btn-sm  w-24 h-12' type="reset" value="reset" />
+          <input className='btn btn-primary  btn-sm w-24 h-12' type="submit" value="submit" />
         </div>
       </form>
     </div>

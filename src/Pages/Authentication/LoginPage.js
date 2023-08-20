@@ -37,7 +37,7 @@ const LoginPage = () => {
       data: { email, password },
     })
       .then((response) => {
-        console.log("Signin Access: ", response);
+        console.log("Signin Access: ", response.data.token);
         navigate(location?.state?.from || "/", { replace: true });
         setErrorMessage("");
         authenticate(response.data, () => {
