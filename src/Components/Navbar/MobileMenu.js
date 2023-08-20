@@ -108,6 +108,19 @@ export default function MobileMenu() {
             Gallery
           </NavLink>
         </ListItem>
+
+        <ListItem>
+          <NavLink
+            className={(active) =>
+              active?.isActive
+                ? "text-white bg-main w-full py-2 text-center font-semibold hover:text-second"
+                : "text-second hover:text-second w-full text-center	"
+            }
+            to="/events"
+          >
+            Events
+          </NavLink>
+        </ListItem>
         <ListItem>
           <NavLink
             className={(active) =>

@@ -97,7 +97,7 @@ const NewsPage = () => {
   return (
     <div>
       <CommonHead title="NEWS" />
-      <HeroComponent1 title="NEWS" />
+      <h1 className='fw-bold text-center text-success my-4'>NEWS</h1>
       <NoticeLine data={newsLine} />
       <NewComp data={newsData} />
       <ActivityUpdate data={activityUpdate} />

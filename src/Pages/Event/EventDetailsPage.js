@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './EventDetails.css';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
+import './EventDetails.css';
 
 const EventDetailsPage = () => {
     const { eventId } = useParams();
@@ -17,8 +17,9 @@ const EventDetailsPage = () => {
             .then(data => {
                 // console.log("Events Details data: ", data.data.event);
                 setEventDetils(data.data.event);
+                setLoading(false);
             })
-    }, [eventId])
+    }, [eventId, setLoading])
 
     // const { date, description, events, id, image, start_date, status, time, title, video_link } = allEvents;
 
@@ -29,17 +30,34 @@ const EventDetailsPage = () => {
     return (
         <div className=' col-lg-8 col-md-10 mx-auto'>
             <h2 className=' text-center fw-bold mt-5 mb-3 text-success'>{eventDetails?.title}</h2>
-            <div class="card mb-3">
-                <img src={eventDetails?.image} class="card-img-top eventDetailImg" alt="..." />
-                <div class="card-body">
-                    <div className=' d-flex'>
-                        <h4> <b>Venue:</b> {eventDetails?.events} </h4>
-                        <h4 className=' ms-4'> <b>Date:</b> {eventDetails?.date} </h4>
+            <div className="card mb-3 p-3">
+                <div className=' d-lg-flex'>
+                    <div className=" col-lg-7">
+                        <img src={eventDetails?.image} className=" card-img-top eventDetailImg" alt="..." />
                     </div>
-                    <p class="card-text"> <b>Specification:</b>{eventDetails?.description}</p>
+                    <div className="card-body col-lg-5 text-center">
+                        <div className=' d-flex flex-column justify-content-lg-start'>
+                            {eventDetails?.events &&
+                                <h4> <b>Venue:</b> {eventDetails?.events} </h4>
+                            }
+                            {eventDetails?.start_date &&
+                                <h4 className=' '> <b>Start Date:</b> {eventDetails?.start_date} </h4>
+                            }
+
+                            {eventDetails?.time &&
+                                <h4 className=' '> <b>Time:</b> {eventDetails?.time} </h4>
+                            }
+                            {eventDetails?.date &&
+                                <h4 className=' '> <b>Date:</b> {eventDetails?.date} </h4>
+                            }
+                        </div>
+                    </div>
                 </div>
+
+                <p className="card-text mt-4 mb-2"> <b>Specification:</b>{eventDetails?.description}</p>
+
             </div>
-        </div>
+        </div >
     );
 };
 

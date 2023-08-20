@@ -47,7 +47,7 @@ const LoginPage = () => {
           }
           // console.log("Logged in UserName:", response.data.user.name)
           setLoading(false);
-          navigate("/", { replace: true });
+          navigate("/memberProfile", { replace: true });
           console.log("cookie local save ", isAuth());
         });
       })

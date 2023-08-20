@@ -19,8 +19,9 @@
   text-transform: uppercase;
   background-color: #2b72ef;
   border-radius: 4px;
-  padding: 8px 20px;
+  padding: 8px 5px;
 }
 
 .normalnav__Style:hover {
+  background-color: #0742a9;
 }

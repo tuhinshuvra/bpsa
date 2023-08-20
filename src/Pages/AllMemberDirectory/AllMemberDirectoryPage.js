@@ -38,6 +38,7 @@ const AllMemberDirectoryPage = () => {
         console.log("Search Data:", searchData);
 
         setSearchButtonClicked(true);
+        navigate('/memberDirectorySearchResult')
 
     }
 
@@ -49,8 +50,8 @@ const AllMemberDirectoryPage = () => {
                     <p className=" fs-5 fw-bold text-center   rounded-lg py-1 text-white ">Search Pannel</p>
 
                     <form id="searchForm" onSubmit={handleSearchResult}>
-                        <label htmlFor="exampleInputEmail1" className="form-label text-white my-0">Search result showing all records that contains </label>
-                        <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-0 mb-3 searchField" placeholder="Enter searchKeyword" />
+                        <label htmlFor="exampleInputEmail1" className="form-label text-white my-0">Search Keyword</label>
+                        <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-0 my-1 searchField" placeholder="Enter searchKeyword" />
 
                         <select onChange={getSearchData} name="rank" className="form-select my-3" aria-label="Default select example">
 
@@ -173,132 +174,152 @@ const AllMemberDirectoryPage = () => {
                     {/* Default Member Show */}
                     <div className="defaultDataShow">
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
+                        <div className="d-flex px-3 py-2 directoryMember shadow-lg my-1 mx-1">
+                            <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                <p className=" my-0"> <b> Designation </b>: AIG</p>
+                            </div>
+                            <div className="col-md-7">
+                                <div className=" d-flex justify-content-between">
+                                    <div className=" ">
+                                        <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="my-0"><b> Rank</b>   : SP</p>
+                                        <p className="my-0"><b> Main Unit</b>: ABPN</p>
+                                        <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
+                                        <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
+                                        <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
+                                        <p className="my-0"><b> Blood Group  </b>  : O- </p>
+                                        <p className="my-0"><b> Own District </b> : Sylhet</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex px-3 py-2 directoryMember shadow-lg my-1 mx-1">
+                            <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                <p className=" my-0"> <b> Designation </b>: AIG</p>
+                            </div>
+                            <div className="col-md-7">
+                                <div className=" d-flex justify-content-between">
+                                    <div className=" ">
+                                        <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="my-0"><b> Rank</b>   : SP</p>
+                                        <p className="my-0"><b> Main Unit</b>: ABPN</p>
+                                        <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
+                                        <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
+                                        <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
+                                        <p className="my-0"><b> Blood Group  </b>  : O- </p>
+                                        <p className="my-0"><b> Own District </b> : Sylhet</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex px-3 py-2 directoryMember shadow-lg my-1 mx-1">
+                            <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                <p className=" my-0"> <b> Designation </b>: AIG</p>
+                            </div>
+                            <div className="col-md-7">
+                                <div className=" d-flex justify-content-between">
+                                    <div className=" ">
+                                        <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="my-0"><b> Rank</b>   : SP</p>
+                                        <p className="my-0"><b> Main Unit</b>: ABPN</p>
+                                        <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
+                                        <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
+                                        <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
+                                        <p className="my-0"><b> Blood Group  </b>  : O- </p>
+                                        <p className="my-0"><b> Own District </b> : Sylhet</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex px-3 py-2 directoryMember shadow-lg my-1 mx-1">
+                            <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                <p className=" my-0"> <b> Designation </b>: AIG</p>
+                            </div>
+                            <div className="col-md-7">
+                                <div className=" d-flex justify-content-between">
+                                    <div className=" ">
+                                        <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="my-0"><b> Rank</b>   : SP</p>
+                                        <p className="my-0"><b> Main Unit</b>: ABPN</p>
+                                        <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
+                                        <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
+                                        <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
+                                        <p className="my-0"><b> Blood Group  </b>  : O- </p>
+                                        <p className="my-0"><b> Own District </b> : Sylhet</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex px-3 py-2 directoryMember shadow-lg my-1 mx-1">
+                            <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                <p className=" my-0"> <b> Designation </b>: AIG</p>
+                            </div>
+                            <div className="col-md-7">
+                                <div className=" d-flex justify-content-between">
+                                    <div className=" ">
+                                        <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="my-0"><b> Rank</b>   : SP</p>
+                                        <p className="my-0"><b> Main Unit</b>: ABPN</p>
+                                        <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
+                                        <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
+                                        <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
+                                        <p className="my-0"><b> Blood Group  </b>  : O- </p>
+                                        <p className="my-0"><b> Own District </b> : Sylhet</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex px-3 py-2 directoryMember shadow-lg my-1 mx-1">
+                            <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                <p className=" my-0"> <b> Designation </b>: AIG</p>
+                            </div>
+                            <div className="col-md-7">
+                                <div className=" d-flex justify-content-between">
+                                    <div className=" ">
+                                        <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                        <p className="my-0"><b> Rank</b>   : SP</p>
+                                        <p className="my-0"><b> Main Unit</b>: ABPN</p>
+                                        <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
+                                        <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
+                                        <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
+                                        <p className="my-0"><b> Blood Group  </b>  : O- </p>
+                                        <p className="my-0"><b> Own District </b> : Sylhet</p>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
 
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
-                        <div className="card cardArea">
-                            <img src={DirectoryImg} className=" cardImg" alt="..." />
-                            <div className="cardText">
-                                <p className=" fw-bold my-0">Md. Asaduzzaman</p>
-                                <p className=" my-0"> <b> Designation:</b> DIG</p>
-                                <p className=" my-0 "><b>Rank:</b> SP</p>
-                            </div>
-                        </div>
+
+
+
+
+
+
+
+
 
 
                     </div>
