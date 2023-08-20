@@ -15,7 +15,7 @@ const MemberBlogDetails = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`,{
+        fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
@@ -51,7 +51,7 @@ const MemberBlogDetails = () => {
         await fetch("https://dev.bpsa.com.bd/api/blog-status", {
             method: "POST",
             headers: {
-                'Authorization': `Bearer ${getCookie("token")}`, 
+                'Authorization': `Bearer ${getCookie("token")}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),

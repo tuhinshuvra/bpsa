@@ -126,7 +126,7 @@ const ForgetPassword = () => {
         }
         console.log("userData : ", userData);
 
-        fetch(`http://dev.bpsa.com.bd/api/change-password`, {
+        fetch(`https://dev.bpsa.com.bd/api/change-password`, {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

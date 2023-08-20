@@ -37,7 +37,7 @@ const MemberImageUpload = () => {
             if (imageData.data && imageData.data.display_url) {
                 member.image = imageData.data.display_url;
 
-                const createBlogResponse = await fetch(`http://dev.bpsa.com.bd/api/profile-update/${user?.id}`, {
+                const createBlogResponse = await fetch(`https://dev.bpsa.com.bd/api/profile-update/${user?.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

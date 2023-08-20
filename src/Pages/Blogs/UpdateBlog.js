@@ -13,10 +13,10 @@ const UpdateBlog = () => {
   const { id } = useParams();
   const [blog, setBlogs] = useState([]);
   useEffect(() => {
-    fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`,{
+    fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
       method: 'GET',
       headers: {
-          'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+        'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
       },
     })
       .then(res => res.json())

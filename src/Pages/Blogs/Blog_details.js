@@ -16,7 +16,7 @@ const Blog_Details = () => {
     const [blog, setBlogs] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://dev.bpsa.com.bd/api/blog/${user.id}`,{
+        fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
@@ -35,7 +35,7 @@ const Blog_Details = () => {
                 console.error("API request error:", error);
             });
     }, []);
-    if(blog){
+    if (blog) {
         console.log(blog?.summery);
     }
     return (

@@ -16,7 +16,7 @@ const PublishBLogDetails = () => {
     const [blog, setBlogs] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-        fetch("http://dev.bpsa.com.bd/api/Approvedblog")
+        fetch("https://dev.bpsa.com.bd/api/Approvedblog")
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {

@@ -5,6 +5,8 @@ import useTitle from '../../hooks/useTitle';
 import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import './MemberProfilePage.css';
+import { getCookie } from '../../utlis/helper';
+import Loader from '../../Components/Common/Loader';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -21,8 +23,8 @@ const MemberProfilePage = () => {
 
     // login member profile data
     useEffect(() => {
-        fetch(`http://dev.bpsa.com.bd/api/profile/${user.UniqueID}`)
-            // fetch(`http://dev.bpsa.com.bd/api/profile/BP750510460`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user.UniqueID}`)
+            // fetch(`https://dev.bpsa.com.bd/api/profile/BP750510460`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member Profile Data: ", data)
@@ -35,17 +37,27 @@ const MemberProfilePage = () => {
 
     // member all blog
     useEffect(() => {
-        fetch(" https://dev.bpsa.com.bd/api/blog")
-            .then(res => res.json())
+        setLoading(true);
+        fetch("https://dev.bpsa.com.bd/api/blog", {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+            },
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response was not ok, status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(result => {
-                const approvedBlogs = result.data.blog.filter(blog => blog?.memberName == user?.name && blog?.status == "Approved");
+                const approvedBlogs = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status == "Approved");
                 setApprovedBlogs(approvedBlogs);
-                const pendingBlogs = result.data.blog.filter(blog => blog?.memberName == user?.name && blog?.status != "Approved");
+                const pendingBlogs = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status != "Approved");
                 setPendingBlogs(pendingBlogs);
-                setLoading(false)
             })
             .catch(error => console.log(error));
-    }, [user?.name, setLoading])
+    }, [])
 
 
     const formatDate = (dateString) => {
@@ -55,7 +67,7 @@ const MemberProfilePage = () => {
     }
 
     if (loading) {
-        setLoading();
+        <Loader></Loader>
     }
 
     return (
