@@ -45,7 +45,7 @@ const AllMemberDirectoryPage = () => {
 
     return (
         <div className=" container">
-            <h1 className=' fw-bold text-center text-success my-3'>Member Directory</h1>
+            <h1 className=' fw-bold text-center text-success my-3'>MEMBER DIRECTORY</h1>
             <div className="row d-lg-flex memberDirectory ">
 
                 <div className=" col-lg-3 px-2">

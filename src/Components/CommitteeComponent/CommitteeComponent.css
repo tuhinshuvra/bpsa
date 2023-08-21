@@ -1,0 +1,81 @@
+.newCommitteArea {
+    background-color: #5E68EF;
+    margin: 40px 0 40px 0;
+    padding: 0 20px 20px 20px;
+    border-radius: 15px;
+}
+
+.comPoliceLogo {
+    width: 80px;
+    border-radius: 25%;
+    background-color: white;
+}
+
+.comBPSALogo {
+    width: 100px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.comIGPPhoto {
+    width: 120px;
+    border-radius: 15%;
+}
+
+.comNewRowPhoto {
+    width: 130px;
+    border-radius: 15px;
+}
+
+.comRowPhoto {
+    width: 87px;
+    border-radius: 15px;
+}
+
+
+
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {}
+
+@media (min-width: 768px) and (max-width: 991.98px) {}
+
+@media (min-width: 425px) and (max-width: 767.98px) {
+    .newCommitteArea {
+        margin: 5px 0 5px 0;
+        padding: 2px;
+        border-radius: 7px;
+    }
+
+    .comNewRowPhoto {
+        width: 80px;
+        border-radius: 15px;
+    }
+
+
+    .comRowPhoto {
+        width: 80px;
+        border-radius: 7px;
+    }
+
+}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+    .newCommitteArea {
+        margin: 5px 0 5px 0;
+        padding: 2px;
+        border-radius: 7px;
+    }
+
+    .comNewRowPhoto {
+        width: 80px;
+        border-radius: 15px;
+    }
+
+    .comRowPhoto {
+        width: 80px;
+        border-radius: 7px;
+    }
+}
