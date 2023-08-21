@@ -40,14 +40,14 @@ const NewCommittee = () => {
   const [commGroup, setCommGroup] = useState();
   useEffect(() => {
     setLoading(true);
-    fetch(`http://dev.bpsa.com.bd/api/committee/session/${year}`)
+    fetch(`https://dev.bpsa.com.bd/api/committee/session/${year}`)
       .then(res => res.json())
       .then(result => {
         setAllYearData(result.data.committees);
         setCommGroup([...new Set(result.data.committees.map(obj => obj.commGroup))]);
         setYearCommittee(result.data.committees)
 
-        const filterIgp =  result.data.committees?.filter(
+        const filterIgp = result.data.committees?.filter(
           (item) => item?.comm_group_slug === "IGP"
         );
         setIgpData(filterIgp[0]);
@@ -56,13 +56,13 @@ const NewCommittee = () => {
   }, [])
   const handleChangeYear = (id) => {
     setLoading(true);
-    fetch(`http://dev.bpsa.com.bd/api/committee/session/${id}`)
+    fetch(`https://dev.bpsa.com.bd/api/committee/session/${id}`)
       .then(res => res.json())
       .then(result => {
         setAllYearData(result.data.committees);
         setYearCommittee((result.data.committees?.filter((item) => item?.comm_group_slug !== "IGP")));
         setCommGroup([...new Set(result.data.committees.map(obj => obj.commGroup))]);
-        const filterIgp =  result.data.committees?.filter(
+        const filterIgp = result.data.committees?.filter(
           (item) => item?.comm_group_slug === "IGP"
         );
         setIgpData(filterIgp[0]);

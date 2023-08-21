@@ -13,11 +13,17 @@ const SignupPage = () => {
     const [enableOtp, setEnableOtp] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
-    const [verifyMessage, setVerifyMessage] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [passwordValid, setPasswordValid] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [remainingTime, setRemainingTime] = useState(5 * 60);
+    const [userFullName, setUserFullName] = useState('');
+    const [userPhone, setUserPhone] = useState('');
+    const [otpData, setOtpData] = useState('');
+    const [userEnteredOTP, setUserEnteredOTP] = useState('');
+
+    console.log("userFullName :", userFullName);
+    console.log("otpData :", otpData);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -60,14 +66,14 @@ const SignupPage = () => {
         const unique_id = form.unique_id.value;
         const birth_year = form.birth_year.value;
 
-        const verifyData = {
-            unique_id: unique_id,
-            // birth_year: birth_year,
-        }
+        // const verifyData = {
+        //     unique_id: unique_id,
+        //     birth_year: birth_year,
+        // }
 
-        console.log("signupData : ", verifyData);
+        // console.log("verifyData : ", verifyData);
 
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${verifyData}`, {
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${birth_year}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -79,13 +85,26 @@ const SignupPage = () => {
                 if (data.value === 1) {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
+                    console.log(data);
                     // form.reset();
                     setOtpVerified(true);
-                    setVerifyMessage(true);
-                    startCountdown(); // Start the countdown after verification
+                    startCountdown();
+                    setOtpData(data.otp)
+                    setUserFullName(data.name)
+                    setUserPhone(data.phone)
+                }
+                else if (data.value === 2) {
+                    console.log(data);
+                    console.log(data.message);
+                    toast.error('User ID verification failed');
+                }
+                else if (data.value === 3) {
+                    console.log(data);
+                    console.log(data.message);
+                    toast.error('User ID already registered');
                 }
                 else {
-                    toast.error("Unique ID Verification Failed!");
+                    toast.error("Something error, Please try again later.");
                 }
 
 
@@ -98,42 +117,15 @@ const SignupPage = () => {
             });
     };
 
-    // this function is used to veriry otp during typing
-    const handleOtpTyping = (event) => {
-        const otp = event.target.value;
 
-        const otpData = {
-            otp: otp,
-        };
-
-        fetch(`serverAddress/api/verify-otp`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(otpData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("OTP Verification Data :", data);
-                if (data.verified) {
-                    toast.success("OTP Verified Successfully.");
-                    setOtpVerified(true);
-                } else {
-                    toast.error("OTP Verification Failed. Please try again.");
-                    setOtpVerified(false);
-                }
-            })
-            .catch((error) => {
-                console.log("Error Occurred during OTP Verification: ", error);
-                toast.error("Error occurred during OTP verification. Please try again later.");
-                setOtpVerified(false);
-            });
+    const handleVerifyOTP = (event) => {
+        event.preventDefault();
+        if (userEnteredOTP == otpData) {
+            console.log('OTP Verified successfully!');
+        } else {
+            console.log('Invalid OTP');
+        }
     };
-
-    const handleResendOTP = () => {
-        console.log('OTP resend successfully!');
-    }
 
 
     // this function is used to post sign up data
@@ -194,6 +186,13 @@ const SignupPage = () => {
 
 
 
+    const handleResendOTP = () => {
+        setRemainingTime(5 * 60); // Reset the countdown timer
+        // setOtpSent(true); // Mark OTP as sent
+        handleVerifyUniqueId(); // Resend OTP
+    };
+
+
     return (
         <div className=' container my-4'>
             <div className=' col-lg-4 col-md-6 mx-auto'>
@@ -248,57 +247,57 @@ const SignupPage = () => {
                     <div className=' text-center'>
                         <button type='submit' className=' btn btn-primary btn-sm '>Verify</button>
                     </div>
+                    {/* <div className=' text-center'>
+                        <button type='submit' className=' btn btn-primary btn-sm '>Resend</button>
+                    </div> */}
+
                 </form>
 
 
                 {/* handle otp verification form */}
                 <form>
-                    {enableOtp ?
-                        <div className=' d-flex   align-items-baseline  '>
-                            {/* <button className='btn btn-primary btn-sm'>Counter</button> */}
-                            <div className=' d-flex justify-content-center align-items-center  '>
-                                <button className='btn btn-primary '>{formatTime(remainingTime)}</button>
-                            </div>
 
-                            <TextField
-                                className=' mx-1'
-                                label="OTP"
-                                name="otp"
-                                id="otp"
-                                type="text"
-                                margin="normal"
-                                onChange={handleOtpTyping} // Attach the function to the onChange event
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-                            <button className='btn btn-primary' onClick={handleResendOTP}>Resend OTP</button>
-                        </div>
-                        :
-                        <div>
-                            <TextField
-                                label="OTP"
-                                name="otp"
-                                id="otp"
-                                type="text"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-                        </div>
-                    }
+                    <div className=' d-flex   align-items-baseline  '>
+                        {/* <button className='btn btn-primary btn-sm'>Counter</button> */}
+                        {otpData &&
+                            <>
+                                <div className=' d-flex justify-content-center align-items-center  '>
+                                    <button className='btn btn-primary '>{formatTime(remainingTime)}</button>
+                                </div>
+                                <button className=' btn btn-success mx-1'>{otpData}</button>
+
+                                <TextField
+                                    className='mx-1'
+                                    label="User OTP"
+                                    name="user_otp"
+                                    id="user_otp"
+                                    type="text"
+                                    margin="normal"
+                                    value={userEnteredOTP}
+                                    onChange={(e) => setUserEnteredOTP(e.target.value)}
+                                    required
+                                    fullWidth
+                                />
+
+                                {/* <button className='btn btn-primary  ' onClick={handleResendOTP}>ResendOTP</button> */}
+                                <button onClick={(e) => handleVerifyOTP(e)} className='btn btn-primary'>Verify OTP</button>
+
+                            </>
+                        }
+
+                    </div>
+
+
 
                     {otpVerified ?
                         <>
                             <TextField
-                                label="Full Name"
+                                value={userFullName}
                                 name="full_name"
                                 id="full_name"
                                 type="text"
                                 margin="normal"
                                 disabled={true}
-                                required
                                 fullWidth
                             />
                         </>
