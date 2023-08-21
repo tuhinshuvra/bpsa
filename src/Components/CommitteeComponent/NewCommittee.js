@@ -40,7 +40,7 @@ const NewCommittee = () => {
   const [commGroup, setCommGroup] = useState();
   useEffect(() => {
     setLoading(true);
-    fetch(`http://dev.bpsa.com.bd/api/committee/session/${year}`)
+    fetch(`https://dev.bpsa.com.bd/api/committee/session/${year}`)
       .then(res => res.json())
       .then(result => {
         setAllYearData(result.data.committees);
@@ -56,7 +56,7 @@ const NewCommittee = () => {
   }, [])
   const handleChangeYear = (id) => {
     setLoading(true);
-    fetch(`http://dev.bpsa.com.bd/api/committee/session/${id}`)
+    fetch(`https://dev.bpsa.com.bd/api/committee/session/${id}`)
       .then(res => res.json())
       .then(result => {
         setAllYearData(result.data.committees);
