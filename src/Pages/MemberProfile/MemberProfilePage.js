@@ -1,12 +1,11 @@
 import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
-import BlogImg from '../../assets/Image/blog/blog_image.png'
 import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
-import './MemberProfilePage.css';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
+import './MemberProfilePage.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -24,7 +23,6 @@ const MemberProfilePage = () => {
     // login member profile data
     useEffect(() => {
         fetch(`https://dev.bpsa.com.bd/api/profile/${user.UniqueID}`)
-            // fetch(`https://dev.bpsa.com.bd/api/profile/BP750510460`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member Profile Data: ", data)
@@ -41,7 +39,7 @@ const MemberProfilePage = () => {
         fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+                'Authorization': `Bearer ${getCookie("token")}`,
             },
         })
             .then(res => {
@@ -57,7 +55,7 @@ const MemberProfilePage = () => {
                 setPendingBlogs(pendingBlogs);
             })
             .catch(error => console.log(error));
-    }, [])
+    }, [setLoading, user.name])
 
 
     const formatDate = (dateString) => {
@@ -85,33 +83,30 @@ const MemberProfilePage = () => {
 
                     <div className="row">
                         <div className="col-lg-4">
-                            <div className="card  proCartBody shadow-lg">
-                                <div className="card-body">
-                                    {user?.image ? <>
-
-                                        <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "150px" }} />
-                                    </> :
+                            <div className="card  proCard shadow-lg">
+                                <div className="card-body proCardBody">
+                                    {user?.image ?
                                         <>
-                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "150px" }} />
+                                            <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "170px" }} />
                                         </>
-
+                                        :
+                                        <>
+                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "170px" }} />
+                                        </>
                                     }
 
-                                    <div className='text-center'>
+                                    <div className='text-center my-0'>
                                         <Link className='imageUpload' to="/memberImageUpload" >Image Upload</Link>
                                     </div>
 
                                     <div className=' text-center'>
-                                        <h5 className="my-0 fw-bold">{memberData?.nameE}
+                                        <h6 className="my-0 fw-bold">{memberData?.nameE}
                                             {/* {memberData?.nameB} */}
-                                        </h5>
-                                        <h6 className="my-0 ">Designation : {memberData?.designation}</h6>
-                                    </div>
-                                    <div className='col-md-7 mx-auto d-flex flex-column justify-content-lg-start memberProFont'>
-                                        <p className="  my-0"> <b> BP/SIV No.</b>: {memberData?.bpn}</p>
-                                        <p className="  my-0"> <b> Rank</b>   : {memberData?.ranK}</p>
-                                        {/* <p className="  my-0"><b>Sub Unit</b>: {memberData.unit}</p> */}
-                                        <p className="  my-0"><b>Unit     </b>: {memberData?.unit}</p>
+                                        </h6>
+                                        <h6 className="my-0 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
+                                        {user?.CoCurriculumActivities &&
+                                            <p className="mt-1 mb-0"> <b>Interest on</b> : {user?.CoCurriculumActivities} </p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -120,32 +115,33 @@ const MemberProfilePage = () => {
 
                             <div className="row">
                                 <div className="col-md-6">
-                                    <div className="card proCartBody shadow-lg">
-                                        <div className="card-body  my-auto">
-                                            <p className="  my-0"><b>BCS Batch</b>: {memberData?.batch}</p>
-                                            <p className="my-0"><b> Father’s Name </b> : {memberData?.fname} </p>
-                                            <p className="my-0"><b> Mother’s Name </b>: {memberData?.mname}</p>
-                                            <p className="my-0"><b> Birth Year  </b>  : {memberData?.birth}</p>
-                                            <p className="my-0"><b> Own District </b> : {memberData?.district}</p>
-                                            <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood} </p>
-                                            <p className="my-0"><b> Religion    </b>  : {memberData?.religion}</p>
+                                    <div className="card proCard shadow-lg">
+                                        <div className="card-body proCardBody my-auto">
+                                            <p className="my-0"><b> BP ID</b>: {memberData?.bpn}</p>
+                                            <p className="my-0"><b> BCS Batch</b>: {memberData?.batch}</p>
+                                            <p className="my-0"><b> Rank</b>: {memberData?.ranK}</p>
+                                            <p className="my-0"><b> DOB  </b>  : {memberData?.birth}</p>
+                                            <p className="my-0"> <b> Phone no  </b>    : {memberData?.phone}
+                                                {memberData?.phone_govt && <>,&nbsp;{memberData?.phone_govt}</>}
+                                            </p>
+                                            <p className="my-0"> <b> Email</b>    : {memberData?.email}
+                                                {memberData?.email_govt && <>,&nbsp;{memberData?.email_govt}</>}
+                                            </p>
+                                            <p className="my-0"> <b> Medal </b> : {memberData?.gift}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="card proCartBody shadow-lg">
-                                        <div className="card-body ">
-                                            <p className="my-1"> <b> Marital Status </b>: {memberData?.status}</p>
-                                            <p className="my-1"> <b> Mobile no  </b>    : {memberData?.phone}</p>
-                                            {/* <p className="my-1"> <b>Phone no(govt) </b> : 012345634324</p> */}
-                                            <p className="my-1"> <b>Email     </b>      : {memberData?.email}</p>
-                                            {/* <p className="my-1"> <b>Email(govt) </b>    : abulkashemgovt@gmail.com</p> */}
-                                            <p className="my-1"> <b> Highest Degree </b> : {memberData?.qualificattion}</p>
-                                            <p className="my-1"> <b> District </b> : {memberData?.district}</p>
-                                            <p className="my-1"> <b> Prize Achieve </b> : {memberData?.gift}</p>
-                                            {user?.CoCurriculumActivities &&
-                                                <p className="my-1"> <b> Co Curricular Activities </b> : {user?.CoCurriculumActivities} </p>
-                                            }
+                                    <div className="card proCard shadow-lg">
+                                        <div className="card-body proCardBody">
+                                            <p className="my-0"><b> Father’s Name </b> : {memberData?.fname} </p>
+                                            <p className="my-0"><b> Mother’s Name </b>: {memberData?.mname}</p>
+                                            <p className="my-0"><b> Education </b> : {memberData?.qualificattion}</p>
+                                            <p className="my-0"><b> Marital Status </b>: {memberData?.status}</p>
+                                            <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood} </p>
+                                            <p className="my-0"><b> Religion    </b>  : {memberData?.religion}</p>
+                                            <p className="my-0"><b> Home District </b> : {memberData?.district}</p>
+
                                         </div>
                                     </div>
                                 </div>
