@@ -59,7 +59,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
     return (
         <div className=' container my-4'>
-            <div className=' col-lg-8 col-md-10 mx-auto'>
+            <div className=' col-lg-6 col-md-8 mx-auto'>
 
                 <div className=' d-flex flex-column align-items-center'>
                     <h2 className=' text-center fs-3'>Co-Curricular Activities Entry</h2>
@@ -68,8 +68,8 @@ const MemberCoCurriculamActivitiesEntry = () => {
                 <form onSubmit={handleOnSubmit}>
 
                     <div className="form-floating">
-                        <textarea name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxlength="100" />
-                        <label for="floatingTextarea">Enter Co-Curricular Activities</label>
+                        <textarea name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here(max 80 character)" id="floatingTextarea" maxlength="80" />
+                        <label for="floatingTextarea">Enter Co-Curricular Activities(max 80 character)</label>
                     </div>
 
                     <div className=' d-flex justify-between mt-3'>
