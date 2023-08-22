@@ -14,7 +14,9 @@ const MemberBlogDetails = () => {
     const [blog, setBlogs] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const [isInputVisible, setInputVisible] = useState(false);
     useEffect(() => {
+ 
         fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {
@@ -38,6 +40,11 @@ const MemberBlogDetails = () => {
     const [blogStatus, setBlogStatus] = useState(blog?.status);
     const handleStatusChange = (newStatus) => {
         setBlogStatus(newStatus);
+        if (newStatus == 'Ask for Review') {
+            setInputVisible(true);
+        } else {
+            setInputVisible(false);
+        }
     };
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -100,6 +107,9 @@ const MemberBlogDetails = () => {
                                     <option value="Ask for Review">Ask for Review</option>
                                     <option value="Disabled">Disabled</option>
                                 </select>
+                                {isInputVisible && (
+                                    <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
+                                )}
                             </div>
                             <button className='btn btn-info my-2' type="submit">update status</button>
                         </form>
