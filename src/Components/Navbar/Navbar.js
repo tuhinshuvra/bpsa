@@ -187,7 +187,13 @@ const Navbar = () => {
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/publishedBlogs">All Blog </Link></li>
                   {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                   <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
-                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
+                  {user.role == "admin" &&
+                    <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
+                  }
+
+                  {user.role == "super admin" &&
+                    <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blogAdminAssign">Blog Admin Assign</Link></li>
+                  }
                   <li>
                     <div
                       onClick={handleSignOut}

@@ -15,7 +15,7 @@ const EventDetailsPage = () => {
         fetch(`https://dev.bpsa.com.bd/api/get-event/${eventId}`)
             .then(response => response.json())
             .then(data => {
-                // console.log("Events Details data: ", data.data.event);
+                console.log("Events Details data: ", data.data.event);
                 setEventDetils(data.data.event);
                 setLoading(false);
             })
@@ -33,28 +33,28 @@ const EventDetailsPage = () => {
             <div className="card mb-3 p-3">
                 <div className=' d-lg-flex'>
                     <div className=" col-lg-7">
-                        <img src={eventDetails?.image} className=" card-img-top eventDetailImg" alt="..." />
+                        <img src={eventDetails?.image} className=" eventDetailImg shadow-lg" alt="..." />
                     </div>
-                    <div className="card-body col-lg-5 text-center">
+                    <div className="card-body col-lg-5">
                         <div className=' d-flex flex-column justify-content-lg-start'>
                             {eventDetails?.events &&
                                 <h4> <b>Venue:</b> {eventDetails?.events} </h4>
                             }
                             {eventDetails?.start_date &&
-                                <h4 className=' '> <b>Start Date:</b> {eventDetails?.start_date} </h4>
+                                <h5 className=' d-flex '><b> Date: &nbsp;</b> {eventDetails?.start_date}
+                                    {eventDetails?.date && <> - {eventDetails?.date}</>}
+                                </h5>
                             }
 
                             {eventDetails?.time &&
-                                <h4 className=' '> <b>Time:</b> {eventDetails?.time} </h4>
+                                <h5 className=' '> <b>Time:</b> {eventDetails?.time} </h5>
                             }
-                            {eventDetails?.date &&
-                                <h4 className=' '> <b>Date:</b> {eventDetails?.date} </h4>
-                            }
+
                         </div>
                     </div>
                 </div>
 
-                <p className="card-text mt-4 mb-2"> <b>Specification:</b>{eventDetails?.description}</p>
+                <p className="card-text mt-4 mb-2"> <b></b>{eventDetails?.description}</p>
 
             </div>
         </div >
