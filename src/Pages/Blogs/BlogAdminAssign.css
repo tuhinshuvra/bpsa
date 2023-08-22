@@ -1,0 +1,48 @@
+.adminAssign {
+    margin: 0 0 80px;
+    border: 2px solid salmon;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+
+
+
+
+
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {}
+
+@media (min-width: 768px) and (max-width: 991.98px) {}
+
+@media (min-width: 425px) and (max-width: 767.98px) {
+    .adminAssign {
+        margin: 0 0 40px;
+        border: 2px solid salmon;
+        border-radius: 15px;
+        padding: 5px;
+    }
+
+    .adminAssignTable {
+        font-size: 12px !important;
+        font-weight: bold;
+    }
+
+    .adminAssignBtn {
+        font-size: 10px !important;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+    .adminAssignTable {
+        font-size: 12px !important;
+        font-weight: bold;
+    }
+
+    .adminAssignBtn {
+        font-size: 10px !important;
+    }
+}

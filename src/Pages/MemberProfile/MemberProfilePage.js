@@ -9,16 +9,15 @@ import './MemberProfilePage.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
-    const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
+    const { user, loading, setLoading } = useContext(AllContext);
     const [approvedBlogs, setApprovedBlogs] = useState();
     const [pendingBlogs, setPendingBlogs] = useState();
     const [memberData, setMemberData] = useState();
 
-    console.log("Member Profile Data: ", memberData);
-    console.log("User UniqueID: ", user.UniqueID);
+    // console.log("Member Profile Data: ", memberData);
+    // console.log("User UniqueID: ", user.UniqueID);
     // console.log("pendingBlogs :", pendingBlogs);
     // console.log("approvedBlogs :", approvedBlogs);
-
 
     // login member profile data
     useEffect(() => {

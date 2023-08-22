@@ -49,7 +49,6 @@ const AllEventPage = () => {
                                             <p className=' fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
                                             <p className=' my-0'><b>Venue:</b> {item?.events}</p>
                                             <p className=' my-0'><b>Date:</b> {item?.date}</p>
-                                            <p className=' my-0'>{item?.description.slice(0, 30)}</p>
                                             <Link className='btn btn-outline-primary btn-sm w-100 ' to={`/events/${item?.id}`}>Show Details</Link>
                                         </div>
                                     </div>
