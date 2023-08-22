@@ -3,6 +3,8 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import HeadingComponent1 from "../../Common/HeadingComponent1";
 import { BsArrowRight } from "react-icons/bs";
+import BDPolice from '../../../assets/Image/logo/police logo.jpg';
+import './QuickLinks.css';
 
 const localLinkData = [
   {
@@ -56,7 +58,9 @@ const QuicksLinks = ({ local, international }) => {
                             href={`${item?.link}`}
                             className="flex items-center space-x-2 text-main py-2 hover:text-second"
                           >
-                            <BsArrowRight size={24} className="mr-2" />{" "}
+                            {/* <BsArrowRight size={24} className="mr-2" /> */}
+                            <img src={BDPolice} className="linkLogo" alt="" />
+
                             {item?.title}
                           </a>
                         </li>
@@ -77,7 +81,8 @@ const QuicksLinks = ({ local, international }) => {
                             href={`${item?.link}`}
                             className="flex items-center space-x-2 text-main py-2 hover:text-second"
                           >
-                            <BsArrowRight size={24} className="mr-2" />{" "}
+                            {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
+                            <img src={BDPolice} className="linkLogo" alt="" />
                             {item?.title}
                           </a>
                         </li>
@@ -89,10 +94,10 @@ const QuicksLinks = ({ local, international }) => {
           </Paper>
         </Col>
         <Col md={5}>
-          <div className="p-2 bg-main rounded-md">
+          <div className="p-2 bg-[#FFFFFF] rounded-md">
             <HeadingComponent1
               second="International"
-              className="text-white pl-5 text-center py-2"
+              className="text-main pl-5 text-center py-2"
             />
             <ul>
               {international &&
@@ -103,9 +108,10 @@ const QuicksLinks = ({ local, international }) => {
                         rel="noreferrer"
                         target="_blank"
                         href={`${item?.link}`}
-                        className="flex items-center space-x-2 text-white py-2 hover:text-second"
+                        className="flex items-center space-x-2 text-main py-2 hover:text-second"
                       >
-                        <BsArrowRight size={24} className="mr-2" />{" "}
+                        {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
+                        <img src={BDPolice} className="linkLogo" alt="" />
                         {item?.title}
                       </a>
                     </li>
