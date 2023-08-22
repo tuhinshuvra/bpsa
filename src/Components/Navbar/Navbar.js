@@ -175,7 +175,7 @@ const Navbar = () => {
             <>
               <div className="dropdown">
                 <Link
-                  className=" bg-success  text-white rounded-md px-4 py-2    dropdown-toggle"
+                  className=" bg-success  text-white rounded-md px-4 py-2  ms-md-1 ms-lg-0 ms-0   dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
@@ -208,7 +208,7 @@ const Navbar = () => {
                 className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 cursor-pointer"
               >
                 <UsersIcon size={24} className="mr-2" />
-                <ButtonComponent title="Member Login" className="" />
+                <ButtonComponent title="Login" className="" />
               </div>
             </>}
         </div>
@@ -231,15 +231,48 @@ const Navbar = () => {
             />
           </div>
         </div>
-        <div className="">
-          <ButtonComponent
-            onClick={() => {
-              navigate("/login");
-            }}
-            title="Login"
-            className="bg-second rounded-md px-3 py-2 text-white mr-4"
-          />
-        </div>
+
+        {user?.email
+          ?
+          <>
+            <div className="dropdown">
+              <Link
+                className=" bg-success  text-white rounded-md px-4 py-2    dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {user?.name}
+              </Link>
+              <ul className="dropdown-menu">
+                <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
+                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberDirectory">Directory</Link></li>
+                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/publishedBlogs">All Blog </Link></li>
+                {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
+                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
+                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
+                <li>
+                  <div
+                    onClick={handleSignOut}
+                    className="btn btn-warning  btn-sm w-full"
+                  >
+                    Sign Out
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </>
+          :
+          <>
+            <div
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 cursor-pointer"
+            >
+              <UsersIcon size={24} className="mr-2" />
+              <ButtonComponent title="Login" className="" />
+            </div>
+          </>}
 
       </div>
     </div>

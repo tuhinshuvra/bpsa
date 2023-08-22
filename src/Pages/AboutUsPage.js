@@ -16,7 +16,8 @@ const AboutUsPage = () => {
   return (
     <div>
       <CommonHead title="About" />
-      <HeroComponent1 title="About Us" />
+      {/* <HeroComponent1 title="About Us" /> */}
+      <h1 className='fw-bold text-center text-success my-4'>ABOUT US</h1>
       <AssociationInfoComponent />
       <ObjectivesComponent />
       <ActivitiesComp />

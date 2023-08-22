@@ -4,13 +4,20 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+import { useContext } from 'react';
+import { AllContext } from '../../hooks/ContextData';
+import Loader from '../../Components/Common/Loader';
 
 const PublishedBlogs = () => {
     useTitle("PublishedBlog");
-    let count = 1;
+    const { user, loading, setLoading, } = useContext(AllContext);
+    const [blogLoading, setBlogLoading] = useState(false);
     const [blogs, setBlogs] = useState([]);
+    let count = 1;
+
     useEffect(() => {
-        fetch("http://dev.bpsa.com.bd/api/Approvedblog")
+        setBlogLoading(true);
+        fetch("https://dev.bpsa.com.bd/api/Approvedblog")
             .then(res => res.json())
             .then(result => {
                 setBlogs(result.data.blog);
@@ -20,21 +27,28 @@ const PublishedBlogs = () => {
                 // } else {
                 //     console.error("Invalid API response:", result);
                 // }
+                setLoading(false);
             })
             .catch(error => {
                 console.error("API request error:", error);
             });
-    }, []);
+    }, [setLoading]);
     const formatDate = (dateString) => {
         const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', options);
     }
-    if(blogs){
+    if (blogs) {
         console.log(blogs);
     }
+
+
+    if (loading || blogLoading) {
+        <Loader></Loader>
+    }
+
     return (
-        <div className=' container '>
+        <div className=' container mb-md-4 '>
             <div className="row mt-5 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">

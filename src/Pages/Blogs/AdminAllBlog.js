@@ -4,13 +4,16 @@ import { AllContext } from '../../hooks/ContextData';
 import { useContext } from 'react';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+import Loader from '../../Components/Common/Loader';
 
 const AdminAllBlog = () => {
     useTitle("Admin'sAllBlog")
-    const { user } = useContext(AllContext);
-    let count = 1;
+    const { user, loading, setLoading, } = useContext(AllContext);
     const [blogs, setBlogs] = useState([]);
+    let count = 1;
+
     useEffect(() => {
+        setLoading(true);
         fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
@@ -21,6 +24,7 @@ const AdminAllBlog = () => {
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
                     setBlogs(result.data.blog.filter(blog => blog.status != "Approved"));
+                    setLoading(false);
 
                 } else {
                     console.error("Invalid API response:", result);
@@ -29,13 +33,21 @@ const AdminAllBlog = () => {
             .catch(error => {
                 console.error("API request error:", error);
             });
-    }, []);
+    }, [setLoading]);
+
     const formatDate = (dateString) => {
         const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', options);
     }
     console.log(blogs);
+
+
+    if (loading) {
+        <Loader></Loader>
+    }
+
+
     return (
         <div className=' container'>
             <div className="row mt-5 mb-2">

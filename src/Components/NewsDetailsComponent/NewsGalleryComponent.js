@@ -16,7 +16,7 @@ const NewsGalleryComponent = ({ data }) => {
 
       setGalleryData(
         gData?.map(
-          (item) => "http://app.bpsa.com.bd/public/uploads/post/" + item
+          (item) => "https://app.bpsa.com.bd/public/uploads/post/" + item
         )
       );
     }

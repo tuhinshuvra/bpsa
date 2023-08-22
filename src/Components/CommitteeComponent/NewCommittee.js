@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CommonHead from '../Common/CommonHead';
 
 import Paper from "@mui/material/Paper";
@@ -9,51 +9,54 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-// import * as React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { GetCommitteeData } from "../../api";
 import HeroComponent1 from "../Common/HeroComponent1";
 import ImageComponent from "../Common/ImageComponent";
 import Loader from "../Common/Loader";
-import policeLogo from "../../assets/Image/logo/police logo.jpg";
-import bpsaLogo from "../../assets/Image/logo/bpsa logo red.jpg";
+import policeLogo from "../../assets/Image/logo/police_logo_removebg.png";
+import bpsaLogo from "../../assets/Image/logo/bpsa_logo_removebg.png";
 import TextField from "@mui/material/TextField";
 import ButtonComponent from "../Common/ButtonComponent";
 import PaginationComponent from "../Common/PaginationComponent";
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import './CommitteeComponent.css';
 
 const columns = [{ label: "পরিচিতি" }, { label: "নাম, পদবি " }];
 
 const NewCommittee = () => {
-  const [page, setPage] = React.useState(1);
-  const [loading, setLoading] = React.useState(false);
-  const [selectedItem, setSelectedItem] = React.useState("All");
-  const [igpData, setIgpData] = React.useState("");
-  const [start, setStart] = React.useState(0);
-  const [end, setEnd] = React.useState(10);
-  const [showperPage, setShowPerPage] = React.useState(10);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("All");
+  const [igpData, setIgpData] = useState("");
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(10);
+  const [showperPage, setShowPerPage] = useState(10);
 
   const [AllYearData, setAllYearData] = useState();
   const [yearCommittee, setYearCommittee] = useState();
   const [year, setYear] = useState(2023);
   const [commGroup, setCommGroup] = useState();
+
+  console.log("igpData newCommtee : ", igpData);
+
   useEffect(() => {
     setLoading(true);
     fetch(`https://dev.bpsa.com.bd/api/committee/session/${year}`)
       .then(res => res.json())
       .then(result => {
+        console.log("result", result);
         setAllYearData(result.data.committees);
         setCommGroup([...new Set(result.data.committees.map(obj => obj.commGroup))]);
         setYearCommittee(result.data.committees)
 
-        const filterIgp =  result.data.committees?.filter(
-          (item) => item?.comm_group_slug === "IGP"
-        );
+        const filterIgp = result.data.committees?.filter((item) => item?.comm_group_slug === "IGP");
         setIgpData(filterIgp[0]);
         setLoading(false);
       });
-  }, [])
+  }, [year])
+
+
   const handleChangeYear = (id) => {
     setLoading(true);
     fetch(`https://dev.bpsa.com.bd/api/committee/session/${id}`)
@@ -62,7 +65,7 @@ const NewCommittee = () => {
         setAllYearData(result.data.committees);
         setYearCommittee((result.data.committees?.filter((item) => item?.comm_group_slug !== "IGP")));
         setCommGroup([...new Set(result.data.committees.map(obj => obj.commGroup))]);
-        const filterIgp =  result.data.committees?.filter(
+        const filterIgp = result.data.committees?.filter(
           (item) => item?.comm_group_slug === "IGP"
         );
         setIgpData(filterIgp[0]);
@@ -70,6 +73,8 @@ const NewCommittee = () => {
         setLoading(false);
       });
   }
+
+
   const handleChange = (event, value) => {
     setPage(value);
 
@@ -80,6 +85,7 @@ const NewCommittee = () => {
   const filterHandler = (title) => {
     setYearCommittee(AllYearData?.filter((val) => val?.commGroup === title));
   };
+
   const handleSearch = (event) => {
     event.preventDefault();
     let searchData = event.target.value;
@@ -101,163 +107,183 @@ const NewCommittee = () => {
       setYearCommittee(filterData);
     }
   }
-  return (
-    <div>
-      <HeroComponent1 title="Committee" />
-      <div className="bg-[#E8FCF2]">
-        {" "}
-        <Container>
-          <div className="flex items-center justify-center space-x-4 pt-4">
-            <ImageComponent
-              image={policeLogo}
-              className="w-[100px] h-[100px] object-contain"
-            />
-            <div className="text-center py-4 ">
-              <h2 className="text-sm md:text-2xl font-semibold">
-                বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
-              </h2>
-              <h2 className="text-sm md:text-xl font-semibold">
-                কেন্দ্রীয় কার্যনির্বাহী কমিটি-২০২১
-              </h2>
-            </div>{" "}
-            <ImageComponent
-              image={bpsaLogo}
-              className="w-[100px] h-[100px] object-contain"
-            />
-          </div>
-          <h5 className="text-center text-sm font-semibold md:text-xl">
-            {igpData?.designation}
-          </h5>
 
-          <div className="text-center">
-            <ImageComponent
+  return (
+    <div className=' container  '>
+      <div className=' col-lg-10  mx-auto'>
+        {/* <HeroComponent1 title="Committee" /> */}
+        {/* <h1 className=' fw-bold text-center text-success my-3'>COMMITTEE</h1> */}
+
+
+        <div className='col-md-3 ms-auto '>
+          <div className='d-flex align-items-center'>
+            <label htmlFor="selectMenu" className='fw-bold bg-success p-2 m-0 rounded-lg text-white' style={{ marginRight: '8px' }}>Select Year:</label>
+            <select
+              id="selectMenu"
+              onChange={(e) => handleChangeYear(parseInt(e.target.value))}
+              className="form-select w-50"
+              value={year}
+            >
+              <option value={2023} className=' my-1 fw-bold'>2023</option>
+              <option value={2022} className=' my-1 fw-bold'>2022</option>
+              <option value={2021} className=' my-1 fw-bold'>2021</option>
+              <option value={2020} className=' my-1 fw-bold'>2020</option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <div className=" newCommitteArea">
+          <Container>
+            <div className="flex items-center justify-center space-x-4 pt-4">
+              <img src={policeLogo} className='comPoliceLogo' alt="" />
+
+              <div className="text-center py-4 ">
+                <h2 className="text-sm md:text-2xl  fw-bold text-white ">
+                  বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
+                </h2>
+                <h2 className="text-sm md:text-xl font-semibold text-white">
+                  কেন্দ্রীয় কার্যনির্বাহী কমিটি- {igpData?.Association_Year}
+                </h2>
+              </div>
+              <img src={bpsaLogo} className='comBPSALogo' alt="" />
+            </div>
+
+            <h5 className="text-center text-sm font-semibold md:text-xl text-white">
+              {igpData?.designation}
+            </h5>
+
+            <div className="">
+              {/* <ImageComponent
               image={igpData?.photo}
               className="w-[150px] h-[150px] object-contain rounded-md block mx-auto my-3"
-            />
-          </div>
-          <h5 className="text-center text-sm md:text-xl">
-            {igpData?.Name} <br /> {igpData?.Officail_Designation}
-          </h5>
+            /> */}
+              <img src={igpData?.photo} className='comIGPPhoto mx-auto' alt="" />
 
-          <Row>
-            <Col md={11} className="mx-auto my-4">
-              <Paper className="p-4 mb-2">
-                <div className="">
-                  <TextField
-                    onChange={handleSearch}
-                    fullWidth
-                    className="w-[300px]"
-                    label="Search"
-                  />
-                </div>
-                <div className="flex items-center  flex-wrap  mt-3">
-                  <ButtonComponent
-                    onClick={() => {
-                      setYearCommittee(AllYearData);
-                      setSelectedItem("All");
-                    }}
-                    className={`${selectedItem === "All"
-                      ? "bg-second text-white"
-                      : "border border-second"
-                      }  px-4 py-1 m-1 rounded-sm `}
-                    title={`All`}
-                  />
-                  {commGroup &&
-                    commGroup?.map((item) => {
-                      return (
-                        <div className="">
-                          {" "}
-                          <ButtonComponent
-                            onClick={() => {
-                              setSelectedItem(item);
-                              filterHandler(item);
-                              setPage(1);
-                              setStart(showperPage * 1 - showperPage);
-                              setEnd(showperPage * 1);
-                            }}
-                            className={`${item === selectedItem
-                              ? "bg-second text-white"
-                              : "border border-second"
-                              }  px-2 py-1 m-1 rounded-sm `}
-                            title={item}
-                          />
-                        </div>
-                      );
-                    })}
-                </div>
-              </Paper>
+            </div>
+            <h5 className="text-center text-sm md:text-xl text-white">
+              {igpData?.Name} <br /> {igpData?.Officail_Designation}
+            </h5>
 
-              {loading ? (
-                <Loader />
-              ) : (
-                <Paper sx={{ width: "100%", overflow: "hidden" }}>
-                  <TableContainer>
-                    <Table stickyHeader aria-label="sticky table">
-                      <TableHead>
-                        <TableRow>
-                          {columns.map((column, index) => (
-                            <TableCell
-                              style={{
-                                fontWeight: 600,
-                                textAlign: "center",
-                                backgroundColor: "#009688",
-                                color: "white",
-                                fontSize: 18,
+            <div>
+              {/* <div className=" text-center  mt-4 mb-2">
+              <button onClick={() => handleChangeYear(2023)} variant="contained" className='mx-1 btn btn-success btn-sm'>2023</button>
+              <button onClick={() => handleChangeYear(2022)} variant="contained" className='mx-1 btn btn-success btn-sm'>2022</button>
+              <button onClick={() => handleChangeYear(2021)} variant="contained" className='mx-1 btn btn-success btn-sm'>2021</button>
+              <button onClick={() => handleChangeYear(2020)} variant="contained" className='mx-1 btn btn-success btn-sm'>2020</button>
+            </div> */}
+              <div className="mx-auto mb-4">
+                <Paper className="p-4 mb-2">
+                  <div className="">
+                    <TextField
+                      onChange={handleSearch}
+                      fullWidth
+                      className="w-[300px]"
+                      label="Search"
+                    />
+                  </div>
+                  <div className="d-flex  flex-wrap  mt-3">
+                    <ButtonComponent
+                      onClick={() => {
+                        setYearCommittee(AllYearData);
+                        setSelectedItem("All");
+                      }}
+                      className={`${selectedItem === "All"
+                        ? " bg-success text-white"
+                        : "border border-second"
+                        }  px-4 py-1 m-1 rounded-sm `}
+                      title={`All`}
+                    />
+                    {commGroup &&
+                      commGroup?.map((item) => {
+                        return (
+                          <div className="">
+                            <ButtonComponent
+                              onClick={() => {
+                                setSelectedItem(item);
+                                filterHandler(item);
+                                setPage(1);
+                                setStart(showperPage * 1 - showperPage);
+                                setEnd(showperPage * 1);
                               }}
-                              key={index}
-                            >
-                              {column.label}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {yearCommittee &&
-                          yearCommittee.slice(start, end).map((row, index) => {
-                            return (
-                              <>
-                                <TableRow hover key={index}>
-                                  <TableCell
-                                    style={{
-                                      borderRight: "1px solid #F5F5F5",
-                                    }}
-                                  >
-                                    <p className=" text-center font-semibold">
-                                      {" "}
-                                      {row?.designation}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell>
-                                    <p className="  ">
-                                      {" "}
-                                      <div className="flex items-center flex-col md:flex-row ">
-                                        <ImageComponent
-                                          image={row?.photo}
-                                          className=" w-[70px] h-[70px]  md:w-[100px] md:h-[100px] object-cover mb-2 "
-                                        />
-                                        <div className="ml-4 md:text-left">
-                                          <p className="text-md  m-0 pb-1 font-semibold">
-                                            {" "}
-                                            {row?.Name}
-                                          </p>
-                                          <p className="mb-1 text-sm text-gray-600">
-                                            {row?.Officail_Designation}
-                                          </p>
-                                          {/* <p className="text-sm text-gray-600">
+                              className={`${item === selectedItem
+                                ? "bg-success text-white"
+                                : "border border-second"
+                                }  px-2 py-1 m-1 rounded-sm`}
+                              title={item}
+                            />
+                          </div>
+                        );
+                      })}
+                  </div>
+                </Paper>
+
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                    <TableContainer>
+                      <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                          <TableRow>
+                            {columns.map((column, index) => (
+                              <TableCell
+                                style={{
+                                  fontWeight: 600,
+                                  textAlign: "center",
+                                  backgroundColor: "#198754",
+                                  color: "white",
+                                  fontSize: 18,
+                                }}
+                                key={index}
+                              >
+                                {column.label}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {yearCommittee &&
+                            yearCommittee.slice(start, end).map((row, index) => {
+                              return (
+                                <>
+                                  <TableRow hover key={index}>
+                                    <TableCell
+                                      style={{
+                                        borderRight: "1px solid #F5F5F5",
+                                      }}
+                                    >
+                                      <p className=" text-center font-semibold">
+                                        {row?.designation}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell>
+                                      <p className=" ">
+                                        <div className="flex items-center flex-col md:flex-row">
+                                          <img src={row?.photo} className='comNewRowPhoto shadow-lg' alt="" />
+                                          <div className="ml-4 md:text-left">
+                                            <p className="text-md  m-0 pb-1 font-semibold">
+                                              {row?.Name}
+                                            </p>
+                                            <p className="  text-sm text-gray-600">
+                                              {row?.Officail_Designation}
+                                            </p>
+                                            {/* <p className="text-sm text-gray-600">
                                               মোবাইল নম্বর: {row?.Mobile_Number}
                                             </p> */}
+                                          </div>
                                         </div>
-                                      </div>
-                                    </p>
-                                  </TableCell>
-                                </TableRow>
-                              </>
-                            );
-                          })}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  {/* <TablePagination
+                                      </p>
+                                    </TableCell>
+                                  </TableRow>
+                                </>
+                              );
+                            })}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    {/* <TablePagination
                       rowsPerPageOptions={[10, 20, 50, 100]}
                       component="div"
                       count={responseData.length}
@@ -266,27 +292,23 @@ const NewCommittee = () => {
                       onPageChange={handleChangePage}
                       onRowsPerPageChange={handleChangeRowsPerPage}
                     /> */}
-                  <PaginationComponent
-                    count={Math.ceil(yearCommittee?.length / showperPage)}
-                    pageNumber={page}
-                    handleChange={handleChange}
-                    className="flex items-center justify-between px-10 py-3"
-                    start={start}
-                    end={end}
-                    total={yearCommittee?.length}
-                    isShow={true}
-                  />
-                </Paper>
-              )}
-            </Col>
-            <Col className="mx-auto my-4">
-              <Button onClick={() => handleChangeYear(2023)} variant="contained" className='my-1'>2023</Button>
-              <Button onClick={() => handleChangeYear(2022)} variant="contained" className='my-1'>2022</Button>
-              <Button onClick={() => handleChangeYear(2021)} variant="contained" className='my-1'>2021</Button>
-              <Button onClick={() => handleChangeYear(2020)} variant="contained" className='my-1'>2020</Button>
-            </Col>
-          </Row>
-        </Container>
+                    <PaginationComponent
+                      count={Math.ceil(yearCommittee?.length / showperPage)}
+                      pageNumber={page}
+                      handleChange={handleChange}
+                      className="flex items-center justify-between px-10 py-3"
+                      start={start}
+                      end={end}
+                      total={yearCommittee?.length}
+                      isShow={true}
+                    />
+                  </Paper>
+                )}
+              </div>
+
+            </div>
+          </Container>
+        </div>
       </div>
     </div>
   );

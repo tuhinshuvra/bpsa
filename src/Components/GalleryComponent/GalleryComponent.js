@@ -39,7 +39,8 @@ const GalleryComponent = ({ data, video }) => {
 
   return (
     <div className="">
-      <HeroComponent1 title="GALLERY" />
+      {/* <HeroComponent1 title="GALLERY" /> */}
+      <h1 className='fw-bold text-center text-success my-4'>GALLERY</h1>
       <Container>
         <HeadingComponent1
           first="Our "
@@ -50,20 +51,18 @@ const GalleryComponent = ({ data, video }) => {
           <ButtonComponent
             onClick={() => setSelectTitle("Photos")}
             title="Photos"
-            className={`px-5 py-2  ${
-              selectTitle === "Photos"
+            className={`px-5 py-2  ${selectTitle === "Photos"
                 ? "bg-second text-white"
                 : "border-2 border-main text-main "
-            }`}
+              }`}
           />
           <ButtonComponent
             onClick={() => setSelectTitle("video")}
             title="Videos"
-            className={`px-5 py-2  ${
-              selectTitle === "video"
+            className={`px-5 py-2  ${selectTitle === "video"
                 ? "bg-second text-white border-2 border-second"
                 : "border-2 border-main text-main "
-            }`}
+              }`}
           />
         </div>
         <button

@@ -1,7 +1,7 @@
 .memberDirectory {
     margin: 0 0 80px 0;
     padding: 15px;
-    border-radius: 12px;
+    border-radius: 15px;
     background-color: rgb(94, 104, 239);
 }
 
@@ -17,9 +17,8 @@
     padding: 7px;
     margin: 0 10px 10px 10px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px 0px;
-
 }
 
 .cardArea {
@@ -64,4 +63,40 @@
 
 .directoryMember:hover {
     background-color: rgb(176, 182, 243);
+}
+
+
+
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {}
+
+@media (min-width: 768px) and (max-width: 991.98px) {}
+
+@media (min-width: 425px) and (max-width: 767.98px) {
+
+    .defaultDataShow {
+        background-color: rgb(157, 190, 244);
+        border-radius: 10px;
+        padding: 3px;
+        margin: 0px 0px 0px 0px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        /* gap: 10px 0px; */
+    }
+}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+
+    .defaultDataShow {
+        background-color: rgb(157, 190, 244);
+        border-radius: 10px;
+        padding: 3px;
+        margin: 0px 0px 0px 0px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        /* gap: 10px 0px; */
+    }
 }
