@@ -20,12 +20,3 @@
     height: 320px;
     border-radius: 15px;
 }
-
-.marquee-container {
-    /* overflow-x: hidden !important;
-    display: flex !important;
-    flex-direction: row !important;
-    position: relative;
-    width: 100%; */
-    height: 500px;
-}
