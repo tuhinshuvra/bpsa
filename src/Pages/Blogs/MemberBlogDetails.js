@@ -16,7 +16,7 @@ const MemberBlogDetails = () => {
     const navigate = useNavigate();
     const [isInputVisible, setInputVisible] = useState(false);
     useEffect(() => {
- 
+
         fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {

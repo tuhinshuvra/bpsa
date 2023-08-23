@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-hot-toast';
 import { getCookie } from '../../utlis/helper';
+import useTitle from '../../hooks/useTitle';
+
 const EntryBlog = () => {
+  useTitle("BlogEntry");
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 

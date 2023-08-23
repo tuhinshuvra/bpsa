@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
+import './BlogListShow.css';
 
 const AdminAllBlog = () => {
     useTitle("Admin'sAllBlog")
@@ -49,7 +50,7 @@ const AdminAllBlog = () => {
 
 
     return (
-        <div className=' container'>
+        <div className=' container col-lg-8 mx-auto mb-lg-5 '>
             <div className="row mt-5 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
@@ -59,28 +60,26 @@ const AdminAllBlog = () => {
             </div>
             {
                 blogs.map(blog => (
-                    <div className="card blogArea my-1" key={blog?.id}>
-                        <div className="d-flex">
+                    <div className="card blogArea my-1 px-1" key={blog?.id}>
+                        <div className="d-flex px-lg-3 px-md-2">
+
+                            <div className="col-md-2 my-auto">
+                                <img src={blog.image} className="adminBlogListImg rounded-lg" alt="..." />
+                            </div>
                             <div className="col-md-10">
                                 <div className="card-body">
-                                    <h5 className=" ">{blog?.title}</h5>
-                                    {/* <p className=" my-0 ">{blog?.description}</p> */}
+                                    <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link>
                                     <p>{blog.summary}</p>
-                                    <div className=' d-flex justify-content-evenly'>
-                                        <div className=' d-flex col-md-5 me-auto   my-0'>
+                                    <div className=''>
+                                        <div className=' d-flex justify-content-evenly   me-auto   my-0'>
                                             <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
 
                                             <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
                                             <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p>
                                         </div>
-                                        <div>
-                                            <Link to={`/blog_details/${blog?.id}`} className=' btn btn-primary btn-sm '>Show Details</Link>
-                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-md-2 my-auto">
-                                <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
                             </div>
 
                         </div>

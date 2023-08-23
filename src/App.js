@@ -18,7 +18,6 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
-import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
@@ -80,7 +79,6 @@ export default function App() {
         <Route path="/blogDetails/:id" element={<Blog_details />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
         <Route path="/publishedBlogDetail/:id" element={<PublishBLogDetails />} />
-        {/* <Route path="/member_blog_details" element={<MemberBlockDetails />} /> */}
         <Route path="/newCommittee" element={<NewCommittee />} />
         <Route path="/blogAdminAssign" element={<BlogAdminAssign />} />
       </Routes>

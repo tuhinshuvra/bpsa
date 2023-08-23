@@ -6,6 +6,7 @@ import { AllContext } from '../../hooks/ContextData';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import './MemberProfilePage.css';
+import '../Blogs/BlogListShow.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -178,33 +179,26 @@ const MemberProfilePage = () => {
 
                     {
                         approvedBlogs && approvedBlogs.map(blog => (
-                            <div>
-                                <div className="card blogArea my-1"  >
-                                    <div className="d-flex">
-                                        <div className="col-md-10">
-                                            <div className="card-body">
-                                                <h5 className=" ">{blog?.title}</h5>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
-                                                <div className=' d-flex justify-content-evenly'>
-                                                    <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                    </div>
-                                                    <div>
-                                                        <Link className='  fw-bold my-0' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>Show Details</Link>
-                                                    </div>
+                            <div className="card blogArea my-1"  >
+                                <div className="d-flex px-lg-3 px-md-2">
+                                    <div className="col-md-2 my-auto">
+                                        <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
+                                    </div>
+                                    <div className="col-md-10">
+                                        <div className="card-body">
+                                            {/* <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link> */}
+                                            <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+                                            <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
+                                            <div className=' d-flex justify-content-evenly'>
+                                                <div className=' d-flex col-md-5 me-auto   my-0'>
+                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
                                                 </div>
+
                                             </div>
                                         </div>
-                                        <div className="col-md-2 my-auto">
-                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                        </div>
-                                        {/* <div className="col-md-1 my-auto">
-                                            <p className=' fw-bold '>{blog?.status}</p>
-                                        </div> */}
                                     </div>
                                 </div>
-
                             </div>
                         ))
                     }
@@ -242,28 +236,29 @@ const MemberProfilePage = () => {
                     {
                         pendingBlogs && pendingBlogs.map(blog => (
                             <div>
-                                <div className="card blogArea my-1"  >
-                                    <div className="d-flex">
+                                <div className="card blogArea my-1 px-1"  >
+                                    <div className="d-flex px-lg-3 px-md-2">
+                                        <div className="col-md-2 my-auto">
+                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
+                                        </div>
                                         <div className="col-md-9">
                                             <div className="card-body">
-                                                <h5 className=" ">{blog?.title}</h5>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
                                                 <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
                                                 <div className=' d-flex justify-content-evenly'>
                                                     <div className=' d-flex col-md-5 me-auto   my-0'>
                                                         <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
                                                         <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
                                                     </div>
-                                                    <div>
-                                                        <Link className='  fw-bold my-0' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>Show Details</Link>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-2 my-auto">
-                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                        </div>
+
                                         <div className="col-md-1 my-auto">
                                             <p className=' fw-bold '>{blog?.status}</p>
+                                            <div>
+                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
