@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { isAuth } from '../../utlis/helper';
+import Loader from '../../Components/Common/Loader';
 const MemberImageUpload = () => {
-    const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
+    const { user, setUser, token, setToken, loading, setLoading } = useContext(AllContext);
 
+    const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
+    // console.log("userNewData :", userNewData);
 
-    const { CoCurriculumActivities, DoB, UniqueID, created_at, email, id, image, name, phone } = user;
+    // user new data
+    useEffect(() => {
+        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+            .then(res => res.json())
+            .then(data => {
+                // console.log("Member User table  Data: ", data.member)
+                setUserNewData(data.member)
+                setLoading(false)
+            })
+    }, [setLoading, user.UniqueID])
 
     const handleImageUpload = async (event) => {
         event.preventDefault();
         const form = event.target;
         const member = {
-            CoCurriculumActivities: user?.CoCurriculumActivities
+            CoCurriculumActivities: userNewData?.CoCurriculumActivities
         };
 
-        console.log("member Image Data : ", member);
+        // console.log("member Image Data : ", member);
 
         const imageFile = form.image.files[0];
         const formData = new FormData();
@@ -57,11 +69,15 @@ const MemberImageUpload = () => {
             console.error("An error occurred:", error);
         }
     };
+
+    if (loading) {
+        <Loader></Loader>
+    }
+
     return (
         <div className='col-4 mx-auto  my-5'>
             <h1 className='text-center fs-3'>Upload Member Profile Image</h1>
             <form onSubmit={handleImageUpload} className='text-center my-3' >
-                {/* <input type='file' name='image' className='input input-bordered w-full max-w-xl my-2' placeholder='Enter member image'></input><br /> */}
                 <input type="file" name="image" className="form-control my-2" id="image" aria-describedby="emailHelp" />
                 <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxLength="100" hidden />
 

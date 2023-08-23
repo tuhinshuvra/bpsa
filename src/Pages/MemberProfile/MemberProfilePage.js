@@ -13,11 +13,24 @@ const MemberProfilePage = () => {
     const [approvedBlogs, setApprovedBlogs] = useState();
     const [pendingBlogs, setPendingBlogs] = useState();
     const [memberData, setMemberData] = useState();
+    const [userNewData, setUserNewData] = useState();
 
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
     // console.log("pendingBlogs :", pendingBlogs);
     // console.log("approvedBlogs :", approvedBlogs);
+    // console.log("userNewData :", userNewData);
+
+    // user new data
+    useEffect(() => {
+        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+            .then(res => res.json())
+            .then(data => {
+                // console.log("Member User table  Data: ", data.member)
+                setUserNewData(data.member)
+                setLoading(false)
+            })
+    }, [setLoading, user.UniqueID])
 
     // login member profile data
     useEffect(() => {
@@ -84,9 +97,9 @@ const MemberProfilePage = () => {
                         <div className="col-lg-4">
                             <div className="card  proCard shadow-lg">
                                 <div className="card-body proCardBody">
-                                    {user?.image ?
+                                    {userNewData?.image ?
                                         <>
-                                            <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "170px" }} />
+                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "170px", height: "170px" }} />
                                         </>
                                         :
                                         <>
@@ -103,8 +116,8 @@ const MemberProfilePage = () => {
                                             {/* {memberData?.nameB} */}
                                         </h6>
                                         <h6 className="my-0 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
-                                        {user?.CoCurriculumActivities &&
-                                            <p className="mt-1 mb-0"> <b>Interest on</b> : {user?.CoCurriculumActivities} </p>
+                                        {userNewData?.CoCurriculumActivities &&
+                                            <p className="mt-1 mb-0"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
                                         }
                                     </div>
                                 </div>
@@ -121,10 +134,10 @@ const MemberProfilePage = () => {
                                             <p className="my-0"><b> Rank</b>: {memberData?.ranK}</p>
                                             <p className="my-0"><b> DOB  </b>  : {memberData?.birth}</p>
                                             <p className="my-0"> <b> Phone no  </b>    : {memberData?.phone}
-                                                {memberData?.phone_govt && <>,&nbsp;{memberData?.phone_govt}</>}
+                                                {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
                                             </p>
                                             <p className="my-0"> <b> Email</b>    : {memberData?.email}
-                                                {memberData?.email_govt && <>,&nbsp;{memberData?.email_govt}</>}
+                                                {memberData?.email02 && <>, <br /> &nbsp;{memberData?.email02}</>}
                                             </p>
                                             <p className="my-0"> <b> Medal </b> : {memberData?.gift}</p>
                                         </div>
@@ -254,7 +267,6 @@ const MemberProfilePage = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         ))
                     }

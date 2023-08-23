@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
 import logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
+import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
 import MobileMenu from "./MobileMenu";
@@ -10,6 +11,11 @@ import { useContext } from "react";
 import { AllContext } from "../../hooks/ContextData";
 import { signout } from "../../utlis/helper";
 import { toast } from "react-hot-toast";
+import { GoFileDirectoryFill } from 'react-icons/go';
+import { FaSignOutAlt, FaBloggerB } from 'react-icons/fa';
+import { CgProfile } from 'react-icons/cg';
+import { RiAdminFill } from 'react-icons/ri';
+import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
@@ -20,6 +26,9 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
   const [showSignOut, setShowSignOut] = useState(false);
   const [navColor, setNavColor] = useState("");
+  const [userNewData, setUserNewData] = useState();
+
+  // console.log("userNewData :", userNewData);
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
@@ -38,6 +47,8 @@ const Navbar = () => {
     }
   };
 
+
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", controlNavbar);
@@ -49,6 +60,17 @@ const Navbar = () => {
     }
   }, [lastScrollY]);
 
+
+  // user new data
+  useEffect(() => {
+    fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+      .then(res => res.json())
+      .then(data => {
+        // console.log("Member User table  Data: ", data.member)
+        setUserNewData(data.member)
+        setLoading(false)
+      })
+  }, [setLoading, user.UniqueID])
 
   const handleSignOut = () => {
     signout(() => {
@@ -175,31 +197,40 @@ const Navbar = () => {
             <>
               <div className="dropdown">
                 <Link
-                  className=" bg-success  text-white rounded-md px-4 py-2  ms-md-1 ms-lg-0 ms-0   dropdown-toggle"
+                  className="ms-md-1 ms-lg-0 ms-0dropdown-toggle shadow-lg"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  {user?.name}
+                  {userNewData?.image ?
+                    <>
+                      <img className="userImgNav" src={userNewData?.image} alt="" />
+                    </>
+                    :
+                    <>
+                      <img className="userImgNav" src={DefaultMemberImg} alt="" />
+                    </>
+                  }
                 </Link>
-                <ul className="dropdown-menu">
-                  <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
-                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberDirectory">Directory</Link></li>
-                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/publishedBlogs">All Blog </Link></li>
+                <ul className="dropdown-menu navDropdownMenu">
+                  {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
+                  <li><Link className=" navDropdownbtn    py-1    w-full d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
+                  <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
+                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />All Blog  </Link></li>
                   {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
-                  <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
+                  <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
                   {user.role == "admin" &&
-                    <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
+                    <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
                   }
 
                   {user.role == "super admin" &&
-                    <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blogAdminAssign">Blog Admin Assign</Link></li>
+                    <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
                   }
                   <li>
                     <div
                       onClick={handleSignOut}
-                      className="btn btn-warning  btn-sm w-full"
+                      className="  w-full navDropdownbtn  d-flex    align-items-center"
                     >
-                      Sign Out
+                      <FaSignOutAlt className="navDropdownIcon my-auto me-2" />Sign Out
                     </div>
                   </li>
                 </ul>
@@ -221,10 +252,7 @@ const Navbar = () => {
 
       </div>
 
-      <div
-        className={`md:hidden flex items-center justify-between ${navColor ? "bg-main" : "bg-transparent"
-          }  px-1 py-2`}
-      >
+      <div className={`md:hidden flex items-center justify-between ${navColor ? "bg-main" : "bg-transparent"}  px-1 py-2`}>
         <div className="">
           <MobileMenu />
         </div>
@@ -243,25 +271,41 @@ const Navbar = () => {
           <>
             <div className="dropdown">
               <Link
-                className=" bg-success  text-white rounded-md px-4 py-2    dropdown-toggle"
+                className=" dropdown-toggle "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {user?.name}
+                {userNewData?.image ?
+                  <>
+                    <img className="userImgNav" src={userNewData?.image} alt="" />
+                  </>
+                  :
+                  <>
+                    <img className="userImgNav" src={DefaultMemberImg} alt="" />
+                  </>
+                }
               </Link>
-              <ul className="dropdown-menu">
-                <li><Link className="btn btn-secondary btn-sm w-full" to="/memberProfile">My Profile</Link></li>
-                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberDirectory">Directory</Link></li>
-                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/publishedBlogs">All Blog </Link></li>
+
+              <ul className="dropdown-menu navDropdownMenu">
+                {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
+                <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
+                <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
+                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />All Blog  </Link></li>
                 {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
-                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/blog_entry">Blog Entry </Link></li>
-                <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/adminAllBlog">Admin's All Blog </Link></li>
+                <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
+                {user.role == "admin" &&
+                  <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
+                }
+
+                {user.role == "super admin" &&
+                  <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
+                }
                 <li>
                   <div
                     onClick={handleSignOut}
-                    className="btn btn-warning  btn-sm w-full"
+                    className="  w-full navDropdownbtn  d-flex    align-items-center"
                   >
-                    Sign Out
+                    <FaSignOutAlt className="navDropdownIcon my-auto me-2" />Sign Out
                   </div>
                 </li>
               </ul>

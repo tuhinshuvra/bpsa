@@ -4,20 +4,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AllContext } from '../../hooks/ContextData';
+import { useEffect } from 'react';
+import Loader from '../../Components/Common/Loader';
 
 const MemberCoCurriculamActivitiesEntry = () => {
     useTitle("Profile Update");
-    const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
-
-
-
-    const [value, setValue] = useState('');
+    const [userNewData, setUserNewData] = useState();
+    // console.log("userNewData :", userNewData);
+    const { user, loading, setLoading } = useContext(AllContext);
 
     const navigate = useNavigate();
 
-    // const handleChange = (event) => {
-    //     setValue(event.target.value);
-    // };
+    // user new data
+    useEffect(() => {
+        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+            .then(res => res.json())
+            .then(data => {
+                // console.log("Member User table  Data: ", data.member)
+                setUserNewData(data.member)
+                setLoading(false)
+            })
+    }, [setLoading, user.UniqueID])
 
 
     // this function is used to post sign up data
@@ -29,7 +36,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
         const userData = {
             CoCurriculumActivities: CoCurriculumActivities,
-            image: user.image,
+            image: userNewData.image,
         }
         console.log("userData : ", userData);
 
@@ -48,12 +55,16 @@ const MemberCoCurriculamActivitiesEntry = () => {
                     toast.success('Co-Curricular Activities saved successfully.')
                     navigate("/memberProfile");
                 }
-
+                setLoading(false);
             })
             .catch(error => {
                 console.log("Error Occured: ", error)
                 // setErrorMessage(error.response.data.error)
             })
+    }
+
+    if (loading) {
+        <Loader></Loader>
     }
 
 
