@@ -49,45 +49,49 @@ const PublishedBlogs = () => {
     }
 
     return (
-        <div className=' container col-lg-8 mx-auto mb-md-5 '>
-            <div className="row mt-5 mb-2">
-                <div className="col">
-                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                        <h3 className=' text-center text-primary fw-bold'>Published Blogs </h3>
-                    </nav>
-                </div>
-            </div>
-            {
-                blogs.map(blog => (
-                    <div className="card blogArea my-1" key={blog?.id}>
-                        <div className="d-flex px-lg-3 px-md-2">
-                            <div className="col-md-2 my-auto">
-                                <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
-                            </div>
-
-                            <div className="card-body">
-                                <Link className=' fs-5 blogDetailsLink ' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
-                                <p className=" my-0 ">{blog?.description.slice(0, 80)}...
-                                    <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
-                                </p>
-                                <p>{blog.summary}</p>
-                                <div className=''>
-                                    <div className=' d-flex justify-content-between  me-auto   my-0'>
-                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-
-                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                        {/* <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p> */}
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-
-                        </div>
+        <div className='col-md-10 mx-auto'>
+            <section style={{ backgroundColor: "#eee" }}>
+                <div className="container pt-3 pb-3 ">
+                    <div className="col-lg-10 mx-auto">
+                        <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
+                            <h3 className=' text-center fw-bold'> Published Blogs</h3>
+                        </nav>
                     </div>
-                ))
-            }
+                    <div className=' col-lg-10 mx-auto'>
+                        {
+                            blogs.map(blog => (
+                                <div className="card blogArea my-1" key={blog?.id}>
+                                    <div className="d-flex px-lg-3 px-md-2">
+                                        <div className="col-md-2 my-auto">
+                                            <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
+                                        </div>
+
+                                        <div className="card-body">
+                                            <Link className=' fs-5 blogDetailsLink ' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
+                                            <p className=" my-0 ">{blog?.description.slice(0, 80)}...
+                                                <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
+                                            </p>
+                                            <p>{blog.summary}</p>
+                                            <div className=''>
+                                                <div className=' d-flex justify-content-between  me-auto   my-0'>
+                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+
+                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                                    {/* <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p> */}
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
