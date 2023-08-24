@@ -67,7 +67,9 @@ const PublishedBlogs = () => {
 
                             <div className="card-body">
                                 <Link className=' fs-5 blogDetailsLink ' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
-                                {/* <p className=" my-0 ">{blog?.description}</p> */}
+                                <p className=" my-0 ">{blog?.description.slice(0, 80)}...
+                                    <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
+                                </p>
                                 <p>{blog.summary}</p>
                                 <div className=''>
                                     <div className=' d-flex justify-content-between  me-auto   my-0'>

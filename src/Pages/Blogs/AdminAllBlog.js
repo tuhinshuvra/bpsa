@@ -69,7 +69,10 @@ const AdminAllBlog = () => {
                             <div className="col-md-10">
                                 <div className="card-body">
                                     <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link>
-                                    <p>{blog.summary}</p>
+                                    <p className=" my-0 ">{blog?.description.slice(0, 80)}...
+                                        <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
+                                    </p>
+                                    {/* <p>{blog.summary}</p> */}
                                     <div className=''>
                                         <div className=' d-flex justify-content-evenly   me-auto   my-0'>
                                             <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>

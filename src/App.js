@@ -37,6 +37,8 @@ import AllMemberDirectorySearchResultPage from "./Pages/AllMemberDirectory/AllMe
 import NewCommittee from "./Components/CommitteeComponent/NewCommittee";
 import PublishBLogDetails from "./Pages/Blogs/PublishBLogDetails";
 import BlogAdminAssign from "./Pages/Blogs/BlogAdminAssign";
+import MemberShipFeePage from "./Pages/MemberShipFeePage/MemberShipFeePage";
+import SSLCommerz from "./Pages/MemberShipFeePage/SSLCommerz";
 
 export default function App() {
   return (
@@ -69,6 +71,8 @@ export default function App() {
         <Route path="/memberDirectorySearchResult" element={<AllMemberDirectorySearchResultPage />} />
         <Route path="/events" element={<AllEventPage />} />
         <Route path="/events/:eventId" element={<EventDetailsPage />} />
+        <Route path="/membershipFee/:id" element={<MemberShipFeePage />} />
+        <Route path="/sslCommerz/:id" element={<SSLCommerz />} />
 
 
         <Route path="/blog_entry" element={<EntryBlog />} />
