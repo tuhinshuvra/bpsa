@@ -14,6 +14,7 @@ const ForgetPassword = () => {
     const [otpVerified, setOtpVerified] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [passwordValid, setPasswordValid] = useState(true);
+    const [unique,setUnique]=useState("");
 
     const checkPasswordMatch = (password, retypePassword) => {
         return password === retypePassword;
@@ -43,13 +44,16 @@ const ForgetPassword = () => {
             .then((response) => response.json())
             .then((data) => {
                 // console.log("Verify unique Id", data);
-                if (data.value === 1) {
+                // console.log(data.value)
+                if (data.value === 1||data.value===3) {
+                    setUnique(unique_id);
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
                     form.reset();
                     setOtpVerified(true);
                 }
                 else {
+                    // console.log(data.value);
                     toast.error("Unique ID Verification Failed!");
                 }
 
@@ -58,7 +62,7 @@ const ForgetPassword = () => {
                 // setOtpVerified(true);
             })
             .catch((error) => {
-                console.log("Error Occurred:", error.response.data);
+                // console.log("Error Occurred:", error.response.data);
                 setErrorMessage(error.response.data.error);
             });
     };
@@ -110,6 +114,7 @@ const ForgetPassword = () => {
 
         if (!checkPasswordMatch(password, retypePassword)) {
             setPasswordsMatch(false);
+            toast.error("Password are not match");
             return;
         }
 
@@ -117,16 +122,18 @@ const ForgetPassword = () => {
         const isPasswordValid = passwordPattern.test(password);
 
         if (!isPasswordValid) {
+            toast.error("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
             setPasswordValid(false);
             return;
         }
 
         const userData = {
             Newpassword: password,
+            uniqueId:unique
         }
-        console.log("userData : ", userData);
+        // console.log("userData : ", userData);
 
-        fetch(`https://dev.bpsa.com.bd/api/change-password`, {
+        fetch("https://dev.bpsa.com.bd/api/change-password", {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -135,15 +142,16 @@ const ForgetPassword = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Reseted Password Data : ', data);
+                // console.log('Reseted Password Data : ', data);
                 if (data) {
                     form.reset()
-                    toast.success('Congratulation! Password updated successfully.')
+                    toast.success('Congratulation! Password updated successfully.');
+                    navigate("/login")
                 }
 
             })
             .catch(error => {
-                console.log("Error Occured: ", error.response.data)
+                // console.log("Error Occured: ", error.response.data)
                 setErrorMessage(error.response.data.error)
             })
     }
