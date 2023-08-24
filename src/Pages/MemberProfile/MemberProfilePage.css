@@ -16,7 +16,9 @@
 
 .memberBlogImg {
     width: 160px;
+    max-height: 110px;
 }
+
 
 .memberProFont {
     font-size: 15px;

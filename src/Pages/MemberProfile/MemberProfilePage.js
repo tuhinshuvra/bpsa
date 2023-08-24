@@ -95,7 +95,7 @@ const MemberProfilePage = () => {
                     </div>
 
                     <div className="row">
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 my-1 my-lg-0">
                             <div className="card  proCard shadow-lg">
                                 <div className="card-body proCardBody">
                                     {userNewData?.image ?
@@ -127,7 +127,7 @@ const MemberProfilePage = () => {
                         <div className="col-lg-8">
 
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody my-auto">
                                             <p className="my-0"><b> BP ID</b>: {memberData?.bpn}</p>
@@ -144,7 +144,7 @@ const MemberProfilePage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody">
                                             <p className="my-0"><b> Father’s Name </b> : {memberData?.fname} </p>
@@ -162,10 +162,31 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    <div className=' d-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <Link className=' text-white btn btn-sm btn-primary' to="/memberCoCurriculamActivitiesEntry">Enter/Update Co Curricular Activities</Link>
+                    <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div className=' text-center'>
+                            <Link className=' text-white btn btn-sm btn-primary ' to="/memberCoCurriculamActivitiesEntry">Enter/Update Co Curricular Activities</Link>
+                        </div>
                     </div>
 
+
+                    {/* membership fee section start */}
+                    <div className="row mt-5 mb-2">
+                        <div className="col">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
+                                <h4 className=' text-center'>Membership Fee </h4>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div className="card blogArea text-center"  >
+                        <div className="card-body">
+                            <p className=' fs-5 fw-bold my-auto'>
+                                Your membership fee payment clear till {2020}
+                                <Link className='fst-italic ms-1' to={`/membershipFee/${user?.id}`}>Show Details</Link>
+                            </p>
+                        </div>
+                    </div>
+                    {/* membership fee section end */}
 
 
                     {/* member's approved blogs */}
@@ -188,7 +209,9 @@ const MemberProfilePage = () => {
                                         <div className="card-body">
                                             {/* <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link> */}
                                             <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                            <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
+                                            <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                            </p>
                                             <div className=' d-flex justify-content-evenly'>
                                                 <div className=' d-flex col-md-5 me-auto   my-0'>
                                                     <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
@@ -241,10 +264,12 @@ const MemberProfilePage = () => {
                                         <div className="col-md-2 my-auto">
                                             <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
                                         </div>
-                                        <div className="col-md-9">
+                                        <div className="col-md-10 d-flex">
                                             <div className="card-body">
                                                 <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
+                                                <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                                    <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                                </p>
                                                 <div className=' d-flex justify-content-evenly'>
                                                     <div className=' d-flex col-md-5 me-auto   my-0'>
                                                         <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
@@ -252,11 +277,8 @@ const MemberProfilePage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div className="col-md-1 my-auto">
-                                            <p className=' fw-bold '>{blog?.status}</p>
-                                            <div>
+                                            <div className="  text-center  my-auto">
+                                                <p className=' fw-bold '>{blog?.status}</p>
                                                 <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
                                             </div>
                                         </div>
