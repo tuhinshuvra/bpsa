@@ -1,137 +1,122 @@
 import { TextField } from '@mui/material';
-import { MdOutlineLockReset } from "react-icons/md";
-import useTitle from '../../hooks/useTitle';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import './Login.css';
+import { MdOutlineLockReset } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
-const ForgetPassword = () => {
+const ForgetPassword2 = () => {
 
-    useTitle("passwordReset");
-    const [enableOtp, setEnableOtp] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [otpVerified, setOtpVerified] = useState(false);
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const [passwordValid, setPasswordValid] = useState(true);
-    const [unique,setUnique]=useState("");
-
-    const checkPasswordMatch = (password, retypePassword) => {
-        return password === retypePassword;
-    };
+    const [unique, setUnique] = useState("");
+    const [verifyOTP, setVerifyOTP] = useState(false);
+    const [otpValue, setOtpValue] = useState('');
+    const [OTPVerified, setOTPVerified] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [isCounting, setIsCounting] = useState(false);
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        let countdownInterval;
 
-    // this function is used to veriry unique id
-    const handleVerifyUniqueId = (event) => {
-        event.preventDefault();
-        const form = event.target.form;
-        if (!form) {
-            console.error("Form element not found");
-            return;
+        if (isCounting) {
+            countdownInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    setTimeLeft(timeLeft - 1);
+                } else {
+                    clearInterval(countdownInterval);
+                    setIsCounting(false);
+                    // Perform any action when the countdown reaches zero.
+                    console.log('Countdown has reached zero.');
+                    setVerifyOTP(false);
+                }
+            }, 1000);
+        } else {
+            clearInterval(countdownInterval);
         }
 
-        const unique_id = form.unique_id.value;
-        // console.log("unique_id : ", unique_id);
+        return () => {
+            clearInterval(countdownInterval);
+        };
+    }, [isCounting, timeLeft]);
 
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`, {
+    const startCountdown = () => {
+
+        // Set the countdown time to 5 minutes (300 seconds)
+        setTimeLeft(300);
+        setIsCounting(true);
+
+    };
+
+    const formatTime = (seconds) => {
+        //   console.log(seconds)
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    };
+
+    const handleOTPSend = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log("Verify unique Id", data);
-                // console.log(data.value)
-                if (data.value === 1||data.value===3) {
-                    setUnique(unique_id);
-                    // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
+            .then(res => res.json())
+            .then(data => {
+                if (data.value === 3) {
                     toast.success("Unique ID Verified Successfully!");
+
+                    setUnique(form.unique_id.value);
+
+                    setVerifyOTP(true);
+                    startCountdown();
                     form.reset();
-                    setOtpVerified(true);
                 }
-                else {
-                    // console.log(data.value);
-                    toast.error("Unique ID Verification Failed!");
-                }
-
-
-                // After successful OTP verification, set otpVerified to true
-                // setOtpVerified(true);
             })
-            .catch((error) => {
-                // console.log("Error Occurred:", error.response.data);
-                setErrorMessage(error.response.data.error);
-            });
+            .catch(error => {
+                toast.error(error.message);
+            })
+    }
+
+    const handleResetCountTime = () => {
+        startCountdown();
+    }
+    const handleOtpChange = (event) => {
+        setOtpValue(event.target.value);
     };
-
-    // this function is used to veriry otp during typing
-    // const handleOtpTyping = (event) => {
-    //     const otp = event.target.value;
-
-    //     const otpData = {
-    //         otp: otp,
-    //     };
-
-    //     fetch(`serverAddress/api/verify-otp`, {
-    //         method: "POST",
-    //         headers: {
-    //             "content-type": "application/json",
-    //         },
-    //         body: JSON.stringify(otpData),
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log("OTP Verification Data :", data);
-    //             if (data.verified) {
-    //                 toast.success("OTP Verified Successfully.");
-    //                 setOtpVerified(true); 
-    //             } else {
-    //                 toast.error("OTP Verification Failed. Please try again.");
-    //                 setOtpVerified(false); 
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log("Error Occurred during OTP Verification: ", error);
-    //             toast.error("Error occurred during OTP verification. Please try again later.");
-    //             setOtpVerified(false);
-    //         });
-    // };
-
-
-
-
-    // this function is used to post sign up data
-
-    const handleOnSubmit = (event) => {
-        event.preventDefault();
-        const form = event.target;
-
+    const handleOTPVerify = () => {
+        if (otpValue == 222222) {
+            setOTPVerified(true);
+            setVerifyOTP(false);
+        }
+        else {
+            toast.error("OTP not match");
+        }
+    }
+    const handleForgetPassword = (e) => {
+        e.preventDefault();
+        const form = e.target;
         const password = form.password.value;
-        const retypePassword = form.confirm_password.value;
+        const confirm_password = form.confirm_password.value;
 
-        if (!checkPasswordMatch(password, retypePassword)) {
-            setPasswordsMatch(false);
+        if (password !== confirm_password) {
             toast.error("Password are not match");
             return;
         }
-
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         const isPasswordValid = passwordPattern.test(password);
-
         if (!isPasswordValid) {
             toast.error("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
-            setPasswordValid(false);
-            return;
+            return
         }
-
         const userData = {
-            Newpassword: password,
-            uniqueId:unique
+            Newpassword: form.password.value,
+            uniqueId: unique
         }
-        // console.log("userData : ", userData);
 
         fetch("https://dev.bpsa.com.bd/api/change-password", {
             method: "POST",
@@ -152,11 +137,10 @@ const ForgetPassword = () => {
             })
             .catch(error => {
                 // console.log("Error Occured: ", error.response.data)
-                setErrorMessage(error.response.data.error)
+                toast.error(error.response.data.error)
             })
+
     }
-
-
     return (
         <div className=' container my-4'>
             <div className=' col-lg-4 col-md-6 mx-auto'>
@@ -165,135 +149,34 @@ const ForgetPassword = () => {
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
                     <h2 className=' text-center fs-3'>Password Reset</h2>
                 </div>
-
-
-                {!passwordsMatch && (
-                    <p className="text-center text-danger fw-bold fs-6">Passwords do not match.</p>
-                )}
-
-                {passwordValid ? <></> :
-                    <><p className=' text-warning'>Password must be at least 8 characters and contain an uppercase letter, a lowercase letter, and a special character.</p></>
-                }
-
-                <form onSubmit={handleOnSubmit}>
-                    <TextField
-                        label="Unique ID"
-                        name="unique_id"
-                        id="unique_id"
-                        type="text"
-                        margin="normal"
-
-                        fullWidth
-                    />
-
-
-                    {/* <TextField
-                        label="Birth Date"
-                        name="birth_date"
-                        id="birth_date"
-                        type="date"
-                        margin="normal"
-
-                        fullWidth
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    /> */}
-
-                    <div onClick={() => setEnableOtp(true)} className=' text-center'>
-                        <button onClick={handleVerifyUniqueId} className=' btn btn-primary btn-sm '>Verify</button>
+                <form onSubmit={handleOTPSend}>
+                    <TextField label="Unique ID" name="unique_id" id="unique_id" type="text" margin="normal" fullWidth required />
+                    <div className='text-center'>
+                        <button className=' btn btn-primary btn-sm '>Verify</button>
                     </div>
-
-                    {/* {enableOtp ?
-                        <TextField
-                            label="OTP"
-                            name="otp"
-                            id="otp"
-                            type="text"
-                            margin="normal"
-                            onChange={handleOtpTyping} // Attach the function to the onChange event
-                            disabled={false}
-                            required
-                            fullWidth
-                        />
-                        :
-                        <TextField
-                            label="OTP"
-                            name="otp"
-                            id="otp"
-                            type="text"
-                            margin="normal"
-                            disabled={true}
-                            required
-                            fullWidth
-                        />
-                    } */}
-
-                    {otpVerified ?
-                        <>
-                            <TextField
-                                label="Password"
-                                name="password"
-                                id="password"
-                                type="password"
-                                margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-                            <TextField
-                                label="Retype Password"
-                                name="confirm_password"
-                                id="confirm_password"
-                                type="password"
-                                margin="normal"
-                                disabled={false}
-                                required
-                                fullWidth
-                            />
-                        </>
-                        :
-                        <>
-
-                            <TextField
-                                label="Password"
-                                name="password"
-                                id="password"
-                                type="password"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-
-
-                            <TextField
-                                label="Retype Password"
-                                name="confirm_password"
-                                id="confirm_password"
-                                type="password"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-                        </>
-                    }
-
-
-
-                    <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
-
-                    <div className=' d-flex justify-between mt-3'>
-                        <button type="reset" className="btn btn-warning btn-sm">Reset</button>
-                        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
-                    </div>
-
-                    {/* <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p> */}
                 </form>
+                {
+                    verifyOTP && <div className='text-center my-4'>
+                        <button style={{ textTransform: 'none' }} ><span className='text-xl'><span className='text-orange-400 text-2xl'>{formatTime(timeLeft)}</span> Before put your OTP</span></button>
+                        <TextField label="OTP add" name="otp_id" id="otp_id" type="text" margin="normal" fullWidth required value={otpValue} onChange={handleOtpChange} />
+                        <div className='flex justify-between items-center'>
+                            <button onClick={handleResetCountTime} className=' btn btn-primary btn-sm '>resend</button>
+                            <button onClick={handleOTPVerify} className=' btn btn-primary btn-sm '>submit</button>
+                        </div>
+                    </div>
+                }
+                {OTPVerified &&
+                    <form onSubmit={handleForgetPassword}>
+                        <TextField label="Password" name="password" id="password" type="password" margin="normal" disabled={false} required fullWidth />
+                        <TextField label="Retype Password" name="confirm_password" id="confirm_password" type="password" margin="normal" disabled={false} required fullWidth />
+                        <div className='text-center'>
+                            <button className=' btn btn-primary btn-sm '>submit</button>
+                        </div>
+                    </form>
+                }
             </div>
         </div>
     );
 };
 
-export default ForgetPassword;
+export default ForgetPassword2;
