@@ -155,11 +155,13 @@ const SignupPage = () => {
         event.preventDefault();
         if (userEnteredOTP == otpData) {
             console.log('OTP Verified successfully!');
+            toast.success('OTP Verified successfully!');
             setOtpVerified(true);
             setOTPCheckOne(false);
             setOtpData("")
         } else {
             console.log('Invalid OTP');
+            toast.error('Invalid OTP');
         }
     };
 
@@ -347,7 +349,7 @@ const SignupPage = () => {
                     {
                         OTPCheckOne && <div className='text-center my-3'>
                             {
-                                <button onClick={(e)=>handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
+                                <button onClick={(e) => handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
                             }
                         </div>
                     }
