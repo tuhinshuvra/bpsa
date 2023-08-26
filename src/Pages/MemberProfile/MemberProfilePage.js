@@ -96,13 +96,12 @@ const MemberProfilePage = () => {
 
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">
-                    <div className="row">
-                        <div className="col">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                                <h3 className=' text-center fw-bold'>{memberData?.nameE} Profile</h3>
-                            </nav>
-                        </div>
-                    </div>
+
+                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
+                        {/* <h3 className=' text-center fw-bold'>{memberData?.nameE} Profile</h3> */}
+                        <h2 className='fw-bold text-center text-success'>{memberData?.nameE} Profile</h2>
+                    </nav>
+
 
                     <div className="row">
                         <div className="col-lg-4 my-1 my-lg-0">
