@@ -7,6 +7,8 @@ import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -143,7 +145,7 @@ const MemberProfilePage = () => {
                                             <p className="my-0"><b> BCS Batch</b>: {memberData?.batch}</p>
                                             <p className="my-0"><b> Rank</b>: {memberData?.ranK}</p>
                                             <p className="my-0"><b> DOB  </b>  : {memberData?.birth}</p>
-                                            <p className="my-0"> <b> Phone no  </b>    : {memberData?.phone}
+                                            <p className="my-0"><b> Phone no  </b>    : {memberData?.phone}
                                                 {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
                                             </p>
                                             <p className="my-0"> <b> Email</b>    : {memberData?.email}
@@ -215,17 +217,13 @@ const MemberProfilePage = () => {
                                 </div>
                                 <div className="col-md-10">
                                     <div className="card-body">
-                                        {/* <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link> */}
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                        <p className=" my-0 ">{blog?.description.slice(0, 110)}...
                                             <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
                                         </p>
-                                        <div className=' d-flex justify-content-evenly'>
-                                            <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                            </div>
-
+                                        <div className='  d-flex items-center mt-1'>
+                                            <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
+                                            <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -311,14 +309,12 @@ const MemberProfilePage = () => {
                                 <div className="col-md-10 d-flex">
                                     <div className="card-body">
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                        <p className=" my-0 ">{blog?.description.slice(0, 110)}...
                                             <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
                                         </p>
-                                        <div className=' d-flex justify-content-evenly'>
-                                            <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                            </div>
+                                        <div className='   d-flex items-center mt-1'>
+                                            <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
+                                            <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
                                         </div>
                                     </div>
                                     <div className="  text-center  my-auto">

@@ -8,6 +8,8 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
 import './BlogListShow.css';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
 
 const PublishedBlogs = () => {
     useTitle("PublishedBlog");
@@ -68,18 +70,13 @@ const PublishedBlogs = () => {
 
                                         <div className="card-body">
                                             <Link className=' fs-5 blogDetailsLink ' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
-                                            <p className=" my-0 ">{blog?.description.slice(0, 80)}...
+                                            <p className=" my-0 ">{blog?.description.slice(0, 90)}...
                                                 <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
                                             </p>
-                                            <p>{blog.summary}</p>
-                                            <div className=''>
-                                                <div className=' d-flex justify-content-between  me-auto   my-0'>
-                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-
-                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                    {/* <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p> */}
-                                                </div>
-
+                                            {/* <p>{blog.summery}</p> */}
+                                            <div className=' my-0  d-flex items-center'>
+                                                <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
+                                                <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
                                             </div>
                                         </div>
 
