@@ -28,35 +28,42 @@ const EventDetailsPage = () => {
     }
 
     return (
-        <div className=' col-lg-8 col-md-10 mx-auto'>
-            <h2 className=' text-center fw-bold mt-5 mb-3 text-success'>{eventDetails?.title}</h2>
-            <div className="card mb-3 p-3">
-                <div className=' d-lg-flex'>
-                    <div className=" col-lg-7">
-                        <img src={eventDetails?.image} className=" eventDetailImg shadow-lg" alt="..." />
-                    </div>
-                    <div className="card-body col-lg-5">
-                        <div className=' d-flex flex-column justify-content-lg-start'>
-                            {eventDetails?.events &&
-                                <h4> <b>Venue:</b> {eventDetails?.events} </h4>
-                            }
-                            {eventDetails?.start_date &&
-                                <h5 className=' d-flex '><b> Date: &nbsp;</b> {eventDetails?.start_date}
-                                    {eventDetails?.date && <> - {eventDetails?.date}</>}
-                                </h5>
-                            }
+        <div className=' col-md-10 mx-auto'>
+            <section style={{ backgroundColor: "#eee" }}>
+                <div className="container pt-3 pb-5 ">
+                    <nav aria-label=" " className="bg-light rounded-3 p-2 mb-4">
+                        <h2 className='fw-bold text-center text-success'>{eventDetails?.title}</h2>
+                    </nav>
 
-                            {eventDetails?.time &&
-                                <h5 className=' '> <b>Time:</b> {eventDetails?.time} </h5>
-                            }
+                    <div className="card mb-3 p-3">
+                        <div className=' d-lg-flex'>
+                            <div className=" col-lg-7">
+                                <img src={eventDetails?.image} className=" eventDetailImg shadow-lg" alt="..." />
+                            </div>
+                            <div className="card-body col-lg-5">
+                                <div className=' d-flex flex-column justify-content-lg-start'>
+                                    {eventDetails?.events &&
+                                        <h4> <b>Venue:</b> {eventDetails?.events} </h4>
+                                    }
+                                    {eventDetails?.start_date &&
+                                        <h5 className=' d-flex '><b> Date: &nbsp;</b> {eventDetails?.start_date}
+                                            {eventDetails?.date && <> - {eventDetails?.date}</>}
+                                        </h5>
+                                    }
 
+                                    {eventDetails?.time &&
+                                        <h5 className=' '> <b>Time:</b> {eventDetails?.time} </h5>
+                                    }
+
+                                </div>
+                            </div>
                         </div>
+
+                        <p className="card-text mt-4 mb-2"> <b></b>{eventDetails?.description}</p>
+
                     </div>
                 </div>
-
-                <p className="card-text mt-4 mb-2"> <b></b>{eventDetails?.description}</p>
-
-            </div>
+            </section>
         </div >
     );
 };
