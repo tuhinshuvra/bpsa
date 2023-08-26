@@ -11,19 +11,30 @@ import CommonHead from "../Components/Common/CommonHead";
 import HeroComponent1 from "../Components/Common/HeroComponent1";
 import Loader from "../Components/Common/Loader";
 import AchievementComponent from "../Components/NewsComponent/AchievementComponent";
+import useTitle from "../hooks/useTitle";
 
 const AboutUsPage = () => {
+  useTitle("AboutUs")
   return (
     <div>
-      <CommonHead title="About" />
-      {/* <HeroComponent1 title="About Us" /> */}
-      <h1 className='fw-bold text-center text-success my-4'>ABOUT US</h1>
-      <AssociationInfoComponent />
-      <ObjectivesComponent />
-      <ActivitiesComp />
-      <LeaderShipComponent />
-      <FormerLeaderShip />
-      <AssociationDocumentsComponent />
+      <div className=' col-md-10 mx-auto'>
+        <section style={{ backgroundColor: "#eee" }}>
+          <div className="container pt-3 pb-5 ">
+            <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
+              <h2 className='fw-bold text-center text-success'>ABOUT US</h2>
+            </nav>
+            <div>
+              <AssociationInfoComponent />
+              <ObjectivesComponent />
+              <ActivitiesComp />
+              <LeaderShipComponent />
+              <FormerLeaderShip />
+              <AssociationDocumentsComponent />
+            </div>
+          </div>
+        </section>
+      </div>
+
     </div>
   );
 };

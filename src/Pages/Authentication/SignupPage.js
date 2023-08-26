@@ -60,7 +60,7 @@ const SignupPage = () => {
     const startCountdown = () => {
 
         // Set the countdown time to 5 minutes (300 seconds)
-        setTimeLeft(100);
+        setTimeLeft(300);
         setIsCounting(true);
 
     };

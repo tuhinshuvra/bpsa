@@ -43,10 +43,10 @@ const ContactComponent = () => {
   return (
     <div className='col-md-10 mx-auto'>
       <section style={{ backgroundColor: "#eee" }}>
-        <div className="container pt-3 pb-3 ">
+        <div className="container pt-3  ">
           <div className="  mx-auto">
-            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-              <h3 className=' text-center fw-bold'>CONTACT</h3>
+            <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
+              <h2 className='fw-bold text-center text-success'>CONTACT</h2>
             </nav>
 
             <div className=" py-3">
@@ -55,7 +55,7 @@ const ContactComponent = () => {
                   <div className=" ">
                     <h2 className="text-center py-3 text-main font-semibold">Our Address</h2>
                     <div className=" d-flex justify-content-center align-items-sm-start ">
-                      <div className=" d-flex flex-column  align-items-lg-start gap-2 ">
+                      <div className=" d-flex flex-column  align-items-start gap-2 ">
                         <div className="flex items-center justify-center ">
                           <LocationIcon
                             size={24}
@@ -170,11 +170,7 @@ const ContactComponent = () => {
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <ButtonComponent
-                    type="submit"
-                    title="Submit"
-                    className="bg-main px-4 py-2 text-white"
-                  ></ButtonComponent>
+                  <button type="submit" className=" btn btn-primary w-25 ">Submit</button>
                 </div>
               </Form>
             </div>

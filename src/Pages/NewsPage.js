@@ -15,8 +15,10 @@ import ActivityUpdate from "../Components/NewsComponent/ActivityUpdate";
 import MourningNews from "../Components/NewsComponent/MourningNews";
 import NewComp from "../Components/NewsComponent/NewComp";
 import { dateFiltering } from "../utlis/DateFiltering";
+import useTitle from "../hooks/useTitle";
 
 const NewsPage = () => {
+  useTitle("News")
   const [newsData, setNewsData] = useState("");
   const [loading, setLoading] = useState(false);
   const [mourningNews, setMourningNews] = useState("");
@@ -95,14 +97,22 @@ const NewsPage = () => {
     return <Loader />;
   }
   return (
-    <div>
-      <CommonHead title="NEWS" />
-      <h1 className='fw-bold text-center text-success my-4'>NEWS</h1>
-      <NoticeLine data={newsLine} />
-      <NewComp data={newsData} />
-      <ActivityUpdate data={activityUpdate} />
-      <AchievementComponent data={achievement} />
-      <MourningNews data={mourningNews} />
+    <div className=' col-md-10 mx-auto'>
+      <section style={{ backgroundColor: "#eee" }}>
+        <div className="container pt-3 pb-5 ">
+          <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
+            <h2 className='fw-bold text-center text-success'>NEWS</h2>
+          </nav>
+
+          <div>
+            <NoticeLine data={newsLine} />
+            <NewComp data={newsData} />
+            <ActivityUpdate data={activityUpdate} />
+            <AchievementComponent data={achievement} />
+            <MourningNews data={mourningNews} />
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
