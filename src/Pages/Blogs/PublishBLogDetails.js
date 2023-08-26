@@ -6,6 +6,9 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
+
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
     const location = useLocation();
@@ -15,6 +18,8 @@ const PublishBLogDetails = () => {
     const { user } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
     const navigate = useNavigate();
+    // CgCalendarDates
+
     useEffect(() => {
         fetch("https://dev.bpsa.com.bd/api/Approvedblog")
             .then(res => res.json())
@@ -29,23 +34,51 @@ const PublishBLogDetails = () => {
                 console.error("API request error:", error);
             });
     }, []);
+
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
+    function formatCustomDate(dateString) {
+        const date = new Date(dateString);
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
+    }
+
+
+
     return (
-        <div>
-            <h3 className='mt-10 text-center text-main'>{blog?.title}</h3>
-            <div className='mx-[5vw] my-[1vh]'>
-                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog?.image}></img>
-                <p className='my-3'>{blog?.description}</p>
-                <p>{blog.summary}</p>
-                <div className='flex justify-between items-center my-4 shadow py-3  px-10'>
-                    <div className='flex justify-between items-center'>
-                        <p className='mr-5'>Blogger: {blog?.memberName}</p>
-                        <p>Published: 07/08/2023</p>
-                        <Link to={"/publishedBlogs"} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg ' >Back</Link>
+        <div className=' col-md-10 mx-auto'>
+            <section style={{ backgroundColor: "#eee" }}>
+                <div className="container pt-3 pb-3 ">
+                    <nav aria-label="" className="bg-light rounded-3 p-2  ">
+                        <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
+                    </nav>
+                    <div className=' d-flex   items-center mt-1'>
+                        <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
                     </div>
-                    <div className='mb-10'>
+                    <p>{blog?.summery}</p>
+
+                    <div className='d-lg-flex justify-content-between gap-2'>
+                        <div className=' col-lg-5'>
+                            <img className=' rounded-lg ' src={blog?.image} alt='blog_image'></img>
+                        </div>
+                        <div className=' col-lg-7'>
+                            <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
+                        </div>
+                    </div>
+
+                    <p className='my-2'>{blog?.description && blog?.description.slice(1201, 1700)}</p>
+                    <p className='my-2'>{blog?.description && blog?.description.slice(1701, 10000)}</p>
+
+                    <div className=' d-flex justify-content-end'>
+                        <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm ' >Back</Link>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };

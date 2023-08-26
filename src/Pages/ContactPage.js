@@ -5,7 +5,7 @@ import ContactComponent from '../Components/ContactComponent/ContactComponent';
 const ContactPage = () => {
   return (
     <div>
-      <CommonHead title="Contact" />
+      {/* <CommonHead title="Contact" /> */}
       <ContactComponent />
     </div>
   );

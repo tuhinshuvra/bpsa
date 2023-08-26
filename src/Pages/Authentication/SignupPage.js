@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { BsPersonCircle } from 'react-icons/bs';
 import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import './Login.css';
 import { Toast } from 'bootstrap';
@@ -22,33 +22,58 @@ const SignupPage = () => {
     const [userPhone, setUserPhone] = useState('');
     const [otpData, setOtpData] = useState('');
     const [userEnteredOTP, setUserEnteredOTP] = useState('');
+    const [unique_id, setUniqueId] = useState("");
+    const [name, setName] = useState("");
+    const [year, setYear] = useState("");
+    const [OTPCheckOne, setOTPCheckOne] = useState(false);
 
-    // console.log("userFullName :", userFullName);
-    // console.log("otpData :", otpData);
+
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [isCounting, setIsCounting] = useState(false);
+
+    useEffect(() => {
+        let countdownInterval;
+
+        if (isCounting) {
+            countdownInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    setTimeLeft(timeLeft - 1);
+                } else {
+                    clearInterval(countdownInterval);
+                    setIsCounting(false);
+                    // Perform any action when the countdown reaches zero.
+                    setOtpVerified(false);
+                    setOtpData("");
+                    console.log('Countdown has reached zero.');
+                }
+            }, 1000);
+        } else {
+            clearInterval(countdownInterval);
+        }
+
+        return () => {
+            clearInterval(countdownInterval);
+        };
+    }, [isCounting, timeLeft]);
+
+    const startCountdown = () => {
+
+        // Set the countdown time to 5 minutes (300 seconds)
+        setTimeLeft(100);
+        setIsCounting(true);
+
+    };
+
+    const formatTime = (seconds) => {
+        //   console.log(seconds)
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    };
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const navigate = useNavigate();
-
-
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const secondsToShow = seconds % 60;
-        return `${minutes}:${secondsToShow < 10 ? '0' : ''}${secondsToShow}`;
-    };
-
-    const startCountdown = () => {
-        const countdownInterval = setInterval(() => {
-            setRemainingTime((prevTime) => prevTime - 1);
-        }, 1000);
-
-        // Clear the interval when the countdown is complete
-        setTimeout(() => {
-            clearInterval(countdownInterval);
-            // You might want to handle any actions after the countdown here
-        }, remainingTime * 1000);
-    };
-
 
 
     // const checkPasswordMatch = (password, retypePassword) => {
@@ -82,13 +107,20 @@ const SignupPage = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                // console.log("Verify unique Id", data);
+
+                console.log("Verify unique Id", data);
                 if (data.value === 1) {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
                     console.log(data);
-                    // form.reset();
-                    // setOtpVerified(true);
+ 
+                    form.reset();
+
+
+                    setUniqueId(unique_id);
+                    setYear(birth_year);
+                    setName(data.name);
+                    setOTPCheckOne(true);
                     startCountdown();
                     setOtpData(data.otp)
                     setUserFullName(data.name)
@@ -128,6 +160,13 @@ const SignupPage = () => {
         } else {
             console.log('Invalid OTP');
             toast.error("Invalid OTP");
+            toast.success('OTP Verified successfully!');
+            setOTPCheckOne(false);
+            setOtpData("")
+        } else {
+            console.log('Invalid OTP');
+            toast.error('Invalid OTP');
+ 
         }
     };
 
@@ -136,13 +175,17 @@ const SignupPage = () => {
     const handleOnSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-        const uniqueId = form.unique_id.value;
-        const fullName = form.full_name.value;
+
+        // const uniqueId = form.unique_id.value;
+        const uniqueId = unique_id;
+        const fullName = name;
         const email = form.user_name.value;
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
         if(password!==confirmPassword){
             toast.error("password are not match")
+            setPasswordsMatch(false);
+ 
             return;
         }
 
@@ -157,6 +200,7 @@ const SignupPage = () => {
 
         if (!isPasswordValid) {
             setPasswordValid(false);
+            toast.error("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
             return;
         }
 
@@ -194,10 +238,29 @@ const SignupPage = () => {
 
 
 
-    const handleResendOTP = () => {
-        setRemainingTime(5 * 60); // Reset the countdown timer
-        // setOtpSent(true); // Mark OTP as sent
-        handleVerifyUniqueId(); // Resend OTP
+    const handleResendOTP = (e) => {
+        e.preventDefault();
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${year}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+                setOtpData(data.otp)
+
+                startCountdown();
+
+                // After successful OTP verification, set otpVerified to true
+                // setOtpVerified(true);
+            })
+            .catch((error) => {
+                console.log("Error Occurred:", error.response.data);
+                setErrorMessage(error.response.data.error);
+            });
+
     };
 
 
@@ -270,7 +333,7 @@ const SignupPage = () => {
                         {otpData &&
                             <>
                                 <div className=' d-flex justify-content-center align-items-center  '>
-                                    <button className='btn btn-primary '>{formatTime(remainingTime)}</button>
+                                    <button className='btn btn-primary '>{formatTime(timeLeft)}</button>
                                 </div>
                                 <button className=' btn btn-success mx-1'>{otpData}</button>
 
@@ -292,8 +355,14 @@ const SignupPage = () => {
 
                             </>
                         }
-
                     </div>
+                    {
+                        OTPCheckOne && <div className='text-center my-3'>
+                            {
+                                <button onClick={(e) => handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
+                            }
+                        </div>
+                    }
 
 
 

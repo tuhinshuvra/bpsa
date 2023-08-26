@@ -34,30 +34,40 @@ const AllEventPage = () => {
     }
 
     return (
-        <div className='eventsArea'>
-            <h1 className='fw-bold text-center text-success my-4'>All EVENTS</h1>
-            <div className=' col-md-10 mx-auto'>
+        <div className=' col-md-10 mx-auto'>
+            <section style={{ backgroundColor: "#eee" }}>
+                <div className="container pt-3 pb-5 ">
+                    <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
+                        <h2 className='fw-bold text-center text-success'>All EVENTS</h2>
+                    </nav>
 
-                <Marquee pauseOnHover={true} gradient={false}>
-                    {allEvents &&
-                        allEvents?.map((item, index) => {
-                            return (
-                                <div className=' AllEventCard'>
-                                    <div onClick={() => navigate(`/events/${item?.id}`)} key={index}>
-                                        <img src={item?.image} className='allEventImage' alt="" />
-                                        <div className=' text-center mt-2'>
-                                            <p className=' fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
-                                            <p className=' my-0'><b>Venue:</b> {item?.events}</p>
-                                            <p className=' my-0'><b>Date:</b> {item?.date}</p>
-                                            <Link className='btn btn-outline-primary btn-sm w-100 ' to={`/events/${item?.id}`}>Show Details</Link>
+                    <Marquee pauseOnHover={true} gradient={false}>
+                        {allEvents &&
+                            allEvents?.map((item, index) => {
+                                return (
+                                    <div className=' AllEventCard'>
+                                        <div onClick={() => navigate(`/events/${item?.id}`)} key={index}>
+                                            <img src={item?.image} className='allEventImage' alt="" />
+                                            <div className=' text-center mt-2'>
+                                                <p className=' fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
+                                                <p className=' my-0'><b>Venue:</b> {item?.events}</p>
+                                                {item?.start_date &&
+                                                    <p className=' d-flex my-0 justify-content-center '>
+                                                        <b> Date: &nbsp;</b> {item?.start_date}
+                                                        {item?.date && <> - {item?.date}</>}
+                                                    </p>
+                                                }
+
+
+                                                <Link className='btn btn-outline-primary btn-sm w-100 ' to={`/events/${item?.id}`}>Show Details</Link>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
-                </Marquee>
-
-            </div>
+                                );
+                            })}
+                    </Marquee>
+                </div>
+            </section>
         </div>
     );
 };
