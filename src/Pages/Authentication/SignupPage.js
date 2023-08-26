@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import './Login.css';
+import { Toast } from 'bootstrap';
 
 const SignupPage = () => {
     useTitle("SignUp");
@@ -22,8 +23,8 @@ const SignupPage = () => {
     const [otpData, setOtpData] = useState('');
     const [userEnteredOTP, setUserEnteredOTP] = useState('');
 
-    console.log("userFullName :", userFullName);
-    console.log("otpData :", otpData);
+    // console.log("userFullName :", userFullName);
+    // console.log("otpData :", otpData);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -50,9 +51,9 @@ const SignupPage = () => {
 
 
 
-    const checkPasswordMatch = (password, retypePassword) => {
-        return password === retypePassword;
-    };
+    // const checkPasswordMatch = (password, retypePassword) => {
+    //     return password === retypePassword;
+    // };
 
 
     // this function is used to veriry unique id
@@ -63,8 +64,8 @@ const SignupPage = () => {
         //     console.error("Form element not found");
         //     return;
         // }
-        const unique_id = form.unique_id.value;
-        const birth_year = form.birth_year.value;
+        const unique_id = form?.unique_id?.value;
+        const birth_year = form?.birth_year?.value;
 
         // const verifyData = {
         //     unique_id: unique_id,
@@ -87,7 +88,7 @@ const SignupPage = () => {
                     toast.success("Unique ID Verified Successfully!");
                     console.log(data);
                     // form.reset();
-                    setOtpVerified(true);
+                    // setOtpVerified(true);
                     startCountdown();
                     setOtpData(data.otp)
                     setUserFullName(data.name)
@@ -121,9 +122,12 @@ const SignupPage = () => {
     const handleVerifyOTP = (event) => {
         event.preventDefault();
         if (userEnteredOTP == otpData) {
+            toast.success("OTP Verified successfully!")
             console.log('OTP Verified successfully!');
+            setOtpVerified(true);
         } else {
             console.log('Invalid OTP');
+            toast.error("Invalid OTP");
         }
     };
 
@@ -137,12 +141,16 @@ const SignupPage = () => {
         const email = form.user_name.value;
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
-
-
-        if (!checkPasswordMatch(password, confirmPassword)) {
-            setPasswordsMatch(false);
+        if(password!==confirmPassword){
+            toast.error("password are not match")
             return;
         }
+
+
+        // if (!checkPasswordMatch(password, confirmPassword)) {
+        //     setPasswordsMatch(false);
+        //     return;
+        // }
 
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[1234567890])[A-Za-z\d@$!%*?&]{8,}$/;
         const isPasswordValid = passwordPattern.test(password);
