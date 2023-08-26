@@ -8,8 +8,10 @@ import NewsCategoriesComponent from "../Components/NewsDetailsComponent/NewsCate
 import NewsDetailsInfoComponent from "../Components/NewsDetailsComponent/NewsDetailsInfoComponent";
 import NewsGalleryComponent from "../Components/NewsDetailsComponent/NewsGalleryComponent";
 import RelatedPostsComponent from "../Components/NewsDetailsComponent/RelatedPostsComponent";
+import useTitle from "../hooks/useTitle";
 
 const NewsDetailsPage = () => {
+  useTitle("NewsDetails")
   const [newsLine, setNewsLine] = useState("");
   const [newsDetails, setNewsDetails] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,20 +53,31 @@ const NewsDetailsPage = () => {
   }, [newsId]);
   return (
     <div>
-      <HeroComponent1 title="NEWS DETAILS" />
-      <NoticeLine data={newsLine} />
-      <Container>
-        <Row className="py-10">
-          <Col md={8}>
-            <NewsDetailsInfoComponent data={newsDetails} />
-          </Col>
-          <Col md={4}>
-            {/* <NewsCategoriesComponent /> */}
-            <NewsGalleryComponent data={newsDetails} />
-          </Col>
-        </Row>
-        <RelatedPostsComponent data={relatedNews} />
-      </Container>
+      <div className=' col-md-10 mx-auto'>
+        <section style={{ backgroundColor: "#eee" }}>
+          <div className="container pt-3 pb-5 ">
+            <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
+              <h2 className='fw-bold text-center text-success'>NEWS DETAILS</h2>
+            </nav>
+
+            <div>
+              <NoticeLine data={newsLine} />
+              <Container>
+                <Row className="py-10">
+                  <Col md={8}>
+                    <NewsDetailsInfoComponent data={newsDetails} />
+                  </Col>
+                  <Col md={4}>
+                    {/* <NewsCategoriesComponent /> */}
+                    <NewsGalleryComponent data={newsDetails} />
+                  </Col>
+                </Row>
+                <RelatedPostsComponent data={relatedNews} />
+              </Container>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

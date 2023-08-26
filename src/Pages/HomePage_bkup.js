@@ -213,31 +213,20 @@ const HomePage = () => {
       </div>
 
       <NoticeLine data={noticeData} />
-
-      <div className=' col-md-10 mx-auto'>
-        <section style={{ backgroundColor: "#eee" }}>
-          <div className="container pt-3 pb-5 ">
-            <HighlightComponent data={hightLightData} />
-            <Container>
-              <TestimonialComponent data={messageData} />
-            </Container>
-            <SummaryComp data={successData} />
-            {/* <Container>
+      <HighlightComponent data={hightLightData} />
+      <Container>
+        <TestimonialComponent data={messageData} />
+      </Container>
+      <SummaryComp data={successData} />
+      {/* <Container>
         <UpcommingEvents data={eventData} />
       </Container> */}
 
-            <div className="bg-[#EFF0FC] py-5">
-              <QuicksLinks local={localLink} international={internationalLink} />
-            </div>
-
-            <GalleryComp data={galleryData} />
-          </div>
-        </section>
+      <div className="bg-[#EFF0FC] py-5">
+        <QuicksLinks local={localLink} international={internationalLink} />
       </div>
 
-
-
-
+      <GalleryComp data={galleryData} />
     </div>
   );
 };
