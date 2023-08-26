@@ -154,12 +154,14 @@ const SignupPage = () => {
     const handleVerifyOTP = (event) => {
         event.preventDefault();
         if (userEnteredOTP == otpData) {
+            toast.success("OTP Verified successfully!");
             console.log('OTP Verified successfully!');
             setOtpVerified(true);
             setOTPCheckOne(false);
             setOtpData("")
         } else {
             console.log('Invalid OTP');
+            toast.error("Invalid OTP");
         }
     };
 
@@ -183,7 +185,11 @@ const SignupPage = () => {
             return;
         }
 
+        
+
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[1234567890])[A-Za-z\d@$!%*?&]{8,}$/;
+
+
         const isPasswordValid = passwordPattern.test(password);
 
         if (!isPasswordValid) {
