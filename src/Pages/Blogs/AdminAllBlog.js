@@ -6,6 +6,9 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import './BlogListShow.css';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
+import { TbStatusChange } from 'react-icons/tb';
 
 const AdminAllBlog = () => {
     useTitle("Admin'sAllBlog")
@@ -76,15 +79,16 @@ const AdminAllBlog = () => {
                                                     <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
                                                 </p>
                                                 {/* <p>{blog.summary}</p> */}
-                                                <div className=''>
-                                                    <div className=' d-flex justify-content-evenly   me-auto   my-0'>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
 
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p>
+                                                <div className=' d-flex        my-0'>
+                                                    <div className=' my-0  d-flex justify-content-between '>
+                                                        <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
+                                                        <p className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
                                                     </div>
-
+                                                    <p className=" d-flex "> <TbStatusChange className='fs-4 ms-4'></TbStatusChange> {blog?.status} </p>
                                                 </div>
+
+
                                             </div>
                                         </div>
 

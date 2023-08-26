@@ -6,6 +6,9 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
+
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
     const location = useLocation();
@@ -15,6 +18,7 @@ const PublishBLogDetails = () => {
     const { user } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
     const navigate = useNavigate();
+    // CgCalendarDates
 
     useEffect(() => {
         fetch("https://dev.bpsa.com.bd/api/Approvedblog")
@@ -31,6 +35,20 @@ const PublishBLogDetails = () => {
             });
     }, []);
 
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
+    function formatCustomDate(dateString) {
+        const date = new Date(dateString);
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
+    }
+
+
+
     return (
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
@@ -38,9 +56,9 @@ const PublishBLogDetails = () => {
                     <nav aria-label="" className="bg-light rounded-3 p-2  ">
                         <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
                     </nav>
-                    <div className='flex   items-center'>
-                        <p className='mr-5'> <b> Blogger:</b> {blog?.memberName}</p>
-                        <p className=' ms-1'> <b> Published:</b> 07/08/2023</p>
+                    <div className=' d-flex   items-center mt-1'>
+                        <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
                     </div>
                     <p>{blog?.summery}</p>
 

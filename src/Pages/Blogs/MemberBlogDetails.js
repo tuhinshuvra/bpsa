@@ -1,12 +1,15 @@
 import React from 'react';
 import img from "../Blogs/s1.jpg"
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
+
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");
     const { id } = useParams();
@@ -16,7 +19,7 @@ const MemberBlogDetails = () => {
     const navigate = useNavigate();
     const [isInputVisible, setInputVisible] = useState(false);
     useEffect(() => {
- 
+
 
         // fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`
         fetch("https://dev.bpsa.com.bd/api/blog", {
@@ -75,29 +78,84 @@ const MemberBlogDetails = () => {
                 console.log(error);
             })
     };
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
+    function formatCustomDate(dateString) {
+        const date = new Date(dateString);
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
+    }
+
+
+
     return (
-        <div>
-            <h3 className='mt-10 text-center text-main'>{blog?.title}</h3>
-            <div className='mx-[5vw] my-[1vh]'>
-                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog?.image}></img>
-                <p className='my-3'>{blog?.description}</p>
-                <p>{blog?.summary}</p>
-                <div className='flex justify-between items-center'>
-                    <div className='flex'>
-                        <p className='mr-5'>Blogger: {blog?.memberName}</p>
-                        <p>Published: 07/08/2023</p>
+        <div className=' col-md-10 mx-auto'>
+            <section style={{ backgroundColor: "#eee" }}>
+                <div className="container pt-3 pb-3 ">
+                    <nav aria-label="" className="bg-light rounded-3 p-2  ">
+                        <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
+                    </nav>
+                    <div className='flex   items-center mt-1'>
+                        <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                        {/* <p>Published: {formatDate(blog?.created_at)}</p> */}
+                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
                     </div>
-                    <div className='mb-10'>
-                        {/* <button onClick={handleStatus} className='btn btn-info'>{blog.status}</button> */}
-                        {/* <div className="dropdown dropdown-hover">
-                            <label tabIndex={0} className="btn m-1">{blog.status}</label>
-                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a>Pending</a></li>
-                                <li><a>Approved</a></li>
-                                <li><a>Ask for Review</a></li>
-                                <li><a>Disabled</a></li>
-                            </ul>
-                        </div> */}
+                    <p>{blog?.summery}</p>
+
+                    <div className='d-lg-flex justify-content-between gap-2'>
+                        <div className=' col-lg-5'>
+                            <img className=' rounded-lg ' src={blog?.image} alt='blog_image'></img>
+                        </div>
+                        <div className=' col-lg-7'>
+                            <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
+                        </div>
+                    </div>
+
+                    <p className='my-2'>{blog?.description && blog?.description.slice(1201, 1700)}</p>
+                    <p className='my-2'>{blog?.description && blog?.description.slice(1701, 10000)}</p>
+
+                    <div className=' d-flex justify-content-between align-items-baseline '>
+
+                        <Link to={"/publishedBlogs"} className='btn btn-primary' >Back</Link>
+
+                        <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
+                            <div>
+                                <select
+                                    id="status"
+                                    value={blogStatus}
+                                    onChange={(e) => handleStatusChange(e.target.value)}
+                                    className='select select-bordered w-full max-w-xs' >
+                                    <option disabled selected>{blog?.status}</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Ask for Review">Ask for Review</option>
+                                    <option value="Disabled">Disabled</option>
+                                </select>
+                                {isInputVisible && (
+                                    <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
+                                )}
+                            </div>
+
+                            <div>
+                                <button className='btn btn-info ms-1' type="submit">update status</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </section>
+        </div>
+    );
+};
+
+export default MemberBlogDetails;
+
+{/* <div className='mb-10'>
                         <form onSubmit={handleSubmit}>
                             <div>
                                 <select
@@ -116,13 +174,6 @@ const MemberBlogDetails = () => {
                             </div>
                             <button className='btn btn-info my-2' type="submit">update status</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default MemberBlogDetails;
+                    </div> */}
 
 
