@@ -16,6 +16,7 @@ const MemberBlogDetails = () => {
     const navigate = useNavigate();
     const [isInputVisible, setInputVisible] = useState(false);
     useEffect(() => {
+ 
 
         fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
@@ -25,6 +26,7 @@ const MemberBlogDetails = () => {
         })
             .then(res => res.json())
             .then(result => {
+                console.log(result);
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
                     setBlogs(result.data.blog.find(blog => blog.id == id));
                 } else {
