@@ -6,14 +6,25 @@ import { AllContext } from '../../hooks/ContextData';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import './MemberProfilePage.css';
+import '../Blogs/BlogListShow.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
     const { user, loading, setLoading } = useContext(AllContext);
-    const [approvedBlogs, setApprovedBlogs] = useState();
-    const [pendingBlogs, setPendingBlogs] = useState();
     const [memberData, setMemberData] = useState();
     const [userNewData, setUserNewData] = useState();
+    const [approvedBlogs, setApprovedBlogs] = useState([]);
+    const [pendingBlogs, setPendingBlogs] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const blogsPerPage = 5;
+    const indexOfLastApprovedBlog = currentPage * blogsPerPage;
+    const indexOfFirstApprovedBlog = indexOfLastApprovedBlog - blogsPerPage;
+    const currentApprovedBlogs = approvedBlogs.slice(indexOfFirstApprovedBlog, indexOfLastApprovedBlog);
+
+    const indexOfLastPendingBlog = currentPage * blogsPerPage;
+    const indexOfFirstPendingBlog = indexOfLastPendingBlog - blogsPerPage;
+    const currentPendingBlogs = pendingBlogs.slice(indexOfFirstPendingBlog, indexOfLastPendingBlog);
 
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
@@ -85,16 +96,15 @@ const MemberProfilePage = () => {
 
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">
-                    <div className="row">
-                        <div className="col">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                                <h3 className=' text-center fw-bold'>{memberData?.nameE} Profile</h3>
-                            </nav>
-                        </div>
-                    </div>
+
+                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
+                        {/* <h3 className=' text-center fw-bold'>{memberData?.nameE} Profile</h3> */}
+                        <h2 className='fw-bold text-center text-success'>{memberData?.nameE} Profile</h2>
+                    </nav>
+
 
                     <div className="row">
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 my-1 my-lg-0">
                             <div className="card  proCard shadow-lg">
                                 <div className="card-body proCardBody">
                                     {userNewData?.image ?
@@ -126,7 +136,7 @@ const MemberProfilePage = () => {
                         <div className="col-lg-8">
 
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody my-auto">
                                             <p className="my-0"><b> BP ID</b>: {memberData?.bpn}</p>
@@ -143,7 +153,7 @@ const MemberProfilePage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody">
                                             <p className="my-0"><b> Father’s Name </b> : {memberData?.fname} </p>
@@ -161,10 +171,31 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    <div className=' d-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <Link className=' text-white btn btn-sm btn-primary' to="/memberCoCurriculamActivitiesEntry">Enter/Update Co Curricular Activities</Link>
+                    <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div className=' text-center'>
+                            <Link className=' text-white btn btn-sm btn-primary ' to="/memberCoCurriculamActivitiesEntry">Enter/Update Co Curricular Activities</Link>
+                        </div>
                     </div>
 
+
+                    {/* membership fee section start */}
+                    <div className="row mt-5 mb-2">
+                        <div className="col">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
+                                <h4 className=' text-center'>Membership Fee </h4>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div className="card blogArea text-center"  >
+                        <div className="card-body">
+                            <p className=' fs-5 fw-bold my-auto'>
+                                Your membership fee payment clear till {2020}
+                                <Link className='fst-italic ms-1' to={`/membershipFee/${user?.id}`}>Show Details</Link>
+                            </p>
+                        </div>
+                    </div>
+                    {/* membership fee section end */}
 
 
                     {/* member's approved blogs */}
@@ -176,41 +207,73 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    {
-                        approvedBlogs && approvedBlogs.map(blog => (
-                            <div>
-                                <div className="card blogArea my-1"  >
-                                    <div className="d-flex">
-                                        <div className="col-md-10">
-                                            <div className="card-body">
-                                                <h5 className=" ">{blog?.title}</h5>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
-                                                <div className=' d-flex justify-content-evenly'>
-                                                    <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                    </div>
-                                                    <div>
-                                                        <Link className='  fw-bold my-0' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>Show Details</Link>
-                                                    </div>
-                                                </div>
+                    {currentApprovedBlogs && currentApprovedBlogs.map(blog => (
+                        <div className="card blogArea my-1"  >
+                            <div className="d-flex px-lg-3 px-md-2">
+                                <div className="col-md-2 my-auto">
+                                    <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
+                                </div>
+                                <div className="col-md-10">
+                                    <div className="card-body">
+                                        {/* <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link> */}
+                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                            <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                        </p>
+                                        <div className=' d-flex justify-content-evenly'>
+                                            <div className=' d-flex col-md-5 me-auto   my-0'>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
                                             </div>
+
                                         </div>
-                                        <div className="col-md-2 my-auto">
-                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                        </div>
-                                        {/* <div className="col-md-1 my-auto">
-                                            <p className=' fw-bold '>{blog?.status}</p>
-                                        </div> */}
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    ))}
 
+                    {/* {
+                        approvedBlogs && approvedBlogs.map(blog => (
+                            <div className="card blogArea my-1"  >
+                                <div className="d-flex px-lg-3 px-md-2">
+                                    <div className="col-md-2 my-auto">
+                                        <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
+                                    </div>
+                                    <div className="col-md-10">
+                                        <div className="card-body">
+                                            <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+                                            <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                            </p>
+                                            <div className=' d-flex justify-content-evenly'>
+                                                <div className=' d-flex col-md-5 me-auto   my-0'>
+                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         ))
-                    }
+                    } */}
 
                     {/* pagination */}
-                    <div className=' d-flex justify-content-center my-0'>
+
+                    <div className='d-flex justify-content-center my-0'>
+                        <nav aria-label="...">
+                            <ul className="pagination">
+                                {Array.from({ length: Math.ceil(approvedBlogs.length / blogsPerPage) }).map((_, index) => (
+                                    <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                        <Link className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </div>
+                    {/* <div className=' d-flex justify-content-center my-0'>
                         <nav aria-label="...">
                             <ul className=" pagination ">
                                 <li className="page-item">
@@ -226,7 +289,7 @@ const MemberProfilePage = () => {
                                 </li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> */}
 
 
                     {/* member's non approved blogs */}
@@ -239,41 +302,84 @@ const MemberProfilePage = () => {
                     </div>
 
 
-                    {
+                    {currentPendingBlogs && currentPendingBlogs.map(blog => (
+                        <div className="card blogArea my-1 px-1"  >
+                            <div className="d-flex px-lg-3 px-md-2">
+                                <div className="col-md-2 my-auto">
+                                    <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
+                                </div>
+                                <div className="col-md-10 d-flex">
+                                    <div className="card-body">
+                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                            <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                        </p>
+                                        <div className=' d-flex justify-content-evenly'>
+                                            <div className=' d-flex col-md-5 me-auto   my-0'>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="  text-center  my-auto">
+                                        <p className=' fw-bold '>{blog?.status}</p>
+                                        <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    ))}
+
+
+                    {/* {
                         pendingBlogs && pendingBlogs.map(blog => (
                             <div>
-                                <div className="card blogArea my-1"  >
-                                    <div className="d-flex">
-                                        <div className="col-md-9">
+                                <div className="card blogArea my-1 px-1"  >
+                                    <div className="d-flex px-lg-3 px-md-2">
+                                        <div className="col-md-2 my-auto">
+                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
+                                        </div>
+                                        <div className="col-md-10 d-flex">
                                             <div className="card-body">
-                                                <h5 className=" ">{blog?.title}</h5>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 180)} </p>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+                                                <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                                    <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                                </p>
                                                 <div className=' d-flex justify-content-evenly'>
                                                     <div className=' d-flex col-md-5 me-auto   my-0'>
                                                         <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
                                                         <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
                                                     </div>
-                                                    <div>
-                                                        <Link className='  fw-bold my-0' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>Show Details</Link>
-                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-2 my-auto">
-                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                        </div>
-                                        <div className="col-md-1 my-auto">
-                                            <p className=' fw-bold '>{blog?.status}</p>
+                                            <div className="  text-center  my-auto">
+                                                <p className=' fw-bold '>{blog?.status}</p>
+                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))
-                    }
+                    } */}
+                </div>
+
+
+                <div className='d-flex justify-content-center my-0'>
+                    <nav aria-label="...">
+                        <ul className="pagination">
+                            {Array.from({ length: Math.ceil(pendingBlogs.length / blogsPerPage) }).map((_, index) => (
+                                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                    <Link className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
                 </div>
 
                 {/* pagination */}
-                <div className=' d-flex justify-content-center my-0'>
+                {/* <div className=' d-flex justify-content-center my-0'>
                     <nav aria-label="...">
                         <ul className=" pagination ">
                             <li className="page-item">
@@ -289,7 +395,7 @@ const MemberProfilePage = () => {
                             </li>
                         </ul>
                     </nav>
-                </div>
+                </div> */}
             </section>
 
 

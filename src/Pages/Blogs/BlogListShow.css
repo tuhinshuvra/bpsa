@@ -1,0 +1,13 @@
+.blogDetailsLink {
+    color: #2B72EF;
+}
+
+.blogDetailsLink:hover {
+    color: black;
+}
+
+.adminBlogListImg {
+    /* width: 200px; */
+    max-width: 160px;
+    max-height: 110px;
+}

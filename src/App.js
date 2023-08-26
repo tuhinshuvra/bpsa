@@ -18,7 +18,6 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import NewsDetailsPage from "./Pages/NewsDetailsPage";
 import MessageDetailsPage from "./Pages/MessageDetailsPage";
 import EntryBlog from "./Pages/Blogs/EntryBlog";
-import MemberBlockDetails from "./Pages/Blogs/MemberBlockDetails";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
@@ -38,6 +37,8 @@ import AllMemberDirectorySearchResultPage from "./Pages/AllMemberDirectory/AllMe
 import NewCommittee from "./Components/CommitteeComponent/NewCommittee";
 import PublishBLogDetails from "./Pages/Blogs/PublishBLogDetails";
 import BlogAdminAssign from "./Pages/Blogs/BlogAdminAssign";
+import MemberShipFeePage from "./Pages/MemberShipFeePage/MemberShipFeePage";
+import SSLCommerz from "./Pages/MemberShipFeePage/SSLCommerz";
 
 export default function App() {
   return (
@@ -70,6 +71,8 @@ export default function App() {
         <Route path="/memberDirectorySearchResult" element={<AllMemberDirectorySearchResultPage />} />
         <Route path="/events" element={<AllEventPage />} />
         <Route path="/events/:eventId" element={<EventDetailsPage />} />
+        <Route path="/membershipFee/:id" element={<MemberShipFeePage />} />
+        <Route path="/sslCommerz/:id" element={<SSLCommerz />} />
 
 
         <Route path="/blog_entry" element={<EntryBlog />} />
@@ -80,7 +83,6 @@ export default function App() {
         <Route path="/blogDetails/:id" element={<Blog_details />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
         <Route path="/publishedBlogDetail/:id" element={<PublishBLogDetails />} />
-        {/* <Route path="/member_blog_details" element={<MemberBlockDetails />} /> */}
         <Route path="/newCommittee" element={<NewCommittee />} />
         <Route path="/blogAdminAssign" element={<BlogAdminAssign />} />
       </Routes>

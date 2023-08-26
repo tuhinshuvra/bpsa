@@ -49,7 +49,7 @@ const Blog_Details = () => {
                     <div className='flex justify-between items-center'>
                         <p className='mr-5'>Blogger: {blog?.memberName}</p>
                         <p>Published: 07/08/2023</p>
-                        <Link to={"/memberAllBlog"} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg ' >Back</Link>
+                        <Link to={"/memberProfile"} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg ' >Back</Link>
                     </div>
                     <div className='mb-10'>
                     </div>
