@@ -175,7 +175,7 @@ const MemberProfilePage = () => {
 
                     <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <div className=' text-center'>
-                            <Link className=' text-white btn btn-sm btn-primary ' to="/memberCoCurriculamActivitiesEntry">Enter/Update Co Curricular Activities</Link>
+                            <Link className=' text-white btn btn-sm btn-primary ' to="/coCurriculamEntry">Enter/Update Co Curricular Activities</Link>
                         </div>
                     </div>
 

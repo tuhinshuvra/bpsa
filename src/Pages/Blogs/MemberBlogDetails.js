@@ -9,6 +9,8 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
+import './BlogDetails.css';
 
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");
@@ -25,7 +27,7 @@ const MemberBlogDetails = () => {
         fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token
+                'Authorization': `Bearer ${getCookie("token")}`,
             },
         })
             .then(res => res.json())
@@ -40,7 +42,7 @@ const MemberBlogDetails = () => {
             .catch(error => {
                 console.error("API request error:", error);
             });
-    }, []);
+    }, [id]);
     // console.log(blog);
     const { selectedStatus, setSelectedStatus } = useState(blog?.status);
     const [blogStatus, setBlogStatus] = useState(blog?.status);
@@ -71,7 +73,7 @@ const MemberBlogDetails = () => {
         })
             .then(res => res.json())
             .then(result => {
-                alert(result.message);
+                toast.success(result.message);
                 navigate("/adminAllBlog");
             })
             .catch(error => {
@@ -101,15 +103,17 @@ const MemberBlogDetails = () => {
                     </nav>
                     <div className='flex   items-center mt-1'>
                         <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
-                        {/* <p>Published: {formatDate(blog?.created_at)}</p> */}
                         <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
                     </div>
                     <p>{blog?.summery}</p>
 
                     <div className='d-lg-flex justify-content-between gap-2'>
-                        <div className=' col-lg-5'>
-                            <img className=' rounded-lg ' src={blog?.image} alt='blog_image'></img>
-                        </div>
+                        {blog?.image &&
+                            <div className=' col-lg-5'>
+                                <img className=' rounded-lg blogDetailsImg' src={blog?.image} alt='blog_image'></img>
+                            </div>
+                        }
+
                         <div className=' col-lg-7'>
                             <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
                         </div>
@@ -154,26 +158,3 @@ const MemberBlogDetails = () => {
 };
 
 export default MemberBlogDetails;
-
-{/* <div className='mb-10'>
-                        <form onSubmit={handleSubmit}>
-                            <div>
-                                <select
-                                    id="status"
-                                    value={blogStatus}
-                                    onChange={(e) => handleStatusChange(e.target.value)}
-                                    className='select select-bordered w-full max-w-xs' >
-                                    <option disabled selected>{blog?.status}</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Ask for Review">Ask for Review</option>
-                                    <option value="Disabled">Disabled</option>
-                                </select>
-                                {isInputVisible && (
-                                    <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
-                                )}
-                            </div>
-                            <button className='btn btn-info my-2' type="submit">update status</button>
-                        </form>
-                    </div> */}
-
-

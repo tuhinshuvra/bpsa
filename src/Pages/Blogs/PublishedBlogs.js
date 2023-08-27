@@ -16,7 +16,23 @@ const PublishedBlogs = () => {
     const { user, loading, setLoading, } = useContext(AllContext);
     const [blogLoading, setBlogLoading] = useState(false);
     const [blogs, setBlogs] = useState([]);
-    let count = 1;
+
+    // pagination start
+    const totalBlogs = blogs.length;
+    const itemsPerPage = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedBlogs = blogs.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(blogs.length / itemsPerPage);
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage);
+        }
+    };
+    // pagination end
+
 
     useEffect(() => {
         setBlogLoading(true);
@@ -61,7 +77,7 @@ const PublishedBlogs = () => {
                     </div>
                     <div className=' col-lg-10 mx-auto'>
                         {
-                            blogs.map(blog => (
+                            displayedBlogs.map(blog => (
                                 <div className="card blogArea my-1" key={blog?.id}>
                                     <div className="d-flex px-lg-3 px-md-2">
                                         <div className="col-md-2 my-auto">
@@ -88,6 +104,33 @@ const PublishedBlogs = () => {
                         }
                     </div>
                 </div>
+
+
+                {/* pagination start */}
+                <div className=' d-flex justify-content-center align-items-baseline pt-1 pb-4'>
+                    <div className="pagination">
+                        <button
+                            className=" btn btn-primary btn-sm  mx-1"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            Previous
+                        </button>
+                        <span className="pagination-info text-success fw-bold mx-2">
+                            Page {currentPage} of {totalPages}, Total blog= {totalBlogs}
+                        </span>
+                        <button
+                            className=" btn btn-primary btn-sm mx-1"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        >
+                            Next
+                        </button>
+                    </div>
+
+                </div>
+                {/* pagination end */}
+
             </section>
         </div>
     );

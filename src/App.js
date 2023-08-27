@@ -66,7 +66,7 @@ export default function App() {
         <Route path="/forgotpassword" element={<ForgetPassword />} />
         <Route path="/memberProfile" element={<MemberProfilePage />} />
         <Route path="/memberImageUpload" element={<MemberImageUpload />} />
-        <Route path="/memberCoCurriculamActivitiesEntry" element={<MemberCoCurriculamActivitiesEntry />} />
+        <Route path="/coCurriculamEntry" element={<MemberCoCurriculamActivitiesEntry />} />
         <Route path="/memberDirectory" element={<AllMemberDirectoryPage />} />
         <Route path="/memberDirectorySearchResult" element={<AllMemberDirectorySearchResultPage />} />
         <Route path="/events" element={<AllEventPage />} />

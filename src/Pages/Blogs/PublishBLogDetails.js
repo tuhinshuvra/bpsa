@@ -8,6 +8,7 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
+import './BlogListShow.css';
 
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
@@ -64,7 +65,7 @@ const PublishBLogDetails = () => {
 
                     <div className='d-lg-flex justify-content-between gap-2'>
                         <div className=' col-lg-5'>
-                            <img className=' rounded-lg ' src={blog?.image} alt='blog_image'></img>
+                            <img className=' rounded-lg blogDetailsImg' src={blog?.image} alt='blog_image'></img>
                         </div>
                         <div className=' col-lg-7'>
                             <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
