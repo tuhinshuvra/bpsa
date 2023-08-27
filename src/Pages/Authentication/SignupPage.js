@@ -113,7 +113,7 @@ const SignupPage = () => {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
                     console.log(data);
- 
+
                     form.reset();
 
 
@@ -154,7 +154,7 @@ const SignupPage = () => {
     const handleVerifyOTP = (event) => {
         event.preventDefault();
         if (userEnteredOTP == otpData) {
- 
+
             toast.success("OTP Verified successfully!")
             console.log('OTP Verified successfully!');
             setOtpVerified(true);
@@ -164,11 +164,8 @@ const SignupPage = () => {
             toast.success('OTP Verified successfully!');
             setOTPCheckOne(false);
             setOtpData("")
-        } else {
-            console.log('Invalid OTP'); 
-            toast.error('Invalid OTP'); 
         }
-    };
+    }
 
 
     // this function is used to post sign up data
@@ -182,14 +179,14 @@ const SignupPage = () => {
         const email = form.user_name.value;
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
-        if(password!==confirmPassword){
+        if (password !== confirmPassword) {
             toast.error("password are not match")
             setPasswordsMatch(false);
- 
+
             return;
         }
 
- 
+
 
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[1234567890])[A-Za-z\d@$!%*?&]{8,}$/;
 

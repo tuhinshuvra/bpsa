@@ -11,3 +11,18 @@
     max-width: 160px;
     max-height: 110px;
 }
+
+.memberBlogImg {
+    width: 160px;
+    height: 110px;
+    max-height: 110px;
+}
+
+
+.blogArea {
+    /* background-color: aliceblue; */
+}
+
+.blogArea:hover {
+    background-color: rgb(235, 238, 243);
+}

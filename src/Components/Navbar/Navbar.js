@@ -80,6 +80,8 @@ const Navbar = () => {
     })
   }
 
+
+
   return (
     <div style={{ zIndex: 999 }} className="sticky top-0">
       <div className="hidden md:block">
@@ -94,6 +96,7 @@ const Navbar = () => {
               window.scrollTo(0, 0);
               navigate("/");
             }}
+
             className="cursor-pointer"
           >
             <ImageComponent

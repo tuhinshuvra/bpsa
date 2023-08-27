@@ -4,12 +4,18 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
 import './EventDetails.css';
+import FullScreenImage from '../Blogs/FullScreenImage/FullScreenImage';
 
 const EventDetailsPage = () => {
     const { eventId } = useParams();
     const [eventDetails, setEventDetils] = useState([]);
     const { loading, setLoading } = useContext(AllContext);
+    const [showFullScreenImage, setShowFullScreenImage] = useState(false);
     // console.log("Event Details id : ", eventId);
+
+    const handleImageClick = () => {
+        setShowFullScreenImage(true);
+    };
 
     useEffect(() => {
         fetch(`https://dev.bpsa.com.bd/api/get-event/${eventId}`)
@@ -38,7 +44,7 @@ const EventDetailsPage = () => {
                     <div className="card mb-3 p-3">
                         <div className=' d-lg-flex'>
                             <div className=" col-lg-7">
-                                <img src={eventDetails?.image} className=" eventDetailImg shadow-lg" alt="..." />
+                                <img src={eventDetails?.image} className=" eventDetailImg shadow-lg" alt="..." onClick={handleImageClick} />
                             </div>
                             <div className="card-body col-lg-5">
                                 <div className=' d-flex flex-column justify-content-lg-start'>
@@ -63,6 +69,12 @@ const EventDetailsPage = () => {
 
                     </div>
                 </div>
+
+                {showFullScreenImage &&
+                    <FullScreenImage
+                        image={eventDetails?.image}
+                        id={eventDetails?.id}
+                    />}
             </section>
         </div >
     );

@@ -6,8 +6,6 @@ import {
   GetNewsData,
   GetNewsUpdateData,
 } from "../api";
-import CommonHead from "../Components/Common/CommonHead";
-import HeroComponent1 from "../Components/Common/HeroComponent1";
 import Loader from "../Components/Common/Loader";
 import NoticeLine from "../Components/Common/NoticeLine";
 import AchievementComponent from "../Components/NewsComponent/AchievementComponent";
