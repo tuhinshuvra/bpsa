@@ -9,17 +9,24 @@ import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import './BlogListShow.css';
+import FullScreenImage from './FullScreenImage/FullScreenImage';
 
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
-    console.log(source);
+    const [showFullScreenImage, setShowFullScreenImage] = useState(false);
     const { id } = useParams();
     const { user } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
     const navigate = useNavigate();
     // CgCalendarDates
+
+    // console.log(source);
+
+    const handleImageClick = () => {
+        setShowFullScreenImage(true);
+    };
 
     useEffect(() => {
         fetch("https://dev.bpsa.com.bd/api/Approvedblog")
@@ -42,13 +49,11 @@ const PublishBLogDetails = () => {
         return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
-    function formatCustomDate(dateString) {
-        const date = new Date(dateString);
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
-    }
-
-
+    // function formatCustomDate(dateString) {
+    //     const date = new Date(dateString);
+    //     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    //     return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
+    // }
 
     return (
         <div className=' col-md-10 mx-auto'>
@@ -64,8 +69,10 @@ const PublishBLogDetails = () => {
                     <p>{blog?.summery}</p>
 
                     <div className='d-lg-flex justify-content-between gap-2'>
-                        <div className=' col-lg-5'>
-                            <img className=' rounded-lg blogDetailsImg' src={blog?.image} alt='blog_image'></img>
+                        <div className='col-lg-5  '>
+                            {blog?.image &&
+                                <img className='  rounded-lg blogDetailsImg' src={blog?.image} alt="blog_image" onClick={handleImageClick} />
+                            }
                         </div>
                         <div className=' col-lg-7'>
                             <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
@@ -79,6 +86,11 @@ const PublishBLogDetails = () => {
                         <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm ' >Back</Link>
                     </div>
                 </div>
+                {showFullScreenImage &&
+                    <FullScreenImage
+                        image={blog?.image}
+                        id={blog?.id}
+                    />}
             </section>
         </div>
     );

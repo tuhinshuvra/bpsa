@@ -2,3 +2,8 @@
     max-width: 510px;
     max-height: 370px;
 }
+
+.blogEditImg {
+    max-width: 200px;
+    max-height: 200px;
+}

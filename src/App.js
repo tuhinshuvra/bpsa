@@ -21,10 +21,10 @@ import EntryBlog from "./Pages/Blogs/EntryBlog";
 
 import LoginPage from "./Pages/Authentication/LoginPage";
 import MemberProfilePage from "./Pages/MemberProfile/MemberProfilePage";
-import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
+import AdminsBlogDetails from "./Pages/Blogs/AdminsBlogDetails";
 import MemberAllBlog from "./Pages/Blogs/MemberAllBlog";
 import UpdateBlog from "./Pages/Blogs/UpdateBlog";
-import Blog_details from "./Pages/Blogs/Blog_details";
+import MemberBlogDetails from "./Pages/Blogs/MemberBlogDetails";
 import PublishedBlogs from "./Pages/Blogs/PublishedBlogs";
 import ForgetPassword from "./Pages/Authentication/ForgetPassword";
 import MemberImageUpload from "./Pages/MemberProfile/MemberImageUpload";
@@ -76,11 +76,11 @@ export default function App() {
 
 
         <Route path="/blog_entry" element={<EntryBlog />} />
-        <Route path="/blog_details/:id" element={<MemberBlogDetails />} />
+        <Route path="/blog_details/:id" element={<AdminsBlogDetails />} />
         <Route path="/adminAllBlog" element={<AdminAllBlog />} />
         <Route path="/memberAllBlog" element={<MemberAllBlog />} />
         <Route path="/updateBlog/:id" element={<UpdateBlog />} />
-        <Route path="/blogDetails/:id" element={<Blog_details />} />
+        <Route path="/blogDetails/:id" element={<MemberBlogDetails />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
         <Route path="/publishedBlogDetail/:id" element={<PublishBLogDetails />} />
         <Route path="/newCommittee" element={<NewCommittee />} />
