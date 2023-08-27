@@ -8,8 +8,8 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import './BlogDetails.css';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
+import './BlogDetails.css';
 
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");

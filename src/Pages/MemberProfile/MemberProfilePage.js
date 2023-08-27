@@ -5,10 +5,10 @@ import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
-import './MemberProfilePage.css';
-import '../Blogs/BlogListShow.css';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
+import './MemberProfilePage.css';
+import '../Blogs/BlogListShow.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -100,10 +100,8 @@ const MemberProfilePage = () => {
                 <div className="container pt-3 pb-3 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        {/* <h3 className=' text-center fw-bold'>{memberData?.nameE} Profile</h3> */}
                         <h2 className='fw-bold text-center text-success'>{memberData?.nameE} Profile</h2>
                     </nav>
-
 
                     <div className="row">
                         <div className="col-lg-4 my-1 my-lg-0">
@@ -231,32 +229,7 @@ const MemberProfilePage = () => {
                         </div>
                     ))}
 
-                    {/* {
-                        approvedBlogs && approvedBlogs.map(blog => (
-                            <div className="card blogArea my-1"  >
-                                <div className="d-flex px-lg-3 px-md-2">
-                                    <div className="col-md-2 my-auto">
-                                        <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                    </div>
-                                    <div className="col-md-10">
-                                        <div className="card-body">
-                                            <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                            <p className=" my-0 ">{blog?.description.slice(0, 180)}...
-                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                            </p>
-                                            <div className=' d-flex justify-content-evenly'>
-                                                <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    } */}
 
                     {/* pagination */}
 
@@ -271,23 +244,7 @@ const MemberProfilePage = () => {
                             </ul>
                         </nav>
                     </div>
-                    {/* <div className=' d-flex justify-content-center my-0'>
-                        <nav aria-label="...">
-                            <ul className=" pagination ">
-                                <li className="page-item">
-                                    <Link className="page-link">Previous</Link>
-                                </li>
-                                <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                                <li className="page-item active" aria-current="page">
-                                    <Link className="page-link" href="#">2 <span className="visually-hidden">(current)</span></Link>
-                                </li>
-                                <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                                <li className="page-item">
-                                    <Link className="page-link" href="#">Next</Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div> */}
+
 
 
                     {/* member's non approved blogs */}
@@ -326,39 +283,6 @@ const MemberProfilePage = () => {
                         </div>
 
                     ))}
-
-
-                    {/* {
-                        pendingBlogs && pendingBlogs.map(blog => (
-                            <div>
-                                <div className="card blogArea my-1 px-1"  >
-                                    <div className="d-flex px-lg-3 px-md-2">
-                                        <div className="col-md-2 my-auto">
-                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                        </div>
-                                        <div className="col-md-10 d-flex">
-                                            <div className="card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 180)}...
-                                                    <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                                </p>
-                                                <div className=' d-flex justify-content-evenly'>
-                                                    <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="  text-center  my-auto">
-                                                <p className=' fw-bold '>{blog?.status}</p>
-                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    } */}
                 </div>
 
 
@@ -373,29 +297,7 @@ const MemberProfilePage = () => {
                         </ul>
                     </nav>
                 </div>
-
-                {/* pagination */}
-                {/* <div className=' d-flex justify-content-center my-0'>
-                    <nav aria-label="...">
-                        <ul className=" pagination ">
-                            <li className="page-item">
-                                <Link className="page-link">Previous</Link>
-                            </li>
-                            <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                            <li className="page-item active" aria-current="page">
-                                <Link className="page-link" href="#">2 <span className="visually-hidden">(current)</span></Link>
-                            </li>
-                            <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                            <li className="page-item">
-                                <Link className="page-link" href="#">Next</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div> */}
             </section>
-
-
-
         </div>
     );
 };
