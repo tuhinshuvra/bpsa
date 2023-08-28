@@ -7,6 +7,7 @@ import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
 
@@ -17,16 +18,6 @@ const MemberProfilePage = () => {
     const [userNewData, setUserNewData] = useState();
     const [approvedBlogs, setApprovedBlogs] = useState([]);
     const [pendingBlogs, setPendingBlogs] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const blogsPerPage = 5;
-    const indexOfLastApprovedBlog = currentPage * blogsPerPage;
-    const indexOfFirstApprovedBlog = indexOfLastApprovedBlog - blogsPerPage;
-    const currentApprovedBlogs = approvedBlogs.slice(indexOfFirstApprovedBlog, indexOfLastApprovedBlog);
-
-    const indexOfLastPendingBlog = currentPage * blogsPerPage;
-    const indexOfFirstPendingBlog = indexOfLastPendingBlog - blogsPerPage;
-    const currentPendingBlogs = pendingBlogs.slice(indexOfFirstPendingBlog, indexOfLastPendingBlog);
 
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
@@ -44,6 +35,7 @@ const MemberProfilePage = () => {
                 setLoading(false)
             })
     }, [setLoading, user.UniqueID])
+
 
     // login member profile data
     useEffect(() => {
@@ -83,11 +75,37 @@ const MemberProfilePage = () => {
     }, [setLoading, user.name])
 
 
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', options);
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
     }
+
+    // pagination start
+    const totalPendingBlogs = pendingBlogs.length;
+    const totalApprovedBlogs = approvedBlogs.length;
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedPendingBlogs = pendingBlogs.slice(startIndex, endIndex);
+    const displayedArrovedBlogs = approvedBlogs.slice(startIndex, endIndex);
+
+    const totalPendingBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
+    const totalApprovedBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
+
+    const handlePageChange = (newPage) => {
+        if (totalPendingBlogPages) {
+            if (newPage >= 1 && newPage <= totalPendingBlogPages) {
+                setCurrentPage(newPage);
+            }
+        }
+        if (totalApprovedBlogPages) {
+            if (newPage >= 1 && newPage <= totalApprovedBlogPages) {
+                setCurrentPage(newPage);
+            }
+        }
+    };
+    // pagination end
 
     if (loading) {
         <Loader></Loader>
@@ -207,7 +225,7 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    {currentApprovedBlogs && currentApprovedBlogs.map(blog => (
+                    {displayedArrovedBlogs && displayedArrovedBlogs.map(blog => (
                         <div className="card blogArea my-1"  >
                             <div className="d-flex px-lg-3 px-md-2">
                                 <div className="col-md-2 my-auto">
@@ -229,22 +247,31 @@ const MemberProfilePage = () => {
                         </div>
                     ))}
 
-
-
-                    {/* pagination */}
-
-                    <div className='d-flex justify-content-center my-0'>
-                        <nav aria-label="...">
-                            <ul className="pagination">
-                                {Array.from({ length: Math.ceil(approvedBlogs.length / blogsPerPage) }).map((_, index) => (
-                                    <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                                        <Link className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
-                    </div>
-
+                    {/* pagination start */}
+                    {totalApprovedBlogs > 5 &&
+                        <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
+                            <button
+                                className=" btn btn-primary btn-sm  mx-1"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                {/* Previous */}
+                                <GrLinkPrevious className=' text-white fw-bold' />
+                            </button>
+                            <span className="pagination-info text-success fw-bold mx-2">
+                                Page {currentPage} of {totalApprovedBlogPages}, Total blog = {totalApprovedBlogs}
+                            </span>
+                            <button
+                                className=" btn btn-primary btn-sm mx-1"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalApprovedBlogPages}
+                            >
+                                {/* Next */}
+                                <GrLinkNext className=' fw-bold text-white' />
+                            </button>
+                        </div>
+                    }
+                    {/* pagination end */}
 
 
                     {/* member's non approved blogs */}
@@ -257,7 +284,7 @@ const MemberProfilePage = () => {
                     </div>
 
 
-                    {currentPendingBlogs && currentPendingBlogs.map(blog => (
+                    {displayedPendingBlogs && displayedPendingBlogs.map(blog => (
                         <div className="card blogArea my-1 px-1"  >
                             <div className="d-flex px-lg-3 px-md-2">
                                 <div className="col-md-2 my-auto">
@@ -285,18 +312,32 @@ const MemberProfilePage = () => {
                     ))}
                 </div>
 
+                {/* pagination start */}
+                {totalPendingBlogs > 5 &&
+                    <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
+                        <button
+                            className=" btn btn-primary btn-sm  mx-1"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            {/* Previous */}
+                            <GrLinkPrevious className=' text-white fw-bold' />
+                        </button>
+                        <span className="pagination-info text-success fw-bold mx-2">
+                            Page {currentPage} of {totalPendingBlogPages}, Total blog = {totalPendingBlogs}
+                        </span>
+                        <button
+                            className=" btn btn-primary btn-sm mx-1"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPendingBlogPages}
+                        >
+                            {/* Next */}
+                            <GrLinkNext className=' fw-bold text-white' />
+                        </button>
+                    </div>
+                }
+                {/* pagination end */}
 
-                <div className='d-flex justify-content-center my-0'>
-                    <nav aria-label="...">
-                        <ul className="pagination">
-                            {Array.from({ length: Math.ceil(pendingBlogs.length / blogsPerPage) }).map((_, index) => (
-                                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                                    <Link className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-                </div>
             </section>
         </div>
     );

@@ -7,9 +7,10 @@
 }
 
 .adminBlogListImg {
-    /* width: 200px; */
-    max-width: 160px;
-    max-height: 110px;
+    width: 160px;
+    /* max-width: 160px; */
+    height: 110px;
+    /* max-height: 110px; */
 }
 
 .memberBlogImg {

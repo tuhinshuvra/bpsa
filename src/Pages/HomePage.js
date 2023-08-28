@@ -23,8 +23,10 @@ import SummaryComp from "../Components/HomeComponent/SummaryComp/SummaryComp";
 import TestimonialComponent from "../Components/HomeComponent/TestimonialComponent/TestimonialComponent";
 import UpcommingEvents from "../Components/HomeComponent/UpcommingEvents/UpcommingEvents";
 import { dateFiltering } from "../utlis/DateFiltering";
+import useTitle from "../hooks/useTitle";
 
 const HomePage = () => {
+  useTitle("Home");
   const [sliderData, setSliderData] = useState([]);
   const [sliderError, setSliderError] = useState("");
   const [sliderLoading, setSliderLoading] = useState(false);
@@ -199,7 +201,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <CommonHead title="Home" />
       <div className="relative w-full">
         <HeroSlider data={sliderData} />
         <div

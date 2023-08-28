@@ -10,9 +10,10 @@ import Loader from '../../Components/Common/Loader';
 import './BlogListShow.css';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 
 const PublishedBlogs = () => {
-    useTitle("PublishedBlog");
+    useTitle("Blogs");
     const { user, loading, setLoading, } = useContext(AllContext);
     const [blogLoading, setBlogLoading] = useState(false);
     const [blogs, setBlogs] = useState([]);
@@ -52,14 +53,16 @@ const PublishedBlogs = () => {
                 console.error("API request error:", error);
             });
     }, [setLoading]);
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', options);
-    }
+
     if (blogs) {
         console.log(blogs);
     }
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
 
 
     if (loading || blogLoading) {
@@ -72,7 +75,7 @@ const PublishedBlogs = () => {
                 <div className="container pt-3 pb-3 ">
                     <div className="col-lg-10 mx-auto">
                         <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                            <h3 className=' text-center fw-bold'> Published Blogs</h3>
+                            <h3 className=' text-center fw-bold'>Blogs</h3>
                         </nav>
                     </div>
                     <div className=' col-lg-10 mx-auto'>
@@ -107,28 +110,29 @@ const PublishedBlogs = () => {
 
 
                 {/* pagination start */}
-                <div className=' d-flex justify-content-center align-items-baseline pt-1 pb-4'>
-                    <div className="pagination">
+                {totalBlogs > 10 &&
+                    <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
                         <button
                             className=" btn btn-primary btn-sm  mx-1"
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
                         >
-                            Previous
+                            {/* Previous */}
+                            <GrLinkPrevious className=' text-white fw-bold' />
                         </button>
                         <span className="pagination-info text-success fw-bold mx-2">
-                            Page {currentPage} of {totalPages}, Total blog= {totalBlogs}
+                            Page {currentPage} of {totalPages}, Total blog = {totalBlogs}
                         </span>
                         <button
                             className=" btn btn-primary btn-sm mx-1"
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPages}
                         >
-                            Next
+                            {/* Next */}
+                            <GrLinkNext className=' fw-bold text-white' />
                         </button>
                     </div>
-
-                </div>
+                }
                 {/* pagination end */}
 
             </section>

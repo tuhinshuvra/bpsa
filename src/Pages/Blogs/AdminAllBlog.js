@@ -5,10 +5,11 @@ import { useContext } from 'react';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
-import './BlogListShow.css';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import { TbStatusChange } from 'react-icons/tb';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
+import './BlogListShow.css';
 
 const AdminAllBlog = () => {
     useTitle("Admin'sAllBlog")
@@ -39,18 +40,17 @@ const AdminAllBlog = () => {
             });
     }, [setLoading]);
 
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', options);
-    }
     console.log(blogs);
 
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
 
     if (loading) {
         <Loader></Loader>
     }
-
 
     // pagination start
     const totalBlogs = blogs.length;
@@ -121,28 +121,29 @@ const AdminAllBlog = () => {
 
 
                 {/* pagination start */}
-                <div className=' d-flex justify-content-center align-items-baseline pt-1 pb-4'>
-                    <div className="pagination">
+                {totalBlogs > 0 &&
+                    <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
                         <button
                             className=" btn btn-primary btn-sm  mx-1"
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
                         >
-                            Previous
+                            {/* Previous */}
+                            <GrLinkPrevious className=' text-white fw-bold' />
                         </button>
                         <span className="pagination-info text-success fw-bold mx-2">
-                            Page {currentPage} of {totalPages}, Total blog= {totalBlogs}
+                            Page {currentPage} of {totalPages}, Total blog = {totalBlogs}
                         </span>
                         <button
                             className=" btn btn-primary btn-sm mx-1"
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPages}
                         >
-                            Next
+                            {/* Next */}
+                            <GrLinkNext className=' fw-bold text-white' />
                         </button>
                     </div>
-
-                </div>
+                }
                 {/* pagination end */}
             </section>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -16,6 +16,7 @@ import { TimeIcon } from "../../assets/Icons/Icons";
 import { dateFormatOne } from "../../utlis/dateFormat";
 
 const MourningNews = ({ data }) => {
+
   return (
     <div className="mb-10">
       <Container className="bg-black/80 py-5 md:p-5  rounded-lg">
@@ -36,44 +37,33 @@ const MourningNews = ({ data }) => {
             data?.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <div className="  p-4 text-white">
-                    <Row>
-                      <Col className="order-2 md:order-2" md={8}>
-                        <div className="space-y-3">
-                          <h4>{item?.Heading}</h4>
-                          <div className="flex items-center mt-2 ">
+                  <div className="  px-4 py-1 text-white">
+                    <div className=" d-flex flex-column justify-content-center align-items-center">
+
+                      <div className="order-2 md:order-2 col-lg-10">
+                        <div className=" d-flex flex-column justify-content-center align-items-center">
+                          <h4 className=" mt-2">{item?.Heading}</h4>
+                          <div className="flex mb-2    ">
                             <TimeIcon size={20} className="mr-1" />
                             {dateFormatOne(item?.Pub_Date)}
                           </div>
+                          <p dangerouslySetInnerHTML={{ __html: item?.Details, }} className="text-sm my-0"></p>
 
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item?.Details,
-                            }}
-                            className="text-sm"
-                          ></div>
                         </div>
-                      </Col>
-                      <Col className="text-center sm:order-1 md:order-2" md={4}>
-                        <div className="space-y-2">
-                          <ImageComponent
-                            image={item?.Cover_Photo}
-                            className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
-                          />
-                          {/* <p>Chowdhury Abdullah Al-Mamun BPM (Bar), PPM</p>
-                          <button className="bg-second text-white py-1 rounded-full px-4">
-                            Inspector
-                          </button> */}
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item?.Sub_Heading,
-                            }}
-                            className="text-sm mt-3"
-                          ></div>
+                      </div>
+
+                      <div className=" d-lg-flex  text-center sm:order-1 md:order-2 col-lg-10 mt-lg-3">
+                        <div className=" col-lg-6">
+                          <img src={item?.Cover_Photo} className="w-full md:w-[300px] h-[400px]  mb-1 object-cover rounded-lg mx-auto block" alt="..." />
                         </div>
-                      </Col>
-                    </Row>
+                        <div className=" col-lg-6 my-auto">
+                          <p dangerouslySetInnerHTML={{ __html: item?.Sub_Heading, }} className="text-sm mb-0"></p>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
+
                 </SwiperSlide>
               );
             })}
