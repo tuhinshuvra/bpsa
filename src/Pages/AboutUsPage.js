@@ -12,6 +12,7 @@ import HeroComponent1 from "../Components/Common/HeroComponent1";
 import Loader from "../Components/Common/Loader";
 import AchievementComponent from "../Components/NewsComponent/AchievementComponent";
 import useTitle from "../hooks/useTitle";
+import '../Components/AboutUsComponent/AboutUs.css'
 
 const AboutUsPage = () => {
   useTitle("AboutUs")

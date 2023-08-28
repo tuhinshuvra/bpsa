@@ -155,17 +155,18 @@ const FormerLeaderShip = () => {
   React.useEffect(() => {
     getFormerData();
   }, []);
+
   return (
-    <div className="bg-[#EFF0FC] py-6">
+    <div className="bg-[#767fdc] py-5 my-5 rounded-2xl">
       <Container>
         <HeadingComponent1
           first="Former  "
           second="Leadership"
-          className="text-center pb-3 text-main"
+          className="text-center pb-3 text-white"
         />
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer>
-            <Table stickyHeader aria-label="sticky table">
+          <TableContainer >
+            <Table stickyHeader aria-label="sticky table" >
               <TableHead>
                 <TableRow>
                   {columns.map((column, index) => (
@@ -194,20 +195,19 @@ const FormerLeaderShip = () => {
                         tabIndex={-1}
                         key={row.code}
                       >
-                        <TableCell className="text-center font-semibold">
+
+                        <TableCell className="text-center font-semibold flex flex-col md:flex-row">
                           <h6 className="font-semibold">{row?.Session}</h6>
                         </TableCell>
-                        <TableCell className=" min-w-[250px]  ">
-                          <div className="flex flex-col  md:flex-row space-y-2 md:space-y-0">
-                            {" "}
+                        <TableCell className="  ">
+                          <div className="d-flex flex-column flex-lg-row  align-items-center  space-y-2 md:space-y-0">
                             <ImageComponent
                               image={row?.President_Image}
                               className="h-[70px] w-[70px] rounded-full object-cover block mx-auto "
                               alt="President "
                             />
-                            <div className="md:pl-6 ">
+                            <div className="   md:pl-6 ">
                               <h6 className="font-semibold">
-                                {" "}
                                 {row?.President_Name}
                               </h6>
                               <p className="text-gray-600">
@@ -217,7 +217,7 @@ const FormerLeaderShip = () => {
                           </div>
                         </TableCell>
 
-                        <TableCell className=" min-w-[250px]">
+                        <TableCell className=" ">
                           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0">
                             {" "}
                             <ImageComponent
@@ -235,6 +235,7 @@ const FormerLeaderShip = () => {
                             </div>
                           </div>
                         </TableCell>
+
                       </TableRow>
                     );
                   })}
