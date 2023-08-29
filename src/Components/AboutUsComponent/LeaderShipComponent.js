@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "../AboutUsComponent/AboutUs.css";
 
 // import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
@@ -19,9 +20,11 @@ import img1 from "../../assets/Image/messages/IGP_Image.jpeg";
 import img2 from "../../assets/Image/messages/President_2021_Stamp.jpg";
 import img3 from "../../assets/Image/messages/assaduzzaman.jpg";
 import { GetLeadershipData } from "../../api";
+import ButtonComponent from "../Common/ButtonComponent";
 
 const LeaderShipComponent = () => {
   const [currenLeaderData, setCurrentLeaderData] = useState([]);
+  const [seeMore, setSeeMore] = useState(false);
 
   const getFetchCurrenLeaderData = async () => {
     const result = await GetLeadershipData();
@@ -34,13 +37,14 @@ const LeaderShipComponent = () => {
   useEffect(() => {
     getFetchCurrenLeaderData();
   }, []);
+
   return (
-    <div>
+    <div className=" bg-fifth/40 py-1 rounded-2xl">
       <Container className="my-5">
         <HeadingComponent1
           first="Current  "
           second="Leadership"
-          className="text-center pb-3 text-main mb-4"
+          className="text-center pb-3 text-white mb-4"
         />
 
         <Swiper
@@ -61,25 +65,25 @@ const LeaderShipComponent = () => {
             currenLeaderData?.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <div className=" border p-4">
-                    <Row>
-                      <Col className="text-center" md={5}>
+                  <div className=" border rounded-xl p-4">
+                    <div className="row  ">
+                      <div className="text-center col-lg-5 my-auto">
                         <ImageComponent
                           image={item?.photo}
-                          className="w-[200px] h-[200px] block mx-auto mb-1 object-contain"
+                          className="w-[200px] h-[200px]  mx-auto mb-1 object-contain "
                         />
-                        <p className="text-main text-md m-0 mb-2 ">
+                        <p className="text-black text-md m-0 mb-2 ">
                           {item?.name}
                         </p>
 
-                        <p className="text-second p-0 m-0">
+                        <p className="text-black p-0 m-0">
                           {item?.Official_designation}
                         </p>
-                        <span className="p-0 m-0 text-second">ও</span>
-                        <p className="p-0 m-0 text-second">
+                        <span className="p-0 m-0 text-black">ও</span>
+                        <p className="p-0 m-0 text-black">
                           {item?.BPSA_Designation.split(",")[0]}
                         </p>
-                        <p className="p-0 m-0 text-second">
+                        <p className="p-0 m-0 text-black">
                           {item?.BPSA_Designation.split(",")[1]}
                         </p>
                         {/* <div className="flex items-center justify-center text-main space-x-3">
@@ -87,30 +91,34 @@ const LeaderShipComponent = () => {
                         <LinkedInIcon size={28} />
                         <TwitterIcon size={28} />
                       </div> */}
-                      </Col>
-                      <Col md={7}>
-                        {/* <h6 className="text-main font-semibold text-center">
-                          {item?.BPSA_Designation}
-                        </h6>
-                        <h6 className="text-main font-semibold text-center">
-                          কেন্দ্রীয় কার্যনির্বাহী কমিটি-২০২১
-                        </h6>
-                        <h6 className="text-main font-semibold text-center">
-                          বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
-                        </h6> */}
+                      </div>
+                      <div className=" col-lg-7">
                         <div
-                          className="text-justify"
-                          dangerouslySetInnerHTML={{ __html: item?.note }}
+                          className="text-justify d-lg-block d-none"
+                          dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 1500) }}
                         ></div>
-                      </Col>
-                    </Row>
+
+                        <div
+                          className="text-justify d-lg-none "
+                          dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 300) }}
+                        ></div>
+
+                        <div className=" text-center">
+                          <ButtonComponent
+                            onClick={() => setSeeMore(!seeMore)}
+                            title={seeMore ? "See Less" : "See More"}
+                            className="btn btn-primary btn-sm my-0"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </SwiperSlide>
               );
             })}
         </Swiper>
       </Container>
-    </div>
+    </div >
   );
 };
 

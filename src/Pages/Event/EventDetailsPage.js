@@ -5,8 +5,10 @@ import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
 import './EventDetails.css';
 import FullScreenImage from '../Blogs/FullScreenImage/FullScreenImage';
+import useTitle from '../../hooks/useTitle';
 
 const EventDetailsPage = () => {
+    useTitle("EventDetails");
     const { eventId } = useParams();
     const [eventDetails, setEventDetils] = useState([]);
     const { loading, setLoading } = useContext(AllContext);

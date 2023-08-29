@@ -10,8 +10,8 @@ import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
-import './BlogDetails.css';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
+import './BlogDetails.css';
 
 const AdminsBlogDetails = () => {
     useTitle("BlogDetails");

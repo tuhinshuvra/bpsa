@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import DirectoryImg from '../../assets/Image/messages/assaduzzaman.jpg';
 import { useState } from "react";
 import './AllMemberDirectoryPage.css';
+import useTitle from "../../hooks/useTitle";
 
 const AllMemberDirectoryPage = () => {
+    useTitle("Directory");
     const [searchData, setSearchData] = useState({
         batch: "22",
         searchKeyword: "",

@@ -5,8 +5,10 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { MdOutlineLockReset } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
-const ForgetPassword2 = () => {
+const ForgetPassword = () => {
+    useTitle("ForgetPassword");
 
     const [unique, setUnique] = useState("");
     const [verifyOTP, setVerifyOTP] = useState(false);
@@ -179,4 +181,4 @@ const ForgetPassword2 = () => {
     );
 };
 
-export default ForgetPassword2;
+export default ForgetPassword;

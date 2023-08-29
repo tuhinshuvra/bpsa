@@ -119,7 +119,7 @@ const ContactComponent = () => {
               <Form onSubmit={contactFormHandler}>
                 <Row>
                   <Col className="py-2" md={6}>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-1">
                       <Form.Control
                         onChange={(e) => setName(e.target.value)}
                         type="text"
@@ -128,7 +128,7 @@ const ContactComponent = () => {
                     </Form.Group>
                   </Col>
                   <Col className="py-2" md={6}>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-1">
                       <Form.Control
                         onChange={(e) => setPhone(e.target.value)}
                         type="text"
@@ -140,7 +140,7 @@ const ContactComponent = () => {
                 </Row>
                 <Row>
                   <Col className="py-2" md={6}>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-1">
                       <Form.Control
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
@@ -150,7 +150,7 @@ const ContactComponent = () => {
                     </Form.Group>
                   </Col>
                   <Col className="py-2" md={6}>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-1">
                       <Form.Control
                         onChange={(e) => setSubject(e.target.value)}
                         type="text"

@@ -57,6 +57,13 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   text-transform: none;
   font-variant: initial;
   line-height: 1;
+
+
+  background-color: #d1cece;
+  color: darkgreen;
+  height: 45px;
+  border-radius: 50%;
+  padding: 10px 22px 0px 10px;
 }
 
 .swiper-button-prev::after {
@@ -68,15 +75,14 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   font-variant: initial;
   line-height: 1;
 
-  /* content: 'prev';
-    background-color: #7a80ef;
-    color: white;
-    width: 75px;
-    border-radius: 50%;
-    padding: 8px; */
 
 
-
+  /* content: 'prev'; */
+  background-color: #d1cece;
+  color: darkgreen;
+  height: 45px;
+  border-radius: 50%;
+  padding: 10px 22px 0px 10px;
 }
 
 
