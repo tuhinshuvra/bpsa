@@ -5,9 +5,6 @@ import './FullScreenImage.css'
 const FullScreenImage = ({ image, id }) => {
     const navigate = useNavigate();
 
-
-
-
     const handleClose = () => {
         navigate(-0);
     };

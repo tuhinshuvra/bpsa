@@ -9,6 +9,7 @@ module.exports = {
         third: "#512da8",
         fourth: "#7b1fa2",
         fifth: "#455a64",
+        sixth: "#eedd82",
         success: "#1b5e20",
         info: "#ff5722",
         danger: "#ff1744",
