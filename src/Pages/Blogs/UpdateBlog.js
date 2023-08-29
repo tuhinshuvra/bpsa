@@ -7,6 +7,11 @@ import { useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-hot-toast';
 import { getCookie } from '../../utlis/helper';
+import imageCompression from 'browser-image-compression';
+import axios from 'axios';
+
+
+
 const UpdateBlog = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
@@ -36,6 +41,7 @@ const UpdateBlog = () => {
   useEffect(() => {
     if (blog?.description) {
       setContent(`<p>${blog.description}</p>`);
+      console.log(blog)
     }
   }, [blog]);
   const config = useMemo(() => {
@@ -66,7 +72,7 @@ const UpdateBlog = () => {
     const NewBlog = {
       title: form.block_title.value,
       summary: form.block_summery.value, // Corrected 'summery' to 'summary'
-      description: textValue,
+      description: content,
       status: "pending",
       member_id: user?.id,
       memberName: user?.name,
@@ -92,21 +98,48 @@ const UpdateBlog = () => {
         .catch(error => console.log(error));
     }
     else {
-      const imageFile = form.image.files[0];
-      const formData = new FormData();
-      formData.append('image', imageFile);
+
+      let imageFile;
+      const originalImageFile = form.image.files[0];
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
 
       try {
-        const imageResponse = await fetch('https://api.imgbb.com/1/upload?key=7a43c068c4477f76ae69e0549062c80e', {
-          method: 'POST',
-          body: formData,
-        });
+        const compressedFile = await imageCompression(originalImageFile, options);
+        imageFile = compressedFile;
+      } catch (error) {
+        console.log(error);
+        return;
+      }
 
-        const imageData = await imageResponse.json();
-        if (imageData.data && imageData.data.display_url) {
-          NewBlog.image = imageData.data.display_url;
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('image', imageFile);
 
-          console.log(NewBlog);
+        try {
+          const response = await axios.post('https://api.imgbb.com/1/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            params: {
+              key: '7a43c068c4477f76ae69e0549062c80e', // Replace with your ImageBB API key
+            },
+          });
+
+          const imageUrl = response.data.data.url;
+          console.log('Image uploaded to ImageBB:', imageUrl);
+
+          // Update the blog object with the ImageBB URL
+          NewBlog.image = imageUrl;
+        } catch (error) {
+          console.error('Error uploading image to ImageBB:', error);
+          toast.error('Error uploading image to ImageBB');
+          return;
+        }
+      }
           fetch("https://dev.bpsa.com.bd/api/blog-update", {
             method: "POST",
             headers: {
@@ -122,20 +155,13 @@ const UpdateBlog = () => {
 
             })
             .catch(error => console.log(error));
-        } else {
-          console.log("Error uploading image");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
     };
   }
   return (
     <div className='w-full'>
       <h1 className='text-center text-4xl mt-5'>Blog Update</h1>
       <form className='mx-[5vw] my-3' onSubmit={handleBlock}>
-        <input defaultValue={blog.title} type='text' name='block_title' className='input input-bordered w-[89vw] my-2' placeholder='Enter block title' required></input><br />
-        <input defaultValue={blog?.summary} type='text' name='block_summery' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Summary'></input><br />
+        <input defaultValue={blog && blog.title} type='text' name='block_title' className='input input-bordered w-[89vw] my-2' placeholder='Enter block title' required></input><br />
         <JoditEditor
           value={content}
           tabIndex={12}
@@ -144,6 +170,7 @@ const UpdateBlog = () => {
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
+        <input defaultValue={blog && blog.summery} type='text' name='block_summery' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Summary'></input><br />
         {/* <textarea defaultValue={blog.description} rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
         {blog.image && <img src={blog.image} alt="Blog" className='mx-auto rounded-lg' style={{ maxWidth: '100px' }} />}
         <p className='text-center'>you can change your blog picture</p>
