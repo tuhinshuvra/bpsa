@@ -166,13 +166,13 @@ const UpdateBlog = () => {
               />
               {/* <textarea defaultValue={blog.description} rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
 
-              <div className=' d-lg-flex   my-2'>
+              <div className='    my-2'>
                 <div className=''>
                   {blog?.image &&
                     <img className='mx-auto rounded-lg blogEditImg' src={blog?.image} alt="Blog" onClick={handleImageClick} />
                   }
                 </div>
-                <div className=' col-lg-6 mx-auto   my-auto text-center   '>
+                <div className=' col-lg-4 mx-auto   my-auto text-center mt-3   '>
                   {/* <p className='text-center'>you can change your blog picture</p> */}
                   <label for="image" className="form-label fw-bold fst-italic mt-2 mt-lg-0">You can change your blog picture</label>
                   <input type='file' name='image' className='form-control' placeholder='Enter blog image' />

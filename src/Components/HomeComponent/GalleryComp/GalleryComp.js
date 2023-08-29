@@ -17,11 +17,11 @@ const GalleryComp = ({ data }) => {
   }, [data]);
   return (
     <div>
-      <Container className="py-10">
+      <Container className="py-10 bg-slate-500/60 rounded-2xl">
         <HeadingComponent1
           first="Association  "
           second={"Photos"}
-          className="text-center text-main pb-3"
+          className="text-center text-[#FFFFFF] pb-3"
         />
         <Row>
           {data &&
@@ -36,7 +36,7 @@ const GalleryComp = ({ data }) => {
         <div className="text-center">
           <ButtonComponent
             onClick={() => navigate("/gallery")}
-            className="bg-second text-white px-3 py-2 rounded-md"
+            className="bg-primary text-white px-3 py-2 rounded-md"
             title="See More"
           />
         </div>

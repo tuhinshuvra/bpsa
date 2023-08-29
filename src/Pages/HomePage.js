@@ -131,6 +131,7 @@ const HomePage = () => {
     try {
       setSuccessLoading(true);
       const result = await GetSuccessStory();
+      console.log("Success Story data:", result);
       setSuccessLoading(false);
       if (result?.status === "success") {
         setSuccessData(result?.data?.success);
@@ -219,15 +220,10 @@ const HomePage = () => {
         <section style={{ backgroundColor: "#eee" }}>
           <div className="container pt-3 pb-5 ">
             <HighlightComponent data={hightLightData} />
-            <Container>
-              <TestimonialComponent data={messageData} />
-            </Container>
+            <TestimonialComponent data={messageData} />
             <SummaryComp data={successData} />
-            {/* <Container>
-        <UpcommingEvents data={eventData} />
-      </Container> */}
 
-            <div className="bg-[#EFF0FC] py-5">
+            <div className="bg-[#6e5ff7] py-5 rounded-2xl my-5">
               <QuicksLinks local={localLink} international={internationalLink} />
             </div>
 
