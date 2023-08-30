@@ -57,12 +57,6 @@ const MemberBlogDetails = () => {
         return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
-    function formatCustomDate(dateString) {
-        const date = new Date(dateString);
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
-    }
-
 
     return (
         <div className=' col-md-10 mx-auto'>
@@ -85,12 +79,17 @@ const MemberBlogDetails = () => {
                         </div>
 
                         <div className=' col-lg-7'>
-                            <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
+                            {blog?.description &&
+                                <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 1500)}` }}></p>
+                            }
                         </div>
-                    </div>
 
-                    <p className='my-2'>{blog?.description && blog?.description.slice(1201, 1700)}</p>
-                    <p className='my-2'>{blog?.description && blog?.description.slice(1701, 10000)}</p>
+                        <p />
+                    </div>
+                    {blog?.description &&
+                        <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(1500)}` }}></p>
+                    }
+
 
                     <div className=' d-flex justify-content-end'>
                         <Link to={"/memberProfile"} className='btn btn-primary btn-sm ' >Back</Link>

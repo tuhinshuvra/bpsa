@@ -120,12 +120,13 @@ const AdminsBlogDetails = () => {
                         }
 
                         <div className=' col-lg-7'>
-                            <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p>
+                            {/* <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p> */}
+                            <p className='' dangerouslySetInnerHTML={{ __html: blog?.description }} />
                         </div>
                     </div>
 
-                    <p className='my-2'>{blog?.description && blog?.description.slice(1201, 1700)}</p>
-                    <p className='my-2'>{blog?.description && blog?.description.slice(1701, 10000)}</p>
+                    {/* <p className='my-2'>{blog?.description && blog?.description.slice(1201, 1700)}</p> */}
+                    {/* <p className='my-2'>{blog?.description && blog?.description.slice(1701, 10000)}</p> */}
 
                     <div className=' d-flex justify-content-between align-items-baseline '>
 

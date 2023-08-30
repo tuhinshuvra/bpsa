@@ -92,6 +92,12 @@ const PublishedBlogs = () => {
                                             <p className=" my-0 ">{blog?.description.slice(0, 90)}...
                                                 <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
                                             </p>
+
+                                            {/* <p className="my-0" dangerouslySetInnerHTML={{
+                                                __html: `${blog?.description.slice(0, 90)} <a href="/publishedBlogDetail/${blog.id}>details</a>`
+                                            }}></p> */}
+
+
                                             {/* <p>{blog.summery}</p> */}
                                             <div className=' my-0  d-flex items-center'>
                                                 <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>

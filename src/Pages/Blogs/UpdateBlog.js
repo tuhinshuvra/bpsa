@@ -7,7 +7,9 @@ import { useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-hot-toast';
 import { getCookie } from '../../utlis/helper';
+import imageCompression from 'browser-image-compression';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
+import axios from 'axios';
 import './BlogDetails.css';
 
 const UpdateBlog = () => {
@@ -49,6 +51,7 @@ const UpdateBlog = () => {
   useEffect(() => {
     if (blog?.description) {
       setContent(`<p>${blog.description}</p>`);
+      console.log(blog)
     }
   }, [blog]);
 
@@ -78,7 +81,7 @@ const UpdateBlog = () => {
     const NewBlog = {
       title: form.block_title.value,
       summery: form.block_summery.value,
-      description: textValue,
+      description: content,
       status: "pending",
       member_id: user?.id,
       memberName: user?.name,
@@ -105,42 +108,63 @@ const UpdateBlog = () => {
         .catch(error => console.log(error));
     }
     else {
-      const imageFile = form.image.files[0];
-      const formData = new FormData();
-      formData.append('image', imageFile);
+
+      let imageFile;
+      const originalImageFile = form.image.files[0];
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
 
       try {
-        const imageResponse = await fetch('https://api.imgbb.com/1/upload?key=7a43c068c4477f76ae69e0549062c80e', {
-          method: 'POST',
-          body: formData,
-        });
-
-        const imageData = await imageResponse.json();
-        if (imageData.data && imageData.data.display_url) {
-          NewBlog.image = imageData.data.display_url;
-
-          console.log(NewBlog);
-          fetch("https://dev.bpsa.com.bd/api/blog-update", {
-            method: "POST",
-            headers: {
-              'Authorization': `Bearer ${getCookie("token")}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(NewBlog),
-          })
-            .then(res => res.json())
-            .then(result => {
-              toast.success("blog updated successfully");
-              navigate(`/blogDetails/${id}`);
-
-            })
-            .catch(error => console.log(error));
-        } else {
-          console.log("Error uploading image");
-        }
+        const compressedFile = await imageCompression(originalImageFile, options);
+        imageFile = compressedFile;
       } catch (error) {
-        console.error("An error occurred:", error);
+        console.log(error);
+        return;
       }
+
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+
+        try {
+          const response = await axios.post('https://api.imgbb.com/1/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            params: {
+              key: '7a43c068c4477f76ae69e0549062c80e', // Replace with your ImageBB API key
+            },
+          });
+
+          const imageUrl = response.data.data.url;
+          console.log('Image uploaded to ImageBB:', imageUrl);
+
+          // Update the blog object with the ImageBB URL
+          NewBlog.image = imageUrl;
+        } catch (error) {
+          console.error('Error uploading image to ImageBB:', error);
+          toast.error('Error uploading image to ImageBB');
+          return;
+        }
+      }
+      fetch("https://dev.bpsa.com.bd/api/blog-update", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${getCookie("token")}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(NewBlog),
+      })
+        .then(res => res.json())
+        .then(result => {
+          toast.success("blog updated successfully");
+          navigate(`/blogDetails/${id}`);
+
+        })
+        .catch(error => console.log(error));
     };
   }
 
