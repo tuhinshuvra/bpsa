@@ -94,15 +94,26 @@ const AdminAllBlog = () => {
                                         <div className="col-md-10">
                                             <div className="card-body">
                                                 <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 80)}...
+                                                {/* <p className=" my-0 ">{blog?.description.slice(0, 80)}...
                                                     <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
-                                                </p>
+                                                </p> */}
+
+                                                {blog?.description &&
+                                                    <div className=' d-flex'>
+                                                        <div className=' d-flex'>
+                                                            <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 105)}` }}></p>
+                                                            ...
+                                                        </div>
+                                                        <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
+                                                    </div>
+                                                }
+
                                                 {/* <p>{blog.summary}</p> */}
 
                                                 <div className=' d-flex        my-0'>
                                                     <div className=' my-0  d-flex justify-content-between '>
                                                         <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
-                                                        <p className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
+                                                        <p className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</p>
                                                     </div>
                                                     <p className=" d-flex "> <TbStatusChange className='fs-4 ms-4'></TbStatusChange> {blog?.status} </p>
                                                 </div>
