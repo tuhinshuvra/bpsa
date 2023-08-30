@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { GetNewsData } from "../../api";
 import HeadingComponent1 from "../Common/HeadingComponent1";
-import NewsCard1 from "./NewsCard1";
+import NewsCard2 from "./NewsCard2";
 
 const NewComp = ({ data }) => {
+  const showData = data.slice(0, 5);
+
   return (
-    <div>
-      <Container className="py-10">
+    <div className=" bg-slate-400 rounded-2xl my-5 py-5">
+      <Container className="">
         <HeadingComponent1
           first="Association"
           second=" News"
-          className="text-main mb-4 text-center"
+          className="text-white mb-4 text-center"
         />
-        <Row className=" ">
-          <Col className="py-3 " md={6}>
-            <NewsCard1 className=" h-[250px] md:h-[490px]" item={data[0]} />
+        <Row className="space-y-5 md:space-y-0">
+          <Col md={6}>
+            <NewsCard2
+              item={showData[0]}
+              imgHeight="md:h-[400px] h-[200px]"
+              heading="text-[16px] md:text-xl"
+            />
           </Col>
-          <Col className="md:py-3" md={6}>
-            <Row className="">
-              {data &&
-                data?.slice(1, 8).map((item, index) => {
+          <Col md={6}>
+            <Row className="space-y-5 md:space-y-0">
+              {showData &&
+                showData.slice(1)?.map((item, index) => {
                   return (
-                    <Col key={index} className="pb-3" md={6}>
-                      <NewsCard1
-                        className="h-[250px] md:h-[150px]"
+                    <Col key={index} md={6}>
+                      <NewsCard2
                         item={item}
+                        imgHeight="h-[200px] md:h-[150px]"
+                        heading="text-[14px]"
                       />
                     </Col>
                   );
                 })}
-
-              {/* <Col md={6}>
-                <NewsCard1 />
-              </Col> */}
             </Row>
           </Col>
         </Row>

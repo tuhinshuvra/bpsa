@@ -4,6 +4,7 @@ import { TimeIcon } from "../../assets/Icons/Icons";
 import img1 from "../../assets/Image/Gallery/Rectangle 1161.png";
 import { dateFormatOne } from "../../utlis/dateFormat";
 import ImageComponent from "../Common/ImageComponent";
+import { BsCalendarDateFill } from 'react-icons/bs';
 
 const NewsCard2 = ({ imgHeight, heading, item }) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const NewsCard2 = ({ imgHeight, heading, item }) => {
           className={` ${imgHeight} w-full  object-cover rounded-md `}
         />
 
-        <div className=" bottom-6 text-main  mt-2 ">
+        <div className=" bottom-6 text-black  mt-2 ">
           <span className={`${heading} font-semibold `}>
             {item?.Heading.length > 65
               ? item?.Heading.slice(0, 65) + ".."
@@ -28,7 +29,7 @@ const NewsCard2 = ({ imgHeight, heading, item }) => {
           </span>
           {item?.Pub_Date && (
             <div className="flex items-center">
-              <TimeIcon className="mr-2" />
+              <BsCalendarDateFill className="mr-2" />
               {dateFormatOne(item?.Pub_Date)}
             </div>
           )}

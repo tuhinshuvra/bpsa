@@ -13,53 +13,67 @@ import NewsCard1 from "./NewsCard1";
 import { Keyboard, Mousewheel, Navigation } from "swiper";
 import ImageComponent from "../Common/ImageComponent";
 import { TimeIcon } from "../../assets/Icons/Icons";
+import { BsCalendarDateFill } from 'react-icons/bs';
 import { dateFormatOne } from "../../utlis/dateFormat";
+import { useNavigate } from "react-router";
 
 const MourningNews = ({ data }) => {
+  const navigate = useNavigate();
 
   return (
-    <div className="mb-10">
-      <Container className="bg-black/80 py-5 md:p-5  rounded-lg">
+    <div className=" ">
+      {/* <Container className="bg-success/90   md:p-5  rounded-2xl"> */}
+      <div>
         <HeadingComponent1
           first={"Mourning "}
           second="News"
-          className={"text-white  pl-5 text-center "}
+          className={"text-white bg-black rounded-t-2xl  text-center py-3 mb-0 "}
         />
+
         <Swiper
           cssMode={true}
           navigation={true}
           mousewheel={true}
           keyboard={true}
           modules={[Navigation, Mousewheel, Keyboard]}
-          className="mySwiper"
+          className=" mySwiper  bg-success/40    rounded-b-2xl"
         >
           {data &&
             data?.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <div className="  px-4 py-1 text-white">
-                    <div className=" d-flex flex-column justify-content-center align-items-center">
+                  <div className="  px-4  text-white"
 
-                      <div className="order-2 md:order-2 col-lg-10">
-                        <div className=" d-flex flex-column justify-content-center align-items-center">
-                          <h4 className=" mt-2">{item?.Heading}</h4>
-                          <div className="flex mb-2    ">
-                            <TimeIcon size={20} className="mr-1" />
+                    onClick={() => {
+                      navigate(`/news/${item?.id}`);
+                    }}
+                  >
+                    <div className=" col-lg-11 mx-auto bg-success/90 px-4 pb-5   d-flex flex-column justify-content-center align-items-center">
+
+                      <div className="col-12 d-flex justify-content-between rounded-lg">
+                        <h5 className="mb-2 p-1 rounded-lg col-lg-10">{item?.Heading}।</h5>
+                        <div className="d-flex align-items-center col-lg-2">
+                          <div className=" d-flex ms-2 ">
+                            <BsCalendarDateFill size={20} className="mr-1" />
                             {dateFormatOne(item?.Pub_Date)}
                           </div>
-                          <p dangerouslySetInnerHTML={{ __html: item?.Details, }} className="text-sm my-0"></p>
-
                         </div>
                       </div>
 
-                      <div className=" d-lg-flex  text-center sm:order-1 md:order-2 col-lg-10 mt-lg-3">
-                        <div className=" col-lg-6">
-                          <img src={item?.Cover_Photo} className="w-full md:w-[300px] h-[400px]  mb-1 object-cover rounded-lg mx-auto block" alt="..." />
+                      <div className="col-12 d-flex justify-content-between rounded-lg">
+                        <img src={item?.Cover_Photo} className="w-full md:w-[120px] h-[150px]  mb-1 object-cover rounded-lg   block" alt="..." />
+                        <div className=" my-auto ms-3">
+                          <p dangerouslySetInnerHTML={{ __html: item?.Sub_Heading, }} className="text-sm mb-0 text-black "></p>
                         </div>
-                        <div className=" col-lg-6 my-auto">
+                      </div>
+
+
+                      {/* <div className="d-lg-flex justify-content-between   sm:order-1 md:order-2 ">
+                        <img src={item?.Cover_Photo} className="w-full md:w-[160px] h-[200px]  mb-1 object-cover rounded-lg   block" alt="..." />
+                        <div className="   my-auto">
                           <p dangerouslySetInnerHTML={{ __html: item?.Sub_Heading, }} className="text-sm mb-0"></p>
                         </div>
-                      </div>
+                      </div> */}
 
                     </div>
                   </div>
@@ -68,7 +82,9 @@ const MourningNews = ({ data }) => {
               );
             })}
         </Swiper>
-      </Container>
+
+      </div>
+      {/* </Container> */}
     </div>
   );
 };

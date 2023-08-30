@@ -20,18 +20,14 @@ import { useNavigate } from "react-router-dom";
 const AchievementComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className=" mb-5">
-      <div className={Styles.achievementBg__style}>
+    <div className="bg-success/50 rounded-2xl my-5 py-4">
+      <div  >
         <Container>
           <HeadingComponent1
             first={"Congratulation On "}
             second={"Achievement"}
-            className="text-main text-center py-4"
+            className="text-white text-center my-3"
           />
-          {/* <div className="text-main text-center py-3 pt-5">
-          <h5>Congratulation on </h5>
-          <h2>Achievement</h2>
-        </div> */}
 
           <Swiper
             cssMode={true}
@@ -45,14 +41,14 @@ const AchievementComponent = ({ data }) => {
             {data &&
               data?.map((item, index) => {
                 return (
-                  <SwiperSlide key={index}>
-                    <div className="  p-4 text-main cursor-pointer">
+                  <SwiperSlide key={index} onClick={() => {
+                    navigate("/news/" + item?.id);
+                  }}  >
+                    <div className="   text-black cursor-pointer">
                       <Row
-                        onClick={() => {
-                          navigate("/news/" + item?.id);
-                        }}
+
                       >
-                        <div className="text-center col-lg-5">
+                        <div className="text-center col-lg-4">
                           <div className=" ">
                             <ImageComponent
                               image={item?.Cover_Photo}
@@ -60,7 +56,7 @@ const AchievementComponent = ({ data }) => {
                             />
                           </div>
                         </div>
-                        <div className="text-center col-lg-7 my-auto">
+                        <div className="text-center col-lg-8 my-auto pe-5">
                           <div className=" d-flex flex-column    ">
                             <div
                               dangerouslySetInnerHTML={{
