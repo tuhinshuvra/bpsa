@@ -73,7 +73,7 @@ const EntryBlog = () => {
         console.log('Image uploaded to ImageBB:', imageUrl);
 
         // Update the blog object with the ImageBB URL
-        blog.image= imageUrl;
+        blog.image = imageUrl;
       } catch (error) {
         console.error('Error uploading image to ImageBB:', error);
         toast.error('Error uploading image to ImageBB');
@@ -112,14 +112,16 @@ const EntryBlog = () => {
 
   return (
     <div className='  col-md-10 mx-auto'>
-
       <section style={{ backgroundColor: "#eee" }}>
         <div className="container pt-3 pb-1 ">
+
           <nav aria-label="" className="bg-light rounded-3 p-2  ">
             <h3 className='fw-bold text-center text-success'>Blog Entry</h3>
           </nav>
+
           <form className='   ' onSubmit={handleBlock}>
             <input type='text' name='block_title' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog title' required></input><br />
+            <input type='text' name='block_summery' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog summary'></input><br />
             <JoditEditor
               placeholder="Enter Blog description"
               ref={editor}
@@ -127,7 +129,6 @@ const EntryBlog = () => {
               onChange={newContent => setContent(newContent)}
             >
             </JoditEditor>
-            <input type='text' name='block_summery' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog summary'></input><br />
             <input type='file' name='image' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog image'></input><br />
             <div className='flex justify-between mt-2 mb-5'>
               <input de className='btn btn-primary btn-sm  w-25 h-12' type="reset" value="reset" />

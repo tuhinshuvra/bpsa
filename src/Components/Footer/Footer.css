@@ -1,0 +1,47 @@
+.footerArea {
+    font-size: 14px;
+}
+
+.footer_btn {
+    color: white;
+    text-decoration: none;
+    /* padding: 8px; */
+    border-radius: 10px;
+    border: 0;
+    font-weight: bold;
+}
+
+.footer_btn:hover {
+    color: rgb(33, 33, 33);
+    text-decoration: underline;
+}
+
+.footerSlogan {
+    margin-left: 70px;
+}
+
+.footerSub {
+    color: white;
+}
+
+.hrBar {
+    height: 10px;
+}
+
+.footer_bg {
+    background-color: rgba(108, 6, 110, 0.63);
+}
+
+.copyright_text {
+    color: white;
+}
+
+.footer_logo {
+    width: 125px;
+}
+
+
+@media (min-width: 768px) and (max-width: 768px) {}
+
+
+@media (min-width: 320px) and (max-width: 992px) {}

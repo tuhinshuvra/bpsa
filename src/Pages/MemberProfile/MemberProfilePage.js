@@ -5,6 +5,9 @@ import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
 
@@ -15,16 +18,6 @@ const MemberProfilePage = () => {
     const [userNewData, setUserNewData] = useState();
     const [approvedBlogs, setApprovedBlogs] = useState([]);
     const [pendingBlogs, setPendingBlogs] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const blogsPerPage = 5;
-    const indexOfLastApprovedBlog = currentPage * blogsPerPage;
-    const indexOfFirstApprovedBlog = indexOfLastApprovedBlog - blogsPerPage;
-    const currentApprovedBlogs = approvedBlogs.slice(indexOfFirstApprovedBlog, indexOfLastApprovedBlog);
-
-    const indexOfLastPendingBlog = currentPage * blogsPerPage;
-    const indexOfFirstPendingBlog = indexOfLastPendingBlog - blogsPerPage;
-    const currentPendingBlogs = pendingBlogs.slice(indexOfFirstPendingBlog, indexOfLastPendingBlog);
 
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
@@ -42,6 +35,7 @@ const MemberProfilePage = () => {
                 setLoading(false)
             })
     }, [setLoading, user.UniqueID])
+
 
     // login member profile data
     useEffect(() => {
@@ -81,11 +75,37 @@ const MemberProfilePage = () => {
     }, [setLoading, user.name])
 
 
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', options);
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
     }
+
+    // pagination start
+    const totalPendingBlogs = pendingBlogs.length;
+    const totalApprovedBlogs = approvedBlogs.length;
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedPendingBlogs = pendingBlogs.slice(startIndex, endIndex);
+    const displayedArrovedBlogs = approvedBlogs.slice(startIndex, endIndex);
+
+    const totalPendingBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
+    const totalApprovedBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
+
+    const handlePageChange = (newPage) => {
+        if (totalPendingBlogPages) {
+            if (newPage >= 1 && newPage <= totalPendingBlogPages) {
+                setCurrentPage(newPage);
+            }
+        }
+        if (totalApprovedBlogPages) {
+            if (newPage >= 1 && newPage <= totalApprovedBlogPages) {
+                setCurrentPage(newPage);
+            }
+        }
+    };
+    // pagination end
 
     if (loading) {
         <Loader></Loader>
@@ -98,10 +118,8 @@ const MemberProfilePage = () => {
                 <div className="container pt-3 pb-3 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        {/* <h3 className=' text-center fw-bold'>{memberData?.nameE} Profile</h3> */}
                         <h2 className='fw-bold text-center text-success'>{memberData?.nameE} Profile</h2>
                     </nav>
-
 
                     <div className="row">
                         <div className="col-lg-4 my-1 my-lg-0">
@@ -143,7 +161,7 @@ const MemberProfilePage = () => {
                                             <p className="my-0"><b> BCS Batch</b>: {memberData?.batch}</p>
                                             <p className="my-0"><b> Rank</b>: {memberData?.ranK}</p>
                                             <p className="my-0"><b> DOB  </b>  : {memberData?.birth}</p>
-                                            <p className="my-0"> <b> Phone no  </b>    : {memberData?.phone}
+                                            <p className="my-0"><b> Phone no  </b>    : {memberData?.phone}
                                                 {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
                                             </p>
                                             <p className="my-0"> <b> Email</b>    : {memberData?.email}
@@ -173,7 +191,7 @@ const MemberProfilePage = () => {
 
                     <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <div className=' text-center'>
-                            <Link className=' text-white btn btn-sm btn-primary ' to="/memberCoCurriculamActivitiesEntry">Enter/Update Co Curricular Activities</Link>
+                            <Link className=' text-white btn btn-sm btn-primary ' to="/coCurriculamEntry">Enter/Update Co Curricular Activities</Link>
                         </div>
                     </div>
 
@@ -207,7 +225,7 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    {currentApprovedBlogs && currentApprovedBlogs.map(blog => (
+                    {displayedArrovedBlogs && displayedArrovedBlogs.map(blog => (
                         <div className="card blogArea my-1"  >
                             <div className="d-flex px-lg-3 px-md-2">
                                 <div className="col-md-2 my-auto">
@@ -215,17 +233,13 @@ const MemberProfilePage = () => {
                                 </div>
                                 <div className="col-md-10">
                                     <div className="card-body">
-                                        {/* <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link> */}
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                        <p className=" my-0 ">{blog?.description.slice(0, 110)}...
                                             <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
                                         </p>
-                                        <div className=' d-flex justify-content-evenly'>
-                                            <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                            </div>
-
+                                        <div className='  d-flex items-center mt-1'>
+                                            <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
+                                            <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -233,63 +247,31 @@ const MemberProfilePage = () => {
                         </div>
                     ))}
 
-                    {/* {
-                        approvedBlogs && approvedBlogs.map(blog => (
-                            <div className="card blogArea my-1"  >
-                                <div className="d-flex px-lg-3 px-md-2">
-                                    <div className="col-md-2 my-auto">
-                                        <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                    </div>
-                                    <div className="col-md-10">
-                                        <div className="card-body">
-                                            <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                            <p className=" my-0 ">{blog?.description.slice(0, 180)}...
-                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                            </p>
-                                            <div className=' d-flex justify-content-evenly'>
-                                                <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                    <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    } */}
-
-                    {/* pagination */}
-
-                    <div className='d-flex justify-content-center my-0'>
-                        <nav aria-label="...">
-                            <ul className="pagination">
-                                {Array.from({ length: Math.ceil(approvedBlogs.length / blogsPerPage) }).map((_, index) => (
-                                    <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                                        <Link className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
-                    </div>
-                    {/* <div className=' d-flex justify-content-center my-0'>
-                        <nav aria-label="...">
-                            <ul className=" pagination ">
-                                <li className="page-item">
-                                    <Link className="page-link">Previous</Link>
-                                </li>
-                                <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                                <li className="page-item active" aria-current="page">
-                                    <Link className="page-link" href="#">2 <span className="visually-hidden">(current)</span></Link>
-                                </li>
-                                <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                                <li className="page-item">
-                                    <Link className="page-link" href="#">Next</Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div> */}
+                    {/* pagination start */}
+                    {totalApprovedBlogs > 5 &&
+                        <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
+                            <button
+                                className=" btn btn-primary btn-sm  mx-1"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                {/* Previous */}
+                                <GrLinkPrevious className=' text-white fw-bold' />
+                            </button>
+                            <span className="pagination-info text-success fw-bold mx-2">
+                                Page {currentPage} of {totalApprovedBlogPages}, Total blog = {totalApprovedBlogs}
+                            </span>
+                            <button
+                                className=" btn btn-primary btn-sm mx-1"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalApprovedBlogPages}
+                            >
+                                {/* Next */}
+                                <GrLinkNext className=' fw-bold text-white' />
+                            </button>
+                        </div>
+                    }
+                    {/* pagination end */}
 
 
                     {/* member's non approved blogs */}
@@ -302,7 +284,7 @@ const MemberProfilePage = () => {
                     </div>
 
 
-                    {currentPendingBlogs && currentPendingBlogs.map(blog => (
+                    {displayedPendingBlogs && displayedPendingBlogs.map(blog => (
                         <div className="card blogArea my-1 px-1"  >
                             <div className="d-flex px-lg-3 px-md-2">
                                 <div className="col-md-2 my-auto">
@@ -311,14 +293,12 @@ const MemberProfilePage = () => {
                                 <div className="col-md-10 d-flex">
                                     <div className="card-body">
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
+                                        <p className=" my-0 ">{blog?.description.slice(0, 110)}...
                                             <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
                                         </p>
-                                        <div className=' d-flex justify-content-evenly'>
-                                            <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                            </div>
+                                        <div className='   d-flex items-center mt-1'>
+                                            <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
+                                            <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
                                         </div>
                                     </div>
                                     <div className="  text-center  my-auto">
@@ -330,76 +310,35 @@ const MemberProfilePage = () => {
                         </div>
 
                     ))}
-
-
-                    {/* {
-                        pendingBlogs && pendingBlogs.map(blog => (
-                            <div>
-                                <div className="card blogArea my-1 px-1"  >
-                                    <div className="d-flex px-lg-3 px-md-2">
-                                        <div className="col-md-2 my-auto">
-                                            <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
-                                        </div>
-                                        <div className="col-md-10 d-flex">
-                                            <div className="card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 180)}...
-                                                    <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                                </p>
-                                                <div className=' d-flex justify-content-evenly'>
-                                                    <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
-                                                        <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="  text-center  my-auto">
-                                                <p className=' fw-bold '>{blog?.status}</p>
-                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    } */}
                 </div>
 
+                {/* pagination start */}
+                {totalPendingBlogs > 5 &&
+                    <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
+                        <button
+                            className=" btn btn-primary btn-sm  mx-1"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            {/* Previous */}
+                            <GrLinkPrevious className=' text-white fw-bold' />
+                        </button>
+                        <span className="pagination-info text-success fw-bold mx-2">
+                            Page {currentPage} of {totalPendingBlogPages}, Total blog = {totalPendingBlogs}
+                        </span>
+                        <button
+                            className=" btn btn-primary btn-sm mx-1"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPendingBlogPages}
+                        >
+                            {/* Next */}
+                            <GrLinkNext className=' fw-bold text-white' />
+                        </button>
+                    </div>
+                }
+                {/* pagination end */}
 
-                <div className='d-flex justify-content-center my-0'>
-                    <nav aria-label="...">
-                        <ul className="pagination">
-                            {Array.from({ length: Math.ceil(pendingBlogs.length / blogsPerPage) }).map((_, index) => (
-                                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                                    <Link className="page-link" onClick={() => setCurrentPage(index + 1)}>{index + 1}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-                </div>
-
-                {/* pagination */}
-                {/* <div className=' d-flex justify-content-center my-0'>
-                    <nav aria-label="...">
-                        <ul className=" pagination ">
-                            <li className="page-item">
-                                <Link className="page-link">Previous</Link>
-                            </li>
-                            <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                            <li className="page-item active" aria-current="page">
-                                <Link className="page-link" href="#">2 <span className="visually-hidden">(current)</span></Link>
-                            </li>
-                            <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                            <li className="page-item">
-                                <Link className="page-link" href="#">Next</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div> */}
             </section>
-
-
-
         </div>
     );
 };

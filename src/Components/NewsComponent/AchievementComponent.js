@@ -52,27 +52,31 @@ const AchievementComponent = ({ data }) => {
                           navigate("/news/" + item?.id);
                         }}
                       >
-                        <Col className="text-center " md={4}>
-                          <div className="space-y-2">
+                        <div className="text-center col-lg-5">
+                          <div className=" ">
                             <ImageComponent
                               image={item?.Cover_Photo}
-                              className="w-full md:w-[250px] h-[250px]  mb-1 object-cover rounded-lg mx-auto block"
+                              className="w-full md:w-[400px] h-[230px]  mb-1 object-cover rounded-lg mx-auto block"
                             />
                           </div>
-                        </Col>
-                        <Col className="" md={8}>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item?.Sub_Heading,
-                            }}
-                            className="text-justify"
-                          ></div>{" "}
-                          <br />
-                          <div
-                            dangerouslySetInnerHTML={{ __html: item?.Details }}
-                            className="text-justify"
-                          ></div>
-                        </Col>
+                        </div>
+                        <div className="text-center col-lg-7 my-auto">
+                          <div className=" d-flex flex-column    ">
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: item?.Sub_Heading,
+                              }}
+                              className="text-justify"
+                            >
+                            </div>
+
+                            <div
+                              dangerouslySetInnerHTML={{ __html: item?.Details }}
+                              className="text-justify"
+                            ></div>
+
+                          </div>
+                        </div>
                       </Row>
                     </div>
                   </SwiperSlide>

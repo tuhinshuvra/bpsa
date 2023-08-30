@@ -1,0 +1,13 @@
+.blogDetailsImg {
+    width: 510px;
+    max-width: 510px;
+    height: 370px;
+    max-height: 370px;
+}
+
+.blogEditImg {
+    width: 250px;
+    /* max-width: 200px; */
+    height: 250px;
+    /* max-height: 200px; */
+}

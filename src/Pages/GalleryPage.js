@@ -5,8 +5,10 @@ import CommonHead from "../Components/Common/CommonHead";
 import Loader from "../Components/Common/Loader";
 import GalleryComponent from "../Components/GalleryComponent/GalleryComponent";
 import { getGalleryCategory } from "../redux/gallery/galleryAction";
+import useTitle from "../hooks/useTitle";
 
 const GalleryPage = () => {
+  useTitle("Gallary")
   const dispatch = useDispatch();
 
   const [galleryData, setGalleryData] = useState([]);
@@ -44,7 +46,6 @@ const GalleryPage = () => {
   }
   return (
     <div>
-      <CommonHead title="Gallery" />
       <GalleryComponent data={galleryData} video={videoData} />
     </div>
   );

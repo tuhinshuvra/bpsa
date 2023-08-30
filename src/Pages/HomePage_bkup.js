@@ -23,10 +23,8 @@ import SummaryComp from "../Components/HomeComponent/SummaryComp/SummaryComp";
 import TestimonialComponent from "../Components/HomeComponent/TestimonialComponent/TestimonialComponent";
 import UpcommingEvents from "../Components/HomeComponent/UpcommingEvents/UpcommingEvents";
 import { dateFiltering } from "../utlis/DateFiltering";
-import useTitle from "../hooks/useTitle";
 
 const HomePage = () => {
-  useTitle("Home");
   const [sliderData, setSliderData] = useState([]);
   const [sliderError, setSliderError] = useState("");
   const [sliderLoading, setSliderLoading] = useState(false);
@@ -131,7 +129,6 @@ const HomePage = () => {
     try {
       setSuccessLoading(true);
       const result = await GetSuccessStory();
-      console.log("Success Story data:", result);
       setSuccessLoading(false);
       if (result?.status === "success") {
         setSuccessData(result?.data?.success);
@@ -202,6 +199,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <CommonHead title="Home" />
       <div className="relative w-full">
         <HeroSlider data={sliderData} />
         <div
@@ -215,26 +213,20 @@ const HomePage = () => {
       </div>
 
       <NoticeLine data={noticeData} />
+      <HighlightComponent data={hightLightData} />
+      <Container>
+        <TestimonialComponent data={messageData} />
+      </Container>
+      <SummaryComp data={successData} />
+      {/* <Container>
+        <UpcommingEvents data={eventData} />
+      </Container> */}
 
-      <div className=' col-md-10 mx-auto'>
-        <section style={{ backgroundColor: "#eee" }}>
-          <div className="container pt-3 pb-5 ">
-            <HighlightComponent data={hightLightData} />
-            <TestimonialComponent data={messageData} />
-            <SummaryComp data={successData} />
-
-            <div className="bg-[#6e5ff7] py-5 rounded-2xl my-5">
-              <QuicksLinks local={localLink} international={internationalLink} />
-            </div>
-
-            <GalleryComp data={galleryData} />
-          </div>
-        </section>
+      <div className="bg-[#EFF0FC] py-5">
+        <QuicksLinks local={localLink} international={internationalLink} />
       </div>
 
-
-
-
+      <GalleryComp data={galleryData} />
     </div>
   );
 };

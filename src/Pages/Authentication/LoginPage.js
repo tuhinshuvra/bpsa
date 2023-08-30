@@ -43,7 +43,7 @@ const LoginPage = () => {
         authenticate(response.data, () => {
           setUser(isAuth());
           if (response.status === 201) {
-            toast.success('BPSA Member Successfully Logged In')
+            console.log('BPSA Member Successfully Logged In')
           }
           // console.log("Logged in UserName:", response.data.user.name)
           setLoading(false);

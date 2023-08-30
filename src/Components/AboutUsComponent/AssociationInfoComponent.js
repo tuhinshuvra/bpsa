@@ -24,24 +24,26 @@ const AssociationInfoComponent = () => {
           className="text-center text-main pb-4"
         />
         <Row>
-          <Col className="py-2 order-2 md:order-1" md={6}>
+          <Col className="py-2 order-2 md:order-1 my-auto" md={6}>
             <div
               dangerouslySetInnerHTML={{
-                __html: seeMore ? data : data.slice(0, 600),
+                __html: seeMore ? data : data.slice(0, 660),
               }}
               className="md:pr-4 text-justify leading-8"
             ></div>
 
-            <ButtonComponent
-              onClick={() => setSeeMore(!seeMore)}
-              title={seeMore ? "See Less" : "See More"}
-              className="bg-main text-white px-4 py-2 rounded-md"
-            />
+            <div className=" text-center">
+              <ButtonComponent
+                onClick={() => setSeeMore(!seeMore)}
+                title={seeMore ? "See Less" : "See More"}
+                className="btn btn-primary btn-sm"
+              />
+            </div>
           </Col>
-          <Col className="py-2 sm:order-1 md:order-2" md={6}>
+          <Col className="py-2 sm:order-1 md:order-2 my-auto" md={6}>
             <ImageComponent
               image={assImg}
-              className="w-full h-[250px] md:h-[400px] object-cover rounded-md"
+              className="w-full h-[250px] md:h-[400px] object-cover rounded-lg shadow-lg"
             />
           </Col>
         </Row>
