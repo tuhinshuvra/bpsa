@@ -1,7 +1,11 @@
 .achievementBg__style {
-  background-image: url(../../assets/Image/news/Group\ 1000001138.png);
+  /* background-image: url(../../assets/Image/news/Group\ 1000001138.png); */
   background-repeat: no-repeat;
   background-size: 100% 600px;
   background-position: center;
   margin-top: 60px;
+}
+
+.mournMinHight {
+  min-height: 1000px !important;
 }

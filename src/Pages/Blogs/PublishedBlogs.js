@@ -89,19 +89,26 @@ const PublishedBlogs = () => {
 
                                         <div className="card-body">
                                             <Link className=' fs-5 blogDetailsLink ' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
-                                            <p className=" my-0 ">{blog?.description.slice(0, 90)}...
+                                            {/* <p className=" my-0 ">{blog?.description.slice(0, 90)}...
                                                 <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
-                                            </p>
+                                            </p> */}
 
-                                            {/* <p className="my-0" dangerouslySetInnerHTML={{
-                                                __html: `${blog?.description.slice(0, 90)} <a href="/publishedBlogDetail/${blog.id}>details</a>`
-                                            }}></p> */}
+
+                                            {blog?.description &&
+                                                <div className=' d-flex'>
+                                                    <div className=' d-flex'>
+                                                        <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 105)}` }}></p>
+                                                        ...
+                                                    </div>
+                                                    <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
+                                                </div>
+                                            }
 
 
                                             {/* <p>{blog.summery}</p> */}
                                             <div className=' my-0  d-flex items-center'>
                                                 <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
-                                                <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
+                                                <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</p>
                                             </div>
                                         </div>
 

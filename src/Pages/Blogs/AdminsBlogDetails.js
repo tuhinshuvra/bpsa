@@ -130,7 +130,7 @@ const AdminsBlogDetails = () => {
 
                     <div className=' d-flex justify-content-between align-items-baseline '>
 
-                        <Link to={"/publishedBlogs"} className='btn btn-primary' >Back</Link>
+                        <Link to={"/adminAllBlog"} className='btn btn-primary' >Back</Link>
 
                         <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
                             <div>

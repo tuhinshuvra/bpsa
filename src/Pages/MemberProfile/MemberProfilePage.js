@@ -234,9 +234,17 @@ const MemberProfilePage = () => {
                                 <div className="col-md-10">
                                     <div className="card-body">
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 110)}...
-                                            <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                        </p>
+
+                                        {blog?.description &&
+                                            <div className=' d-flex'>
+                                                <div className=' d-flex'>
+                                                    <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 130)}` }}></p>
+                                                    ...
+                                                </div>
+                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                            </div>
+                                        }
+
                                         <div className='  d-flex items-center mt-1'>
                                             <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
                                             <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
@@ -290,12 +298,18 @@ const MemberProfilePage = () => {
                                 <div className="col-md-2 my-auto">
                                     <img src={blog?.image} className="memberBlogImg rounded-lg" alt="..." />
                                 </div>
-                                <div className="col-md-10 d-flex">
+                                <div className="col-md-10 d-flex justify-content-between">
                                     <div className="card-body">
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 110)}...
-                                            <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                        </p>
+                                        {blog?.description &&
+                                            <div className=' d-flex'>
+                                                <div className=' d-flex'>
+                                                    <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 130)}` }}></p>
+                                                    ...
+                                                </div>
+                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
+                                            </div>
+                                        }
                                         <div className='   d-flex items-center mt-1'>
                                             <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
                                             <p className='d-flex'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>

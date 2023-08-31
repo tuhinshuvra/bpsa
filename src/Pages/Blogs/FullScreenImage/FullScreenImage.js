@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FullScreenImage.css'
 
-const FullScreenImage = ({ image, id }) => {
+const FullScreenImage = ({ image }) => {
     const navigate = useNavigate();
+    console.log("FullScreenImage : ", image);
 
     const handleClose = () => {
         navigate(-0);
