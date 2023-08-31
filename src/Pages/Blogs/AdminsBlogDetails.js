@@ -121,7 +121,7 @@ const AdminsBlogDetails = () => {
 
                         <div className=' col-lg-7'>
                             {/* <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p> */}
-                            <p className='' dangerouslySetInnerHTML={{ __html: blog?.description }} />
+                            <small className='' dangerouslySetInnerHTML={{ __html: blog?.description }} />
                         </div>
                     </div>
 
@@ -130,7 +130,7 @@ const AdminsBlogDetails = () => {
 
                     <div className=' d-flex justify-content-between align-items-baseline '>
 
-                        <Link to={"/publishedBlogs"} className='btn btn-primary' >Back</Link>
+                        <Link to={"/adminAllBlog"} className='btn btn-primary' >Back</Link>
 
                         <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
                             <div>

@@ -89,14 +89,17 @@ const PublishedBlogs = () => {
 
                                         <div className="card-body">
                                             <Link className=' fs-5 blogDetailsLink ' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
-                                            <p className=" my-0 ">{blog?.description.slice(0, 90)}...
+                                            {/* <p className=" my-0 ">{blog?.description.slice(0, 90)}...
                                                 <Link className=' fst-italic ' to={`/publishedBlogDetail/${blog?.id}`}>details</Link>
-                                            </p>
+                                            </p> */}
 
                                             {/* <p className="my-0" dangerouslySetInnerHTML={{
                                                 __html: `${blog?.description.slice(0, 90)} <a href="/publishedBlogDetail/${blog.id}>details</a>`
                                             }}></p> */}
 
+                                            <small className="my-0" dangerouslySetInnerHTML={{
+                                                __html: `${blog?.description.slice(0, 180)} <a href="/publishedBlogDetail/${blog.id}">...details</a>`
+                                            }}></small>
 
                                             {/* <p>{blog.summery}</p> */}
                                             <div className=' my-0  d-flex items-center'>

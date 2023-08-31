@@ -84,7 +84,7 @@ const PublishBLogDetails = () => {
 
                     </div>
                     {blog?.description &&
-                        <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(1500)}` }}></p>
+                        <small className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(1500)}` }}></small>
                     }
                     <div className=' d-flex justify-content-end'>
                         <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm ' >Back</Link>

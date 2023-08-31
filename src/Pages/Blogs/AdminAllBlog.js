@@ -94,9 +94,14 @@ const AdminAllBlog = () => {
                                         <div className="col-md-10">
                                             <div className="card-body">
                                                 <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link>
-                                                <p className=" my-0 ">{blog?.description.slice(0, 80)}...
+                                                {/* <p className=" my-0 ">{blog?.description.slice(0, 80)}...
                                                     <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
-                                                </p>
+                                                </p> */}
+
+                                                <small className="my-0" dangerouslySetInnerHTML={{
+                                                    __html: `${blog?.description.slice(0, 180)} <a href="/blog_details/${blog.id}">...details</a>`
+                                                }}></small>
+
                                                 {/* <p>{blog.summary}</p> */}
 
                                                 <div className=' d-flex        my-0'>

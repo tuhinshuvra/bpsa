@@ -10,6 +10,7 @@ import axios from 'axios'; // Import Axios for HTTP requests
 const EntryBlog = () => {
   const editor = useRef(null);
   const [content, setContent] = useState('');
+  const [statusDescription,setStatusDescription]=useState(false);
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
 
@@ -18,6 +19,7 @@ const EntryBlog = () => {
     const form = e.target;
 
     if (!content) {
+      setStatusDescription(true);
       toast.error("Description must be filled up");
       return;
     }
@@ -122,6 +124,9 @@ const EntryBlog = () => {
           <form className='   ' onSubmit={handleBlock}>
             <input type='text' name='block_title' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog title' required></input><br />
             <input type='text' name='block_summery' className='input input-bordered w-full my-2 bg-white' placeholder='Enter blog summary'></input><br />
+            {
+              statusDescription&&<label className='my-2 text-2xl text-red-600'>Please fill up description than submit blogs</label>
+            }
             <JoditEditor
               placeholder="Enter Blog description"
               ref={editor}

@@ -44,7 +44,7 @@ const Blog_Details = () => {
             <div className='mx-[5vw] my-[1vh]'>
                 <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog?.image}></img>
                 {/* <p className='my-5'>{blog?.description}</p> */}
-                <p className='my-5' dangerouslySetInnerHTML={{ __html: blog?.description }} />
+                <small className='my-5' dangerouslySetInnerHTML={{ __html: blog?.description }} />
                 <p>{blog?.summery}</p>
                 <div className='flex justify-between items-center my-4 shadow py-3  px-10'>
                     <div className='flex justify-between items-center'>

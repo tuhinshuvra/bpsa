@@ -22,6 +22,7 @@ const UpdateBlog = () => {
 
 
   const [showFullScreenImage, setShowFullScreenImage] = useState(false);
+  const [statusDescription, setStatusDescription] = useState(false);
 
   const handleImageClick = () => {
     setShowFullScreenImage(true);
@@ -87,6 +88,13 @@ const UpdateBlog = () => {
       memberName: user?.name,
       blog_id: id,
     };
+
+    if (!content) {
+      setStatusDescription(true);
+      toast.error("Description must be filled up");
+      return;
+    }
+
 
     if (!form.image.files[0]) {
       NewBlog.image = blog.image;
@@ -180,6 +188,11 @@ const UpdateBlog = () => {
             <form className=' my-3' onSubmit={handleBlock}>
               <input defaultValue={blog.title} type='text' name='block_title' className='form-control my-1 ' placeholder='Enter block title' required />
               <input defaultValue={blog?.summery} type='text' name='block_summery' className='form-control my-1  ' placeholder='Enter blog Summary' />
+
+              {
+                statusDescription && <label className='my-2 text-2xl text-red-600'>Please fill up description than submit blogs</label>
+              }
+
               <JoditEditor
                 value={content}
                 tabIndex={12}
