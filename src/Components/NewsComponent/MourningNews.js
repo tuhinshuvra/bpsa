@@ -16,18 +16,19 @@ import { TimeIcon } from "../../assets/Icons/Icons";
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { dateFormatOne } from "../../utlis/dateFormat";
 import { useNavigate } from "react-router";
+import './Newscomponent.module.css'
 
 const MourningNews = ({ data }) => {
   const navigate = useNavigate();
 
   return (
-    <div className=" ">
+    <div className="my-5">
       {/* <Container className="bg-success/90   md:p-5  rounded-2xl"> */}
       <div>
         <HeadingComponent1
           first={"Mourning "}
           second="News"
-          className={"text-white bg-black rounded-t-2xl  text-center py-3 mb-0 "}
+          className={"text-white bg-black/50 rounded-t-2xl  text-center py-3 mb-0 "}
         />
 
         <Swiper
@@ -48,9 +49,9 @@ const MourningNews = ({ data }) => {
                       navigate(`/news/${item?.id}`);
                     }}
                   >
-                    <div className=" col-lg-11 mx-auto bg-success/90 px-4 pb-5   d-flex flex-column justify-content-center align-items-center">
+                    <div className=" col-lg-11 mx-auto bg-success/90 px-4 py-3 mournMinHight  d-flex flex-column justify-content-center align-items-center">
 
-                      <div className="col-12 d-flex justify-content-between rounded-lg">
+                      <div className="col-12 d-lg-flex justify-content-between rounded-lg">
                         <h5 className="mb-2 p-1 rounded-lg col-lg-10">{item?.Heading}।</h5>
                         <div className="d-flex align-items-center col-lg-2">
                           <div className=" d-flex ms-2 ">
@@ -60,8 +61,8 @@ const MourningNews = ({ data }) => {
                         </div>
                       </div>
 
-                      <div className="col-12 d-flex justify-content-between rounded-lg">
-                        <img src={item?.Cover_Photo} className="w-full md:w-[120px] h-[150px]  mb-1 object-cover rounded-lg   block" alt="..." />
+                      <div className="col-12 d-lg-flex justify-content-between rounded-lg">
+                        <img src={item?.Cover_Photo} className="w-full  md:w-[120px] h-[150px]  mb-1 object-cover rounded-lg   block" alt="..." />
                         <div className=" my-auto ms-3">
                           <p dangerouslySetInnerHTML={{ __html: item?.Sub_Heading, }} className="text-sm mb-0 text-black "></p>
                         </div>
