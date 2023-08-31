@@ -217,6 +217,7 @@ const MemberProfilePage = () => {
                                     <div className="card-body">
                                         {/* <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link> */}
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+
                                         <p className=" my-0 ">{blog?.description.slice(0, 180)}...
                                             <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
                                         </p>
@@ -311,9 +312,15 @@ const MemberProfilePage = () => {
                                 <div className="col-md-10 d-flex">
                                     <div className="card-body">
                                         <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                                        <p className=" my-0 ">{blog?.description.slice(0, 180)}...
-                                            <Link className=' fst-italic ' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                        </p>
+                                        {/* <p className="my-0" dangerouslySetInnerHTML={{ __html: blog?.description.slice(0, 180) }}></p>
+                                        <Link className='fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>...details</Link> */}
+
+                                        <p className="my-0" dangerouslySetInnerHTML={{
+                                            __html: `${blog?.description.slice(0, 180)} <a href="/blogDetails/${blog.id}?source=memberAllBlog">...details</a>`
+                                        }}></p>
+
+
+
                                         <div className=' d-flex justify-content-evenly'>
                                             <div className=' d-flex col-md-5 me-auto   my-0'>
                                                 <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
@@ -329,7 +336,8 @@ const MemberProfilePage = () => {
                             </div>
                         </div>
 
-                    ))}
+                    ))
+                    }
 
 
                     {/* {
@@ -363,7 +371,7 @@ const MemberProfilePage = () => {
                             </div>
                         ))
                     } */}
-                </div>
+                </div >
 
 
                 <div className='d-flex justify-content-center my-0'>
@@ -396,11 +404,11 @@ const MemberProfilePage = () => {
                         </ul>
                     </nav>
                 </div> */}
-            </section>
+            </section >
 
 
 
-        </div>
+        </div >
     );
 };
 
