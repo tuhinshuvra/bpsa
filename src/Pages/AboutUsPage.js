@@ -7,8 +7,6 @@ import AssociationInfoComponent from "../Components/AboutUsComponent/Association
 import FormerLeaderShip from "../Components/AboutUsComponent/FormerLeaderShip";
 import LeaderShipComponent from "../Components/AboutUsComponent/LeaderShipComponent";
 import ObjectivesComponent from "../Components/AboutUsComponent/ObjectivesComponent";
-import CommonHead from "../Components/Common/CommonHead";
-import HeroComponent1 from "../Components/Common/HeroComponent1";
 import Loader from "../Components/Common/Loader";
 import AchievementComponent from "../Components/NewsComponent/AchievementComponent";
 import useTitle from "../hooks/useTitle";

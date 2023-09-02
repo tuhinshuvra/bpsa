@@ -131,7 +131,7 @@ const HomePage = () => {
     try {
       setSuccessLoading(true);
       const result = await GetSuccessStory();
-      console.log("Success Story data:", result);
+      // console.log("Success Story data:", result);
       setSuccessLoading(false);
       if (result?.status === "success") {
         setSuccessData(result?.data?.success);

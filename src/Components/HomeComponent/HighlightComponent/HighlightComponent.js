@@ -48,10 +48,10 @@ const HighlightComponent = ({ data }) => {
               <h6 className="text-black font-semibold text-lg">
                 {data[0]?.Heading}
               </h6>
-              <div
+              {/* <div
                 dangerouslySetInnerHTML={{ __html: data[0]?.Sub_Heading, }}
                 className="text-sm"
-              ></div>
+              ></div> */}
 
               {/* <Link
                 to={`/news/${data[0]?.id}`}

@@ -10,7 +10,6 @@ import SocialButtonComponent from "./Components/Common/SocialButtonComponent";
 import AboutUsPage from "./Pages/AboutUsPage";
 import ContactPage from "./Pages/ContactPage";
 import GalleryPage from "./Pages/GalleryPage";
-import CommitteePage from "./Pages/CommitteePage";
 import NewsPage from "./Pages/NewsPage";
 import { Toaster } from "react-hot-toast";
 import SignupPage from "./Pages/Authentication/SignupPage";
@@ -34,7 +33,7 @@ import EventDetailsPage from "./Pages/Event/EventDetailsPage";
 import AdminAllBlog from "./Pages/Blogs/AdminAllBlog";
 import AllMemberDirectoryPage from "./Pages/AllMemberDirectory/AllMemberDirectoryPage";
 import AllMemberDirectorySearchResultPage from "./Pages/AllMemberDirectory/AllMemberDirectorySearchResultPage";
-import NewCommittee from "./Components/CommitteeComponent/NewCommittee";
+import CommitteePage from "./Pages/CommitteePage";
 import PublishBLogDetails from "./Pages/Blogs/PublishBLogDetails";
 import BlogAdminAssign from "./Pages/Blogs/BlogAdminAssign";
 import MemberShipFeePage from "./Pages/MemberShipFeePage/MemberShipFeePage";
@@ -83,7 +82,7 @@ export default function App() {
         <Route path="/blogDetails/:id" element={<MemberBlogDetails />} />
         <Route path="/publishedBlogs" element={<PublishedBlogs />} />
         <Route path="/publishedBlogDetail/:id" element={<PublishBLogDetails />} />
-        <Route path="/newCommittee" element={<NewCommittee />} />
+        {/* <Route path="/newCommittee" element={<CommitteePage />} /> */}
         <Route path="/blogAdminAssign" element={<BlogAdminAssign />} />
       </Routes>
       <Footer />

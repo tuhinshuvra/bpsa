@@ -32,7 +32,7 @@ const GalleryPage = () => {
   const getVideoData = async () => {
     const result = await GetVideosData();
     setVideoData(result?.data?.video);
-    console.log("🚀 ~ file: GalleryPage.js:32 ~ getVideoData ~ result", result);
+    // console.log("🚀 ~ file: GalleryPage.js:32 ~ getVideoData ~ result", result);
   };
 
   useEffect(() => {

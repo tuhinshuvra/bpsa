@@ -21,10 +21,10 @@ import Loader from "../Common/Loader";
 const AssociationDocumentsComponent = () => {
   const [loading, setLoading] = useState(false);
   const [documentData, setDocumentData] = useState([]);
-  console.log(
-    "🚀 ~ file: AssociationDocumentsComponent.js:23 ~ AssociationDocumentsComponent ~ documentData",
-    documentData
-  );
+  // console.log(
+  //   "🚀 ~ file: AssociationDocumentsComponent.js:23 ~ AssociationDocumentsComponent ~ documentData",
+  //   documentData
+  // );
   const getDocuments = async () => {
     setLoading(true);
     const result = await GetDocumentsData();

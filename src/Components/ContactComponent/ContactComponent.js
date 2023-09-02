@@ -101,9 +101,9 @@ const ContactComponent = () => {
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.1054102633475!2d90.40220997425853!3d23.743620189038687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b88db8f6cf1b%3A0xae201f6bc4740f03!2sDhaka%20Metropolitan%20Police%20Headquarters!5e0!3m2!1sen!2sbd!4v1672578274865!5m2!1sen!2sbd"
                     className="w-full rounded-lg"
                     height="400"
-                    allowfullscreen=""
+                    allowFullScreen=""
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    referrerPolicy="no-referrer-when-downgrade"
                     title="gMap"
                   ></iframe>
                 </div>
