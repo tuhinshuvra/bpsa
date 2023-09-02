@@ -129,12 +129,14 @@ const SignupPage = () => {
                 else if (data.value === 2) {
                     console.log(data);
                     console.log(data.message);
-                    toast.error('User ID verification failed');
+                    setErrorMessage("User ID verification failed")
+                    // toast.error('User ID verification failed');
                 }
                 else if (data.value === 3) {
                     console.log(data);
                     console.log(data.message);
-                    toast.error('User ID already registered');
+                    // toast.error('User ID already registered');
+                    setErrorMessage("User ID already registered")
                 }
                 else {
                     toast.error("Something error, Please try again later.");
@@ -267,7 +269,9 @@ const SignupPage = () => {
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
-
+                {
+                    <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
+                }
                 {!passwordsMatch && (
                     <p className="text-center text-danger fw-bold fs-6">Passwords do not match.</p>
                 )}
@@ -387,7 +391,7 @@ const SignupPage = () => {
                             />
                         </>
                     }
-                    <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
+                   
                 </form>
 
                 {/* new user creation form */}

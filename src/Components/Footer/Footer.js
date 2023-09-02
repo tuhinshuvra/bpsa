@@ -20,8 +20,8 @@ const Footer = () => {
           <p className="text-center fw-bold mt-2 text-white">Bangladesh Police Service Association</p>
         </div>
 
-        <div className=" col-lg-9 d-flex" >
-          <div className="col-6  ">
+        <div className="col-12 col-lg-9 d-lg-flex" >
+          <div className="col-lg-6  ">
             <h5 className='text-center fw-bold text-sixth '>Hot Link</h5>
             <ul className="nav flex-column">
               <li className="mb-1 text-center"><Link to="https://pmo.gov.bd" className="  footer_btn fw-bold" target="_blank">The Prime Minister's Office</Link></li>
@@ -32,7 +32,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="col-6  text-center   mb-3">
+          <div className="col-lg-6  text-center   mb-3 my-lg-0 my-3">
             <h5 className=' text-center fw-bold text-sixth'>Contact</h5>
             <p className=" my-0 text-white" > <b> Email: </b> bpsa2020@gmail.com</p>
             <p className=" my-0 text-white"> <b> Phone:</b> +880248320808 </p>
@@ -57,7 +57,7 @@ const Footer = () => {
       </div>
 
       <div>
-        <p className='text-center mb-0 pb-1  text-white'>
+        <p className='text-center mb-lg-0 pb-lg-1 pb-3  text-white'>
           Copyright © {new Date().getFullYear()} All rights reserved. Bangladesh Police Service Association <br />
           Design and Developed By :
           <a

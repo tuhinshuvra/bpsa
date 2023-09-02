@@ -107,7 +107,7 @@ const AdminAllBlog = () => {
                                                 <div className=' d-flex        my-0'>
                                                     <div className=' my-0  d-flex justify-content-between '>
                                                         <p className='d-flex'><FaUserAlt className='fs-5 mx-1'></FaUserAlt>{blog?.memberName}</p>
-                                                        <p className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog.created_at)}</p>
+                                                        <p className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</p>
                                                     </div>
                                                     <p className=" d-flex "> <TbStatusChange className='fs-4 ms-4'></TbStatusChange> {blog?.status} </p>
                                                 </div>

@@ -93,7 +93,6 @@ const PublishBLogDetails = () => {
                 {showFullScreenImage &&
                     <FullScreenImage
                         image={blog?.image}
-                        id={blog?.id}
                     />}
             </section>
         </div>
