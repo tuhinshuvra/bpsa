@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './BlogAdminAssign.css';
+import useTitle from '../../hooks/useTitle';
 
 
 const handleAddAdminRole = (event) => {
@@ -19,6 +20,7 @@ const handleListMembers = (event) => {
 }
 
 const BlogAdminAssign = () => {
+    useTitle("AssignBlogAdmin")
 
     useEffect(() => {
         fetch('/data/bpsa_member_data.json')

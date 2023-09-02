@@ -1,23 +1,33 @@
 import React from 'react';
-import img from "../Blogs/s1.jpg"
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { FaUserAlt } from 'react-icons/fa';
+import FullScreenImage from './FullScreenImage/FullScreenImage';
+import './BlogDetails.css';
+
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");
+    const location = useLocation();
+    const source = new URLSearchParams(location.search).get('source');
+    console.log(source);
     const { id } = useParams();
     const { user } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [showFullScreenImage, setShowFullScreenImage] = useState(false);
     const navigate = useNavigate();
-    const [isInputVisible, setInputVisible] = useState(false);
-    useEffect(() => {
- 
 
+    const handleImageClick = () => {
+        setShowFullScreenImage(true);
+    };
+
+
+    useEffect(() => {
         fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {
@@ -26,7 +36,6 @@ const MemberBlogDetails = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
                     setBlogs(result.data.blog.find(blog => blog.id == id));
                 } else {
@@ -37,91 +46,64 @@ const MemberBlogDetails = () => {
                 console.error("API request error:", error);
             });
     }, []);
-    // console.log(blog);
-    const { selectedStatus, setSelectedStatus } = useState(blog?.status);
-    const [blogStatus, setBlogStatus] = useState(blog?.status);
-    const handleStatusChange = (newStatus) => {
-        setBlogStatus(newStatus);
-        if (newStatus == 'Ask for Review') {
-            setInputVisible(true);
-        } else {
-            setInputVisible(false);
-        }
-    };
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(blogStatus);
-        console.log(blog.user_id);
-        const data = {
-            blog_id: id,
-            status: blogStatus,
-        }
-        console.log(data)
-        await fetch("https://dev.bpsa.com.bd/api/blog-status", {
-            method: "POST",
-            headers: {
-                'Authorization': `Bearer ${getCookie("token")}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(res => res.json())
-            .then(result => {
-                alert(result.message);
-                navigate("/adminAllBlog");
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    };
+
+    if (blog) {
+        console.log(blog?.summery);
+    }
+
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
+
     return (
-        <div>
-            <h3 className='mt-10 text-center text-main'>{blog?.title}</h3>
-            <div className='mx-[5vw] my-[1vh]'>
-                <img className='w-[40vw] h-[50vh] rounded mx-[25vw] my-5' src={blog?.image}></img>
-                <p className='my-3'>{blog?.description}</p>
-                <p>{blog?.summary}</p>
-                <div className='flex justify-between items-center'>
-                    <div className='flex'>
-                        <p className='mr-5'>Blogger: {blog?.memberName}</p>
-                        <p>Published: 07/08/2023</p>
+        <div className=' col-md-10 mx-auto'>
+            <section style={{ backgroundColor: "#eee" }}>
+                <div className="container pt-3 pb-3 ">
+                    <nav aria-label="" className="bg-light rounded-3 p-2  ">
+                        <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
+                    </nav>
+                    <div className='flex   items-center mt-1'>
+                        <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
                     </div>
-                    <div className='mb-10'>
-                        {/* <button onClick={handleStatus} className='btn btn-info'>{blog.status}</button> */}
-                        {/* <div className="dropdown dropdown-hover">
-                            <label tabIndex={0} className="btn m-1">{blog.status}</label>
-                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a>Pending</a></li>
-                                <li><a>Approved</a></li>
-                                <li><a>Ask for Review</a></li>
-                                <li><a>Disabled</a></li>
-                            </ul>
-                        </div> */}
-                        <form onSubmit={handleSubmit}>
-                            <div>
-                                <select
-                                    id="status"
-                                    value={blogStatus}
-                                    onChange={(e) => handleStatusChange(e.target.value)}
-                                    className='select select-bordered w-full max-w-xs' >
-                                    <option disabled selected>{blog?.status}</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Ask for Review">Ask for Review</option>
-                                    <option value="Disabled">Disabled</option>
-                                </select>
-                                {isInputVisible && (
-                                    <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
-                                )}
-                            </div>
-                            <button className='btn btn-info my-2' type="submit">update status</button>
-                        </form>
+                    <p>{blog?.summery}</p>
+
+                    <div className='d-lg-flex justify-content-between gap-2'>
+                        <div className='col-lg-5'>
+                            {blog?.image &&
+                                <img className='mx-auto rounded-lg blogDetailsImg' src={blog?.image} alt="blog_image" onClick={handleImageClick} />
+                            }
+                        </div>
+
+                        <div className=' col-lg-7'>
+                            {blog?.description &&
+                                <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 1500)}` }}></p>
+                            }
+                        </div>
+
+                        <p />
+                    </div>
+                    {blog?.description &&
+                        <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(1500)}` }}></p>
+                    }
+
+
+                    <div className=' d-flex justify-content-end'>
+                        <Link to={"/memberProfile"} className='btn btn-primary btn-sm ' >Back</Link>
                     </div>
                 </div>
-            </div>
+
+                {showFullScreenImage &&
+                    <FullScreenImage
+                        image={blog?.image}
+                        id={blog?.id}
+                    />}
+            </section>
         </div>
     );
 };
 
 export default MemberBlogDetails;
-
-

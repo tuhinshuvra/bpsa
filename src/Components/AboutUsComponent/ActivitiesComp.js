@@ -10,7 +10,7 @@ import { activitiesData } from "../../assets/Data/activitiesData";
 
 const ActivitiesComp = () => {
   return (
-    <div className="bg-main py-20 text-white ">
+    <div className="bg-main  py-4  my-5 text-white rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Our "
@@ -22,7 +22,7 @@ const ActivitiesComp = () => {
             {activitiesData &&
               activitiesData?.slice(0, 3)?.map((item, index) => {
                 return (
-                  <Accordion className="py-3" key={index}>
+                  <Accordion className="py-2" key={index}>
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>{item?.title}</Accordion.Header>
                       <Accordion.Body>
@@ -42,7 +42,7 @@ const ActivitiesComp = () => {
             {activitiesData &&
               activitiesData?.slice(3)?.map((item, index) => {
                 return (
-                  <Accordion className="py-3" key={index}>
+                  <Accordion className="py-2" key={index}>
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>{item?.title}</Accordion.Header>
                       <Accordion.Body>

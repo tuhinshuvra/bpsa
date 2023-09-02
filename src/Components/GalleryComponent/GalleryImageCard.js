@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import ImageComponent from "../Common/ImageComponent";
 import Styles from "./GalleryComponent.module.css";
 import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
 import ImagePreview from "../Common/ImagePreview";
+import DummyImg from "../../../src/assets/Image/Gallery/dummyImg.jpeg";
+import "react-image-lightbox/style.css";
 
 // const images = [
 //   "//placekitten.com/1500/500",
@@ -29,11 +30,23 @@ const GalleryImageCard = ({ item, images, index }) => {
         }}
         className={`relative ${Styles.container}`}
       >
-        <ImageComponent
-          onClick={() => setIsOpen(true)}
-          image={item?.image}
-          className={`w-full h-[200px] object-cover block mx-auto rounded-md mb-3 ${Styles.image}`}
-        />
+        {item?.image ? <>
+          <ImageComponent
+            onClick={() => setIsOpen(true)}
+            image={item?.image}
+            className={`  h-[200px]   block mx-auto  mb-2  ${Styles.gallaryImg}`}
+          />
+        </>
+          :
+          <>
+            <ImageComponent
+              onClick={() => setIsOpen(true)}
+              image={DummyImg}
+              className={`  h-[200px]  block mx-auto  mb-2  ${Styles.gallaryImg}`}
+            />
+          </>
+        }
+
 
         <div className={Styles.middle}>
           <div

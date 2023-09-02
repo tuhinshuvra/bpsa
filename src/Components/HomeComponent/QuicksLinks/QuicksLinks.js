@@ -35,18 +35,17 @@ const QuicksLinks = ({ local, international }) => {
       <HeadingComponent1
         first="Quick "
         second="Links"
-        className="text-main text-center pb-4"
+        className="text-white text-center pb-4"
       />
       <Row>
-        <Col md={7}>
-          <Paper className="p-2">
+        <div className="col-lg-7 mb-3 mb-lg-0">
+          <div className="p-2 bg-[#FFFFFF] rounded-2xl">
             <HeadingComponent1
               second="Local"
-              className="text-main pl-5 text-center py-2"
+              className="text-third pl-5 text-center py-2"
             />
             <Row>
               <Col md={6}>
-                {" "}
                 <ul>
                   {local &&
                     local?.slice(0, 7).map((item, index) => {
@@ -56,7 +55,7 @@ const QuicksLinks = ({ local, international }) => {
                             rel="noreferrer"
                             target="_blank"
                             href={`${item?.link}`}
-                            className="flex items-center space-x-2 text-main py-2 hover:text-second"
+                            className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                           >
                             {/* <BsArrowRight size={24} className="mr-2" /> */}
                             <img src={BDPolice} className="linkLogo" alt="" />
@@ -79,7 +78,7 @@ const QuicksLinks = ({ local, international }) => {
                             rel="noreferrer"
                             target="_blank"
                             href={`${item?.link}`}
-                            className="flex items-center space-x-2 text-main py-2 hover:text-second"
+                            className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                           >
                             {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
                             <img src={BDPolice} className="linkLogo" alt="" />
@@ -91,13 +90,13 @@ const QuicksLinks = ({ local, international }) => {
                 </ul>
               </Col>
             </Row>
-          </Paper>
-        </Col>
-        <Col md={5}>
-          <div className="p-2 bg-[#FFFFFF] rounded-md">
+          </div>
+        </div>
+        <div className="col-lg-5">
+          <div className="p-2 bg-[#FFFFFF] rounded-2xl">
             <HeadingComponent1
               second="International"
-              className="text-main pl-5 text-center py-2"
+              className="text-third pl-5 text-center py-2"
             />
             <ul>
               {international &&
@@ -108,7 +107,7 @@ const QuicksLinks = ({ local, international }) => {
                         rel="noreferrer"
                         target="_blank"
                         href={`${item?.link}`}
-                        className="flex items-center space-x-2 text-main py-2 hover:text-second"
+                        className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                       >
                         {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
                         <img src={BDPolice} className="linkLogo" alt="" />
@@ -119,7 +118,7 @@ const QuicksLinks = ({ local, international }) => {
                 })}
             </ul>
           </div>
-        </Col>
+        </div>
       </Row>
     </Container>
   );

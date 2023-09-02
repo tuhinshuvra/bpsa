@@ -80,6 +80,8 @@ const Navbar = () => {
     })
   }
 
+
+
   return (
     <div style={{ zIndex: 999 }} className="sticky top-0">
       <div className="hidden md:block">
@@ -94,6 +96,7 @@ const Navbar = () => {
               window.scrollTo(0, 0);
               navigate("/");
             }}
+
             className="cursor-pointer"
           >
             <ImageComponent
@@ -215,7 +218,7 @@ const Navbar = () => {
                   {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
                   <li><Link className=" navDropdownbtn    py-1    w-full d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
                   <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
-                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />All Blog  </Link></li>
+                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
                   {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                   <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
                   {user.role == "admin" &&
@@ -239,10 +242,8 @@ const Navbar = () => {
             :
             <>
               <div
-                onClick={() => {
-                  navigate("/login");
-                }}
-                className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 cursor-pointer"
+                onClick={() => { navigate("/login"); }}
+                className={`d-flex bg-second tracking-[1px] rounded-md items-center text-white px-3 py-2 cursor-pointer `}
               >
                 <UsersIcon size={24} className="mr-2" />
                 <ButtonComponent title="Login" className="" />
@@ -287,10 +288,9 @@ const Navbar = () => {
               </Link>
 
               <ul className="dropdown-menu navDropdownMenu">
-                {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
                 <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
                 <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
-                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />All Blog  </Link></li>
+                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
                 {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                 <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
                 {user.role == "admin" &&
@@ -317,10 +317,11 @@ const Navbar = () => {
               onClick={() => {
                 navigate("/login");
               }}
-              className="flex bg-second tracking-[1px] items-center text-white rounded-md px-3 py-2 cursor-pointer"
+              // className="flex bg-main   items-center text-white rounded-full px-1  py-1 cursor-pointer border-2 mb-3 loginBtn"
+              className="loginBtn"
             >
-              <UsersIcon size={24} className="mr-2" />
-              <ButtonComponent title="Login" className="" />
+              {/* <UsersIcon size={24} className="mr-1" /> */}
+              <ButtonComponent title="Login" className=" loginText " />
             </div>
           </>}
 

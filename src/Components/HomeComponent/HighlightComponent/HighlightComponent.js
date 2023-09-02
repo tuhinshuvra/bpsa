@@ -10,12 +10,12 @@ import { Link, useNavigate } from "react-router-dom";
 const HighlightComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-bgColor py-4">
+    <div className=" bg-gray-500/40  my-5 py-4 rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Activity "
           second="Highlights"
-          className="text-main pb-4 text-center"
+          className="text-white pb-4 text-center"
         />
         <Row>
           <Col md={6}>
@@ -45,13 +45,11 @@ const HighlightComponent = ({ data }) => {
                 </div>
               </div>
 
-              <h6 className="text-main font-semibold text-lg">
+              <h6 className="text-black font-semibold text-lg">
                 {data[0]?.Heading}
               </h6>
               <div
-                dangerouslySetInnerHTML={{
-                  __html: data[0]?.Sub_Heading,
-                }}
+                dangerouslySetInnerHTML={{ __html: data[0]?.Sub_Heading, }}
                 className="text-sm"
               ></div>
 
@@ -84,21 +82,19 @@ const HighlightComponent = ({ data }) => {
                         />
                         <div className="absolute bottom-0 left-2">
                           <p className="bg-main/80 flex items-center text-white p-1 w-fit rounded-md font-semibold text-[12px]">
-                            {" "}
-                            <TimeIcon className="mr-1" size={18} />{" "}
+                            <TimeIcon className="mr-1" size={18} />
                             {moment(item?.Pub_Date).format("ll")}
                           </p>
                         </div>
                         <div className="absolute top-2 right-2">
                           <span className="bg-second text-white px-2 py-1 w-fit rounded-md text-sm text-center">
-                            {" "}
                             {item?.Category}
                           </span>
                         </div>
                       </div>
                     </Col>
                     <Col md={7}>
-                      {" "}
+
                       <div
                         onClick={() => {
                           navigate(`/news/${item?.id}`);
@@ -127,7 +123,7 @@ const HighlightComponent = ({ data }) => {
                     </Col>
                   </Row>
                 );
-              })}{" "}
+              })}
           </Col>
         </Row>
       </Container>

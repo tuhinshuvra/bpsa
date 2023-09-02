@@ -6,12 +6,12 @@ import HeadingComponent1 from "../Common/HeadingComponent1";
 
 const ObjectivesComponent = () => {
   return (
-    <div className="py-5 bg-bgColor">
+    <div className="py-4 bg-main/50 rounded-2xl">
       <Container>
         <HeadingComponent1
           first="Goals and "
           second="Objectives"
-          className="text-center pb-3 text-main"
+          className="text-center pb-3 text-white"
         />
         <Row>
           {objectiveData &&
@@ -22,9 +22,9 @@ const ObjectivesComponent = () => {
                     <img
                       src={img1}
                       alt=""
-                      className="h-[250px] w-full object-cover rounded-md"
+                      className="h-[250px] w-full object-cover rounded-lg"
                     />
-                    <div className="absolute bg-main/80 rounded-md top-0 h-[250px] p-4 text-white">
+                    <div className="absolute  bg-fifth/80 rounded-md top-0 h-[250px] p-4 text-white">
                       <p className="text-center text-xl flex items-center justify-center relative top-[50%] translate-y-[-50%] ">
                         {item?.title}
                       </p>

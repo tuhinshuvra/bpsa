@@ -1,142 +1,76 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FbIcon, LinkedInIcon, TwitterIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
+import { BsTwitter, BsYoutube } from 'react-icons/bs';
+import { SiYoutubemusic } from 'react-icons/si';
+import { AiFillTwitterCircle } from 'react-icons/ai';
+import { FaFacebook } from 'react-icons/fa';
+import Logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
 import ImageComponent from "../Common/ImageComponent";
+import './Footer.css';
 
 const Footer = () => {
   return (
-    <div className="bg-main text-white py-4">
-      <Container>
-        <Row className="space-y-3">
-          <Col className="space-y-4" md={3}>
-            <ImageComponent
-              image={logo}
-              className="w-[70px]  object-contain block mx-auto"
-            />
-            <h4>Bangladesh Police Service Association </h4>
+    <footer className="bg-third/80 pt-3   footerArea">
+      <div className="container d-lg-flex mt-3">
+        <div className="col-12 col-lg-3  d-flex  flex-column justify-content-center align-items-center">
+          <div className='d-flex justify-content-center'>
+            <Link to="/"> <img className='footer_logo' src={Logo} alt="" /></Link>
+          </div>
+          <p className="text-center fw-bold mt-2 text-white">Bangladesh Police Service Association</p>
+        </div>
 
-            <div className="flex items-center">
-              <p className="mt-3">Follow Us:</p>{" "}
-              <a
-                href="https://www.facebook.com/bdpolsa"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {" "}
-                <FbIcon size={24} className=" text-white" />
-              </a>
-              {/* <LinkedInIcon size={24} className="mx-4 text-white" />
-              <TwitterIcon size={24} className=" text-white" /> */}
-            </div>
-          </Col>
-          <Col md={3}>
-            <ul className="space-y-3 m-0 p-0">
-              <p className="font-semibold text-lg">Resources</p>
-              <li>
-                {" "}
-                <Link className="text-white" to="/about">
-                  About us
-                </Link>
-              </li>
-              {/* <li>
-                <Link className="text-white" to="/message">
-                  Message
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link className="text-white" to="/executive-board">
-                  Executive Board
-                </Link>
-              </li> */}
-              <li>
-                <Link className="text-white" to="/committee">
-                  Committee
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-white" to="/news">
-                  News
-                </Link>
-              </li>
-              <li>
-                <Link className="text-white" to="/gallery">
-                  Gallery
-                </Link>
-              </li>
+        <div className="col-12 col-lg-9 d-lg-flex" >
+          <div className="col-lg-6  ">
+            <h5 className='text-center fw-bold text-sixth '>Hot Link</h5>
+            <ul className="nav flex-column">
+              <li className="mb-1 text-center"><Link to="https://pmo.gov.bd" className="  footer_btn fw-bold" target="_blank">The Prime Minister's Office</Link></li>
+              <li className="mb-1 text-center"><Link to="https://www.police.gov.bd" className="  footer_btn fw-bold" target="_blank">Bangldesh Plice</Link></li>
+              <li className="mb-1 text-center"><Link to="https://dmp.gov.bd/" className="  footer_btn fw-bold" target="_blank">Dhaka Metropolitan Police</Link></li>
+              <li className="mb-1 text-center"><Link to="https://www.rab.gov.bd/" className="  footer_btn fw-bold" target="_blank">Rapid Action Battalion (RAB)</Link></li>
+              <li className="mb-1 text-center"><Link to="https://www.cid.gov.bd/" className="  footer_btn fw-bold" target="_blank">Criminal Investigation Department(CID)</Link></li>
             </ul>
-          </Col>
-          <Col md={3}>
-            {/* <ul className="space-y-3 m-0 p-0">
-              <p className="font-semibold text-lg"> Important Links</p>
-              <li>
-                {" "}
-                <Link className="text-white" to="/about">
-                  Bangladesh Police
-                </Link>
-              </li>
-              <li>
-                <Link className="text-white" to="/message">
-                  BP Association
-                </Link>
-              </li>
-              <li>
-                <Link className="text-white" to="/executive-board">
-                  DMP
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Link className="text-white" to="/notice">
-                  RAB
-                </Link>
-              </li>
-              <li>
-                <Link className="text-white" to="/news">
-                  BD Army
-                </Link>
-              </li>
-            </ul> */}
-          </Col>
-          <Col md={3}>
-            <p className="font-semibold text-lg"> Contact</p>
-            <p> Email: bpsa2020@gmail.com</p>
-            <p> Phone: +880248320808 </p>
-            <p>
-              Room No-606 (5th Floor) Dhaka Metropolitan Police Headquarters 36
-              Sohid Captain Monsur Ali Soroni, Dhaka-1000
-            </p>
-          </Col>
-        </Row>
-        <hr />
-        <div className="flex items-center justify-center flex-wrap-reverse">
-          <div className="text-sm text-center">
-            <p className="m-0 pb-2">
-              Copyright © {new Date().getFullYear()} All rights reserved.
-              Bangladesh Police Service Association
-            </p>
-            <p>
-              Design and Developed By :
-              <a
-                className="text-white ml-1"
-                href="https://www.techsimpleict.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                TechSimple ICT
-              </a>{" "}
+          </div>
+
+          <div className="col-lg-6  text-center   mb-3 my-lg-0 my-3">
+            <h5 className=' text-center fw-bold text-sixth'>Contact</h5>
+            <p className=" my-0 text-white" > <b> Email: </b> bpsa2020@gmail.com</p>
+            <p className=" my-0 text-white"> <b> Phone:</b> +880248320808 </p>
+            <p className=" mt-2 text-white">
+              Room No-606 (5th Floor) <br />
+              Dhaka Metropolitan Police Headquarters, <br />
+              36 Sohid Captain Monsur Ali Soroni, Dhaka-1000
             </p>
           </div>
 
-          {/* <p className="text-sm">
-            PRIVACY POLICY | SOCIAL MEDIA POLICY | COPYRIGHT | FAQ | TERMS OF
-            USE
-          </p> */}
         </div>
-      </Container>
-    </div>
+      </div>
+
+      <hr className="text-white" />
+
+      <div className=" d-flex justify-content-center my-1">
+        <div className="d-flex gap-1 ">
+          <a className="text-decoration-none text-white fs-4" href="https://www.facebook.com/bdpolsa" target="_blank" rel="noreferrer">  <FaFacebook></FaFacebook> </a>
+          <a className="text-decoration-none text-white fs-4" href="https://www.youtube.com/@bangladeshpoliceofficialch1871" target="_blank" rel="noreferrer">   <SiYoutubemusic></SiYoutubemusic></a>
+          <a className="text-decoration-none text-white fs-4" href="https://twitter.com/bd_police?lang=en" target="_blank" rel="noreferrer">   <AiFillTwitterCircle></AiFillTwitterCircle></a>
+        </div>
+      </div>
+
+      <div>
+        <p className='text-center mb-lg-0 pb-lg-1 pb-3  text-white'>
+          Copyright © {new Date().getFullYear()} All rights reserved. Bangladesh Police Service Association <br />
+          Design and Developed By :
+          <a
+            className="text-white ml-1"
+            href="https://www.techsimpleict.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            TechSimple ICT
+          </a>
+        </p>
+      </div>
+    </footer >
   );
 };
 

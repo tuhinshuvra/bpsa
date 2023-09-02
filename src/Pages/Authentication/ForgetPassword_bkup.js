@@ -6,9 +6,9 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import './Login.css';
 
-const ForgetPassword = () => {
-
+const ForgetPassword_bkup = () => {
     useTitle("passwordReset");
+
     const [enableOtp, setEnableOtp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
@@ -150,8 +150,8 @@ const ForgetPassword = () => {
 
                     {
                         otpData && <div>
-                                <TextField label="set otp" name="otpMatch" id="otpMatch" type="text" margin="normal" fullWidth /><br/> 
-                                  
+                            <TextField label="set otp" name="otpMatch" id="otpMatch" type="text" margin="normal" fullWidth /><br />
+
                         </div>
                     }
 
@@ -182,4 +182,4 @@ const ForgetPassword = () => {
     );
 };
 
-export default ForgetPassword;
+export default ForgetPassword_bkup;

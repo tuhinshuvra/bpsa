@@ -38,3 +38,11 @@
   width: 100%;
   font-size: 14px;
 }
+
+.gallaryImg {
+  background-color: rgb(90, 117, 222);
+  border: 1px solid orange;
+  padding: 10px;
+  border-radius: 15px;
+
+}

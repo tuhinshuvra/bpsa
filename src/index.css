@@ -1,13 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"); */
 
 * {
   padding: 0;
   margin: 0;
-  font-family: "Noto Sans Bengali", sans-serif;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Noto Sans Bengali", sans-serif; */
+  /* font-family: "Roboto", sans-serif; */
 }
 
 a {
@@ -57,6 +57,13 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   text-transform: none;
   font-variant: initial;
   line-height: 1;
+
+
+  background-color: #d1cece;
+  color: darkgreen;
+  height: 45px;
+  border-radius: 50%;
+  padding: 10px 22px 0px 10px;
 }
 
 .swiper-button-prev::after {
@@ -67,6 +74,33 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   text-transform: none;
   font-variant: initial;
   line-height: 1;
+
+
+
+  /* content: 'prev'; */
+  background-color: #d1cece;
+  color: darkgreen;
+  height: 45px;
+  border-radius: 50%;
+  padding: 10px 22px 0px 10px;
+}
+
+
+@font-face {
+  font-family: 'TimesNewRoman';
+  src: url('../public/fonts/TimesNewRoman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+  font-family: 'SolaimanLipi';
+  src: url('../public/fonts/SolaimanLipi.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'TimesNewRoman', sans-serif;
+  font-family: 'SolaimanLipi', sans-serif;
 }
 
 

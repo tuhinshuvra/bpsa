@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import './Login.css';
+import { Toast } from 'bootstrap';
 
 const SignupPage = () => {
     useTitle("SignUp");
@@ -21,8 +22,6 @@ const SignupPage = () => {
     const [userPhone, setUserPhone] = useState('');
     const [otpData, setOtpData] = useState('');
     const [userEnteredOTP, setUserEnteredOTP] = useState('');
-
-
     const [unique_id, setUniqueId] = useState("");
     const [name, setName] = useState("");
     const [year, setYear] = useState("");
@@ -60,7 +59,7 @@ const SignupPage = () => {
     const startCountdown = () => {
 
         // Set the countdown time to 5 minutes (300 seconds)
-        setTimeLeft(100);
+        setTimeLeft(300);
         setIsCounting(true);
 
     };
@@ -77,9 +76,9 @@ const SignupPage = () => {
     const navigate = useNavigate();
 
 
-    const checkPasswordMatch = (password, retypePassword) => {
-        return password === retypePassword;
-    };
+    // const checkPasswordMatch = (password, retypePassword) => {
+    //     return password === retypePassword;
+    // };
 
 
     // this function is used to veriry unique id
@@ -90,8 +89,8 @@ const SignupPage = () => {
         //     console.error("Form element not found");
         //     return;
         // }
-        const unique_id = form.unique_id.value;
-        const birth_year = form.birth_year.value;
+        const unique_id = form?.unique_id?.value;
+        const birth_year = form?.birth_year?.value;
 
         // const verifyData = {
         //     unique_id: unique_id,
@@ -114,6 +113,7 @@ const SignupPage = () => {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
                     console.log(data);
+
                     form.reset();
 
 
@@ -154,14 +154,18 @@ const SignupPage = () => {
     const handleVerifyOTP = (event) => {
         event.preventDefault();
         if (userEnteredOTP == otpData) {
+
+            toast.success("OTP Verified successfully!")
             console.log('OTP Verified successfully!');
             setOtpVerified(true);
-            setOTPCheckOne(false);
-            setOtpData("")
         } else {
             console.log('Invalid OTP');
+            toast.error("Invalid OTP");
+            toast.success('OTP Verified successfully!');
+            setOTPCheckOne(false);
+            setOtpData("")
         }
-    };
+    }
 
 
     // this function is used to post sign up data
@@ -175,15 +179,18 @@ const SignupPage = () => {
         const email = form.user_name.value;
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
-
-
-        if (!checkPasswordMatch(password, confirmPassword)) {
-            toast.error("password are not matched");
+        if (password !== confirmPassword) {
+            toast.error("password are not match")
             setPasswordsMatch(false);
+
             return;
         }
 
+
+
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[1234567890])[A-Za-z\d@$!%*?&]{8,}$/;
+
+
         const isPasswordValid = passwordPattern.test(password);
 
         if (!isPasswordValid) {
@@ -347,7 +354,7 @@ const SignupPage = () => {
                     {
                         OTPCheckOne && <div className='text-center my-3'>
                             {
-                                <button onClick={(e)=>handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
+                                <button onClick={(e) => handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
                             }
                         </div>
                     }
