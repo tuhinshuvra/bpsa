@@ -121,7 +121,7 @@ const AdminsBlogDetails = () => {
 
                         <div className=' col-lg-7'>
                             {/* <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p> */}
-                            <p className='' dangerouslySetInnerHTML={{ __html: blog?.description }} />
+                            <small className='' dangerouslySetInnerHTML={{ __html: blog?.description }} />
                         </div>
                     </div>
 

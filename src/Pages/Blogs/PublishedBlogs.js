@@ -104,6 +104,9 @@ const PublishedBlogs = () => {
                                                 </div>
                                             }
 
+                                            <small className="my-0" dangerouslySetInnerHTML={{
+                                                __html: `${blog?.description.slice(0, 180)} <a href="/publishedBlogDetail/${blog.id}">...details</a>`
+                                            }}></small>
 
                                             {/* <p>{blog.summery}</p> */}
                                             <div className=' my-0  d-flex items-center'>
