@@ -62,10 +62,10 @@ const PublishBLogDetails = () => {
                     <nav aria-label="" className="bg-light rounded-3 p-2  ">
                         <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
                     </nav>
-                    <div className=' d-flex   items-center mt-1'>
-                        <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
-                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
-                    </div>
+                    <small className=' d-flex   items-center mt-1'>
+                        <p className=' d-flex'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                    </small>
                     <p>{blog?.summery}</p>
 
                     <div className='d-lg-flex justify-content-between gap-2'>
@@ -75,7 +75,6 @@ const PublishBLogDetails = () => {
                             }
                         </div>
                         <div className=' col-lg-7'>
-                            {/* <p className=''>{blog?.description && blog?.description.slice(0, 1200)}</p> */}
                             {blog?.description &&
                                 <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 1500)}` }}></p>
                             }
