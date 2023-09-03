@@ -10,6 +10,48 @@ import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import './BlogListShow.css';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
+import BlogDetailsComponent from './BlogDetailsComponent';
+
+// Utility function to strip HTML tags from a string
+function stripHTMLTags(htmlString) {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = htmlString;
+    return tempElement.textContent || '';
+}
+
+// Utility function to slice the text differently based on language
+function sliceTextWithMaxLength(text, maxLength) {
+    const regexBengali = /^[\u0980-\u09FF\s]+$/;
+    const regexEnglish = /^[A-Za-z\s]+$/;
+
+    let slicedText = '';
+    let charCount = 0;
+
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+
+        if (char.match(regexBengali)) {
+            if (charCount < 199960) {
+                slicedText += char;
+                charCount++;
+            }
+        } else if (char.match(regexEnglish)) {
+            if (charCount < 199950) {
+                slicedText += char;
+                charCount++;
+            }
+        } else {
+            // Other characters (e.g., HTML tags), add them without counting towards charCount
+            slicedText += char;
+        }
+
+        if (charCount === maxLength) {
+            break;
+        }
+    }
+
+    return slicedText;
+}
 
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
@@ -49,11 +91,6 @@ const PublishBLogDetails = () => {
         return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
-    // function formatCustomDate(dateString) {
-    //     const date = new Date(dateString);
-    //     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    //     return `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
-    // }
 
     return (
         <div className=' col-md-10 mx-auto'>
@@ -68,31 +105,8 @@ const PublishBLogDetails = () => {
                     </small>
                     <p>{blog?.summery}</p>
 
-                    <div className='d-lg-flex justify-content-between gap-2'>
-                        <div className='col-lg-5  '>
-                            {blog?.image &&
-                                <img className='  rounded-lg blogDetailsImg' src={blog?.image} alt="blog_image" onClick={handleImageClick} />
-                            }
-                        </div>
-                        <div className=' col-lg-7'>
-                            {blog?.description &&
-                                <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 1500)}` }}></p>
-                            }
-                        </div>
-
-
-                    </div>
-                    {blog?.description &&
-                        <small className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(1500)}` }}></small>
-                    }
-                    <div className=' d-flex justify-content-end'>
-                        <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm ' >Back</Link>
-                    </div>
+                    <BlogDetailsComponent data={blog} />
                 </div>
-                {showFullScreenImage &&
-                    <FullScreenImage
-                        image={blog?.image}
-                    />}
             </section>
         </div>
     );

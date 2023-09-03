@@ -6,7 +6,6 @@ import Loader from '../../Components/Common/Loader';
 import './BlogListShow.css';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 import { ImPrevious, ImNext } from 'react-icons/im';
 
 // Utility function to strip HTML tags from a string
