@@ -98,15 +98,9 @@ const AdminAllBlog = () => {
                                                     <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
                                                 </p> */}
 
-                                                {blog?.description &&
-                                                    <div className=' d-flex'>
-                                                        <div className=' d-flex'>
-                                                            <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 105)}` }}></p>
-                                                            ...
-                                                        </div>
-                                                        <Link className=' fst-italic ' to={`/blog_details/${blog?.id}`}>details</Link>
-                                                    </div>
-                                                }
+                                                <small className="my-0" dangerouslySetInnerHTML={{
+                                                    __html: `${blog?.description.slice(0, 180)} <a href="/blog_details/${blog.id}">...details</a>`
+                                                }}></small>
 
                                                 {/* <p>{blog.summary}</p> */}
 

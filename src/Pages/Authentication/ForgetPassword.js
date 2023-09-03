@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import { MdOutlineLockReset } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
+import { Result } from 'postcss';
 
 const ForgetPassword = () => {
     useTitle("ForgetPassword");
@@ -69,6 +70,7 @@ const ForgetPassword = () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.value === 3) {
                     toast.success("Unique ID Verified Successfully!");
 
