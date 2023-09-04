@@ -53,6 +53,9 @@ const AdminsBlogDetails = () => {
             setInputVisible(false);
         }
     };
+
+    const approveDate = new Date().toISOString();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(blogStatus);
@@ -60,8 +63,11 @@ const AdminsBlogDetails = () => {
         const data = {
             blog_id: id,
             status: blogStatus,
+            approveDate: approveDate,
         }
-        console.log(data)
+
+        console.log("Blog Approved Data : ", data)
+
         await fetch("https://dev.bpsa.com.bd/api/blog-status", {
             method: "POST",
             headers: {
@@ -89,42 +95,43 @@ const AdminsBlogDetails = () => {
                             <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
                         </nav>
 
-                        <div className="col-lg-10 mx-auto">
-                            <small className=' d-flex   items-center mt-1'>
-                                <p className=' d-flex'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
-                                <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                        <div className="">
+                            <small className=' d-flex justify-content-center mt-2'>
+                                <p className=' d-flex  '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                                <p className=' d-flex ms-3'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
                             </small>
-                            <p>{blog?.summery}</p>
                         </div>
-
-                        <BlogDetailsComponent data={blog} />
                     </div>
+                    <div className=' col-lg-8 mx-auto' >
+                        <p>{blog?.summery}</p>
+                        <BlogDetailsComponent data={blog} />
 
-                    <div className='col-lg-10 mx-auto d-flex justify-content-between align-items-baseline mt-0 pt-0 '>
+                        <div className=' d-flex justify-content-between align-items-baseline mt-0 pt-0 '>
 
-                        <Link to={"/adminAllBlog"} className='btn btn-primary btn-sm w-28'>Back</Link>
+                            <Link to={"/adminAllBlog"} className='btn btn-primary btn-sm w-28'>Back</Link>
 
-                        <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
-                            <div>
-                                <select
-                                    id="status"
-                                    value={blogStatus}
-                                    onChange={(e) => handleStatusChange(e.target.value)}
-                                    className='form-select    max-w-xs' >
-                                    <option disabled selected>{blog?.status}</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Ask for Review">Ask for Review</option>
-                                    <option value="Disabled">Disabled</option>
-                                </select>
-                                {isInputVisible && (
-                                    <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
-                                )}
-                            </div>
+                            <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
+                                <div>
+                                    <select
+                                        id="status"
+                                        value={blogStatus}
+                                        onChange={(e) => handleStatusChange(e.target.value)}
+                                        className='form-select    max-w-xs' >
+                                        <option disabled selected>{blog?.status}</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Ask for Review">Ask for Review</option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    {isInputVisible && (
+                                        <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
+                                    )}
+                                </div>
 
-                            <div>
-                                <button className='btn btn-primary btn-sm w-36 ms-1' type="submit">update status</button>
-                            </div>
-                        </form>
+                                <div>
+                                    <button className='btn btn-primary btn-sm w-36 ms-1' type="submit">update status</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>

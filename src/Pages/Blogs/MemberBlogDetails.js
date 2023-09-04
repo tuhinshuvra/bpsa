@@ -54,20 +54,23 @@ const MemberBlogDetails = () => {
                             <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
                         </nav>
 
-                        <div className="col-lg-10 mx-auto">
-                            <small className=' d-flex   items-center mt-1'>
-                                <p className=' d-flex'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
-                                <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                        <div className="">
+                            <small className=' d-flex justify-content-center  mt-2'>
+                                <p className=' d-flex'> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                                <p className=' d-flex ms-3'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
                             </small>
-                            <p>{blog?.summery}</p>
                         </div>
 
-                        <BlogDetailsComponent data={blog} />
+                        <div className=' col-lg-8 mx-auto'>
+                            <p>{blog?.summery}</p>
+                            <BlogDetailsComponent data={blog} />
+                            <div className=' d-flex justify-content-end'>
+                                <Link to={"/memberProfile"} className='btn btn-primary btn-sm w-28'>Back</Link>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div className=' d-flex justify-content-end'>
-                        <Link to={"/memberProfile"} className='btn btn-primary btn-sm w-28'>Back</Link>
-                    </div>
                 </div>
             </section>
         </div>

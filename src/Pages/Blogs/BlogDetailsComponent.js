@@ -11,8 +11,8 @@ const BlogDetailsComponent = ({ data }) => {
 
   // console.log(" BlogDetailsPage", data);
   return (
-    <div className="col-10 mx-auto">
-      <div className=" col-lg-8 ">
+    <div className="">
+      <div className=" ">
         {(data?.image && data?.image !== 'link') && <>
 
           <img
