@@ -99,11 +99,14 @@ const PublishBLogDetails = () => {
                     <nav aria-label="" className="bg-light rounded-3 p-2  ">
                         <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
                     </nav>
-                    <small className=' d-flex   items-center mt-1'>
-                        <p className=' d-flex'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
-                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
-                    </small>
-                    <p>{blog?.summery}</p>
+
+                    <div className="col-lg-10 mx-auto">
+                        <small className=' d-flex   items-center mt-1'>
+                            <p className=' d-flex'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                            <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                        </small>
+                        <p>{blog?.summery}</p>
+                    </div>
 
                     <BlogDetailsComponent data={blog} />
                 </div>

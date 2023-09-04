@@ -8,7 +8,7 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import FullScreenImage from './FullScreenImage/FullScreenImage';
+import BlogDetailsComponent from './BlogDetailsComponent';
 import './BlogDetails.css';
 
 const MemberBlogDetails = () => {
@@ -19,13 +19,6 @@ const MemberBlogDetails = () => {
     const { id } = useParams();
     const { user } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
-    const [showFullScreenImage, setShowFullScreenImage] = useState(false);
-    const navigate = useNavigate();
-
-    const handleImageClick = () => {
-        setShowFullScreenImage(true);
-    };
-
 
     useEffect(() => {
         fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
@@ -51,56 +44,35 @@ const MemberBlogDetails = () => {
         console.log(blog?.summery);
     }
 
-
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
-
     return (
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
-                <div className="container pt-3 pb-3 ">
-                    <nav aria-label="" className="bg-light rounded-3 p-2  ">
-                        <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
-                    </nav>
-                    <div className='flex   items-center mt-1'>
-                        <p className=' d-flex'>  <FaUserAlt className=' fs-5 mx-1'></FaUserAlt>   {blog?.memberName}</p>
-                        <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-5 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
-                    </div>
-                    <p>{blog?.summery}</p>
+                <div className="container py-3 ">
+                    <div className="mb-0 pb-0">
+                        <nav aria-label="" className="bg-light rounded-3 p-2  ">
+                            <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
+                        </nav>
 
-                    <div className='d-lg-flex justify-content-between gap-2'>
-                        <div className='col-lg-5'>
-                            {blog?.image &&
-                                <img className='mx-auto rounded-lg blogDetailsImg' src={blog?.image} alt="blog_image" onClick={handleImageClick} />
-                            }
+                        <div className="col-lg-10 mx-auto">
+                            <small className=' d-flex   items-center mt-1'>
+                                <p className=' d-flex'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
+                                <p className=' d-flex ms-2 '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                            </small>
+                            <p>{blog?.summery}</p>
                         </div>
 
-                        <div className=' col-lg-7'>
-                            {blog?.description &&
-                                <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(0, 1500)}` }}></p>
-                            }
-                        </div>
-
-                        <p />
+                        <BlogDetailsComponent data={blog} />
                     </div>
-                    {blog?.description &&
-                        <p className="my-0" dangerouslySetInnerHTML={{ __html: `${blog?.description.slice(1500)}` }}></p>
-                    }
-
 
                     <div className=' d-flex justify-content-end'>
-                        <Link to={"/memberProfile"} className='btn btn-primary btn-sm ' >Back</Link>
+                        <Link to={"/memberProfile"} className='btn btn-primary btn-sm w-28'>Back</Link>
                     </div>
                 </div>
-
-                {showFullScreenImage &&
-                    <FullScreenImage
-                        image={blog?.image}
-                        id={blog?.id}
-                    />}
             </section>
         </div>
     );
