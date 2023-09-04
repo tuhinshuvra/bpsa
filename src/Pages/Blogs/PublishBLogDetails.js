@@ -107,6 +107,9 @@ const PublishBLogDetails = () => {
 
                     <BlogDetailsComponent data={blog} />
                 </div>
+                <div className=' d-flex justify-content-end me-3 pb-2'>
+                    <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm w-28'>Back</Link>
+                </div>
             </section>
         </div>
     );

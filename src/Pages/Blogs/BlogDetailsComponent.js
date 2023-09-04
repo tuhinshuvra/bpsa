@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ImageComponent from "../../Components/Common/ImageComponent";
 import { Link } from "react-router-dom";
 import FullScreenImage from "./FullScreenImage/FullScreenImage";
 
@@ -24,10 +23,6 @@ const BlogDetailsComponent = ({ data }) => {
           />
         </>}
         <p dangerouslySetInnerHTML={{ __html: data?.description }} className="text-justify" />
-      </div>
-
-      <div className=' d-flex justify-content-end'>
-        <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm'>Back</Link>
       </div>
 
       {showFullScreenImage &&
