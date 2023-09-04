@@ -12,7 +12,7 @@ const FullScreenImage = ({ image }) => {
 
     return (
         <div className="fullscreen-image-container">
-            <button className="close-button" onClick={handleClose}>
+            <button className="close-button btn btn-outline-primary" onClick={handleClose}>
                 Close
             </button>
             <img src={image} className="fullscreen-image" alt="blog_image" />
