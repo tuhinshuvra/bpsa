@@ -61,11 +61,10 @@ const AdminsBlogDetails = () => {
     };
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(blogStatus);
-        console.log(blog.user_id);
         const data = {
             blog_id: id,
             status: blogStatus,
+            massege:event.target.message.value,
         }
         console.log(data)
         await fetch("https://dev.bpsa.com.bd/api/blog-status", {

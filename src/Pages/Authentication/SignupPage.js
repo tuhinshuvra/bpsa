@@ -19,7 +19,7 @@ const SignupPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [remainingTime, setRemainingTime] = useState(5 * 60);
     const [userFullName, setUserFullName] = useState('');
-    const [userPhone, setUserPhone] = useState('');
+    const [phone,setPhone]=useState('');
     const [otpData, setOtpData] = useState('');
     const [userEnteredOTP, setUserEnteredOTP] = useState('');
     const [unique_id, setUniqueId] = useState("");
@@ -123,7 +123,7 @@ const SignupPage = () => {
                     startCountdown();
                     setOtpData(data.otp)
                     setUserFullName(data.name)
-                    setUserPhone(data.phone)
+                    setPhone(data.phone)
                 }
                 else if (data.value === 2) {
                     console.log(data);
@@ -213,6 +213,8 @@ const SignupPage = () => {
             password: password,
             password_confirmation: confirmPassword,
             UniqueID: uniqueId,
+            year:year,
+            phone:phone,
         }
         console.log("userData : ", userData);
 
