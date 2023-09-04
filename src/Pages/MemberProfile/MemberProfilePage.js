@@ -7,7 +7,8 @@ import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
+// import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
+import { ImPrevious, ImNext } from 'react-icons/im';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
 
@@ -286,15 +287,14 @@ const MemberProfilePage = () => {
                                         {(blog?.image && blog?.image !== 'link') ?
                                             <>
                                                 <small className="my-0" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 115)}... <a href="/blogDetails/${blog.id}">details</a>`
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 145)}... <a href="/blogDetails/${blog.id}">details</a>`
                                                 }}></small>
-                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
                                             </>
 
                                             :
                                             <>
                                                 <small className="my-0" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}... <a href="/blogDetails/${blog.id}">details</a>`
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 150)}... <a href="/blogDetails/${blog.id}">details</a>`
                                                 }}></small>
                                             </>
                                         }
@@ -313,25 +313,25 @@ const MemberProfilePage = () => {
 
                     {/* pagination start */}
                     {totalApprovedBlogs > 5 &&
-                        <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
+                        <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                             <button
-                                className=" btn btn-primary btn-sm  mx-1"
+                                className=" btn    mx-1"
                                 onClick={() => handlePageChange(currentPage - 1)}
                                 disabled={currentPage === 1}
                             >
                                 {/* Previous */}
-                                <GrLinkPrevious className=' text-white fw-bold' />
+                                <ImPrevious className=' fs-3 text-main fw-bold' />
                             </button>
-                            <span className="pagination-info text-success fw-bold mx-2">
+                            <span className="pagination-info text-black fw-bold mx-2">
                                 Page {currentPage} of {totalApprovedBlogPages}, Total blog = {totalApprovedBlogs}
                             </span>
                             <button
-                                className=" btn btn-primary btn-sm mx-1"
+                                className=" btn   mx-1"
                                 onClick={() => handlePageChange(currentPage + 1)}
                                 disabled={currentPage === totalApprovedBlogPages}
                             >
                                 {/* Next */}
-                                <GrLinkNext className=' fw-bold text-white' />
+                                <ImNext className=' fs-3 fw-bold text-main' />
                             </button>
                         </div>
                     }
@@ -356,39 +356,66 @@ const MemberProfilePage = () => {
                                         <img src={blog?.image} className="adminBlogListImg rounded-lg" alt="..." />
                                     </div>
                                 )}
-                                <div className="col-md-10 d-flex justify-content-between">
-                                    <div className=" card-body">
-                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
 
-                                        {(blog?.image && blog?.image !== 'link') ?
-                                            <>
-                                                <small className="my-0" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 115)}... <a href="/blogDetails/${blog.id}">details</a>`
-                                                }}></small>
-                                                <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link>
-                                            </>
+                                {(blog?.image && blog?.image !== 'link') ?
+                                    <>
+                                        <div className="col-md-10 d-md-flex justify-content-between">
+                                            <div className=" card-body">
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title}</Link>
 
-                                            :
-                                            <>
-                                                <small className="my-0" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}... <a href="/blogDetails/${blog.id}">details</a>`
-                                                }}></small>
-                                            </>
-                                        }
+                                                <div className="my-0 small" dangerouslySetInnerHTML={{
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}
+                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                }}>
+                                                </div>
 
-                                        <div className='d-flex my-0'>
-                                            <div className='my-0 d-flex justify-content-between'>
-                                                <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
-                                                <small className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</small>
+                                                <div className='d-flex my-0'>
+                                                    <div className='my-0 d-flex justify-content-between'>
+                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                        <small className='d-flex ms-1'>
+                                                            <BsCalendarDateFill className='fs-5 mx-1'>
+                                                            </BsCalendarDateFill>{formatDate(blog?.created_at)}
+                                                        </small>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div className="my-auto">
+                                                <p className=' fw-bold text-center '>{blog?.status}</p>
+                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="  text-center  my-auto">
-                                        <p className=' fw-bold '>{blog?.status}</p>
-                                        <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 '>Edit</Link>
-                                    </div>
-                                </div>
+                                    </>
+                                    :
+                                    <>
+                                        <div className="col-md-12 d-md-flex justify-content-between">
+                                            <div className=" card-body">
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title}</Link>
 
+                                                <div className="my-0 small" dangerouslySetInnerHTML={{
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 140)}
+                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                }}>
+                                                </div>
+
+                                                <div className='d-flex my-0'>
+                                                    <div className='my-0 d-flex justify-content-between'>
+                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                        <small className='d-flex ms-1'>
+                                                            <BsCalendarDateFill className='fs-5 mx-1'>
+                                                            </BsCalendarDateFill>{formatDate(blog?.created_at)}
+                                                        </small>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div className="my-auto">
+                                                <p className=' fw-bold text-center '>{blog?.status}</p>
+                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                            </div>
+                                        </div>
+                                    </>
+                                }
                             </div>
                         </div>
 
@@ -397,25 +424,23 @@ const MemberProfilePage = () => {
 
                 {/* pagination start */}
                 {totalPendingBlogs > 5 &&
-                    <div className="pagination d-flex justify-content-center align-items-baseline pt-1 pb-4">
+                    <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                         <button
-                            className=" btn btn-primary btn-sm  mx-1"
+                            className="btn mx-1"
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
                         >
-                            {/* Previous */}
-                            <GrLinkPrevious className=' text-white fw-bold' />
+                            <ImPrevious className='fs-3 text-main fw-bold' />
                         </button>
-                        <span className="pagination-info text-success fw-bold mx-2">
+                        <span className="pagination-info text-black fw-bold mx-2">
                             Page {currentPage} of {totalPendingBlogPages}, Total blog = {totalPendingBlogs}
                         </span>
                         <button
-                            className=" btn btn-primary btn-sm mx-1"
+                            className="btn mx-1"
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPendingBlogPages}
                         >
-                            {/* Next */}
-                            <GrLinkNext className=' fw-bold text-white' />
+                            <ImNext className=' fs-3 fw-bold  text-main' />
                         </button>
                     </div>
                 }
