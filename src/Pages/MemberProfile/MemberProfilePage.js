@@ -63,6 +63,8 @@ const MemberProfilePage = () => {
     const [approvedBlogs, setApprovedBlogs] = useState([]);
     const [pendingBlogs, setPendingBlogs] = useState([]);
 
+    console.log("User Data: ", user);
+
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
     // console.log("pendingBlogs :", pendingBlogs);
@@ -71,7 +73,7 @@ const MemberProfilePage = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data.member)
@@ -83,7 +85,7 @@ const MemberProfilePage = () => {
 
     // login member profile data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/profile/${user.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member Profile Data: ", data)
@@ -282,7 +284,7 @@ const MemberProfilePage = () => {
 
                                 <div className="col-md-10">
                                     <div className="card-body">
-                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
+                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title.slice(0, 95)}</Link>
 
                                         {(blog?.image && blog?.image !== 'link') ?
                                             <>
@@ -361,7 +363,7 @@ const MemberProfilePage = () => {
                                     <>
                                         <div className="col-md-10 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
                                                     __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}
@@ -390,7 +392,7 @@ const MemberProfilePage = () => {
                                     <>
                                         <div className="col-md-12 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
                                                     __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 140)}

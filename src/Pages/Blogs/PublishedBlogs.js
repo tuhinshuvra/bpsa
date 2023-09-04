@@ -108,7 +108,7 @@ const PublishedBlogs = () => {
 
                                     <div className="col-md-10">
                                         <div className="card-body">
-                                            <Link className='fs-5 blogDetailsLink' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title}</Link>
+                                            <Link className='fs-5 blogDetailsLink' to={`/publishedBlogDetail/${blog?.id}`}>{blog?.title.slice(0, 95)}</Link>
 
                                             {(blog?.image && blog?.image !== 'link') ?
                                                 <>

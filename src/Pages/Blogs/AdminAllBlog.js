@@ -121,6 +121,7 @@ const AdminAllBlog = () => {
                             </nav>
                         </div>
                     </div>
+
                     <div className=' col-lg-10 mx-auto'>
                         {
                             displayedBlogs.map(blog => (
@@ -132,33 +133,52 @@ const AdminAllBlog = () => {
                                             </div>
                                         )}
 
-                                        <div className="col-md-10">
-                                            <div className="card-body">
-                                                <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title}</Link>
+                                        {(blog?.image && blog?.image !== 'link') ?
+                                            <>
+                                                <div className="col-md-10">
+                                                    <div className="card-body">
+                                                        <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title.slice(0, 95)}</Link>
 
-                                                {(blog?.image && blog?.image !== 'link') ?
-                                                    <>
-                                                        <small className="my-0" dangerouslySetInnerHTML={{
-                                                            __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 115)}... <a href="/blog_details/${blog.id}">details</a>`
-                                                        }}></small>
-                                                    </>
+                                                        <div className="my-0 small" dangerouslySetInnerHTML={{
+                                                            __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}
+                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                        }}>
 
-                                                    :
-                                                    <>
-                                                        <small className="my-0" dangerouslySetInnerHTML={{
-                                                            __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}... <a href="/blog_details/${blog.id}">details</a>`
-                                                        }}></small>
-                                                    </>
-                                                }
+                                                        </div>
 
-                                                <div className='d-flex my-0'>
-                                                    <div className='my-0 d-flex justify-content-between'>
-                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
-                                                        <small className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</small>
+                                                        <div className='d-flex my-0'>
+                                                            <div className='my-0 d-flex justify-content-between'>
+                                                                <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                                <small className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</small>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </>
+                                            :
+                                            <>
+                                                <div className="col-md-12">
+                                                    <div className="card-body">
+                                                        <Link className=' fs-5 blogDetailsLink ' to={`/blog_details/${blog?.id}`}>{blog?.title.slice(0, 95)}</Link>
+
+                                                        <div className="my-0 small" dangerouslySetInnerHTML={{
+                                                            __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 130)}
+                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                        }}>
+
+                                                        </div>
+
+                                                        <div className='d-flex my-0'>
+                                                            <div className='my-0 d-flex justify-content-between'>
+                                                                <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                                <small className='d-flex ms-1'><BsCalendarDateFill className='fs-5 mx-1'></BsCalendarDateFill>{formatDate(blog?.created_at)}</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+
                                     </div>
                                 </div>
                             ))
