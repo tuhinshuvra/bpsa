@@ -6,7 +6,7 @@ import { AllContext } from '../../hooks/ContextData';
 import { isAuth } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 const MemberImageUpload = () => {
-    const { user, setUser, token, setToken, loading, setLoading } = useContext(AllContext);
+    const { user, setUser, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
 
     const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
@@ -18,8 +18,9 @@ const MemberImageUpload = () => {
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data.member)
-                setUserNewData(data.member)
-                setLoading(false)
+                setUserNewData(data.member);
+
+                setLoading(false);
             })
     }, [setLoading, user.UniqueID])
 
@@ -61,6 +62,7 @@ const MemberImageUpload = () => {
                 console.log(createBlogResult);
                 setUser(isAuth());
                 toast.success("member image uploaded successfully");
+                setShowImageUpload(false);
                 navigate("/memberProfile");
             } else {
                 console.log("Error uploading image");
@@ -75,14 +77,17 @@ const MemberImageUpload = () => {
     }
 
     return (
-        <div className='col-4 mx-auto  my-5'>
-            <h1 className='text-center fs-3'>Upload Member Profile Image</h1>
-            <form onSubmit={handleImageUpload} className='text-center my-3' >
-                <input type="file" name="image" className="form-control my-2" id="image" aria-describedby="emailHelp" />
+        <div className=' mx-auto  my-1 '>
+            {/* <p className='text-center fw-bold mb-0'>Upload Member Profile Image</p> */}
+            <form onSubmit={handleImageUpload} className='text-center ' >
+                <input type="file" name="image" className="form-control " id="image" aria-describedby="emailHelp" />
                 <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxLength="100" hidden />
 
-                <div className=' d-flex justify-content-between '>
+                <div className=' d-flex justify-content-between mt-1'>
                     <input className='btn btn-sm btn-primary' type="reset" value="reset" />
+
+                    <input className='btn btn-sm btn-primary w-20' onClick={() => setShowImageUpload(false)} value="Cancel" />
+
                     <input className='btn btn-sm btn-primary' type="submit" value="submit" />
                 </div>
             </form>

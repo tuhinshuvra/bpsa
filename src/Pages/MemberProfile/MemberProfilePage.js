@@ -7,16 +7,17 @@ import { getCookie } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-// import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 import { ImPrevious, ImNext } from 'react-icons/im';
-import './MemberProfilePage.css';
-import '../Blogs/BlogListShow.css';
 import { formatDate } from '../../utlis/dateFormat';
 import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
+import './MemberProfilePage.css';
+import '../Blogs/BlogListShow.css';
+import MemberImageUpload from './MemberImageUpload';
+import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
-    const { user, loading, setLoading } = useContext(AllContext);
+    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
     const [memberData, setMemberData] = useState();
     const [userNewData, setUserNewData] = useState();
     const [approvedBlogs, setApprovedBlogs] = useState([]);
@@ -111,6 +112,14 @@ const MemberProfilePage = () => {
         <Loader></Loader>
     }
 
+    const toggleImageUpload = () => {
+        setShowImageUpload(!showImageUpload);
+    };
+
+    const toggleCoCurricularUpload = () => {
+        setShowCoCurricular(!showCoCurricular);
+    };
+
     return (
         <div className=' col-md-10 mx-auto'>
 
@@ -124,20 +133,29 @@ const MemberProfilePage = () => {
                     <div className="row">
                         <div className="col-lg-4 my-1 my-lg-0">
                             <div className="card  proCard shadow-lg">
-                                <div className="card-body proCardBody">
+                                <div className="card-body proCardBody ">
                                     {userNewData?.image ?
                                         <>
-                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "170px", height: "170px" }} />
+                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "170px", height: "170px" }} />
                                         </>
                                         :
                                         <>
-                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg" style={{ width: "170px" }} />
+                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "170px" }} />
                                         </>
                                     }
 
-                                    <div className='text-center my-0'>
-                                        <Link className='imageUpload' to="/memberImageUpload" >Image Upload</Link>
+                                    <div className='text-center mt-[-8px] '>
+                                        {showImageUpload ? (
+                                            <div>
+                                                <MemberImageUpload />
+                                            </div>
+                                        ) : (
+                                            <button className='imageUpload' onClick={toggleImageUpload}>
+                                                Image Upload
+                                            </button>
+                                        )}
                                     </div>
+
 
                                     <div className=' text-center'>
                                         <h6 className="my-0 fw-bold">{memberData?.nameE}
@@ -147,12 +165,27 @@ const MemberProfilePage = () => {
                                         {userNewData?.CoCurriculumActivities &&
                                             <p className="mt-1 mb-0"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
                                         }
+
+                                        {/* <p className="mt-1 mb-0"> <b>Interest on</b> : Gardening, fishing, play football and cricket </p> */}
+
+                                        {showCoCurricular ? (
+                                            <div>
+                                                <MemberCoCurriculamActivitiesEntry />
+                                            </div>
+                                        ) : (
+                                            <button className='coCurricular' onClick={toggleCoCurricularUpload}>
+                                                {userNewData?.CoCurriculumActivities ? <>Update CoCurricular</> : <>  CoCurricular Upload</>}
+                                            </button>
+                                        )}
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-8">
 
+                        </div>
+
+
+                        <div className="col-lg-8">
                             <div className="row">
                                 <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
@@ -189,11 +222,11 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    {/* <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <div className=' text-center'>
                             <Link className=' text-white btn btn-sm btn-primary ' to="/coCurriculamEntry">Enter/Update Co Curricular Activities</Link>
                         </div>
-                    </div>
+                    </div> */}
 
 
                     {/* membership fee section start */}

@@ -11,7 +11,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
     useTitle("Profile Update");
     const [userNewData, setUserNewData] = useState();
     // console.log("userNewData :", userNewData);
-    const { user, loading, setLoading } = useContext(AllContext);
+    const { user, loading, setLoading, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
 
     const navigate = useNavigate();
 
@@ -69,22 +69,30 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
 
     return (
-        <div className=' container my-4'>
-            <div className=' col-lg-6 col-md-8 mx-auto'>
+        <div className='   '>
+            <div className='  mx-auto'>
 
                 <div className=' d-flex flex-column align-items-center'>
-                    <h2 className=' text-center fs-3'>Co-Curricular Activities Entry</h2>
+                    {/* <h2 className=' text-center fs-3'>Co-Curricular Activities Entry</h2> */}
                 </div>
 
                 <form onSubmit={handleOnSubmit}>
 
                     <div className="form-floating">
-                        <textarea name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here(max 80 character)" id="floatingTextarea" maxlength="80" />
+                        {/* <textarea name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here(max 80 character)" id="floatingTextarea" maxlength="80" /> */}
+                        <textarea
+                            name='CoCurriculumActivities'
+                            className="form-control"
+                            id="floatingTextarea"
+                            maxlength="80"
+                            defaultValue={userNewData?.CoCurriculumActivities}
+                        />
                         <label for="floatingTextarea">Enter Co-Curricular Activities(max 80 character)</label>
                     </div>
 
-                    <div className=' d-flex justify-between mt-3'>
+                    <div className=' d-flex justify-between my-1'>
                         <button type="reset" className="btn btn-warning btn-sm">Reset</button>
+                        <input className='btn btn-sm btn-primary w-20' onClick={() => setShowCoCurricular(false)} value="Cancel" />
                         <button type="submit" className="btn btn-primary btn-sm">Submit</button>
                     </div>
 
