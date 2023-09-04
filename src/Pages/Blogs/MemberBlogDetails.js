@@ -10,6 +10,7 @@ import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import BlogDetailsComponent from './BlogDetailsComponent';
 import './BlogDetails.css';
+import { formatDate } from '../../utlis/dateFormat';
 
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");
@@ -42,11 +43,6 @@ const MemberBlogDetails = () => {
 
     if (blog) {
         console.log(blog?.summery);
-    }
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
     return (

@@ -11,47 +11,7 @@ import { FaUserAlt } from 'react-icons/fa';
 import './BlogListShow.css';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
 import BlogDetailsComponent from './BlogDetailsComponent';
-
-// Utility function to strip HTML tags from a string
-function stripHTMLTags(htmlString) {
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = htmlString;
-    return tempElement.textContent || '';
-}
-
-// Utility function to slice the text differently based on language
-function sliceTextWithMaxLength(text, maxLength) {
-    const regexBengali = /^[\u0980-\u09FF\s]+$/;
-    const regexEnglish = /^[A-Za-z\s]+$/;
-
-    let slicedText = '';
-    let charCount = 0;
-
-    for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-
-        if (char.match(regexBengali)) {
-            if (charCount < 199960) {
-                slicedText += char;
-                charCount++;
-            }
-        } else if (char.match(regexEnglish)) {
-            if (charCount < 199950) {
-                slicedText += char;
-                charCount++;
-            }
-        } else {
-            // Other characters (e.g., HTML tags), add them without counting towards charCount
-            slicedText += char;
-        }
-
-        if (charCount === maxLength) {
-            break;
-        }
-    }
-
-    return slicedText;
-}
+import { formatDate } from '../../utlis/dateFormat';
 
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
@@ -84,12 +44,6 @@ const PublishBLogDetails = () => {
                 console.error("API request error:", error);
             });
     }, []);
-
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
-    }
 
 
     return (

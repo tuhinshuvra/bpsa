@@ -11,49 +11,8 @@ import { FaUserAlt } from 'react-icons/fa';
 import { ImPrevious, ImNext } from 'react-icons/im';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
-
-
-// Utility function to strip HTML tags from a string
-function stripHTMLTags(htmlString) {
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = htmlString;
-    return tempElement.textContent || '';
-}
-
-// Utility function to slice the text differently based on language
-function sliceTextWithMaxLength(text, maxLength) {
-    const regexBengali = /^[\u0980-\u09FF\s]+$/;
-    const regexEnglish = /^[A-Za-z\s]+$/;
-
-    let slicedText = '';
-    let charCount = 0;
-
-    for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-
-        if (char.match(regexBengali)) {
-            if (charCount < 160) {
-                slicedText += char;
-                charCount++;
-            }
-        } else if (char.match(regexEnglish)) {
-            if (charCount < 150) {
-                slicedText += char;
-                charCount++;
-            }
-        } else {
-            // Other characters (e.g., HTML tags), add them without counting towards charCount
-            slicedText += char;
-        }
-
-        if (charCount === maxLength) {
-            break;
-        }
-    }
-
-    return slicedText;
-}
-
+import { formatDate } from '../../utlis/dateFormat';
+import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -120,11 +79,6 @@ const MemberProfilePage = () => {
             .catch(error => console.log(error));
     }, [setLoading, user.name])
 
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
-    }
 
     // pagination start
     const totalPendingBlogs = pendingBlogs.length;
@@ -317,7 +271,7 @@ const MemberProfilePage = () => {
                     {totalApprovedBlogs > 5 &&
                         <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                             <button
-                                className=" btn    mx-1"
+                                className=" btn btn-outline-light   mx-1"
                                 onClick={() => handlePageChange(currentPage - 1)}
                                 disabled={currentPage === 1}
                             >
@@ -328,7 +282,7 @@ const MemberProfilePage = () => {
                                 Page {currentPage} of {totalApprovedBlogPages}, Total blog = {totalApprovedBlogs}
                             </span>
                             <button
-                                className=" btn   mx-1"
+                                className=" btn btn-outline-light  mx-1"
                                 onClick={() => handlePageChange(currentPage + 1)}
                                 disabled={currentPage === totalApprovedBlogPages}
                             >
@@ -428,7 +382,7 @@ const MemberProfilePage = () => {
                 {totalPendingBlogs > 5 &&
                     <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                         <button
-                            className="btn mx-1"
+                            className="btn btn-outline-light mx-1"
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
                         >
@@ -438,7 +392,7 @@ const MemberProfilePage = () => {
                             Page {currentPage} of {totalPendingBlogPages}, Total blog = {totalPendingBlogs}
                         </span>
                         <button
-                            className="btn mx-1"
+                            className="btn btn-outline-light mx-1"
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPendingBlogPages}
                         >

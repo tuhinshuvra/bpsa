@@ -11,6 +11,7 @@ import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import BlogDetailsComponent from './BlogDetailsComponent';
 import './BlogDetails.css';
+import { formatDate } from '../../utlis/dateFormat';
 
 const AdminsBlogDetails = () => {
     useTitle("BlogDetails");
@@ -78,11 +79,6 @@ const AdminsBlogDetails = () => {
                 console.log(error);
             })
     };
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
-    }
 
     return (
         <div className=' col-md-10 mx-auto'>
