@@ -189,6 +189,7 @@ const CommitteePage = () => {
                           ? " bg-success text-white"
                           : "border border-second"
                           }  px-4 py-1 m-1 rounded-sm `}
+
                         title={`All`}
                       />
                       {commGroup &&
