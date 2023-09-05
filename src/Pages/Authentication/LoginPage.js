@@ -49,6 +49,7 @@ const LoginPage = () => {
           setLoading(false);
           navigate("/memberProfile", { replace: true });
           console.log("cookie local save ", isAuth());
+          window.location.reload();
         });
       })
       .catch((error) => {

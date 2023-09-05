@@ -6,19 +6,13 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Col, Container, Row } from "react-bootstrap";
-import { GetCommitteeData } from "../api";
-import HeroComponent1 from "../Components/Common/HeroComponent1";
-import ImageComponent from "../Components/Common/ImageComponent";
 import Loader from "../Components/Common/Loader";
 import policeLogo from "../assets/Image/logo/police_logo_removebg.png";
 import bpsaLogo from "../assets/Image/logo/bpsa_logo_removebg.png";
 import TextField from "@mui/material/TextField";
 import ButtonComponent from "../Components/Common/ButtonComponent";
 import PaginationComponent from "../Components/Common/PaginationComponent";
-import { Button } from '@mui/material';
 import '../Components/CommitteeComponent/CommitteeComponent.css';
 import useTitle from '../hooks/useTitle';
 
@@ -39,7 +33,7 @@ const CommitteePage = () => {
   const [year, setYear] = useState(2023);
   const [commGroup, setCommGroup] = useState();
 
-  console.log("igpData newCommtee : ", igpData);
+  // console.log("igpData newCommtee : ", igpData);
 
   useEffect(() => {
     setLoading(true);
@@ -63,6 +57,8 @@ const CommitteePage = () => {
     fetch(`https://dev.bpsa.com.bd/api/committee/session/${id}`)
       .then(res => res.json())
       .then(result => {
+        setYear(id);
+        // console.log(" handleChangeYear result :", result)
         setAllYearData(result.data.committees);
         setYearCommittee((result.data.committees?.filter((item) => item?.comm_group_slug !== "IGP")));
         setCommGroup([...new Set(result.data.committees.map(obj => obj.commGroup))]);
@@ -119,18 +115,18 @@ const CommitteePage = () => {
           </nav>
           <div>
             <div className='col-lg-3 ms-auto '>
-              <div className='d-flex align-items-center'>
-                <label htmlFor="selectMenu" className='fw-bold bg-success p-2 m-0 rounded-lg text-white' style={{ marginRight: '8px' }}>Select Year:</label>
+              <div className='d-flex align-items-center '>
+                <button className='btn btn-primary btn-sm w-1/2   me-1' type="submit">Select Year:</button>
                 <select
                   id="selectMenu"
                   onChange={(e) => handleChangeYear(parseInt(e.target.value))}
-                  className="form-select w-50"
-                  value={year}
+                  className="form-select w-1/2 "
+                  defaultValue={year} // Set the value to the selected year
                 >
-                  <option value={2023} className=' my-1 fw-bold'>2023</option>
-                  <option value={2022} className=' my-1 fw-bold'>2022</option>
-                  <option value={2021} className=' my-1 fw-bold'>2021</option>
-                  <option value={2020} className=' my-1 fw-bold'>2020</option>
+                  <option value={2023} className='my-1 fw-bold'>2023</option>
+                  <option value={2022} className='my-1 fw-bold'>2022</option>
+                  <option value={2021} className='my-1 fw-bold'>2021</option>
+                  <option value={2020} className='my-1 fw-bold'>2020</option>
                 </select>
               </div>
             </div>

@@ -123,7 +123,6 @@ const CommitteeComponent = () => {
   return (
     <div className=" container">
       <div className='col-lg-10 mx-auto'>
-        {/* <HeroComponent1 title="Committee" /> */}
         <div>
           <div className="newCommitteArea">
             <div className="flex items-center justify-center space-x-4 pt-4">
