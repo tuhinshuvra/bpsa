@@ -23,7 +23,7 @@ const MemberProfilePage = () => {
     const [approvedBlogs, setApprovedBlogs] = useState([]);
     const [pendingBlogs, setPendingBlogs] = useState([]);
 
-    // console.log("User Data: ", user);
+    // console.log("MemberProfilePage User Data: ", user);
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
     // console.log("pendingBlogs :", pendingBlogs);
@@ -246,8 +246,8 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    {displayedArrovedBlogs && displayedArrovedBlogs.map(blog => (
-                        <div className="card blogArea my-1 px-1" key={blog?.id}>
+                    {displayedArrovedBlogs && displayedArrovedBlogs.map((blog, index) => (
+                        <div className="card blogArea my-1 px-1" key={index}>
                             <div className="d-flex px-lg-3 px-md-2">
                                 {blog?.image && blog?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">
@@ -323,8 +323,8 @@ const MemberProfilePage = () => {
                     </div>
 
 
-                    {displayedPendingBlogs && displayedPendingBlogs.map(blog => (
-                        <div className="card blogArea my-1 px-1"  >
+                    {displayedPendingBlogs && displayedPendingBlogs.map((blog, index) => (
+                        <div className="card blogArea my-1 px-1" key={index} >
                             <div className="d-flex px-lg-3 px-md-2">
                                 {blog?.image && blog?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">

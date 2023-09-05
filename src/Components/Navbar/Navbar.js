@@ -225,7 +225,7 @@ const Navbar = () => {
                     <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
                   }
 
-                  {user.role == "super admin" &&
+                  {user.role == "superAdmin" &&
                     <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
                   }
                   <li>
