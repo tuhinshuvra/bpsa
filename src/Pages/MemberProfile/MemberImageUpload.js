@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { isAuth } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
+
 const MemberImageUpload = () => {
-    const { user, setUser, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
+    const { user, setUser, loading, setLoading, showImageUpload, setShowImageUpload } = useContext(AllContext);
 
     const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
@@ -14,11 +15,11 @@ const MemberImageUpload = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data.member)
-                setUserNewData(data.member);
+                setUserNewData(data?.value);
 
                 setLoading(false);
             })
@@ -62,6 +63,7 @@ const MemberImageUpload = () => {
                 console.log(createBlogResult);
                 setUser(isAuth());
                 toast.success("member image uploaded successfully");
+                window.location.reload();
                 setShowImageUpload(false);
                 navigate("/memberProfile");
             } else {
@@ -78,15 +80,14 @@ const MemberImageUpload = () => {
 
     return (
         <div className=' mx-auto  my-1 '>
-            {/* <p className='text-center fw-bold mb-0'>Upload Member Profile Image</p> */}
             <form onSubmit={handleImageUpload} className='text-center ' >
                 <input type="file" name="image" className="form-control " id="image" aria-describedby="emailHelp" />
-                <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" placeholder="Leave a comment here" id="floatingTextarea" maxLength="100" hidden />
+                <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" id="floatingTextarea" maxLength="80" hidden />
 
                 <div className=' d-flex justify-content-between mt-1'>
-                    <input className='btn btn-sm btn-primary' type="reset" value="reset" />
+                    <input className='btn btn-sm btn-warning' type="reset" value="reset" />
 
-                    <input className='btn btn-sm btn-primary w-20' onClick={() => setShowImageUpload(false)} value="Cancel" />
+                    <input className='btn btn-sm  btn-warning w-20' onClick={() => setShowImageUpload(false)} value="Cancel" />
 
                     <input className='btn btn-sm btn-primary' type="submit" value="submit" />
                 </div>

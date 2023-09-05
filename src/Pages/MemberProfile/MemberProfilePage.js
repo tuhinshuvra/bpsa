@@ -10,10 +10,10 @@ import { FaUserAlt } from 'react-icons/fa';
 import { ImPrevious, ImNext } from 'react-icons/im';
 import { formatDate } from '../../utlis/dateFormat';
 import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
-import './MemberProfilePage.css';
-import '../Blogs/BlogListShow.css';
 import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
+import './MemberProfilePage.css';
+import '../Blogs/BlogListShow.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -23,8 +23,7 @@ const MemberProfilePage = () => {
     const [approvedBlogs, setApprovedBlogs] = useState([]);
     const [pendingBlogs, setPendingBlogs] = useState([]);
 
-    console.log("User Data: ", user);
-
+    // console.log("User Data: ", user);
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
     // console.log("pendingBlogs :", pendingBlogs);
@@ -33,15 +32,14 @@ const MemberProfilePage = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user?.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
-                // console.log("Member User table  Data: ", data.member)
-                setUserNewData(data.member)
+                // console.log("Member User table  Data: ", data.value)
+                setUserNewData(data?.value)
                 setLoading(false)
             })
-    }, [setLoading, user.UniqueID])
-
+    }, [])
 
     // login member profile data
     useEffect(() => {
@@ -136,48 +134,45 @@ const MemberProfilePage = () => {
                                 <div className="card-body proCardBody ">
                                     {userNewData?.image ?
                                         <>
-                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "170px", height: "170px" }} />
+                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
                                         </>
                                         :
                                         <>
-                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "170px" }} />
+                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px" }} />
                                         </>
                                     }
 
-                                    <div className='text-center mt-[-8px] '>
+                                    <div className='text-center mt-[-11px] mb-[-7px] '>
                                         {showImageUpload ? (
                                             <div>
                                                 <MemberImageUpload />
                                             </div>
                                         ) : (
                                             <button className='imageUpload' onClick={toggleImageUpload}>
-                                                Image Upload
+                                                {userNewData?.image ? <>Update Image</> : <>Image Upload</>}
                                             </button>
                                         )}
                                     </div>
 
 
                                     <div className=' text-center'>
-                                        <h6 className="my-0 fw-bold">{memberData?.nameE}
-                                            {/* {memberData?.nameB} */}
+                                        <h6 className="my-0 fw-bold">{memberData?.nameE.slice(0, 40)}
                                         </h6>
-                                        <h6 className="my-0 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
+                                        <h6 className="my-0 fs-6 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
                                         {userNewData?.CoCurriculumActivities &&
-                                            <p className="mt-1 mb-0"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
+                                            <p className="mt-1 mb-0 coCurriculur"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
                                         }
 
-                                        {/* <p className="mt-1 mb-0"> <b>Interest on</b> : Gardening, fishing, play football and cricket </p> */}
 
                                         {showCoCurricular ? (
                                             <div>
                                                 <MemberCoCurriculamActivitiesEntry />
                                             </div>
                                         ) : (
-                                            <button className='coCurricular' onClick={toggleCoCurricularUpload}>
-                                                {userNewData?.CoCurriculumActivities ? <>Update CoCurricular</> : <>  CoCurricular Upload</>}
+                                            <button className='coCurricularUpload' onClick={toggleCoCurricularUpload}>
+                                                {userNewData?.CoCurriculumActivities ? <>Update Co-Curricular Activities</> : <>  CoCurricular Activities Upload</>}
                                             </button>
                                         )}
-
                                     </div>
                                 </div>
                             </div>
@@ -222,13 +217,6 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    {/* <div className=' d-lg-flex justify-content-end my-2' data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className=' text-center'>
-                            <Link className=' text-white btn btn-sm btn-primary ' to="/coCurriculamEntry">Enter/Update Co Curricular Activities</Link>
-                        </div>
-                    </div> */}
-
-
                     {/* membership fee section start */}
                     <div className="row mt-5 mb-2">
                         <div className="col">
@@ -257,8 +245,6 @@ const MemberProfilePage = () => {
                             </nav>
                         </div>
                     </div>
-                    {/* <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title}</Link>
-                    <Link className=' fst-italic' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>details</Link> */}
 
                     {displayedArrovedBlogs && displayedArrovedBlogs.map(blog => (
                         <div className="card blogArea my-1 px-1" key={blog?.id}>
