@@ -28,7 +28,7 @@ const MourningNews = ({ data }) => {
         <HeadingComponent1
           first={"Mourning "}
           second="News"
-          className={"text-white bg-black/50 rounded-t-2xl  text-center py-3 mb-0 "}
+          className={"text-white bg-main/70 rounded-t-2xl  text-center py-3 mb-0 "}
         />
 
         <Swiper
@@ -37,7 +37,7 @@ const MourningNews = ({ data }) => {
           mousewheel={true}
           keyboard={true}
           modules={[Navigation, Mousewheel, Keyboard]}
-          className=" mySwiper  bg-success/40    rounded-b-2xl"
+          className=" mySwiper  bg-success/50    rounded-b-2xl"
         >
           {data &&
             data?.map((item, index) => {
@@ -49,7 +49,7 @@ const MourningNews = ({ data }) => {
                       navigate(`/news/${item?.id}`);
                     }}
                   >
-                    <div className=" col-lg-11 mx-auto bg-success/90 px-4 py-3 mournMinHight  d-flex flex-column justify-content-center align-items-center">
+                    <div className=" col-lg-11 mx-auto bg-success/30 px-4 py-3 mournMinHight  d-flex flex-column justify-content-center align-items-center">
 
                       <div className="col-12 d-lg-flex justify-content-between rounded-lg">
                         <h5 className="mb-2 p-1 rounded-lg col-lg-10">{item?.Heading}।</h5>
