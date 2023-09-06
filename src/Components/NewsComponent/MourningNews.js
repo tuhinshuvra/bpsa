@@ -14,7 +14,7 @@ import { Keyboard, Mousewheel, Navigation } from "swiper";
 import ImageComponent from "../Common/ImageComponent";
 import { TimeIcon } from "../../assets/Icons/Icons";
 import { BsCalendarDateFill } from 'react-icons/bs';
-import { dateFormatOne } from "../../utlis/dateFormat";
+import { formatDate } from "../../utlis/dateFormat";
 import { useNavigate } from "react-router";
 import './Newscomponent.module.css'
 
@@ -55,8 +55,8 @@ const MourningNews = ({ data }) => {
                         <h5 className="mb-2 p-1 rounded-lg col-lg-10">{item?.Heading}।</h5>
                         <div className="d-flex align-items-center col-lg-2">
                           <div className=" d-flex ms-2 ">
-                            <BsCalendarDateFill size={20} className="mr-1" />
-                            {dateFormatOne(item?.Pub_Date)}
+                            <BsCalendarDateFill size={16} className="mr-1" />
+                            <span className=" text-sm"> {formatDate(item?.Pub_Date)}</span>
                           </div>
                         </div>
                       </div>

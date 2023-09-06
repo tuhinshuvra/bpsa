@@ -14,9 +14,6 @@
     width: 200px;
 }
 
-
-
-
 .memberProFont {
     font-size: 15px;
     line-height: 1.1;
@@ -62,4 +59,8 @@
     color: white;
     width: 50px;
     border-radius: 10px;
+}
+
+.formArea {
+    font-size: 14px !important;
 }

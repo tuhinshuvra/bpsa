@@ -1,11 +1,12 @@
 import React from "react";
 import HeadingComponent1 from "../../Common/HeadingComponent1";
-import hightLightImg from "../../../assets/Image/Home/Rectangle 1142.png";
 import ImageComponent from "../../Common/ImageComponent";
+import { BsCalendarDateFill } from 'react-icons/bs';
 import { Col, Container, Row } from "react-bootstrap";
 import moment from "moment";
 import { TimeIcon } from "../../../assets/Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
+import { formatDate } from "../../../utlis/dateFormat";
 
 const HighlightComponent = ({ data }) => {
   const navigate = useNavigate();
@@ -33,8 +34,8 @@ const HighlightComponent = ({ data }) => {
                 <div className="absolute bottom-5 left-5">
                   <p className="bg-main/60 text-white p-2 w-fit rounded-md font-semibold">
                     <span className="flex items-center text-white w-fit rounded-md font-semibold text-center ">
-                      <TimeIcon className="mr-1" size={20} />{" "}
-                      {moment(data?.[0]?.Pub_Date).format("ll")}
+                      <BsCalendarDateFill className="mr-1" size={17} />
+                      {formatDate(data?.[0]?.Pub_Date)}
                     </span>
                   </p>
                 </div>
@@ -79,8 +80,8 @@ const HighlightComponent = ({ data }) => {
                           className="w-full h-[200px] md:h-[120px] object-cover rounded-md"
                         />
                         <div className="absolute bottom-0 left-2">
-                          <p className="bg-main/80 flex items-center text-white p-1 w-fit rounded-md font-semibold text-[12px]">
-                            <TimeIcon className="mr-1" size={18} />
+                          <p className="bg-main/80 flex   items-center text-white p-1 w-fit rounded-md font-semibold text-[12px]">
+                            <BsCalendarDateFill className="mr-1" size={14} />
                             {moment(item?.Pub_Date).format("ll")}
                           </p>
                         </div>
