@@ -34,7 +34,7 @@ const AchievementComponent = ({ data }) => {
         keyboard={true}
         loop={true}
         modules={[Navigation, Mousewheel, Keyboard]}
-        className="mySwiper  bg-second/50    rounded-b-2xl py-3 px-3"
+        className="mySwiper  bg-success/50    rounded-b-2xl py-3 px-3"
       >
         {data &&
           data?.map((item, index) => {

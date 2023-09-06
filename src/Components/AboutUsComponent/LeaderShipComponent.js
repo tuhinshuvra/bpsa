@@ -39,7 +39,7 @@ const LeaderShipComponent = () => {
   }, []);
 
   return (
-    <div className=" bg-fifth/40 py-1 rounded-2xl">
+    <div className=" bg-success/50  py-1 rounded-2xl">
       <Container className="my-5">
         <HeadingComponent1
           first="Current  "

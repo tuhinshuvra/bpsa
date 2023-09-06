@@ -157,7 +157,7 @@ const FormerLeaderShip = () => {
   }, []);
 
   return (
-    <div className="bg-[#767fdc] py-5 my-5 rounded-2xl">
+    <div className="bg-main/70 py-5 my-5 rounded-2xl">
       <Container>
         <HeadingComponent1
           first="Former  "

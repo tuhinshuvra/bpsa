@@ -6,7 +6,7 @@ import HeadingComponent1 from "../Common/HeadingComponent1";
 
 const ObjectivesComponent = () => {
   return (
-    <div className="py-4 bg-main/50 rounded-2xl">
+    <div className="py-4 bg-success/50  rounded-2xl">
       <Container>
         <HeadingComponent1
           first="Goals and "
