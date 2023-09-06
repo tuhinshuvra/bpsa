@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { isAuth } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
+import '../MemberProfile/MemberProfilePage.css';
 
 const MemberImageUpload = () => {
     const { user, setUser, loading, setLoading, showImageUpload, setShowImageUpload } = useContext(AllContext);
@@ -79,17 +80,15 @@ const MemberImageUpload = () => {
     }
 
     return (
-        <div className=' mx-auto  my-1 '>
-            <form onSubmit={handleImageUpload} className='text-center ' >
-                <input type="file" name="image" className="form-control " id="image" aria-describedby="emailHelp" />
+        <div className='col-10 mx-auto  my-1 '>
+            <form onSubmit={handleImageUpload} className='text-center my-0 ' >
+                <input type="file" name="image" className=" bg-secondary text-white text-xs " id="image" aria-describedby="emailHelp" />
                 <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" id="floatingTextarea" maxLength="80" hidden />
 
-                <div className=' d-flex justify-content-between mt-1'>
-                    <input className='btn btn-sm btn-warning' type="reset" value="reset" />
-
-                    <input className='btn btn-sm  btn-warning w-20' onClick={() => setShowImageUpload(false)} value="Cancel" />
-
-                    <input className='btn btn-sm btn-primary' type="submit" value="submit" />
+                <div className='col-9 mx-auto d-flex justify-content-between mt-1'>
+                    <input className='profileUpdateBtn' type="reset" value="Reset" />
+                    <input className='profileUpdateBtn' type='reset' onClick={() => setShowImageUpload(false)} value="Cancel" />
+                    <input className='profileUpdateBtn' type="submit" value="Submit" />
                 </div>
             </form>
         </div>

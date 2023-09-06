@@ -73,7 +73,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
             <div className='  mx-auto'>
                 <form onSubmit={handleOnSubmit}>
 
-                    <div className="form-floating">
+                    <div className="  ">
                         <textarea
                             name='CoCurriculumActivities'
                             className="form-control"
@@ -81,13 +81,13 @@ const MemberCoCurriculamActivitiesEntry = () => {
                             maxlength="80"
                             defaultValue={userNewData?.CoCurriculumActivities}
                         />
-                        <label for="floatingTextarea">Enter Co-Curricular Activities(max 80 character)</label>
+                        <label className=' text-main' for="floatingTextarea"> Co-Curricular activities max 80 character</label>
                     </div>
 
                     <div className=' d-flex justify-between my-1'>
-                        <button type="reset" className="btn btn-warning btn-sm">Reset</button>
-                        <input className='btn btn-sm btn-warning   w-20' onClick={() => setShowCoCurricular(false)} value="Cancel" />
-                        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+                        <input className="profileUpdateBtn" type="reset" value="Reset" />
+                        <input className='profileUpdateBtn' type="reset" onClick={() => setShowCoCurricular(false)} value="Cancel" />
+                        <input className="profileUpdateBtn" type="submit" value="Submit" />
                     </div>
 
                 </form>

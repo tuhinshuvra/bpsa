@@ -192,8 +192,8 @@ const MemberProfilePage = () => {
                                             <p className="my-0"><b> Phone no  </b>    : {memberData?.phone}
                                                 {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
                                             </p>
-                                            <p className="my-0"> <b> Email</b>    : {memberData?.email}
-                                                {memberData?.email02 && <>, <br /> &nbsp;{memberData?.email02}</>}
+                                            <p className="my-0"> <b> Email</b>    : <small>{memberData?.email}</small>
+                                                {memberData?.email02 && <>, <small>  {memberData?.email02}</small></>}
                                             </p>
                                             <p className="my-0"> <b> Medal </b> : {memberData?.gift}</p>
                                         </div>
