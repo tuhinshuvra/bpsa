@@ -1,8 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import DirectoryImg from '../../assets/Image/messages/assaduzzaman.jpg';
+import DirectoryImg1 from '../../assets/Image/messages/bdPolice03.jfif';
+import DirectoryImg2 from '../../assets/Image/messages/bdPolice02.jfif';
+import DirectoryImg3 from '../../assets/Image/messages/bdPolice04.jfif';
+import DirectoryImg4 from '../../assets/Image/messages/bdPolice05.jfif';
+import DirectoryImg5 from '../../assets/Image/messages/bdPolice06.jfif';
+import DirectoryImg6 from '../../assets/Image/messages/bdPolice07.jfif';
 import { useState } from "react";
-import './AllMemberDirectoryPage.css';
 import useTitle from "../../hooks/useTitle";
+import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -188,9 +193,9 @@ const AllMemberDirectoryPage = () => {
 
                                 <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
                                     <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Asaduzzaman</p>
-                                        <p className=" my-0"> <b> Designation </b>: AIG</p>
+                                        <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." />
+                                        <p className="fw-bold my-0">Md. Kamrul Hasan</p>
+                                        <p className=" my-0"> <b> Designation </b>: DIG</p>
                                     </div>
                                     <div className="col-md-7">
                                         <div className=" d-flex justify-content-between">
@@ -210,14 +215,14 @@ const AllMemberDirectoryPage = () => {
                                 </div>
                                 <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
                                     <div className="col-md-5 col-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Asaduzzaman</p>
-                                        <p className=" my-0"> <b> Designation </b>: AIG</p>
+                                        <img src={DirectoryImg2} className="memberDirectoryImg" alt="..." />
+                                        <p className="fw-bold my-0">Md. Dedarul Karim</p>
+                                        <p className=" my-0"> <b> Designation </b>: SI</p>
                                     </div>
                                     <div className="col-md-7 col-7">
                                         <div className=" d-flex justify-content-between">
                                             <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510443</p>
                                                 <p className="my-0"><b> Rank</b>   : SP</p>
                                                 <p className="my-0"><b> Main Unit</b>: ABPN</p>
                                                 <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
@@ -232,14 +237,14 @@ const AllMemberDirectoryPage = () => {
                                 </div>
                                 <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
                                     <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
+                                        <img src={DirectoryImg3} className="memberDirectoryImg" alt="..." />
                                         <p className="fw-bold my-0">Md. Asaduzzaman</p>
                                         <p className=" my-0"> <b> Designation </b>: AIG</p>
                                     </div>
                                     <div className="col-md-7">
                                         <div className=" d-flex justify-content-between">
                                             <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510440</p>
                                                 <p className="my-0"><b> Rank</b>   : SP</p>
                                                 <p className="my-0"><b> Main Unit</b>: ABPN</p>
                                                 <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
@@ -254,14 +259,14 @@ const AllMemberDirectoryPage = () => {
                                 </div>
                                 <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
                                     <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Asaduzzaman</p>
-                                        <p className=" my-0"> <b> Designation </b>: AIG</p>
+                                        <img src={DirectoryImg4} className="memberDirectoryImg" alt="..." />
+                                        <p className="fw-bold my-0">Md. Kamal Hossain</p>
+                                        <p className=" my-0"> <b> Designation </b>: SI</p>
                                     </div>
                                     <div className="col-md-7">
                                         <div className=" d-flex justify-content-between">
                                             <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510463</p>
                                                 <p className="my-0"><b> Rank</b>   : SP</p>
                                                 <p className="my-0"><b> Main Unit</b>: ABPN</p>
                                                 <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
@@ -276,14 +281,14 @@ const AllMemberDirectoryPage = () => {
                                 </div>
                                 <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
                                     <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Asaduzzaman</p>
+                                        <img src={DirectoryImg5} className="memberDirectoryImg" alt="..." />
+                                        <p className="fw-bold my-0">Shake Harun</p>
                                         <p className=" my-0"> <b> Designation </b>: AIG</p>
                                     </div>
                                     <div className="col-md-7">
                                         <div className=" d-flex justify-content-between">
                                             <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                                <p className="my-0"><b> BP/SIV No.</b>: BP750516543</p>
                                                 <p className="my-0"><b> Rank</b>   : SP</p>
                                                 <p className="my-0"><b> Main Unit</b>: ABPN</p>
                                                 <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
@@ -298,14 +303,14 @@ const AllMemberDirectoryPage = () => {
                                 </div>
                                 <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
                                     <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Asaduzzaman</p>
-                                        <p className=" my-0"> <b> Designation </b>: AIG</p>
+                                        <img src={DirectoryImg6} className="memberDirectoryImg" alt="..." />
+                                        <p className="fw-bold my-0">Md. Naim Ahmed</p>
+                                        <p className=" my-0"> <b> Designation </b>: DIG</p>
                                     </div>
                                     <div className="col-md-7">
                                         <div className=" d-flex justify-content-between">
                                             <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
+                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510543</p>
                                                 <p className="my-0"><b> Rank</b>   : SP</p>
                                                 <p className="my-0"><b> Main Unit</b>: ABPN</p>
                                                 <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
