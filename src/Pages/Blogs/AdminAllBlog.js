@@ -15,7 +15,7 @@ import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguag
 
 const AdminAllBlog = () => {
     useTitle("Admin'sAllBlog")
-    const { user, loading, setLoading, } = useContext(AllContext);
+    const { user, loading, setLoading } = useContext(AllContext);
     const [blogs, setBlogs] = useState([]);
     let count = 1;
 
@@ -36,6 +36,7 @@ const AdminAllBlog = () => {
                 } else {
                     console.error("Invalid API response:", result);
                 }
+                setLoading(false);
             })
             .catch(error => {
                 console.error("API request error:", error);
@@ -44,9 +45,7 @@ const AdminAllBlog = () => {
 
     console.log(blogs);
 
-    if (loading) {
-        <Loader></Loader>
-    }
+
 
     // pagination start
     const totalBlogs = blogs.length;
@@ -64,6 +63,9 @@ const AdminAllBlog = () => {
     };
     // pagination end
 
+    if (loading) {
+        return <Loader></Loader>
+    }
 
     return (
         <div className='col-md-10 mx-auto'>

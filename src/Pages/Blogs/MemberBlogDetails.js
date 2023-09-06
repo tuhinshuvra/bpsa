@@ -11,6 +11,7 @@ import { FaUserAlt } from 'react-icons/fa';
 import BlogDetailsComponent from './BlogDetailsComponent';
 import './BlogDetails.css';
 import { formatDate } from '../../utlis/dateFormat';
+import Loader from '../../Components/Common/Loader';
 
 const MemberBlogDetails = () => {
     useTitle("BlogDetails");
@@ -18,10 +19,13 @@ const MemberBlogDetails = () => {
     const source = new URLSearchParams(location.search).get('source');
     console.log(source);
     const { id } = useParams();
-    const { user } = useContext(AllContext);
+    const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
 
+    console.log("MemberBlogDetails : ", blog);
+
     useEffect(() => {
+        setLoading(true)
         fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {
@@ -35,6 +39,7 @@ const MemberBlogDetails = () => {
                 } else {
                     console.error("Invalid API response:", result);
                 }
+                setLoading(false)
             })
             .catch(error => {
                 console.error("API request error:", error);
@@ -43,6 +48,10 @@ const MemberBlogDetails = () => {
 
     if (blog) {
         console.log(blog?.summery);
+    }
+
+    if (loading) {
+        return <Loader></Loader>
     }
 
     return (

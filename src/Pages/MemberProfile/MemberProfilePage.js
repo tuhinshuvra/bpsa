@@ -32,6 +32,7 @@ const MemberProfilePage = () => {
 
     // user new data
     useEffect(() => {
+        setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
@@ -43,6 +44,7 @@ const MemberProfilePage = () => {
 
     // login member profile data
     useEffect(() => {
+        setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/profile/${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
@@ -107,7 +109,7 @@ const MemberProfilePage = () => {
     // pagination end
 
     if (loading) {
-        <Loader></Loader>
+        return <Loader></Loader>
     }
 
     const toggleImageUpload = () => {

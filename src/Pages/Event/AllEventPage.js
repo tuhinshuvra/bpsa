@@ -32,7 +32,7 @@ const AllEventPage = () => {
 
 
     if (loading) {
-        <Loader></Loader>
+        return <Loader></Loader>
     }
 
     return (

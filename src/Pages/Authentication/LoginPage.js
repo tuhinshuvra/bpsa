@@ -31,6 +31,7 @@ const LoginPage = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+    setLoading(true);
     axios({
       method: "POST",
       url: `https://dev.bpsa.com.bd/api/login`,
@@ -61,7 +62,7 @@ const LoginPage = () => {
   };
 
   if (loading) {
-    <Loader></Loader>
+    return <Loader></Loader>
   }
 
   return (

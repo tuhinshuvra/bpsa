@@ -12,6 +12,7 @@ import './BlogListShow.css';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
 import BlogDetailsComponent from './BlogDetailsComponent';
 import { formatDate } from '../../utlis/dateFormat';
+import Loader from '../../Components/Common/Loader';
 
 const PublishBLogDetails = () => {
     useTitle("BlogDetails");
@@ -19,7 +20,7 @@ const PublishBLogDetails = () => {
     const source = new URLSearchParams(location.search).get('source');
     const [showFullScreenImage, setShowFullScreenImage] = useState(false);
     const { id } = useParams();
-    const { user } = useContext(AllContext);
+    const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
     const navigate = useNavigate();
     // CgCalendarDates
@@ -31,6 +32,7 @@ const PublishBLogDetails = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
         fetch("https://dev.bpsa.com.bd/api/Approvedblog")
             .then(res => res.json())
             .then(result => {
@@ -39,11 +41,16 @@ const PublishBLogDetails = () => {
                 } else {
                     console.error("Invalid API response:", result);
                 }
+                setLoading(false);
             })
             .catch(error => {
                 console.error("API request error:", error);
             });
     }, []);
+
+    if (loading) {
+        return <Loader></Loader>
+    }
 
 
     return (

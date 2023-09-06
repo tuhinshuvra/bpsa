@@ -22,6 +22,7 @@ const EventDetailsPage = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/get-event/${eventId}`)
             .then(response => response.json())
             .then(data => {
@@ -34,7 +35,7 @@ const EventDetailsPage = () => {
     // const { date, description, events, id, image, start_date, status, time, title, video_link } = allEvents;
 
     if (loading) {
-        <Loader></Loader>
+        return <Loader></Loader>
     }
 
     return (

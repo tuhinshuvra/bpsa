@@ -12,17 +12,21 @@ import { toast } from 'react-hot-toast';
 import BlogDetailsComponent from './BlogDetailsComponent';
 import './BlogDetails.css';
 import { formatDate } from '../../utlis/dateFormat';
+import Loader from '../../Components/Common/Loader';
 
 const AdminsBlogDetails = () => {
     useTitle("BlogDetails");
     const { id } = useParams();
-    const { user } = useContext(AllContext);
+    const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [isInputVisible, setInputVisible] = useState(false);
 
+    console.log("Admin Blog Details : ", blog);
+
     useEffect(() => {
+        setLoading(true);
         fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
@@ -37,11 +41,13 @@ const AdminsBlogDetails = () => {
                 } else {
                     console.error("Invalid API response:", result);
                 }
+                setLoading(false);
             })
             .catch(error => {
                 console.error("API request error:", error);
             });
     }, [id]);
+
     // console.log(blog);
     const { selectedStatus, setSelectedStatus } = useState(blog?.status);
     const [blogStatus, setBlogStatus] = useState(blog?.status);
@@ -62,11 +68,14 @@ const AdminsBlogDetails = () => {
             blog_id: id,
             status: blogStatus,
             approveDate: approveDate,
-            massege: event.target.message.value,
+            // massege: event.target.message.value,
         }
-
+        if (isInputVisible) {
+            data.message = event.target.message.value;
+        }
         console.log("Blog Approved Data : ", data)
 
+        setLoading(true);
         await fetch("https://dev.bpsa.com.bd/api/blog-status", {
             method: "POST",
             headers: {
@@ -78,12 +87,18 @@ const AdminsBlogDetails = () => {
             .then(res => res.json())
             .then(result => {
                 toast.success(result.message);
+                setLoading(false);
                 navigate("/adminAllBlog");
             })
             .catch(error => {
                 console.log(error);
             })
     };
+
+
+    if (loading) {
+        return <Loader></Loader>
+    }
 
     return (
         <div className=' col-md-10 mx-auto'>
@@ -122,7 +137,7 @@ const AdminsBlogDetails = () => {
                                         <option value="Disabled">Disabled</option>
                                     </select>
                                     {isInputVisible && (
-                                        <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" />
+                                        <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" required />
                                     )}
                                 </div>
 
