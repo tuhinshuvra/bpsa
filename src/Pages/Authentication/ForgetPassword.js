@@ -77,6 +77,7 @@ const ForgetPassword = () => {
                 console.log(data)
                 if (data.value === 1) {
                     toast.success("Unique ID Verified Successfully!");
+                    setErrorMessage("");
                     setName(data.name);
                     setUnique(form.unique_id.value);
                     setVerifyOTP(true);
