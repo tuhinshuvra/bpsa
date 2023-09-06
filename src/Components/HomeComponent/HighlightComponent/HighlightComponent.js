@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 const HighlightComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className=" bg-gray-500/40  my-5 py-4 rounded-2xl ">
+    <div className=" bg-gray-500/40  my-5 py-3 rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Activity "
@@ -45,7 +45,7 @@ const HighlightComponent = ({ data }) => {
                 </div>
               </div>
 
-              <h6 className="text-black font-semibold text-lg">
+              <h6 className="text-main font-semibold text-lg">
                 {data[0]?.Heading}
               </h6>
               {/* <div
@@ -67,15 +67,13 @@ const HighlightComponent = ({ data }) => {
               data?.slice(1, 4)?.map((item, index) => {
                 return (
                   <Row key={index}>
-                    <Col className="py-2" md={5}>
-                      {" "}
+                    <Col className="" md={5}>
                       <div
                         onClick={() => {
                           navigate(`/news/${item?.id}`);
                         }}
                         className="relative cursor-pointer"
                       >
-                        {" "}
                         <ImageComponent
                           image={item?.Cover_Photo}
                           className="w-full h-[200px] md:h-[120px] object-cover rounded-md"
@@ -93,13 +91,13 @@ const HighlightComponent = ({ data }) => {
                         </div>
                       </div>
                     </Col>
-                    <Col md={7}>
 
+                    <Col md={7}>
                       <div
                         onClick={() => {
                           navigate(`/news/${item?.id}`);
                         }}
-                        className="cursor-pointer"
+                        className="cursor-pointer mb-3"
                       >
                         <p className="text-main font-semibold  md:text-sm">
                           {item?.Heading.length > 80
@@ -108,10 +106,8 @@ const HighlightComponent = ({ data }) => {
                         </p>
 
                         <div
-                          dangerouslySetInnerHTML={{
-                            __html: item?.Sub_Heading,
-                          }}
-                          className="text-sm text-justify text-black  "
+                          dangerouslySetInnerHTML={{ __html: item?.Sub_Heading, }}
+                          className="text-sm text-justify text-black mt-[-14px]  "
                         ></div>
                         {/* <Link
                           to={`/news/${item?.id}`}

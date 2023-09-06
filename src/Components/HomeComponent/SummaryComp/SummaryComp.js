@@ -49,7 +49,7 @@ const summaryData = [
 
 const SummaryComp = ({ data }) => {
   return (
-    <div className={`py-10 ${Styles.summaryMain__style} my-5 rounded-2xl   `}>
+    <div className={`${Styles.summaryMain__style} py-3 my-5 rounded-2xl   `}>
       <Container>
         <HeadingComponent1
           first=" Association -  "

@@ -43,7 +43,7 @@ const AssociationDocumentsComponent = () => {
   }
 
   return (
-    <div className="py-5 bg-main/60 rounded-2xl ">
+    <div className="bg-main/60 py-3  my-5 rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Association"

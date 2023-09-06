@@ -10,7 +10,7 @@ import { activitiesData } from "../../assets/Data/activitiesData";
 
 const ActivitiesComp = () => {
   return (
-    <div className="bg-main  py-4  my-5 text-white rounded-2xl ">
+    <div className="bg-main  py-3  my-5 text-white rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Our "

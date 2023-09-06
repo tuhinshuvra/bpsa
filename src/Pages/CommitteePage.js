@@ -130,9 +130,9 @@ const CommitteePage = () => {
                 </select>
               </div>
             </div>
-            <div className="newCommitteArea">
 
-              <div className="flex items-center justify-center space-x-4 pt-4">
+            <div className="newCommitteArea">
+              <div className="flex items-center justify-center space-x-4 pt-3">
                 <img src={policeLogo} className='comPoliceLogo' alt="" />
 
                 <div className="text-center py-4 ">

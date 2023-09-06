@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 const TestimonialComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className=" bg-blue-600/70 py-5 rounded-2xl ">
+    <div className=" bg-blue-600/70 py-3 rounded-2xl ">
       <HeadingComponent1
         first="Leadership "
         second="Message"

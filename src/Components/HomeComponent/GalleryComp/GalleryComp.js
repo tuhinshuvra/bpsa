@@ -18,7 +18,7 @@ const GalleryComp = ({ data }) => {
   }, [data]);
   return (
     <div>
-      <Container className="py-10 bg-slate-500/60 rounded-2xl">
+      <Container className="py-3 bg-slate-500/60 rounded-2xl">
         <HeadingComponent1
           first="Association  "
           second={"Photos"}

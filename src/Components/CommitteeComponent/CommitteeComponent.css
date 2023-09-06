@@ -6,8 +6,10 @@
 }
 
 .comPoliceLogo {
-    width: 80px;
-    border-radius: 25%;
+    width: 100px;
+    height: 100px;
+    padding: 6px;
+    border-radius: 50%;
     background-color: white;
 }
 

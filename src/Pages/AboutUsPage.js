@@ -15,25 +15,22 @@ import '../Components/AboutUsComponent/AboutUs.css'
 const AboutUsPage = () => {
   useTitle("AboutUs")
   return (
-    <div>
-      <div className=' col-md-10 mx-auto'>
-        <section style={{ backgroundColor: "#eee" }}>
-          <div className="container pt-3 pb-5 ">
-            <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-              <h2 className='fw-bold text-center text-success'>ABOUT US</h2>
-            </nav>
-            <div>
-              <AssociationInfoComponent />
-              <ObjectivesComponent />
-              <ActivitiesComp />
-              <LeaderShipComponent />
-              <FormerLeaderShip />
-              <AssociationDocumentsComponent />
-            </div>
+    <div className=' col-md-10 mx-auto'>
+      <section style={{ backgroundColor: "#eee" }}>
+        <div className="container pt-3 pb-5 ">
+          <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
+            <h2 className='fw-bold text-center text-success'>ABOUT US</h2>
+          </nav>
+          <div>
+            <AssociationInfoComponent />
+            <ObjectivesComponent />
+            <ActivitiesComp />
+            <LeaderShipComponent />
+            <FormerLeaderShip />
+            <AssociationDocumentsComponent />
           </div>
-        </section>
-      </div>
-
+        </div>
+      </section>
     </div>
   );
 };
