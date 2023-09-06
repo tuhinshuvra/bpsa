@@ -39,8 +39,8 @@ const LeaderShipComponent = () => {
   }, []);
 
   return (
-    <div className=" bg-fifth/40 py-1 rounded-2xl">
-      <Container className="my-5">
+    <div className=" bg-fifth/40 py-3  my-5 rounded-2xl">
+      <Container className="">
         <HeadingComponent1
           first="Current  "
           second="Leadership"

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ImageComponent from "../Common/ImageComponent";
 import Styles from "./GalleryComponent.module.css";
-import Lightbox from "react-image-lightbox";
 import ImagePreview from "../Common/ImagePreview";
 import DummyImg from "../../../src/assets/Image/Gallery/dummyImg.jpeg";
 import "react-image-lightbox/style.css";
@@ -34,7 +33,7 @@ const GalleryImageCard = ({ item, images, index }) => {
           <ImageComponent
             onClick={() => setIsOpen(true)}
             image={item?.image}
-            className={`  h-[200px]   block mx-auto  mb-2  ${Styles.gallaryImg}`}
+            className={`  h-[170px]   block mx-auto  mb-2  ${Styles.gallaryImg}`}
           />
         </>
           :
@@ -42,7 +41,7 @@ const GalleryImageCard = ({ item, images, index }) => {
             <ImageComponent
               onClick={() => setIsOpen(true)}
               image={DummyImg}
-              className={`  h-[200px]  block mx-auto  mb-2  ${Styles.gallaryImg}`}
+              className={`  h-[170px]  block mx-auto  mb-2  ${Styles.gallaryImg}`}
             />
           </>
         }

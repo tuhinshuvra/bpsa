@@ -25,16 +25,33 @@
 
 .imageUpload {
     background-color: rgb(32, 79, 235);
-    font-size: 14px;
+    font-size: 12px;
     color: white;
-    width: 50px;
-    /* height: 8px; */
-    padding: 2px 4px;
-    border-radius: 6px;
+    width: 84px;
+    padding: 0px 4px;
+    border-radius: 25px;
     margin: 0 0;
 }
 
 .imageUpload:hover {
     background-color: rgb(17, 46, 139);
+}
+
+.coCurricularUpload {
+    background-color: rgb(32, 79, 235);
+    font-size: 12px;
     color: white;
+    width: 175px;
+    padding: 0px 4px;
+    border-radius: 25px;
+    margin: 0 0;
+}
+
+.coCurricularUpload:hover {
+    background-color: rgb(17, 46, 139);
+}
+
+.coCurriculur {
+    font-size: 15px;
+    line-height: 18px;
 }

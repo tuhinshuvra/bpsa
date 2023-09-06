@@ -23,7 +23,7 @@ const EventDetailsPage = () => {
         fetch(`https://dev.bpsa.com.bd/api/get-event/${eventId}`)
             .then(response => response.json())
             .then(data => {
-                console.log("Events Details data: ", data.data.event);
+                // console.log("Events Details data: ", data.data.event);
                 setEventDetils(data.data.event);
                 setLoading(false);
             })

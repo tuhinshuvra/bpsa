@@ -131,7 +131,7 @@ const HomePage = () => {
     try {
       setSuccessLoading(true);
       const result = await GetSuccessStory();
-      console.log("Success Story data:", result);
+      // console.log("Success Story data:", result);
       setSuccessLoading(false);
       if (result?.status === "success") {
         setSuccessData(result?.data?.success);
@@ -223,7 +223,7 @@ const HomePage = () => {
             <TestimonialComponent data={messageData} />
             <SummaryComp data={successData} />
 
-            <div className="bg-[#6e5ff7] py-5 rounded-2xl my-5">
+            <div className="bg-[#6e5ff7] py-3 rounded-2xl my-5">
               <QuicksLinks local={localLink} international={internationalLink} />
             </div>
 
@@ -231,10 +231,6 @@ const HomePage = () => {
           </div>
         </section>
       </div>
-
-
-
-
     </div>
   );
 };

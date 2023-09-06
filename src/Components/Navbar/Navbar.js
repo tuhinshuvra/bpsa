@@ -63,14 +63,14 @@ const Navbar = () => {
 
   // user new data
   useEffect(() => {
-    fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID= ${user.UniqueID}`)
+    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
       .then(res => res.json())
       .then(data => {
-        // console.log("Member User table  Data: ", data.member)
-        setUserNewData(data.member)
+        // console.log("Member User table  Data: ", data.value)
+        setUserNewData(data.value)
         setLoading(false)
       })
-  }, [setLoading, user.UniqueID])
+  }, [])
 
   const handleSignOut = () => {
     signout(() => {
@@ -225,7 +225,7 @@ const Navbar = () => {
                     <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
                   }
 
-                  {user.role == "super admin" &&
+                  {user.role == "superAdmin" &&
                     <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
                   }
                   <li>

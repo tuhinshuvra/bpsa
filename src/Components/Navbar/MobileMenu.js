@@ -11,9 +11,9 @@ export default function MobileMenu() {
   return (
     <div>
 
-      <li class="nav-item dropdown">
-        <Link class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <GiHamburgerMenu className=" fs-1 text-main bg-white"></GiHamburgerMenu>
+      <li className="nav-item dropdown">
+        <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <GiHamburgerMenu className=" fs-1 text-main bg-white rounded-md"></GiHamburgerMenu>
         </Link>
         <ul className="dropdown-menu navDropdownMenu navMobileDropdown">
           <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/"><AiFillHome className="navDropdownIcon   me-2" />Home </Link></li>

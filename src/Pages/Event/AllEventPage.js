@@ -45,8 +45,8 @@ const AllEventPage = () => {
                         {allEvents &&
                             allEvents?.map((item, index) => {
                                 return (
-                                    <div className=' AllEventCard'>
-                                        <div onClick={() => navigate(`/events/${item?.id}`)} key={index}>
+                                    <div className=' AllEventCard' key={index}>
+                                        <div onClick={() => navigate(`/events/${item?.id}`)}>
                                             <img src={item?.image} className='allEventImage' alt="" />
                                             <div className=' text-center mt-2'>
                                                 <p className=' fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>

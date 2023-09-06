@@ -1,24 +1,26 @@
 import { TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { MdOutlineLockReset } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
-import { Result } from 'postcss';
+import { AllContext } from '../../hooks/ContextData';
 
 const ForgetPassword = () => {
     useTitle("ForgetPassword");
-
+    const { loading, setLoading } = useContext(AllContext);
     const [unique, setUnique] = useState("");
     const [verifyOTP, setVerifyOTP] = useState(false);
     const [otpValue, setOtpValue] = useState('');
     const [OTPVerified, setOTPVerified] = useState(false);
     const [timeLeft, setTimeLeft] = useState(0);
     const [isCounting, setIsCounting] = useState(false);
-
+    const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    const [name, setName] = useState("");
+    const [otpAccess, setOtpAccess] = useState();
 
     useEffect(() => {
         let countdownInterval;
@@ -62,7 +64,9 @@ const ForgetPassword = () => {
     const handleOTPSend = (event) => {
         event.preventDefault();
         const form = event.target;
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique}`, {
+        const uniqueId = form.unique_id.value;
+        const yearBirth = form.year.value;
+        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}&birth=${yearBirth}&year=${yearBirth}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -70,19 +74,23 @@ const ForgetPassword = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                if (data.value === 3) {
+                console.log(data)
+                if (data.value === 1) {
                     toast.success("Unique ID Verified Successfully!");
-
+                    setErrorMessage("");
+                    setName(data.name);
                     setUnique(form.unique_id.value);
-
                     setVerifyOTP(true);
+                    setOtpAccess(data.otp)
                     startCountdown();
                     form.reset();
                 }
+                else {
+                    setErrorMessage("No matching PIMS_ID");
+                }
             })
             .catch(error => {
-                toast.error(error.message);
+                setErrorMessage(error.message);
             })
     }
 
@@ -93,12 +101,12 @@ const ForgetPassword = () => {
         setOtpValue(event.target.value);
     };
     const handleOTPVerify = () => {
-        if (otpValue == 222222) {
+        if (otpValue == otpAccess) {
             setOTPVerified(true);
             setVerifyOTP(false);
         }
         else {
-            toast.error("OTP not match");
+            setErrorMessage("OTP not match");
         }
     }
     const handleForgetPassword = (e) => {
@@ -108,13 +116,16 @@ const ForgetPassword = () => {
         const confirm_password = form.confirm_password.value;
 
         if (password !== confirm_password) {
-            toast.error("Password are not match");
+            setErrorMessage("Password are not match");
             return;
         }
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
+
+        // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         const isPasswordValid = passwordPattern.test(password);
         if (!isPasswordValid) {
-            toast.error("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
+            setErrorMessage("password combination must be lowercase, uppercase and number. password total numbers must me eight");
             return
         }
         const userData = {
@@ -131,7 +142,7 @@ const ForgetPassword = () => {
         })
             .then(response => response.json())
             .then(data => {
-                // console.log('Reseted Password Data : ', data);
+                console.log('Reseted Password Data : ', data);
                 if (data) {
                     form.reset()
                     toast.success('Congratulation! Password updated successfully.');
@@ -151,10 +162,19 @@ const ForgetPassword = () => {
 
                 <div className=' d-flex flex-column align-items-center'>
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
+
                     <h2 className=' text-center fs-3'>Password Reset</h2>
                 </div>
+                <p className='text-center my-2 text-red-600'>{errorMessage}</p>
+                {
+                    name && <p className='text-center my-2 text-main'>{name}</p>
+                }
+                {
+                    otpAccess && <p className='text-center my-2 text-main'>OTP: {otpAccess}</p>
+                }
                 <form onSubmit={handleOTPSend}>
                     <TextField label="Unique ID" name="unique_id" id="unique_id" type="text" margin="normal" fullWidth required />
+                    <TextField label="Birth Year" name="year" id="year" type="text" margin="normal" fullWidth required />
                     <div className='text-center'>
                         <button className=' btn btn-primary btn-sm '>Verify</button>
                     </div>

@@ -4,23 +4,21 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { FilterIcon } from "../../utlis/icons";
 import ButtonComponent from "../Common/ButtonComponent";
-import HeadingComponent1 from "../Common/HeadingComponent1";
-import HeroComponent1 from "../Common/HeroComponent1";
-import ImageComponent from "../Common/ImageComponent";
 import PaginationComponent from "../Common/PaginationComponent";
-import Styles from "./GalleryComponent.module.css";
 import GalleryImageCard from "./GalleryImageCard";
 import ReactPlayer from "react-player";
+import Styles from "./GalleryComponent.module.css";
 
 const GalleryComponent = ({ data, video }) => {
   const [page, setPage] = React.useState(1);
   const [galleryData, setGalleryData] = useState(data);
   const { galleryCategory } = useSelector((state) => state.gallery);
   const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(9);
-  const [showperPage, setShowPerPage] = useState(9);
+  const [end, setEnd] = useState(10);
+  const [showperPage, setShowPerPage] = useState(10);
   const [showFilter, setShowFilter] = useState(true);
   const [selectTitle, setSelectTitle] = useState("Photos");
+  const [selectedItem, setSelectedItem] = useState("All");
 
   const [images, setImages] = useState("");
   useEffect(() => {
@@ -39,8 +37,6 @@ const GalleryComponent = ({ data, video }) => {
 
   return (
     <div>
-      {/* <HeroComponent1 title="GALLERY" /> */}
-
       <div className=' col-md-10 mx-auto'>
         <section style={{ backgroundColor: "#eee" }}>
           <div className="container pt-3 pb-5 ">
@@ -78,51 +74,71 @@ const GalleryComponent = ({ data, video }) => {
                 </button>
 
                 {selectTitle === "Photos" && (
-                  <div className="">
-                    <Row className="mt-5">
+
+                  <div className="   mt-3">
+                    <div className={``}>
                       {showFilter && (
-                        <Col md={3}>
-                          <ul className="m-0 p-0 cursor-pointer">
-                            <li onClick={() => setGalleryData(data)}>All</li>
-                            <hr />
+                        <div className=" col-md-12 ">
+                          {/* <div className={`m-0 p-0 cursor-pointer ${Styles.gridGalleryBtn}`}> */}
+                          <div className={`m-0 p-0 cursor-pointer d-xl-flex grid grid-cols-4`}>
+                            <ButtonComponent
+                              onClick={() => {
+                                setGalleryData(data)
+                                setSelectedItem("All")
+                              }}
+                              className={`${selectedItem === "All"
+                                ? " bg-success text-white border rounded"
+                                : " bg-[#2B72EF] text-white border rounded"
+                                }  px-3 py-1 m-1 rounded-sm text-sm `}
+                              title={`All`}
+                            />
+
+                            {/* <hr /> */}
                             {galleryCategory &&
                               galleryCategory?.map((item, index) => {
                                 return (
-                                  <div
-                                    onClick={() => {
-                                      setGalleryData(
-                                        data?.filter((val) => val?.gcat_id == item.id)
-                                      );
-                                    }}
-                                    key={index}
-                                  >
-                                    <li>{item?.name}</li>
-                                    <hr />
+                                  <div>
+                                    <ButtonComponent
+                                      onClick={() => {
+                                        setGalleryData(data?.filter((val) => val?.gcat_id == item.id));
+                                        setSelectedItem(item)
+                                      }} key={index}
+
+                                      className={`${item === selectedItem
+                                        ? "bg-success text-white border rounded"
+                                        : "bg-[#2B72EF] text-white border rounded"
+                                        }  px-1 py-1 m-1 rounded-sm  text-sm  `}
+
+                                      title={item?.name}
+                                    />
                                   </div>
                                 );
                               })}
-                          </ul>
-                        </Col>
+                          </div>
+                        </div>
                       )}
 
-                      <Col md={9}>
-                        <Row>
-                          {galleryData &&
-                            galleryData?.slice(start, end)?.map((item, index) => {
-                              return (
-                                <Col key={index} md={4}>
-                                  <GalleryImageCard
-                                    images={images}
-                                    item={item}
-                                    index={index}
-                                  />
-                                </Col>
-                              );
-                            })}
-                        </Row>
-                      </Col>
-                    </Row>
+                    </div>
+
+                    <div className=" col-md-12 ">
+                      <div className={`${Styles.galleryGridView}`}>
+                        {galleryData &&
+                          galleryData?.slice(start, end)?.map((item, index) => {
+                            return (
+                              // <div className="col-md-2 " key={index}>
+                              <div className="" key={index}>
+                                <GalleryImageCard
+                                  images={images}
+                                  item={item}
+                                  index={index}
+                                />
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </div>
                   </div>
+
                 )}
 
                 {selectTitle === "video" && (
@@ -167,13 +183,13 @@ const GalleryComponent = ({ data, video }) => {
 
             </div>
           </div>
-        </section>
-      </div>
+        </section >
+      </div >
 
 
 
 
-    </div>
+    </div >
   );
 };
 

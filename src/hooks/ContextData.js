@@ -9,6 +9,8 @@ const ContextData = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [authError, setAuthError] = useState("");
     const [authSuccess, setAuthSuccess] = useState("");
+    const [showImageUpload, setShowImageUpload] = useState(false);
+    const [showCoCurricular, setShowCoCurricular] = useState(false);
     const [token, setToken] = useState("");
 
     const contextInfo = {
@@ -24,6 +26,10 @@ const ContextData = ({ children }) => {
         setAuthError,
         authSuccess,
         setAuthSuccess,
+        showImageUpload,
+        setShowImageUpload,
+        showCoCurricular,
+        setShowCoCurricular
     };
 
     return (

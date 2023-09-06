@@ -11,7 +11,7 @@ const SignupPage = () => {
     useTitle("SignUp");
 
     // const [enableOtp, setEnableOtp] = useState(false);
-    const [enableOtp, setEnableOtp] = useState(true);
+    const [enableOtp, setEnableOtp] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -19,7 +19,7 @@ const SignupPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [remainingTime, setRemainingTime] = useState(5 * 60);
     const [userFullName, setUserFullName] = useState('');
-    const [userPhone, setUserPhone] = useState('');
+    const [phone, setPhone] = useState('');
     const [otpData, setOtpData] = useState('');
     const [userEnteredOTP, setUserEnteredOTP] = useState('');
     const [unique_id, setUniqueId] = useState("");
@@ -84,6 +84,7 @@ const SignupPage = () => {
     // this function is used to veriry unique id
     const handleVerifyUniqueId = (event) => {
         event.preventDefault();
+        setErrorMessage("");
         const form = event.target;
         // if (!form) {
         //     console.error("Form element not found");
@@ -113,10 +114,8 @@ const SignupPage = () => {
                     // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
                     toast.success("Unique ID Verified Successfully!");
                     console.log(data);
-
+                    setEnableOtp(true);
                     form.reset();
-
-
                     setUniqueId(unique_id);
                     setYear(birth_year);
                     setName(data.name);
@@ -124,22 +123,23 @@ const SignupPage = () => {
                     startCountdown();
                     setOtpData(data.otp)
                     setUserFullName(data.name)
-                    setUserPhone(data.phone)
+                    setPhone(data.phone)
                 }
                 else if (data.value === 2) {
                     console.log(data);
                     console.log(data.message);
-                    setErrorMessage("User ID verification failed")
+                    setErrorMessage("User ID verification failed");
                     // toast.error('User ID verification failed');
                 }
                 else if (data.value === 3) {
                     console.log(data);
                     console.log(data.message);
+                    setErrorMessage("User ID already registered");
                     // toast.error('User ID already registered');
-                    setErrorMessage("User ID already registered")
                 }
                 else {
-                    toast.error("Something error, Please try again later.");
+                    // toast.error("Something error, Please try again later.");
+                    setErrorMessage("Something error, Please try again later.");
                 }
 
 
@@ -160,12 +160,18 @@ const SignupPage = () => {
             toast.success("OTP Verified successfully!")
             console.log('OTP Verified successfully!');
             setOtpVerified(true);
+            setEnableOtp(false);
+            setOTPCheckOne(false);
+            setOtpData("");
         } else {
             console.log('Invalid OTP');
-            toast.error("Invalid OTP");
-            toast.success('OTP Verified successfully!');
-            setOTPCheckOne(false);
-            setOtpData("")
+            setErrorMessage("Invalid OTP");
+            // toast.success('OTP Verified successfully!');
+            // setOTPCheckOne(false);
+            // setOtpData("")
+            // setEnableOtp(true);
+            setEnableOtp(true);
+            setOTPCheckOne(true);
         }
     }
 
@@ -182,7 +188,7 @@ const SignupPage = () => {
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
         if (password !== confirmPassword) {
-            toast.error("password are not match")
+            setErrorMessage("password are not match")
             setPasswordsMatch(false);
 
             return;
@@ -197,7 +203,7 @@ const SignupPage = () => {
 
         if (!isPasswordValid) {
             setPasswordValid(false);
-            toast.error("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
+            setErrorMessage("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
             return;
         }
 
@@ -207,6 +213,8 @@ const SignupPage = () => {
             password: password,
             password_confirmation: confirmPassword,
             UniqueID: uniqueId,
+            year: year,
+            phone: phone,
         }
         console.log("userData : ", userData);
 
@@ -269,24 +277,22 @@ const SignupPage = () => {
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
-                {
-                    <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
-                }
-                {!passwordsMatch && (
+                <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
+                {/* {!passwordsMatch && (
                     <p className="text-center text-danger fw-bold fs-6">Passwords do not match.</p>
-                )}
+                )} */}
 
                 {/* {verifyMessage && (
                     <p className="text-center text-danger fw-bold fs-6">Unique ID verified Successfully!</p>
                 )} */}
 
 
-                {passwordValid ? <></> :
+                {/* {passwordValid ? <></> :
                     <><p className=' text-warning'>Password must be at least 8 characters and contain an uppercase letter, a lowercase letter, and a numeric number.</p></>
-                }
+                } */}
 
                 {/* handle unique id verification  form*/}
-                <form onSubmit={handleVerifyUniqueId}>
+                {!otpData && !otpVerified && <form onSubmit={handleVerifyUniqueId}>
                     <TextField
                         label="Unique ID"
                         name="unique_id"
@@ -322,14 +328,14 @@ const SignupPage = () => {
                     </div> */}
 
                 </form>
-
+                }
 
                 {/* handle otp verification form */}
                 <form>
 
                     <div className=' d-flex   align-items-baseline  '>
                         {/* <button className='btn btn-primary btn-sm'>Counter</button> */}
-                        {otpData &&
+                        {otpData && enableOtp &&
                             <>
                                 <div className=' d-flex justify-content-center align-items-center  '>
                                     <button className='btn btn-primary '>{formatTime(timeLeft)}</button>
@@ -356,7 +362,7 @@ const SignupPage = () => {
                         }
                     </div>
                     {
-                        OTPCheckOne && <div className='text-center my-3'>
+                        OTPCheckOne && enableOtp && <div className='text-center my-3'>
                             {
                                 <button onClick={(e) => handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
                             }
@@ -391,7 +397,6 @@ const SignupPage = () => {
                             />
                         </>
                     }
-                   
                 </form>
 
                 {/* new user creation form */}
@@ -472,7 +477,7 @@ const SignupPage = () => {
 
 
 
-                    <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
+                    {/* <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p> */}
 
                     <div className=' d-flex justify-between mt-3'>
                         <button type="reset" className="btn btn-warning btn-sm">Reset</button>

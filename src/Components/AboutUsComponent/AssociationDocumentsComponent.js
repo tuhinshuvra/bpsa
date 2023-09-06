@@ -21,10 +21,10 @@ import Loader from "../Common/Loader";
 const AssociationDocumentsComponent = () => {
   const [loading, setLoading] = useState(false);
   const [documentData, setDocumentData] = useState([]);
-  console.log(
-    "🚀 ~ file: AssociationDocumentsComponent.js:23 ~ AssociationDocumentsComponent ~ documentData",
-    documentData
-  );
+  // console.log(
+  //   "🚀 ~ file: AssociationDocumentsComponent.js:23 ~ AssociationDocumentsComponent ~ documentData",
+  //   documentData
+  // );
   const getDocuments = async () => {
     setLoading(true);
     const result = await GetDocumentsData();
@@ -43,7 +43,7 @@ const AssociationDocumentsComponent = () => {
   }
 
   return (
-    <div className="py-5 bg-main/60 rounded-2xl ">
+    <div className="bg-main/60 py-3  my-5 rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Association"
