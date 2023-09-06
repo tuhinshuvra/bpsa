@@ -5,13 +5,14 @@ import ImageComponent from "../../Common/ImageComponent";
 import GalleryImageCard from "../../GalleryComponent/GalleryImageCard";
 import ButtonComponent from "../../Common/ButtonComponent";
 import { useNavigate } from "react-router-dom";
+import Styles from "../../GalleryComponent/GalleryComponent.module.css";
 
 const GalleryComp = ({ data }) => {
   const [images, setImages] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     if (data) {
-      let imgData = data?.slice(0, 8)?.map((item) => item.image);
+      let imgData = data?.slice(0, 10)?.map((item) => item.image);
       setImages(imgData);
     }
   }, [data]);
@@ -23,16 +24,20 @@ const GalleryComp = ({ data }) => {
           second={"Photos"}
           className="text-center text-[#FFFFFF] pb-3"
         />
-        <Row>
+        <div className={`${Styles.galleryGridView}`}>
           {data &&
-            data?.slice(0, 8)?.map((item, index) => {
+            data?.slice(0, 10)?.map((item, index) => {
               return (
-                <Col className="py-2" key={index} md={3}>
-                  <GalleryImageCard images={images} item={item} index={index} />
-                </Col>
+                <div className="py-2" key={index}>
+                  <GalleryImageCard
+                    images={images}
+                    item={item}
+                    index={index}
+                  />
+                </div>
               );
             })}
-        </Row>
+        </div>
         <div className="text-center">
           <ButtonComponent
             onClick={() => navigate("/gallery")}
