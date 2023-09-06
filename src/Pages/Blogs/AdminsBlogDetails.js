@@ -58,12 +58,11 @@ const AdminsBlogDetails = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(blogStatus);
-        console.log(blog.user_id);
         const data = {
             blog_id: id,
             status: blogStatus,
             approveDate: approveDate,
+            massege: event.target.message.value,
         }
 
         console.log("Blog Approved Data : ", data)

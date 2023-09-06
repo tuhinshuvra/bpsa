@@ -85,11 +85,13 @@ const ForgetPassword_bkup = () => {
             return;
         }
 
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
+        // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        
         const isPasswordValid = passwordPattern.test(password);
 
         if (!isPasswordValid) {
-            toast.error("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
+            toast.error("password combination must be lowercase, uppercase and number. password total numbers must me eight");
             setPasswordValid(false);
             return;
         }
