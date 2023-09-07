@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
+import { TfiTime } from 'react-icons/tfi';
 import './EventDetails.css';
 import FullScreenImage from '../Blogs/FullScreenImage/FullScreenImage';
 import useTitle from '../../hooks/useTitle';
@@ -66,7 +67,10 @@ const EventDetailsPage = () => {
                                     }
 
                                     {eventDetails?.time &&
-                                        <h5 className=' '> <b>Time:</b> {eventDetails?.time} </h5>
+                                        <div className=' d-flex align-items-center'>
+                                            <TfiTime className=' fs-5 fw-bolder' />
+                                            <span className=' fs-5 ms-1'> {eventDetails?.time} </span>
+                                        </div>
                                     }
 
                                 </div>

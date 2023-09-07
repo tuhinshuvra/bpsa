@@ -47,28 +47,27 @@ const AllEventPage = () => {
                         {allEvents &&
                             allEvents?.map((item, index) => {
                                 return (
-                                    <div className=' AllEventCard' key={index}>
+                                    <div className='AllEventCard flex-container' key={index}>
                                         <div onClick={() => navigate(`/events/${item?.id}`)}>
                                             <img src={item?.image} className='allEventImage' alt="" />
-                                            <div className=' text-center mt-2'>
-                                                <p className=' fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
-                                                <p className=' my-0'><b>Venue:</b> {item?.events}</p>
+                                            <div className='text-center mt-2'>
+                                                <p className='fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
+                                                <p className='my-0'><b>Venue:</b> {item?.events}</p>
                                                 {item?.start_date &&
-                                                    <p className='flex my-0  justify-center '>
+                                                    <p className='flex my-0 justify-center'>
                                                         <BsCalendarDateFill />
-                                                        <span className=' ms-1 text-sm '>  {formatDate(item?.start_date)}</span>
+                                                        <span className='ms-1 text-sm'>{formatDate(item?.start_date)}</span>
                                                         {item?.date && <> <span className=''> -</span> <span className='text-sm'> {formatDate(item?.date)}</span></>}
                                                     </p>
                                                 }
-
-
-                                                <Link className='btn btn-outline-primary btn-sm w-100 ' to={`/events/${item?.id}`}>Show Details</Link>
                                             </div>
                                         </div>
+                                        <Link className='btn btn-outline-primary btn-sm w-100 minTopMargin' to={`/events/${item?.id}`}>Show Details</Link>
                                     </div>
                                 );
                             })}
                     </Marquee>
+
                 </div>
             </section>
         </div>

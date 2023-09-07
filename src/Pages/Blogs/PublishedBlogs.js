@@ -40,8 +40,8 @@ const PublishedBlogs = () => {
             })
             .catch((error) => {
                 console.error("API request error:", error);
+                setLoading(false);
             });
-        setLoading(false);
     }, [setLoading]);
 
     if (loading) {

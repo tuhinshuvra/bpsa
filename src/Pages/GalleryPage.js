@@ -15,6 +15,8 @@ const GalleryPage = () => {
   const [galleryError, setGalleryError] = useState("");
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [videoData, setVideoData] = useState([]);
+
+  console.log("galleryData", galleryData);
   const getGalleryData = async () => {
     try {
       setGalleryLoading(true);
