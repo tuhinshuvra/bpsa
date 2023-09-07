@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 const ResetPassword = () => {
     const { user } = useContext(AllContext);
-    console.log(user)
+    // console.log(user)
     const [errorMessage, setErrorMessage] = useState("");
     const navigate=useNavigate();
     const handleNew = (e) => {
@@ -42,16 +42,27 @@ const ResetPassword = () => {
             setErrorMessage("");
             const data={
                 uniqueId:user.UniqueID,
-                currentPassword:currentPassword,
-                Newpassword:newPassword,
+                current_password:currentPassword,
+                password:newPassword,
+                password_confirmation:confirmedPassword,
             }
             console.log(data);
             axios.post("https://dev.bpsa.com.bd/api/change-password",data)
             .then(result=>{
-                if(result.data.message){
-                    toast.success("password reset update");
-                    form.reset();
-                    navigate("/memberProfile");
+                // console.log(result);
+                if(result.status==201){
+                    if(result.data.massege=='Password changed successfully.'){
+                        toast.success("password reset update");
+                        form.reset();
+                        navigate("/memberProfile");
+                    }
+                    else if(result.data.massege=='Incorrect current password. '){
+
+                        setErrorMessage("Incorrect current password. ")
+                    }
+                    else{
+                        setErrorMessage("something is wrong, password not change. Please try again")
+                    }
                 }
                 else{
                     setErrorMessage("something is wrong, password not change. Please try again")
