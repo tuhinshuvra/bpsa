@@ -87,7 +87,7 @@ const router = createBrowserRouter([
                 element: <EventDetailsPage></EventDetailsPage>
             },
 
-
+            // authentication route
             {
                 path: "/signup",
                 element: <SignupPage></SignupPage>
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
             },
 
 
-            // Private Route
+            // Private Routes
             {
                 path: "/memberProfile",
                 element: <PrivateRoute> <MemberProfilePage></MemberProfilePage></PrivateRoute>
