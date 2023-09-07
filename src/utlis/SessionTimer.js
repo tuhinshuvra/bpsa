@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, } from 'react';
 
 const SessionTimer = ({ onLogout }) => {
-    const inactivityTimeout = 10 * 1000; // 10 seconds in milliseconds
+    const inactivityTimeout = 1 * 60 * 1000;
 
     useEffect(() => {
         let timer;
@@ -18,15 +18,14 @@ const SessionTimer = ({ onLogout }) => {
         // Start the initial timer when the component mounts
         timer = setTimeout(onLogout, inactivityTimeout);
 
-        // Cleanup: Remove event listeners and clear the timer when the component unmounts
         return () => {
             clearTimeout(timer);
             window.removeEventListener('mousemove', handleActivity);
             window.removeEventListener('keydown', handleActivity);
         };
-    }, [onLogout]);
+    }, [onLogout, inactivityTimeout]);
 
-    return null; // This component doesn't render anything visible
+    return null;
 };
 
 export default SessionTimer;

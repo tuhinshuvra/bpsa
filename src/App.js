@@ -16,12 +16,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      // User is logged out, make sure to clear any sessions or tokens here
-      // Remove the SessionTimer component from the DOM
-    }
+    if (!isLoggedIn) { }
   }, [isLoggedIn]);
 
+  function navigateToRoute(routePath) {
+    window.location.href = routePath;
+  }
 
 
   return (
@@ -38,13 +38,12 @@ export default function App() {
         </div>
       ) : (
         <div>
-          {/* {signout(() => {
+          {signout(() => {
             setUser("");
             toast.success('User Logout Successfully')
-            navigate("/login")
-          })} */}
-
-          <h2>You are log out from the system</h2>
+            navigateToRoute("/login")
+          })}
+          {/* <h2 className=" text-primary fw-bold text-center my-auto">If the idel time is more than 5 minutes, you are logged out from the system.</h2> */}
         </div>
       )}
     </div>
