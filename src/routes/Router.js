@@ -34,6 +34,7 @@ import PrivateRoute from "./PrivateRoute";
 import WrongRoute from "./WrongRoute/WrongRoute";
 import SuperAdminRoute from "./SuperAdminRoute";
 import AdminRoute from "./AdminRoute";
+import ResetPassword from "../Pages/Authentication/ResetPassword";
 
 
 const router = createBrowserRouter([
@@ -100,7 +101,10 @@ const router = createBrowserRouter([
                 path: "/forgotpassword",
                 element: <ForgetPassword></ForgetPassword>
             },
-
+            {
+                path:"/resetPassword",
+                element:<PrivateRoute><ResetPassword/></PrivateRoute>
+            },
 
             // Private Route
             {
