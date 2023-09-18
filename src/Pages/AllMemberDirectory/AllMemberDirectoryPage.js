@@ -5,12 +5,91 @@ import DirectoryImg3 from '../../assets/Image/messages/bdPolice04.jfif';
 import DirectoryImg4 from '../../assets/Image/messages/bdPolice05.jfif';
 import DirectoryImg5 from '../../assets/Image/messages/bdPolice06.jfif';
 import DirectoryImg6 from '../../assets/Image/messages/bdPolice07.jfif';
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import './AllMemberDirectoryPage.css';
+import { AllContext } from "../../hooks/ContextData";
+import axios from "axios";
+import PaginationComponent from "../../Components/Common/PaginationComponent";
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
+    const { user } = useContext(AllContext);
+    const [page, setPage] = useState(1);
+    const [start, setStart] = useState(0);
+    const [end, setEnd] = useState(10);
+    const [showperPage, setShowPerPage] = useState(10);
+    const [accessToken, setAccessToken] = useState('');
+    const [batch, setBatch] = useState();
+    const [apiResponse, setApiResponse] = useState(null);
+    const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
+    const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
+    const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
+    const credentials = `${clientId}:${clientSecret}`;
+    const base64Credentials = btoa(credentials);
+    const headers = {
+        'Authorization': `Basic ${base64Credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = 'grant_type=client_credentials';
+
+    useEffect(() => {
+        const getAccessToken = async () => {
+            try {
+                const response = await axios.post(tokenUrl, data, { headers });
+                setAccessToken(response.data.access_token);
+            } catch (error) {
+                console.error('Error getting access token:', error);
+            }
+        }
+        getAccessToken();
+    }, [])
+    useEffect(() => {
+        const batchCadre = async () => {
+            if (!accessToken) {
+                return;
+            }
+            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822`;
+            const headers = {
+                'Authorization': `Bearer ${accessToken}`,
+            };
+
+            try {
+                const response = await axios.get(apiUrl, { headers });
+                setBatch(response.data.items[0].cadre);
+            } catch (error) {
+                console.error('Error calling API:', error);
+            }
+        }
+        batchCadre();
+    }, [accessToken])
+
+    useEffect(() => {
+        const batchData = async () => {
+            if (!accessToken) {
+                return;
+            }
+            if (!batch) {
+                return;
+            }
+            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/batchmates-list/${batch}`;
+            const headers = {
+                'Authorization': `Bearer ${accessToken}`,
+            };
+            try {
+                const response = await axios.get(apiUrl, { headers });
+                setApiResponse(response.data?.items);
+            } catch (error) {
+                console.error('Error calling API:', error);
+            }
+        }
+        batchData();
+    }, [accessToken, batch])
+
+    if (apiResponse) {
+        console.log(apiResponse)
+    }
+
     const [searchData, setSearchData] = useState({
         batch: "22",
         searchKeyword: "",
@@ -46,6 +125,12 @@ const AllMemberDirectoryPage = () => {
 
     }
 
+    const handleChange = (event, value) => {
+        setPage(value);
+
+        setStart(showperPage * value - showperPage);
+        setEnd(showperPage * value);
+    };
     return (
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
@@ -139,14 +224,14 @@ const AllMemberDirectoryPage = () => {
                                             <li className="page-item"><Link className="page-link" href="#">5</Link></li>
                                             <li className="page-item"><Link className="page-link" href="#">6</Link></li>
                                             <li className=" fs-5 mx-2 text-white fw-bolder">... ... </li>
-                                            <li className="page-item"><Link className="page-link" href="#">18</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">19</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">20</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">21</Link></li>
-                                            <li className="page-item active" aria-current="page">
+                                            <li onClick={()=>setBatch(18)} className="page-item"><Link className="page-link" href="#">18</Link></li>
+                                            <li onClick={()=>setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li>
+                                            <li onClick={()=>setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li>
+                                            <li onClick={()=>setBatch(21)} className="page-item"><Link className="page-link" href="#">21</Link></li>
+                                            <li onClick={()=>setBatch(22)} className="page-item active" aria-current="page">
                                                 <Link className="page-link" href="#">22 <span className="visually-hidden">(current)</span></Link>
                                             </li>
-                                            <li className="page-item"><Link className="page-link" href="#">23</Link></li>
+                                            <li onClick={()=>setBatch(24)} className="page-item"><Link className="page-link" href="#">23</Link></li>
                                             <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
                                         </ul>
                                     </nav>
@@ -187,164 +272,54 @@ const AllMemberDirectoryPage = () => {
                                 )}
                             </div>
 
-
                             {/* Default Member Show */}
                             <div className="defaultDataShow">
-
-                                <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
-                                    <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Kamrul Hasan</p>
-                                        <p className=" my-0"> <b> Designation </b>: DIG</p>
-                                    </div>
-                                    <div className="col-md-7">
-                                        <div className=" d-flex justify-content-between">
-                                            <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510460</p>
-                                                <p className="my-0"><b> Rank</b>   : SP</p>
-                                                <p className="my-0"><b> Main Unit</b>: ABPN</p>
-                                                <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
-                                                <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
-                                                <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
-                                                <p className="my-0"><b> Blood Group  </b>  : O- </p>
-                                                <p className="my-0"><b> Own District </b> : Sylhet</p>
-                                            </div>
+                                {
+                                    apiResponse && apiResponse.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
+                                        <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
+                                            <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." />
+                                            <p className="fw-bold my-0">{row.employeename}</p>
+                                            {
+                                                row.current_designation ? <p className=" my-0"> <b> Designation </b>: {row.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
+                                            }
 
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
-                                    <div className="col-md-5 col-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg2} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Dedarul Karim</p>
-                                        <p className=" my-0"> <b> Designation </b>: SI</p>
-                                    </div>
-                                    <div className="col-md-7 col-7">
-                                        <div className=" d-flex justify-content-between">
-                                            <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510443</p>
-                                                <p className="my-0"><b> Rank</b>   : SP</p>
-                                                <p className="my-0"><b> Main Unit</b>: ABPN</p>
-                                                <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
-                                                <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
-                                                <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
-                                                <p className="my-0"><b> Blood Group  </b>  : O- </p>
-                                                <p className="my-0"><b> Own District </b> : Sylhet</p>
-                                            </div>
+                                        <div className="col-md-7">
+                                            <div className=" d-flex justify-content-between">
+                                                <div className=" ">
+                                                    <p className="my-0"><b> BP/SIV No.</b>: {row.employeecode}</p>
+                                                    <p className="my-0"><b> Rank</b>   : {row.rank}</p>
+                                                    {
+                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row.unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
+                                                    }
+                                                    <p className="my-0"><b>Present work Place  </b>  : {row.present_workplace}</p>
+                                                    <p className="my-0"> <b>Mobile no  </b>    : {row.mobilephone}</p>
+                                                    <p className="my-0"> <b>Email     </b>      : {row.email}</p>
+                                                    {
+                                                        row.email ? <> <p className="my-0"> <b>Email     </b>      : {row.email}</p></> : <> <p className="my-0"> <b>Email     </b>      :N/A</p></>
+                                                    }
+                                                    <p className="my-0"><b> Degree  </b>  : {row.degree} </p>
+                                                    <p className="my-0"><b> Gender </b> :  {row.idsex}</p>
+                                                    <p className="my-0"><b> Own District </b> : {row.homedistrict}</p>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
-                                    <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg3} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Asaduzzaman</p>
-                                        <p className=" my-0"> <b> Designation </b>: AIG</p>
-                                    </div>
-                                    <div className="col-md-7">
-                                        <div className=" d-flex justify-content-between">
-                                            <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510440</p>
-                                                <p className="my-0"><b> Rank</b>   : SP</p>
-                                                <p className="my-0"><b> Main Unit</b>: ABPN</p>
-                                                <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
-                                                <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
-                                                <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
-                                                <p className="my-0"><b> Blood Group  </b>  : O- </p>
-                                                <p className="my-0"><b> Own District </b> : Sylhet</p>
-                                            </div>
+                                                </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
-                                    <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg4} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Kamal Hossain</p>
-                                        <p className=" my-0"> <b> Designation </b>: SI</p>
-                                    </div>
-                                    <div className="col-md-7">
-                                        <div className=" d-flex justify-content-between">
-                                            <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510463</p>
-                                                <p className="my-0"><b> Rank</b>   : SP</p>
-                                                <p className="my-0"><b> Main Unit</b>: ABPN</p>
-                                                <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
-                                                <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
-                                                <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
-                                                <p className="my-0"><b> Blood Group  </b>  : O- </p>
-                                                <p className="my-0"><b> Own District </b> : Sylhet</p>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
-                                    <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg5} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Shake Harun</p>
-                                        <p className=" my-0"> <b> Designation </b>: AIG</p>
-                                    </div>
-                                    <div className="col-md-7">
-                                        <div className=" d-flex justify-content-between">
-                                            <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750516543</p>
-                                                <p className="my-0"><b> Rank</b>   : SP</p>
-                                                <p className="my-0"><b> Main Unit</b>: ABPN</p>
-                                                <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
-                                                <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
-                                                <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
-                                                <p className="my-0"><b> Blood Group  </b>  : O- </p>
-                                                <p className="my-0"><b> Own District </b> : Sylhet</p>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1">
-                                    <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={DirectoryImg6} className="memberDirectoryImg" alt="..." />
-                                        <p className="fw-bold my-0">Md. Naim Ahmed</p>
-                                        <p className=" my-0"> <b> Designation </b>: DIG</p>
-                                    </div>
-                                    <div className="col-md-7">
-                                        <div className=" d-flex justify-content-between">
-                                            <div className=" ">
-                                                <p className="my-0"><b> BP/SIV No.</b>: BP750510543</p>
-                                                <p className="my-0"><b> Rank</b>   : SP</p>
-                                                <p className="my-0"><b> Main Unit</b>: ABPN</p>
-                                                <p className="my-0"><b> Birth Date  </b>  : 15/06/1978</p>
-                                                <p className="my-0"> <b>Mobile no  </b>    : 01234567890</p>
-                                                <p className="my-0"> <b>Email     </b>      : abulkashem@gmail.com</p>
-                                                <p className="my-0"><b> Blood Group  </b>  : O- </p>
-                                                <p className="my-0"><b> Own District </b> : Sylhet</p>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                    </div>)
+                                }
                             </div>
 
-                            {/* member data show pagination */}
-                            <div className=" text-center  ">
-                                <div className=" d-flex justify-content-center align-items-center">
-                                    <nav className=" ms-2" aria-label="Page navigation example" >
-                                        <ul className="pagination my-auto py-2 ">
-                                            <li className="page-item disabled">
-                                                <Link className="page-link">Previous</Link>
-                                            </li>
-                                            <li className="page-item active" aria-current="page">
-                                                <Link className="page-link" href="#">1 <span className="visually-hidden">(current)</span></Link>
-                                            </li>
-                                            <li className="page-item"><Link className="page-link" href="#">2</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">4</Link></li>
-                                            <li className=" fs-5 mx-2 text-white fw-bolder">...</li>
-                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                            <PaginationComponent
+                                count={Math.ceil(apiResponse?.length / showperPage)}
+                                pageNumber={page}
+                                handleChange={handleChange}
+                                className="flex items-center justify-between px-10 py-3"
+                                start={start}
+                                end={end}
+                                total={apiResponse?.length}
+                                isShow={true}
+                            />
                         </div>
                     </div>
                 </div>
