@@ -21,7 +21,9 @@ const AllMemberDirectoryPage = () => {
     const [showperPage, setShowPerPage] = useState(10);
     const [accessToken, setAccessToken] = useState('');
     const [batch, setBatch] = useState();
+    const [searchBatch, setSearchBatch] = useState();
     const [apiResponse, setApiResponse] = useState(null);
+    const [filterData,setFilterData]=useState(null);
     const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
     const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
     const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
@@ -79,6 +81,7 @@ const AllMemberDirectoryPage = () => {
             try {
                 const response = await axios.get(apiUrl, { headers });
                 setApiResponse(response.data?.items);
+                setFilterData(response.data?.items)
             } catch (error) {
                 console.error('Error calling API:', error);
             }
@@ -87,7 +90,7 @@ const AllMemberDirectoryPage = () => {
     }, [accessToken, batch])
 
     if (apiResponse) {
-        console.log(apiResponse)
+        // console.log(apiResponse)
     }
 
     const [searchData, setSearchData] = useState({
@@ -104,7 +107,7 @@ const AllMemberDirectoryPage = () => {
     const navigate = useNavigate();
 
 
-    console.log("Search Data : ", searchData);
+    // console.log("Search Data : ", searchData);
 
     const getSearchData = (event) => {
         const field = event.target.name;
@@ -115,17 +118,30 @@ const AllMemberDirectoryPage = () => {
             [field]: value
         }));
     };
-
     const handleSearchResult = (event) => {
         event.preventDefault();
+        let filterData=apiResponse;
+        if(searchData?.searchKeyword){
+          filterData=filterData.filter(batchData => searchData?.searchKeyword === batchData.employeename);
+          console.log(filterData)
+        }
+        if(searchData.rank!='Select Rank'&&searchData.rank){
+            filterData=filterData.filter(batchData => searchData.rank === batchData.rank);
+        }
+        if(searchData.unit!='Select Main Unit'&&searchData.unit){
+            filterData=filterData.filter(batchData => searchData.unit === batchData.main_unit);
+        }
+        if(searchData.district!=="Own District"&&searchData.district){
+            filterData=filterData.filter(batchData => searchData.district === batchData.homedistrict);
+        }
         console.log("Search Data:", searchData);
-
+        setFilterData(filterData);
         setSearchButtonClicked(true);
         // navigate('/memberDirectorySearchResult')
-
     }
 
     const handleChange = (event, value) => {
+
         setPage(value);
 
         setStart(showperPage * value - showperPage);
@@ -151,8 +167,8 @@ const AllMemberDirectoryPage = () => {
 
                                     <select onChange={getSearchData} name="rank" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
                                         <option defaultValue>Select Rank</option>
-                                        <option value="RankOne">RankOne</option>
-                                        <option value="RankTwo">RankTwo</option>
+                                        <option value="এসপি">এসপি</option>
+                                        <option value="অ্যাডিশনাল ডিআইজি">অ্যাডিশনাল ডিআইজি</option>
                                         <option value="RankThree">RankThree</option>
                                         <option value="RankFour">RankFour</option>
                                     </select>
@@ -160,11 +176,11 @@ const AllMemberDirectoryPage = () => {
 
                                 <div className=" d-md-flex d-lg-inline">
                                     <select onChange={getSearchData} name="unit" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
-                                        <option defaultValue>Select Unit</option>
-                                        <option value="UnitOne">UnitOne</option>
-                                        <option value="UnitTwo">UnitTwo</option>
-                                        <option value="UnitThree">UnitThree</option>
-                                        <option value="UnitFour">UnitFour</option>
+                                        <option defaultValue>Select Main Unit</option>
+                                        <option value="পুলিশ হেডকোয়ার্টার্স">পুলিশ হেডকোয়ার্টার্স</option>
+                                        <option value="খুলনা রেঞ্জ">খুলনা রেঞ্জ</option>
+                                        <option value="N/A">N/A</option>
+                                        <option value="ডিএমপি, ঢাকা">ডিএমপি, ঢাকা</option>
                                     </select>
 
 
@@ -188,16 +204,16 @@ const AllMemberDirectoryPage = () => {
 
                                     <select onChange={getSearchData} name="district" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
                                         <option defaultValue>Own District</option>
-                                        <option value="Dhaka">Dhaka</option>
-                                        <option value="Rajshahi">Rajshahi</option>
-                                        <option value="Chattogram">Chattogram</option>
-                                        <option value="Khulna">Khulna</option>
-                                        <option value="Barishal">Barishal</option>
-                                        <option value="Rangpur">Rangpur</option>
-                                        <option value="Sylhet">Sylhet</option>
-                                        <option value="Bagerhat">Bagerhat</option>
-                                        <option value="Jessore">Jessore</option>
-                                        <option value="Gazipur">Gazipur</option>
+                                        <option value="পাবনা">পাবনা</option>
+                                        <option value="নড়াইল">নড়াইল</option>
+                                        <option value="খুলনা">খুলনা</option>
+                                        <option value="মাগুরা">মাগুরা</option>
+                                        <option value=" সুনামগঞ্জ"> সুনামগঞ্জ</option>
+                                        <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
+                                        <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
+                                        <option value="সাতক্ষীরা">সাতক্ষীরা</option>
+                                        <option value="ফরিদপুর">ফরিদপুর</option>
+                                        <option value="গাজীপুর">গাজীপুর</option>
                                     </select>
                                 </div>
 
@@ -224,14 +240,14 @@ const AllMemberDirectoryPage = () => {
                                             <li className="page-item"><Link className="page-link" href="#">5</Link></li>
                                             <li className="page-item"><Link className="page-link" href="#">6</Link></li>
                                             <li className=" fs-5 mx-2 text-white fw-bolder">... ... </li>
-                                            <li onClick={()=>setBatch(18)} className="page-item"><Link className="page-link" href="#">18</Link></li>
-                                            <li onClick={()=>setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li>
-                                            <li onClick={()=>setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li>
-                                            <li onClick={()=>setBatch(21)} className="page-item"><Link className="page-link" href="#">21</Link></li>
-                                            <li onClick={()=>setBatch(22)} className="page-item active" aria-current="page">
+                                            <li onClick={() => setBatch(18)} className="page-item"><Link className="page-link" href="#">18</Link></li>
+                                            <li onClick={() => setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li>
+                                            <li onClick={() => setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li>
+                                            <li onClick={() => setBatch(21)} className="page-item"><Link className="page-link" href="#">21</Link></li>
+                                            <li onClick={() => setBatch(22)} className="page-item active" aria-current="page">
                                                 <Link className="page-link" href="#">22 <span className="visually-hidden">(current)</span></Link>
                                             </li>
-                                            <li onClick={()=>setBatch(24)} className="page-item"><Link className="page-link" href="#">23</Link></li>
+                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">23</Link></li>
                                             <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
                                         </ul>
                                     </nav>
@@ -275,7 +291,7 @@ const AllMemberDirectoryPage = () => {
                             {/* Default Member Show */}
                             <div className="defaultDataShow">
                                 {
-                                    apiResponse && apiResponse.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
+                                    filterData && filterData.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
                                         <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
                                             <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." />
                                             <p className="fw-bold my-0">{row.employeename}</p>
@@ -290,7 +306,7 @@ const AllMemberDirectoryPage = () => {
                                                     <p className="my-0"><b> BP/SIV No.</b>: {row.employeecode}</p>
                                                     <p className="my-0"><b> Rank</b>   : {row.rank}</p>
                                                     {
-                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row.unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
+                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row.main_unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
                                                     }
                                                     <p className="my-0"><b>Present work Place  </b>  : {row.present_workplace}</p>
                                                     <p className="my-0"> <b>Mobile no  </b>    : {row.mobilephone}</p>
