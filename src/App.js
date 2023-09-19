@@ -40,7 +40,7 @@ export default function App() {
         <div>
           {signout(() => {
             setUser("");
-            toast.success('User Logout Successfully')
+            toast.success('The user has been auto logout due to 5 minutes of inactive time.')
             navigateToRoute("/login")
           })}
           {/* <h2 className=" text-primary fw-bold text-center my-auto">If the idel time is more than 5 minutes, you are logged out from the system.</h2> */}

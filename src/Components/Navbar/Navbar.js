@@ -141,16 +141,7 @@ const Navbar = () => {
             >
               Committee
             </NavLink>
-            {/* <NavLink
-              className={(active) =>
-                active?.isActive
-                  ? `${Styles.activenav__Style}   hover:text-white`
-                  : `${Styles.normalnav__Style}   hover:text-white`
-              }
-              to="/notice"
-            >
-              Notice
-            </NavLink> */}
+
             <NavLink
               className={(active) =>
                 active?.isActive
