@@ -12,7 +12,7 @@ import { AllContext } from "../../hooks/ContextData";
 import { signout } from "../../utlis/helper";
 import { toast } from "react-hot-toast";
 import { GoFileDirectoryFill } from 'react-icons/go';
-import { FaSignOutAlt, FaBloggerB } from 'react-icons/fa';
+import { FaSignOutAlt, FaBloggerB, FaExchangeAlt } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { RiAdminFill } from 'react-icons/ri';
 import './Navbar.css';
@@ -208,6 +208,7 @@ const Navbar = () => {
                 <ul className="dropdown-menu navDropdownMenu">
                   {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
                   <li><Link className=" navDropdownbtn    py-1    w-full d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
+                  <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />change Password</Link></li>
                   <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
                   <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
                   {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
@@ -280,6 +281,7 @@ const Navbar = () => {
 
               <ul className="dropdown-menu navDropdownMenu">
                 <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
+                <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />change Password</Link></li>
                 <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
                 <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
                 {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}

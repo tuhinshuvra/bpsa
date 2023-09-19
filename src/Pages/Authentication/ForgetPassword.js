@@ -163,7 +163,7 @@ const ForgetPassword = () => {
                 <div className=' d-flex flex-column align-items-center'>
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
 
-                    <h2 className=' text-center fs-3'>Password Reset</h2>
+                    <h2 className=' text-center fs-3'>Password forget</h2>
                 </div>
                 <p className='text-center my-2 text-red-600'>{errorMessage}</p>
                 {

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import './Login.css';
 import { Toast } from 'bootstrap';
+import axios from 'axios';
 
 const SignupPage = () => {
     useTitle("SignUp");
@@ -156,12 +157,12 @@ const SignupPage = () => {
     const handleVerifyOTP = (event) => {
         event.preventDefault();
         if (userEnteredOTP == otpData) {
-
             toast.success("OTP Verified successfully!")
             console.log('OTP Verified successfully!');
             setOtpVerified(true);
             setEnableOtp(false);
             setOTPCheckOne(false);
+            setErrorMessage("");
             setOtpData("");
         } else {
             console.log('Invalid OTP');
@@ -193,52 +194,73 @@ const SignupPage = () => {
 
             return;
         }
+        else {
+            setErrorMessage("")
+        }
 
-
-
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[1234567890])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 
         const isPasswordValid = passwordPattern.test(password);
 
         if (!isPasswordValid) {
             setPasswordValid(false);
-            setErrorMessage("password combination must be lowercase, uppercase ,number ,special character. password total numbers must me eight");
+            setErrorMessage("password combination must be lowercase, uppercase and number. password total numbers must me eight");
             return;
         }
 
         const userData = {
             name: fullName,
+            UniqueID: uniqueId,
             email: email,
             password: password,
             password_confirmation: confirmPassword,
-            UniqueID: uniqueId,
-            year: year,
-            phone: phone,
         }
         console.log("userData : ", userData);
 
-        fetch(`https://dev.bpsa.com.bd/api/signup`, {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Registerd User Data : ', data);
-                if (data) {
+        axios.post("https://dev.bpsa.com.bd/api/signup", userData)
+            .then(result => {
+                console.log(result);
+                if (result.status == 201) {
                     form.reset()
-                    toast.success('Congratulation! User created successfully.')
+                    toast.success('Congratulation! User created successfully.');
+                    navigate("/login");
                 }
-                navigate("/login");
+                else {
+                    setErrorMessage("something is wrong please sign up again")
+                }
+            })
+            .catch(err => {
+                if(err.message=='Request failed with status code 422'){
+                    setErrorMessage("user Name already another person have used Pleased change userName");
+                }
+                else{
+                    setErrorMessage("something is wrong. Please check your net connection and other issues")
+                }
+            })
 
-            })
-            .catch(error => {
-                console.log("Error Occured: ", error.response.data)
-                setErrorMessage(error.response.data.error)
-            })
+        // fetch(`https://dev.bpsa.com.bd/api/signup`, {
+        //     method: "POST",
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(userData)
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log('Registerd User Data : ', data);
+        //         if (data) {
+        //             form.reset()
+        //             toast.success('Congratulation! User created successfully.')
+        //         }
+        //         navigate("/login");
+
+        //     })
+        //     .catch(error => {
+        //         console.log("Error Occured: ", error.response.data)
+        //         setErrorMessage(error.response.data.error)
+        //     })
+
     }
 
 
@@ -253,10 +275,12 @@ const SignupPage = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-
+                toast.success("OTP resent your mobile")
                 setOtpData(data.otp)
 
                 startCountdown();
+
+                setErrorMessage("");
 
                 // After successful OTP verification, set otpVerified to true
                 // setOtpVerified(true);
