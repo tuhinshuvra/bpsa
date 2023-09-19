@@ -14,9 +14,6 @@
     width: 200px;
 }
 
-
-
-
 .memberProFont {
     font-size: 15px;
     line-height: 1.1;
@@ -54,4 +51,16 @@
 .coCurriculur {
     font-size: 15px;
     line-height: 18px;
+}
+
+.profileUpdateBtn {
+    background-color: rgb(32, 79, 235);
+    font-size: 12px;
+    color: white;
+    width: 50px;
+    border-radius: 10px;
+}
+
+.formArea {
+    font-size: 14px !important;
 }

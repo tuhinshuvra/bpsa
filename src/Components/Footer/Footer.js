@@ -11,7 +11,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="bg-third/80 pt-3   footerArea">
+    <footer className="bg-main pt-3   footerArea">
       <div className="container d-lg-flex mt-3">
         <div className="col-12 col-lg-3  d-flex  flex-column justify-content-center align-items-center">
           <div className='d-flex justify-content-center'>
@@ -22,7 +22,7 @@ const Footer = () => {
 
         <div className="col-12 col-lg-9 d-lg-flex" >
           <div className="col-lg-6  ">
-            <h5 className='text-center fw-bold text-sixth '>Hot Link</h5>
+            <h5 className='text-center fw-bold text-white '>Hot Link</h5>
             <ul className="nav flex-column">
               <li className="mb-1 text-center"><Link to="https://pmo.gov.bd" className="  footer_btn fw-bold" target="_blank">The Prime Minister's Office</Link></li>
               <li className="mb-1 text-center"><Link to="https://www.police.gov.bd" className="  footer_btn fw-bold" target="_blank">Bangldesh Plice</Link></li>
@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
 
           <div className="col-lg-6  text-center   mb-3 my-lg-0 my-3">
-            <h5 className=' text-center fw-bold text-sixth'>Contact</h5>
+            <h5 className=' text-center fw-bold text-white'>Contact</h5>
             <p className=" my-0 text-white" > <b> Email: </b> bpsa2020@gmail.com</p>
             <p className=" my-0 text-white"> <b> Phone:</b> +880248320808 </p>
             <p className=" mt-2 text-white">

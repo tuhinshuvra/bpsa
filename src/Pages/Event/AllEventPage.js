@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import useTitle from '../../hooks/useTitle';
 import Marquee from "react-fast-marquee";
 import { Link, useNavigate } from 'react-router-dom';
+import { BsCalendarDateFill } from 'react-icons/bs';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
 import './AllEventPage.css'
+import { formatDate } from '../../utlis/dateFormat';
 
 const AllEventPage = () => {
     useTitle("Events")
@@ -30,7 +32,7 @@ const AllEventPage = () => {
 
 
     if (loading) {
-        <Loader></Loader>
+        return <Loader></Loader>
     }
 
     return (
@@ -45,27 +47,27 @@ const AllEventPage = () => {
                         {allEvents &&
                             allEvents?.map((item, index) => {
                                 return (
-                                    <div className=' AllEventCard' key={index}>
+                                    <div className='AllEventCard flex-container' key={index}>
                                         <div onClick={() => navigate(`/events/${item?.id}`)}>
                                             <img src={item?.image} className='allEventImage' alt="" />
-                                            <div className=' text-center mt-2'>
-                                                <p className=' fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
-                                                <p className=' my-0'><b>Venue:</b> {item?.events}</p>
+                                            <div className='text-center mt-2'>
+                                                <p className='fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
+                                                <p className='my-0'><b>Venue:</b> {item?.events}</p>
                                                 {item?.start_date &&
-                                                    <p className=' d-flex my-0 justify-content-center '>
-                                                        <b> Date: &nbsp;</b> {item?.start_date}
-                                                        {item?.date && <> - {item?.date}</>}
+                                                    <p className='flex my-0 justify-center'>
+                                                        <BsCalendarDateFill />
+                                                        <span className='ms-1 text-sm'>{formatDate(item?.start_date)}</span>
+                                                        {item?.date && <> <span className=''> -</span> <span className='text-sm'> {formatDate(item?.date)}</span></>}
                                                     </p>
                                                 }
-
-
-                                                <Link className='btn btn-outline-primary btn-sm w-100 ' to={`/events/${item?.id}`}>Show Details</Link>
                                             </div>
                                         </div>
+                                        <Link className='btn btn-outline-primary btn-sm w-100 minTopMargin' to={`/events/${item?.id}`}>Show Details</Link>
                                     </div>
                                 );
                             })}
                     </Marquee>
+
                 </div>
             </section>
         </div>

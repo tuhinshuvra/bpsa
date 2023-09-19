@@ -32,6 +32,7 @@ const MemberProfilePage = () => {
 
     // user new data
     useEffect(() => {
+        setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
@@ -43,6 +44,7 @@ const MemberProfilePage = () => {
 
     // login member profile data
     useEffect(() => {
+        setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/profile/${user?.UniqueID}`)
             .then(res => res.json())
             .then(data => {
@@ -107,7 +109,7 @@ const MemberProfilePage = () => {
     // pagination end
 
     if (loading) {
-        <Loader></Loader>
+        return <Loader></Loader>
     }
 
     const toggleImageUpload = () => {
@@ -192,8 +194,8 @@ const MemberProfilePage = () => {
                                             <p className="my-0"><b> Phone no  </b>    : {memberData?.phone}
                                                 {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
                                             </p>
-                                            <p className="my-0"> <b> Email</b>    : {memberData?.email}
-                                                {memberData?.email02 && <>, <br /> &nbsp;{memberData?.email02}</>}
+                                            <p className="my-0"> <b> Email</b>    : <small>{memberData?.email}</small>
+                                                {memberData?.email02 && <>, <small>  {memberData?.email02}</small></>}
                                             </p>
                                             <p className="my-0"> <b> Medal </b> : {memberData?.gift}</p>
                                         </div>

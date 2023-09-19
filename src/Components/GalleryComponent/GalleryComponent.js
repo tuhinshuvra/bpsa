@@ -51,17 +51,17 @@ const GalleryComponent = ({ data, video }) => {
                   <ButtonComponent
                     onClick={() => setSelectTitle("Photos")}
                     title="Photos"
-                    className={`px-5 py-2  ${selectTitle === "Photos"
-                      ? "bg-second text-white"
-                      : "border-2 border-main text-main "
+                    className={`px-3 py-1  ${selectTitle === "Photos"
+                      ? "bg-main text-white"
+                      : "  bg-success  text-white "
                       }`}
                   />
                   <ButtonComponent
                     onClick={() => setSelectTitle("video")}
                     title="Videos"
-                    className={`px-5 py-2  ${selectTitle === "video"
-                      ? "bg-second text-white border-2 border-second"
-                      : "border-2 border-main text-main "
+                    className={`px-3 py-1  ${selectTitle === "video"
+                      ? "bg-main text-white"
+                      : "  bg-success text-white "
                       }`}
                   />
                 </div>

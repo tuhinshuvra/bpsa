@@ -31,7 +31,7 @@ const PublishedBlogs = () => {
     };
 
     useEffect(() => {
-        setBlogLoading(true);
+        setLoading(true);
         fetch("https://dev.bpsa.com.bd/api/Approvedblog")
             .then((res) => res.json())
             .then((result) => {
@@ -40,8 +40,13 @@ const PublishedBlogs = () => {
             })
             .catch((error) => {
                 console.error("API request error:", error);
+                setLoading(false);
             });
     }, [setLoading]);
+
+    if (loading) {
+        return <Loader></Loader>
+    }
 
     return (
         <div className='col-md-10 mx-auto'>

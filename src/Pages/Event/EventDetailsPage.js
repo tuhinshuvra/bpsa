@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
+import { BsCalendarDateFill } from 'react-icons/bs';
+import { TfiTime } from 'react-icons/tfi';
 import './EventDetails.css';
 import FullScreenImage from '../Blogs/FullScreenImage/FullScreenImage';
 import useTitle from '../../hooks/useTitle';
+import { formatDate } from '../../utlis/dateFormat';
 
 const EventDetailsPage = () => {
     useTitle("EventDetails");
@@ -20,6 +23,7 @@ const EventDetailsPage = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/get-event/${eventId}`)
             .then(response => response.json())
             .then(data => {
@@ -32,7 +36,7 @@ const EventDetailsPage = () => {
     // const { date, description, events, id, image, start_date, status, time, title, video_link } = allEvents;
 
     if (loading) {
-        <Loader></Loader>
+        return <Loader></Loader>
     }
 
     return (
@@ -54,13 +58,19 @@ const EventDetailsPage = () => {
                                         <h4> <b>Venue:</b> {eventDetails?.events} </h4>
                                     }
                                     {eventDetails?.start_date &&
-                                        <h5 className=' d-flex '><b> Date: &nbsp;</b> {eventDetails?.start_date}
-                                            {eventDetails?.date && <> - {eventDetails?.date}</>}
+                                        <h5 className=' d-flex '><BsCalendarDateFill className=' me-1' /> {formatDate(eventDetails?.start_date)}
+                                            {eventDetails?.date && <> - {formatDate(eventDetails?.date)}</>}
                                         </h5>
+
+
+
                                     }
 
                                     {eventDetails?.time &&
-                                        <h5 className=' '> <b>Time:</b> {eventDetails?.time} </h5>
+                                        <div className=' d-flex align-items-center'>
+                                            <TfiTime className=' fs-5 fw-bolder' />
+                                            <span className=' fs-5 ms-1'> {eventDetails?.time} </span>
+                                        </div>
                                     }
 
                                 </div>

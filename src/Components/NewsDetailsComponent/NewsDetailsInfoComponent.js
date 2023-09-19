@@ -1,20 +1,18 @@
 import React from "react";
 import { TimeIcon } from "../../assets/Icons/Icons";
-import { dateFormatOne } from "../../utlis/dateFormat";
+import { dateFormatOne, formatDate } from "../../utlis/dateFormat";
 import ImageComponent from "../Common/ImageComponent";
 import ButtonComponent from "../Common/ButtonComponent";
+import { BsCalendarDateFill } from 'react-icons/bs';
 
 const NewsDetailsInfoComponent = ({ data }) => {
-  console.log(
-    "🚀 ~ file: NewsDetailsInfoComponent.js:6 ~ NewsDetailsInfoComponent ~ data",
-    data
-  );
+  // console.log(    "🚀 ~ file: NewsDetailsInfoComponent.js:6 ~ NewsDetailsInfoComponent ~ data",    data  );
   return (
     <div>
       <h4 className="text-main">{data?.Heading}</h4>
       <div className="flex items-center space-x-2">
-        <TimeIcon className="mr-1"/>
-        {dateFormatOne(data?.Pub_Date)}
+        <BsCalendarDateFill className="mr-1" />
+        {formatDate(data?.Pub_Date)}
       </div>
       <ImageComponent
         image={data?.Cover_Photo}
@@ -26,7 +24,6 @@ const NewsDetailsInfoComponent = ({ data }) => {
       ></div>
       {data?.Document_Link && (
         <a href={data?.Document_Link} target="_blank" rel="noreferrer">
-          {" "}
           <ButtonComponent
             className={"bg-second text-white px-4 py-2"}
             title="View Document"

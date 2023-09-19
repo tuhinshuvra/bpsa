@@ -31,6 +31,7 @@ const LoginPage = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+    // setLoading(true);
     axios({
       method: "POST",
       url: `https://dev.bpsa.com.bd/api/login`,
@@ -46,11 +47,11 @@ const LoginPage = () => {
             console.log('BPSA Member Successfully Logged In');
           }
           // console.log("Logged in UserName:", response.data.user.name)
-          setLoading(false);
           navigate("/memberProfile", { replace: true });
           console.log("cookie local save ", isAuth());
           window.location.reload();
         });
+        setLoading(false);
       })
       .catch((error) => {
         setErrorMessage(error.response.data.error || "An error occurred");
@@ -61,7 +62,7 @@ const LoginPage = () => {
   };
 
   if (loading) {
-    <Loader></Loader>
+    return <Loader></Loader>
   }
 
   return (

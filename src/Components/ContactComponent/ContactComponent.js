@@ -7,8 +7,12 @@ import HeroComponent1 from "../Common/HeroComponent1";
 import { toast } from "react-hot-toast";
 import useTitle from "../../hooks/useTitle";
 import './ContactComponent.css';
+import { AllContext } from "../../hooks/ContextData";
+import { useContext } from "react";
+import Loader from "../Common/Loader";
 
 const ContactComponent = () => {
+  const { loading, setLoading } = useContext(AllContext);
   useTitle("ContactUs")
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -29,6 +33,7 @@ const ContactComponent = () => {
     // console.log("Contact Data: ", data);
 
     try {
+      setLoading(true);
       const result = await PostContactData(data);
 
       console.log(result?.status);
@@ -38,7 +43,14 @@ const ContactComponent = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
+
+  if (loading) {
+    return <Loader></Loader>
+  }
+
+
 
   return (
     <div className='col-md-10 mx-auto'>
