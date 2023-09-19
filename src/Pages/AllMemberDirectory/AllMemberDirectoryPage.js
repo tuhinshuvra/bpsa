@@ -310,7 +310,7 @@ const AllMemberDirectoryPage = () => {
                                                     }
                                                     <p className="my-0"><b>Present work Place  </b>  : {row.present_workplace}</p>
                                                     <p className="my-0"> <b>Mobile no  </b>    : {row.mobilephone}</p>
-                                                    <p className="my-0"> <b>Email     </b>      : {row.email}</p>
+                                                    {/* <p className="my-0"> <b>Email     </b>      : {row.email}</p> */}
                                                     {
                                                         row.email ? <> <p className="my-0"> <b>Email     </b>      : {row.email}</p></> : <> <p className="my-0"> <b>Email     </b>      :N/A</p></>
                                                     }
