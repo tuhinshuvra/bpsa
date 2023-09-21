@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './BlogAdminAssign.css';
+import './PostAdminAssign.css';
 import useTitle from '../../hooks/useTitle';
 
 
@@ -19,8 +19,8 @@ const handleListMembers = (event) => {
     console.log('handleListMembers');
 }
 
-const BlogAdminAssign = () => {
-    useTitle("AssignBlogAdmin")
+const PostAdminAssign = () => {
+    useTitle("AssignPostAdmin")
 
     useEffect(() => {
         fetch('/data/bpsa_member_data.json')
@@ -40,7 +40,7 @@ const BlogAdminAssign = () => {
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-1 ">
                     <nav aria-label="" className="bg-light rounded-3 p-2 ">
-                        <h3 className='fw-bold text-center text-success'>Blog Admin Assign</h3>
+                        <h3 className='fw-bold text-center text-success'>Post Admin Assign</h3>
                     </nav>
                     <div className='  col-lg-6 col-md-8 mx-auto  my-4'>
                         <form className='adminAssign'>
@@ -51,7 +51,7 @@ const BlogAdminAssign = () => {
                                 </div>
                                 <button className=' btn btn-primary btn-sm w-25 ms-md-0 ms-1'>Add</button>
                             </div>
-                            <h5 className=' text-primary text-center fw-bold'>Blog Admins</h5>
+                            <h5 className=' text-primary text-center fw-bold'>Post Admins</h5>
                             <table className="table table-striped table-hover adminAssignTable">
                                 <thead>
                                     <tr className=' bg-secondary text-white'>
@@ -105,4 +105,4 @@ const BlogAdminAssign = () => {
     );
 };
 
-export default BlogAdminAssign;
+export default PostAdminAssign;

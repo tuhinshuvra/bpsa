@@ -16,15 +16,14 @@ import AllEventPage from "../Pages/Event/AllEventPage";
 import EventDetailsPage from "../Pages/Event/EventDetailsPage";
 import MemberShipFeePage from "../Pages/MemberShipFeePage/MemberShipFeePage";
 import SSLCommerz from "../Pages/MemberShipFeePage/SSLCommerz";
-import EntryBlog from "../Pages/Blogs/EntryBlog";
-import AdminsBlogDetails from "../Pages/Blogs/AdminsBlogDetails";
-import AdminAllBlog from "../Pages/Blogs/AdminAllBlog";
-import MemberAllBlog from "../Pages/Blogs/MemberAllBlog";
-import UpdateBlog from "../Pages/Blogs/UpdateBlog";
-import MemberBlogDetails from "../Pages/Blogs/MemberBlogDetails";
-import PublishedBlogs from "../Pages/Blogs/PublishedBlogs";
-import PublishBLogDetails from "../Pages/Blogs/PublishBLogDetails";
-import BlogAdminAssign from "../Pages/Blogs/BlogAdminAssign";
+import EntryPost from "../Pages/Posts/EntryPosts";
+import AdminAllPost from "../Pages/Posts/AdminAllPost";
+import MemberAllPost from "../Pages/Posts/MemberAllPost";
+import UpdatePost from "../Pages/Posts/UpdatePost";
+import MemberPostDetails from "../Pages/Posts/MemberPostDetails";
+import PublishedPosts from "../Pages/Posts/PublishedPosts";
+import PublishPostDetails from "../Pages/Posts/PublishPostDetails";
+import PostAdminAssign from "../Pages/Posts/PostAdminAssign";
 import MemberImageUpload from "../Pages/MemberProfile/MemberImageUpload";
 import MemberCoCurriculamActivitiesEntry from "../Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
 import AllMemberDirectoryPage from "../Pages/AllMemberDirectory/AllMemberDirectoryPage";
@@ -35,6 +34,7 @@ import WrongRoute from "./WrongRoute/WrongRoute";
 import SuperAdminRoute from "./SuperAdminRoute";
 import AdminRoute from "./AdminRoute";
 import ResetPassword from "../Pages/Authentication/ResetPassword";
+import AdminsPostDetails from "../Pages/Posts/AdminsPostDetails";
 
 
 const router = createBrowserRouter([
@@ -102,8 +102,8 @@ const router = createBrowserRouter([
                 element: <ForgetPassword></ForgetPassword>
             },
             {
-                path:"/resetPassword",
-                element:<PrivateRoute><ResetPassword/></PrivateRoute>
+                path: "/resetPassword",
+                element: <PrivateRoute><ResetPassword /></PrivateRoute>
             },
 
             // Private Routes
@@ -141,39 +141,39 @@ const router = createBrowserRouter([
             // blog routes
             {
                 path: "/blog_entry",
-                element: <PrivateRoute><EntryBlog></EntryBlog></PrivateRoute>
+                element: <PrivateRoute><EntryPost></EntryPost></PrivateRoute>
             },
             {
                 path: "/memberAllBlog",
-                element: <PrivateRoute><MemberAllBlog></MemberAllBlog></PrivateRoute>
+                element: <PrivateRoute><MemberAllPost></MemberAllPost></PrivateRoute>
             },
             {
                 path: "/blogDetails/:id",
-                element: <PrivateRoute><MemberBlogDetails></MemberBlogDetails></PrivateRoute>
+                element: <PrivateRoute><MemberPostDetails></MemberPostDetails></PrivateRoute>
             },
             {
                 path: "/updateBlog/:id",
-                element: <PrivateRoute><UpdateBlog></UpdateBlog></PrivateRoute>
+                element: <PrivateRoute><UpdatePost></UpdatePost></PrivateRoute>
             },
             {
                 path: "/adminAllBlog",
-                element: <AdminRoute> <AdminAllBlog></AdminAllBlog></AdminRoute>
+                element: <AdminRoute> <AdminAllPost></AdminAllPost></AdminRoute>
             },
             {
                 path: "/blog_details/:id",
-                element: <AdminRoute> <AdminsBlogDetails></AdminsBlogDetails> </AdminRoute>
+                element: <AdminRoute> <AdminsPostDetails></AdminsPostDetails> </AdminRoute>
             },
             {
                 path: "/publishedBlogs",
-                element: <PrivateRoute><PublishedBlogs></PublishedBlogs></PrivateRoute>
+                element: <PrivateRoute><PublishedPosts></PublishedPosts></PrivateRoute>
             },
             {
                 path: "/publishedBlogDetail/:id",
-                element: <PrivateRoute><PublishBLogDetails></PublishBLogDetails></PrivateRoute>
+                element: <PrivateRoute><PublishPostDetails></PublishPostDetails></PrivateRoute>
             },
             {
                 path: "/blogAdminAssign",
-                element: <SuperAdminRoute><BlogAdminAssign></BlogAdminAssign></SuperAdminRoute>
+                element: <SuperAdminRoute><PostAdminAssign></PostAdminAssign></SuperAdminRoute>
             }
         ],
     },

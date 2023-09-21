@@ -55,6 +55,10 @@ const HomePage = () => {
   const [internationalError, setInternationalError] = useState("");
   const [internationalLoading, setInternationalLoading] = useState(false);
 
+
+  console.log("Quick Link localLink", localLink);
+  console.log("Quick Link internationalLink", internationalLink);
+
   const getSliderData = async () => {
     try {
       setSliderLoading(true);
@@ -215,6 +219,7 @@ const HomePage = () => {
       </div>
 
       <NoticeLine data={noticeData} />
+
 
       <div className=' col-md-10 mx-auto'>
         <section style={{ backgroundColor: "#eee" }}>

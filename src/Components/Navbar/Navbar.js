@@ -208,17 +208,17 @@ const Navbar = () => {
                 <ul className="dropdown-menu navDropdownMenu">
                   {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
                   <li><Link className=" navDropdownbtn    py-1    w-full d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
-                  <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />change Password</Link></li>
+                  <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />Change Password</Link></li>
                   <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
-                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
+                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
                   {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
-                  <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
+                  <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
                   {user.role == "admin" &&
-                    <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
+                    <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>
                   }
 
                   {user.role == "superAdmin" &&
-                    <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
+                    <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Post Admin Assign  </Link></li>
                   }
                   <li>
                     <div
@@ -281,17 +281,17 @@ const Navbar = () => {
 
               <ul className="dropdown-menu navDropdownMenu">
                 <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
-                <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />change Password</Link></li>
+                <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />Change Password</Link></li>
                 <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
-                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
+                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
                 {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
-                <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
+                <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
                 {user.role == "admin" &&
-                  <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
+                  <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>
                 }
 
-                {user.role == "super admin" &&
-                  <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
+                {user.role == "superAdmin" &&
+                  <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Post Admin Assign  </Link></li>
                 }
                 <li>
                   <div

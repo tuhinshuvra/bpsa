@@ -10,13 +10,13 @@ import { getCookie } from '../../utlis/helper';
 import imageCompression from 'browser-image-compression';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
 import axios from 'axios';
-import './BlogDetails.css';
+import './PostDetails.css';
 
-const UpdateBlog = () => {
+const UpdatePost = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
   const { id } = useParams();
-  const [blog, setBlogs] = useState([]);
+  const [post, setPosts] = useState([]);
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
@@ -38,7 +38,7 @@ const UpdateBlog = () => {
       .then(res => res.json())
       .then(result => {
         if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
-          setBlogs(result.data.blog.find(blog => blog.id == id));
+          setPosts(result.data.blog.find(post => post.id == id));
         } else {
           console.error("Invalid API response:", result);
         }
@@ -50,11 +50,11 @@ const UpdateBlog = () => {
 
 
   useEffect(() => {
-    if (blog?.description) {
-      setContent(`<p>${blog.description}</p>`);
-      console.log(blog)
+    if (post?.description) {
+      setContent(`<p>${post.description}</p>`);
+      console.log(post)
     }
-  }, [blog]);
+  }, [post]);
 
   const config = useMemo(() => {
     return {
@@ -79,7 +79,7 @@ const UpdateBlog = () => {
   const handleBlock = async (event) => {
     event.preventDefault();
     const form = event.target;
-    const NewBlog = {
+    const NewPost = {
       title: form.block_title.value,
       summery: form.block_summery.value,
       description: content,
@@ -97,20 +97,20 @@ const UpdateBlog = () => {
 
 
     if (!form.image.files[0]) {
-      NewBlog.image = blog.image;
-      console.log(NewBlog);
+      NewPost.image = post.image;
+      console.log(NewPost);
       fetch("https://dev.bpsa.com.bd/api/blog-update", {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${getCookie("token")}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(NewBlog),
+        body: JSON.stringify(NewPost),
       })
         .then(res => res.json())
         .then(result => {
           console.log(result);
-          toast.success("blog updated successfully");
+          toast.success("post updated successfully");
           navigate(`/blogDetails/${id}`);
         })
         .catch(error => console.log(error));
@@ -150,8 +150,8 @@ const UpdateBlog = () => {
           const imageUrl = response.data.data.url;
           console.log('Image uploaded to ImageBB:', imageUrl);
 
-          // Update the blog object with the ImageBB URL
-          NewBlog.image = imageUrl;
+          // Update the post object with the ImageBB URL
+          NewPost.image = imageUrl;
         } catch (error) {
           console.error('Error uploading image to ImageBB:', error);
           toast.error('Error uploading image to ImageBB');
@@ -164,11 +164,11 @@ const UpdateBlog = () => {
           'Authorization': `Bearer ${getCookie("token")}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(NewBlog),
+        body: JSON.stringify(NewPost),
       })
         .then(res => res.json())
         .then(result => {
-          toast.success("blog updated successfully");
+          toast.success("post updated successfully");
           navigate(`/blogDetails/${id}`);
 
         })
@@ -182,15 +182,15 @@ const UpdateBlog = () => {
         <div className="container pt-3 pb-3 ">
 
           <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-            <h3 className=' text-center fw-bold'>Blog Update</h3>
+            <h3 className=' text-center fw-bold'>Post Update</h3>
           </nav>
           <div>
             <form className=' my-3' onSubmit={handleBlock}>
-              <input defaultValue={blog.title} type='text' name='block_title' className='form-control my-1 ' placeholder='Enter block title' required />
-              <input defaultValue={blog?.summery} type='text' name='block_summery' className='form-control my-1  ' placeholder='Enter blog Summary' />
+              <input defaultValue={post.title} type='text' name='block_title' className='form-control my-1 ' placeholder='Enter block title' required />
+              <input defaultValue={post?.summery} type='text' name='block_summery' className='form-control my-1  ' placeholder='Enter post summary' />
 
               {
-                statusDescription && <label className='my-2 text-2xl text-red-600'>Please fill up description than submit blogs</label>
+                statusDescription && <label className='my-2 text-2xl text-red-600'>Please fill up description than submit posts</label>
               }
 
               <JoditEditor
@@ -201,18 +201,16 @@ const UpdateBlog = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              {/* <textarea defaultValue={blog.description} rows="10" cols="50" name='block_description' className='input input-bordered w-[89vw] my-2' placeholder='Enter blog Description' required></textarea><br /> */}
 
               <div className='    my-2'>
                 <div className=''>
-                  {blog?.image &&
-                    <img className='mx-auto rounded-lg blogEditImg' src={blog?.image} alt="Blog" onClick={handleImageClick} />
+                  {post?.image &&
+                    <img className='mx-auto rounded-lg blogEditImg' src={post?.image} alt="Post_image" onClick={handleImageClick} />
                   }
                 </div>
                 <div className=' col-lg-4 mx-auto   my-auto text-center mt-3   '>
-                  {/* <p className='text-center'>you can change your blog picture</p> */}
-                  <label for="image" className="form-label fw-bold fst-italic mt-2 mt-lg-0">You can change your blog picture</label>
-                  <input type='file' name='image' className='form-control' placeholder='Enter blog image' />
+                  <label for="image" className="form-label fw-bold fst-italic mt-2 mt-lg-0">You can change your post's picture</label>
+                  <input type='file' name='image' className='form-control' placeholder='Enter post image' />
                 </div>
               </div>
               {/* video url we can be entry */}
@@ -225,8 +223,8 @@ const UpdateBlog = () => {
             </form>
             {showFullScreenImage &&
               <FullScreenImage
-                image={blog?.image}
-                id={blog?.id}
+                image={post?.image}
+                id={post?.id}
               />}
           </div>
 
@@ -236,4 +234,4 @@ const UpdateBlog = () => {
   );
 };
 
-export default UpdateBlog;
+export default UpdatePost;

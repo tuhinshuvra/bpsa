@@ -13,21 +13,21 @@ import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguag
 import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 import './MemberProfilePage.css';
-import '../Blogs/BlogListShow.css';
+import '../Posts/PostListShow.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
-    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
+    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular, setMemberBCSBatch } = useContext(AllContext);
     const [memberData, setMemberData] = useState();
     const [userNewData, setUserNewData] = useState();
-    const [approvedBlogs, setApprovedBlogs] = useState([]);
-    const [pendingBlogs, setPendingBlogs] = useState([]);
+    const [approvedPosts, setApprovedPosts] = useState([]);
+    const [pendingPosts, setPendingPosts] = useState([]);
+
+    // console.log("memberBCSBatch", memberBCSBatch);
 
     // console.log("MemberProfilePage User Data: ", user);
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
-    // console.log("pendingBlogs :", pendingBlogs);
-    // console.log("approvedBlogs :", approvedBlogs);
     // console.log("userNewData :", userNewData);
 
     // user new data
@@ -50,13 +50,14 @@ const MemberProfilePage = () => {
             .then(data => {
                 // console.log("Member Profile Data: ", data)
                 setMemberData(data.member)
+                setMemberBCSBatch(data.member?.batch);
                 setLoading(false)
             })
     }, [setLoading, user.UniqueID])
 
     // id, nameB,nameE,bpn,fname,batch,birth,blood,bpn,phone    // designation,district,email,fname, gift, id, mname,nameB, ,    //  qualificattion,ranK,religion,status,unit,
 
-    // member all blog
+    // member all post
     useEffect(() => {
         setLoading(true);
         fetch("https://dev.bpsa.com.bd/api/blog", {
@@ -72,36 +73,36 @@ const MemberProfilePage = () => {
                 return res.json();
             })
             .then(result => {
-                const approvedBlogs = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status == "Approved");
-                setApprovedBlogs(approvedBlogs);
-                const pendingBlogs = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status != "Approved");
-                setPendingBlogs(pendingBlogs);
+                const approvedPosts = result.data.blog.filter(post => post?.memberName == user.name && post?.status == "Approved");
+                setApprovedPosts(approvedPosts);
+                const pendingPosts = result.data.blog.filter(post => post?.memberName == user.name && post?.status != "Approved");
+                setPendingPosts(pendingPosts);
             })
             .catch(error => console.log(error));
     }, [setLoading, user.name])
 
 
     // pagination start
-    const totalPendingBlogs = pendingBlogs.length;
-    const totalApprovedBlogs = approvedBlogs.length;
+    const totalPendingPosts = pendingPosts.length;
+    const totalApprovedPosts = approvedPosts.length;
     const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const displayedPendingBlogs = pendingBlogs.slice(startIndex, endIndex);
-    const displayedArrovedBlogs = approvedBlogs.slice(startIndex, endIndex);
+    const displayedPendingPosts = pendingPosts.slice(startIndex, endIndex);
+    const displayedArrovedBlogs = approvedPosts.slice(startIndex, endIndex);
 
-    const totalPendingBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
-    const totalApprovedBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
+    const totalPendingPostPages = Math.ceil(pendingPosts.length / itemsPerPage);
+    const totalApprovedPostPages = Math.ceil(pendingPosts.length / itemsPerPage);
 
     const handlePageChange = (newPage) => {
-        if (totalPendingBlogPages) {
-            if (newPage >= 1 && newPage <= totalPendingBlogPages) {
+        if (totalPendingPostPages) {
+            if (newPage >= 1 && newPage <= totalPendingPostPages) {
                 setCurrentPage(newPage);
             }
         }
-        if (totalApprovedBlogPages) {
-            if (newPage >= 1 && newPage <= totalApprovedBlogPages) {
+        if (totalApprovedPostPages) {
+            if (newPage >= 1 && newPage <= totalApprovedPostPages) {
                 setCurrentPage(newPage);
             }
         }
@@ -243,7 +244,7 @@ const MemberProfilePage = () => {
                     <div className="row mt-5 mb-2">
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                                <h4 className=' text-center'>Approved Blogs </h4>
+                                <h4 className=' text-center'>Approved Posts</h4>
                             </nav>
                         </div>
                     </div>
@@ -289,7 +290,7 @@ const MemberProfilePage = () => {
                     ))}
 
                     {/* pagination start */}
-                    {totalApprovedBlogs > 5 &&
+                    {totalApprovedPosts > 5 &&
                         <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                             <button
                                 className=" btn btn-outline-light   mx-1"
@@ -300,12 +301,12 @@ const MemberProfilePage = () => {
                                 <ImPrevious className=' fs-3 text-main fw-bold' />
                             </button>
                             <span className="pagination-info text-black fw-bold mx-2">
-                                Page {currentPage} of {totalApprovedBlogPages}, Total blog = {totalApprovedBlogs}
+                                Page {currentPage} of {totalApprovedPostPages}, Total post = {totalApprovedPosts}
                             </span>
                             <button
                                 className=" btn btn-outline-light  mx-1"
                                 onClick={() => handlePageChange(currentPage + 1)}
-                                disabled={currentPage === totalApprovedBlogPages}
+                                disabled={currentPage === totalApprovedPostPages}
                             >
                                 {/* Next */}
                                 <ImNext className=' fs-3 fw-bold text-main' />
@@ -315,51 +316,51 @@ const MemberProfilePage = () => {
                     {/* pagination end */}
 
 
-                    {/* member's non approved blogs */}
+                    {/* member's non approved posts */}
                     <div className="row mt-5 mb-2">
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                                <h4 className=' text-center'>Non Approved Blogs </h4>
+                                <h4 className=' text-center'>Non Approved Posts</h4>
                             </nav>
                         </div>
                     </div>
 
 
-                    {displayedPendingBlogs && displayedPendingBlogs.map((blog, index) => (
+                    {displayedPendingPosts && displayedPendingPosts.map((post, index) => (
                         <div className="card blogArea my-1 px-1" key={index} >
                             <div className="d-flex px-lg-3 px-md-2">
-                                {blog?.image && blog?.image !== 'link' && (
+                                {post?.image && post?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">
-                                        <img src={blog?.image} className="adminBlogListImg rounded-lg" alt="..." />
+                                        <img src={post?.image} className="adminBlogListImg rounded-lg" alt="..." />
                                     </div>
                                 )}
 
-                                {(blog?.image && blog?.image !== 'link') ?
+                                {(post?.image && post?.image !== 'link') ?
                                     <>
                                         <div className="col-md-10 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title.slice(0, 95)}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}
-                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(post?.description), 120)}
+                                                    ... <a href="/blogDetails/${post.id}">details</a>`
                                                 }}>
                                                 </div>
 
                                                 <div className='d-flex my-0'>
                                                     <div className='my-0 d-flex justify-content-between'>
-                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{post?.memberName}</small>
                                                         <small className='d-flex ms-1'>
                                                             <BsCalendarDateFill className='fs-5 mx-1'>
-                                                            </BsCalendarDateFill>{formatDate(blog?.created_at)}
+                                                            </BsCalendarDateFill>{formatDate(post?.created_at)}
                                                         </small>
                                                     </div>
                                                 </div>
 
                                             </div>
                                             <div className="my-auto">
-                                                <p className=' fw-bold text-center '>{blog?.status}</p>
-                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                                <p className=' fw-bold text-center '>{post?.status}</p>
+                                                <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
                                             </div>
                                         </div>
                                     </>
@@ -367,28 +368,28 @@ const MemberProfilePage = () => {
                                     <>
                                         <div className="col-md-12 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title.slice(0, 95)}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 140)}
-                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(post?.description), 140)}
+                                                    ... <a href="/blogDetails/${post.id}">details</a>`
                                                 }}>
                                                 </div>
 
                                                 <div className='d-flex my-0'>
                                                     <div className='my-0 d-flex justify-content-between'>
-                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{post?.memberName}</small>
                                                         <small className='d-flex ms-1'>
                                                             <BsCalendarDateFill className='fs-5 mx-1'>
-                                                            </BsCalendarDateFill>{formatDate(blog?.created_at)}
+                                                            </BsCalendarDateFill>{formatDate(post?.created_at)}
                                                         </small>
                                                     </div>
                                                 </div>
 
                                             </div>
                                             <div className="my-auto">
-                                                <p className=' fw-bold text-center '>{blog?.status}</p>
-                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                                <p className=' fw-bold text-center '>{post?.status}</p>
+                                                <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
                                             </div>
                                         </div>
                                     </>
@@ -400,7 +401,7 @@ const MemberProfilePage = () => {
                 </div>
 
                 {/* pagination start */}
-                {totalPendingBlogs > 5 &&
+                {totalPendingPosts > 5 &&
                     <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                         <button
                             className="btn btn-outline-light mx-1"
@@ -410,12 +411,12 @@ const MemberProfilePage = () => {
                             <ImPrevious className='fs-3 text-main fw-bold' />
                         </button>
                         <span className="pagination-info text-black fw-bold mx-2">
-                            Page {currentPage} of {totalPendingBlogPages}, Total blog = {totalPendingBlogs}
+                            Page {currentPage} of {totalPendingPostPages}, Total post = {totalPendingPosts}
                         </span>
                         <button
                             className="btn btn-outline-light mx-1"
                             onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPendingBlogPages}
+                            disabled={currentPage === totalPendingPostPages}
                         >
                             <ImNext className=' fs-3 fw-bold  text-main' />
                         </button>

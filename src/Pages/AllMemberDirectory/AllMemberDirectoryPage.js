@@ -11,10 +11,11 @@ import './AllMemberDirectoryPage.css';
 import { AllContext } from "../../hooks/ContextData";
 import axios from "axios";
 import PaginationComponent from "../../Components/Common/PaginationComponent";
+import Loader from "../../Components/Common/Loader";
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
-    const { user } = useContext(AllContext);
+    const { user, loading, setLoading, memberBCSBatch } = useContext(AllContext);
     const [page, setPage] = useState(1);
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(10);
@@ -23,7 +24,7 @@ const AllMemberDirectoryPage = () => {
     const [batch, setBatch] = useState();
     const [searchBatch, setSearchBatch] = useState();
     const [apiResponse, setApiResponse] = useState(null);
-    const [filterData,setFilterData]=useState(null);
+    const [filterData, setFilterData] = useState(null);
     const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
     const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
     const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
@@ -34,6 +35,15 @@ const AllMemberDirectoryPage = () => {
         'Content-Type': 'application/x-www-form-urlencoded',
     };
     const data = 'grant_type=client_credentials';
+
+    // console.log("Login User Data : ", user);
+    console.log("Directory Page filterData : ", filterData);
+    console.log("memberBCSBatch", memberBCSBatch);
+
+
+    useEffect(() => {
+        setBatch(memberBCSBatch);
+    }, [memberBCSBatch])
 
     useEffect(() => {
         const getAccessToken = async () => {
@@ -46,19 +56,21 @@ const AllMemberDirectoryPage = () => {
         }
         getAccessToken();
     }, [])
+
     useEffect(() => {
         const batchCadre = async () => {
             if (!accessToken) {
                 return;
             }
-            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822`;
+            // const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822`;
+            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.UniqueID}`;
             const headers = {
                 'Authorization': `Bearer ${accessToken}`,
             };
 
             try {
                 const response = await axios.get(apiUrl, { headers });
-                setBatch(response.data.items[0].cadre);
+                setBatch(response.data.items[0]?.cadre);
             } catch (error) {
                 console.error('Error calling API:', error);
             }
@@ -67,6 +79,7 @@ const AllMemberDirectoryPage = () => {
     }, [accessToken])
 
     useEffect(() => {
+        setLoading(true);
         const batchData = async () => {
             if (!accessToken) {
                 return;
@@ -82,8 +95,11 @@ const AllMemberDirectoryPage = () => {
                 const response = await axios.get(apiUrl, { headers });
                 setApiResponse(response.data?.items);
                 setFilterData(response.data?.items)
+                setLoading(false);
+
             } catch (error) {
                 console.error('Error calling API:', error);
+                setLoading(false);
             }
         }
         batchData();
@@ -94,7 +110,8 @@ const AllMemberDirectoryPage = () => {
     }
 
     const [searchData, setSearchData] = useState({
-        batch: "22",
+        // batch: "22",
+        batch: batch,
         searchKeyword: "",
         rank: "",
         unit: "",
@@ -118,21 +135,22 @@ const AllMemberDirectoryPage = () => {
             [field]: value
         }));
     };
+
     const handleSearchResult = (event) => {
         event.preventDefault();
-        let filterData=apiResponse;
-        if(searchData?.searchKeyword){
-          filterData=filterData.filter(batchData => searchData?.searchKeyword === batchData.employeename);
-          console.log(filterData)
+        let filterData = apiResponse;
+        if (searchData?.searchKeyword) {
+            filterData = filterData.filter(batchData => searchData?.searchKeyword === batchData.employeename);
+            console.log(filterData)
         }
-        if(searchData.rank!='Select Rank'&&searchData.rank){
-            filterData=filterData.filter(batchData => searchData.rank === batchData.rank);
+        if (searchData.rank != 'Select Rank' && searchData.rank) {
+            filterData = filterData.filter(batchData => searchData.rank === batchData.rank);
         }
-        if(searchData.unit!='Select Main Unit'&&searchData.unit){
-            filterData=filterData.filter(batchData => searchData.unit === batchData.main_unit);
+        if (searchData.unit != 'Select Main Unit' && searchData.unit) {
+            filterData = filterData.filter(batchData => searchData.unit === batchData.main_unit);
         }
-        if(searchData.district!=="Own District"&&searchData.district){
-            filterData=filterData.filter(batchData => searchData.district === batchData.homedistrict);
+        if (searchData.district !== "Own District" && searchData.district) {
+            filterData = filterData.filter(batchData => searchData.district === batchData.homedistrict);
         }
         console.log("Search Data:", searchData);
         setFilterData(filterData);
@@ -147,6 +165,12 @@ const AllMemberDirectoryPage = () => {
         setStart(showperPage * value - showperPage);
         setEnd(showperPage * value);
     };
+
+
+    if (loading) {
+        return <Loader></Loader>
+    }
+
     return (
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
@@ -167,8 +191,8 @@ const AllMemberDirectoryPage = () => {
 
                                     <select onChange={getSearchData} name="rank" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
                                         <option defaultValue>Select Rank</option>
-                                        <option value="এসপি">এসপি</option>
-                                        <option value="অ্যাডিশনাল ডিআইজি">অ্যাডিশনাল ডিআইজি</option>
+                                        <option value="SP">SP</option>
+                                        <option value="Additional DIG">Addl. DIG</option>
                                         <option value="RankThree">RankThree</option>
                                         <option value="RankFour">RankFour</option>
                                     </select>
@@ -229,44 +253,42 @@ const AllMemberDirectoryPage = () => {
                                 <div className=" d-flex justify-content-center align-items-center">
                                     <h6 className=" text-white ">BCS Batch:</h6>
 
-                                    <nav className=" d-none d-lg-block ms-2" aria-label="Page navigation example" >
+                                    <nav className=" ms-2" aria-label="Page navigation example" >
                                         <ul className="pagination my-auto py-2 ">
-                                            <li className="page-item disabled">
-                                                <Link className="page-link">Previous</Link>
-                                            </li>
-                                            <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">2</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">5</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">6</Link></li>
-                                            <li className=" fs-5 mx-2 text-white fw-bolder">... ... </li>
-                                            <li onClick={() => setBatch(18)} className="page-item"><Link className="page-link" href="#">18</Link></li>
+                                            <li className="page-item disabled"><Link className="page-link">Pre</Link></li>
+
                                             <li onClick={() => setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li>
                                             <li onClick={() => setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li>
                                             <li onClick={() => setBatch(21)} className="page-item"><Link className="page-link" href="#">21</Link></li>
-                                            <li onClick={() => setBatch(22)} className="page-item active" aria-current="page">
-                                                <Link className="page-link" href="#">22 <span className="visually-hidden">(current)</span></Link>
-                                            </li>
-                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">23</Link></li>
+                                            <li onClick={() => setBatch(22)} className="page-item"><Link className="page-link" href="#">22</Link></li>
+                                            <li onClick={() => setBatch(23)} className="page-item"><Link className="page-link" href="#">23</Link></li>
+                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">24</Link></li>
+                                            <li onClick={() => setBatch(25)} className="page-item"><Link className="page-link" href="#">25</Link></li>
+                                            <li onClick={() => setBatch(26)} className="page-item"><Link className="page-link" href="#">26</Link></li>
+                                            <li onClick={() => setBatch(27)} className="page-item"><Link className="page-link" href="#">27</Link></li>
+                                            <li onClick={() => setBatch(28)} className="page-item"><Link className="page-link" href="#">28</Link></li>
+                                            <li onClick={() => setBatch(29)} className="page-item"><Link className="page-link" href="#">29</Link></li>
+                                            <li onClick={() => setBatch(30)} className="page-item"><Link className="page-link" href="#">30</Link></li>
+                                            <li onClick={() => setBatch(31)} className="page-item"><Link className="page-link" href="#">31</Link></li>
+
                                             <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
                                         </ul>
                                     </nav>
 
-                                    {/* for mobile and tab */}
-                                    <nav className=" d-lg-none  ms-2" aria-label="Page navigation example" >
-                                        <ul className="pagination my-auto py-2 ">
-                                            <li className="page-item disabled">
-                                                <Link className="page-link">Previous</Link>
-                                            </li>
-                                            <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                                            <li className=" fs-5 mx-2 text-white fw-bolder">...</li>
-                                            <li className="page-item active" aria-current="page">
-                                                <Link className="page-link" href="#">22 <span className="visually-hidden">(current)</span></Link>
-                                            </li>
-                                            <li className="page-item"><Link className="page-link" href="#">25</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
-                                        </ul>
-                                    </nav>
+
+                                    {/* <nav>
+                                        <BCSBatchPaginationComponent
+                                            count={Math.ceil(apiResponse?.length / showperPage)}
+                                            pageNumber={page}
+                                            onClick={() => setBatch(batch)}
+                                            className="flex items-center justify-between px-10 py-3"
+                                            start={1}
+                                            end={50}
+                                            total={apiResponse?.length}
+                                        />
+                                    </nav> */}
+
+
 
                                 </div>
                             </div>
@@ -275,7 +297,7 @@ const AllMemberDirectoryPage = () => {
                                 {searchButtonClicked && (
                                     <>
                                         <h4 className="text-white">Data is showing for:</h4>
-                                        <ul className="text-white d-flex">
+                                        <ul className="text-white d-flex my-a">
                                             {Object.entries(searchData).map(([key, value]) => (
                                                 value !== "" && ( // Only render if the value is not empty
                                                     <div key={key} className="mx-1">
@@ -292,31 +314,38 @@ const AllMemberDirectoryPage = () => {
                             <div className="defaultDataShow">
                                 {
                                     filterData && filterData.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
-                                        <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                            <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." />
-                                            <p className="fw-bold my-0">{row.employeename}</p>
+                                        <div className="col-md-6 my-auto d-flex flex-column   align-items-center">
+                                            {/* <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." /> */}
+                                            <img src={`data:image/jpeg;base64,${row.pic}`} className="memberDirectoryImg" alt="Image" />
+                                            {/* <p className="fw-bold my-0">{row?.employeename}</p> */}
+                                            <p className="fw-bold my-0">{row?.employeenameinenglish}</p>
                                             {
                                                 row.current_designation ? <p className=" my-0"> <b> Designation </b>: {row.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
                                             }
+                                            <p className="my-0"><b> BP/SIV No.</b>: {row?.employeecode}</p>
+                                            {/* <p className="my-0"><b> BCS Batch.</b>: {row?.cadre}</p> */}
+                                            <p className="my-0"><b> Rank</b>   : {row?.rankinenglish}</p>
 
                                         </div>
-                                        <div className="col-md-7">
+                                        <div className="col-md-6">
                                             <div className=" d-flex justify-content-between">
                                                 <div className=" ">
-                                                    <p className="my-0"><b> BP/SIV No.</b>: {row.employeecode}</p>
-                                                    <p className="my-0"><b> Rank</b>   : {row.rank}</p>
+                                                    {/* <p className="my-0"><b> BP/SIV No.</b>: {row?.employeecode}</p>
+                                                    {/* <p className="my-0"><b> Rank</b>   : {row?.rank}</p> */}
+                                                    {/* <p className="my-0"><b> Rank</b>   : {row?.rankinenglish}</p> */}
+                                                    <p className="my-0"><b> BCS Batch.</b>: {row?.cadre}</p>
                                                     {
-                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row.main_unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
+                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row?.main_unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
                                                     }
-                                                    <p className="my-0"><b>Present work Place  </b>  : {row.present_workplace}</p>
-                                                    <p className="my-0"> <b>Mobile no  </b>    : {row.mobilephone}</p>
+                                                    <p className="my-0"><b>Present work Place  </b>  : {row?.present_workplace}</p>
+                                                    <p className="my-0"> <b>Mobile no  </b>    : {row?.mobilephone}</p>
                                                     {/* <p className="my-0"> <b>Email     </b>      : {row.email}</p> */}
                                                     {
-                                                        row.email ? <> <p className="my-0"> <b>Email     </b>      : {row.email}</p></> : <> <p className="my-0"> <b>Email     </b>      :N/A</p></>
+                                                        row?.email ? <> <p className="my-0"> <b>Email     </b>      : <small> {row?.email}</small></p></> : <> <p className="my-0"> <b>Email     </b>      :N/A</p></>
                                                     }
-                                                    <p className="my-0"><b> Degree  </b>  : {row.degree} </p>
-                                                    <p className="my-0"><b> Gender </b> :  {row.idsex}</p>
-                                                    <p className="my-0"><b> Own District </b> : {row.homedistrict}</p>
+                                                    <p className="my-0"><b> Degree  </b>  : {row?.degree} </p>
+                                                    <p className="my-0"><b> Gender </b> :  {row?.idsex}</p>
+                                                    <p className="my-0"><b> Own District </b> : {row?.homedistrict}</p>
 
                                                 </div>
 

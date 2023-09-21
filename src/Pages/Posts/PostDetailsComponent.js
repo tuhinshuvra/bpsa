@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import FullScreenImage from "./FullScreenImage/FullScreenImage";
 
-const BlogDetailsComponent = ({ data }) => {
+const PostDetailsComponent = ({ data }) => {
   const [showFullScreenImage, setShowFullScreenImage] = useState(false);
 
   const handleImageClick = () => {
@@ -18,7 +18,7 @@ const BlogDetailsComponent = ({ data }) => {
           <img
             className="w-full md:h-[400px] object-contain rounded-md my-2"
             src={data?.image}
-            alt="blog_image"
+            alt="post_image"
             onClick={handleImageClick}
           />
         </>}
@@ -34,4 +34,4 @@ const BlogDetailsComponent = ({ data }) => {
   );
 };
 
-export default BlogDetailsComponent;
+export default PostDetailsComponent;

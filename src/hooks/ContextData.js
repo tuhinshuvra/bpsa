@@ -12,6 +12,7 @@ const ContextData = ({ children }) => {
     const [showImageUpload, setShowImageUpload] = useState(false);
     const [showCoCurricular, setShowCoCurricular] = useState(false);
     const [token, setToken] = useState("");
+    const [memberBCSBatch, setMemberBCSBatch] = useState("");
 
     const contextInfo = {
         user,
@@ -29,7 +30,9 @@ const ContextData = ({ children }) => {
         showImageUpload,
         setShowImageUpload,
         showCoCurricular,
-        setShowCoCurricular
+        setShowCoCurricular,
+        memberBCSBatch,
+        setMemberBCSBatch
     };
 
     return (

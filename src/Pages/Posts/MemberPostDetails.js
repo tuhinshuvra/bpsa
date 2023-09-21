@@ -8,13 +8,13 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import BlogDetailsComponent from './BlogDetailsComponent';
-import './BlogDetails.css';
+import './PostDetails.css';
 import { formatDate } from '../../utlis/dateFormat';
 import Loader from '../../Components/Common/Loader';
+import PostDetailsComponent from './PostDetailsComponent';
 
-const MemberBlogDetails = () => {
-    useTitle("BlogDetails");
+const MemberPostDetails = () => {
+    useTitle("PostDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
     console.log(source);
@@ -22,7 +22,7 @@ const MemberBlogDetails = () => {
     const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
 
-    console.log("MemberBlogDetails : ", blog);
+    console.log("MemberPostDetails : ", blog);
 
     useEffect(() => {
         setLoading(true)
@@ -72,7 +72,7 @@ const MemberBlogDetails = () => {
 
                         <div className=' col-lg-8 mx-auto'>
                             <p>{blog?.summery}</p>
-                            <BlogDetailsComponent data={blog} />
+                            <PostDetailsComponent data={blog} />
                             <div className=' d-flex justify-content-end'>
                                 <Link to={"/memberProfile"} className='btn btn-primary btn-sm w-28'>Back</Link>
                             </div>
@@ -86,4 +86,4 @@ const MemberBlogDetails = () => {
     );
 };
 
-export default MemberBlogDetails;
+export default MemberPostDetails;

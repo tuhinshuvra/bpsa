@@ -6,8 +6,9 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
-const Blog_Details = () => {
-    useTitle("BlogDetails");
+
+const Post_Details = () => {
+    useTitle("PostDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
     console.log(source);
@@ -60,4 +61,4 @@ const Blog_Details = () => {
     );
 };
 
-export default Blog_Details;
+export default Post_Details;
