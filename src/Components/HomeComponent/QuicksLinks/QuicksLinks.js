@@ -58,7 +58,7 @@ const QuicksLinks = ({ local, international }) => {
                             className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                           >
                             {/* <BsArrowRight size={24} className="mr-2" /> */}
-                            <img src={BDPolice} className="linkLogo" alt="" />
+                            <img src={item?.photo} className="linkLogo" alt="" />
 
                             {item?.title}
                           </a>
@@ -81,7 +81,7 @@ const QuicksLinks = ({ local, international }) => {
                             className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                           >
                             {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
-                            <img src={BDPolice} className="linkLogo" alt="" />
+                            <img src={item?.photo} className="linkLogo" alt="" />
                             {item?.title}
                           </a>
                         </li>
@@ -110,7 +110,7 @@ const QuicksLinks = ({ local, international }) => {
                         className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                       >
                         {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
-                        <img src={BDPolice} className="linkLogo" alt="" />
+                        <img src={item?.photo} className="linkLogo" alt="" />
                         {item?.title}
                       </a>
                     </li>
