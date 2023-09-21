@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import FullScreenImage from "./FullScreenImage/FullScreenImage";
 
-const PostDetailsComponent = ({ data }) => {
+const BlogDetailsComponent = ({ data }) => {
   const [showFullScreenImage, setShowFullScreenImage] = useState(false);
 
   const handleImageClick = () => {
@@ -34,4 +34,4 @@ const PostDetailsComponent = ({ data }) => {
   );
 };
 
-export default PostDetailsComponent;
+export default BlogDetailsComponent;

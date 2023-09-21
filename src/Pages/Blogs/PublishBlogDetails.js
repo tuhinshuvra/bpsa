@@ -11,10 +11,10 @@ import { FaUserAlt } from 'react-icons/fa';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
 import { formatDate } from '../../utlis/dateFormat';
 import Loader from '../../Components/Common/Loader';
-import './PostListShow.css';
-import PostDetailsComponent from './PostDetailsComponent';
+import BlogDetailsComponent from './BlogDetailsComponent';
+import './BlogListShow.css';
 
-const PublishPostDetails = () => {
+const PublishBlogDetails = () => {
     useTitle("PostDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
@@ -70,7 +70,7 @@ const PublishPostDetails = () => {
 
                     <div className=' col-lg-8 mx-auto' >
                         <p>{post?.summery}</p>
-                        <PostDetailsComponent data={post} />
+                        <BlogDetailsComponent data={post} />
 
                         <div className=' d-flex justify-content-end  pb-2'>
                             <Link to={"/publishedBlogs"} className='btn btn-primary btn-sm w-28'>Back</Link>
@@ -83,4 +83,4 @@ const PublishPostDetails = () => {
     );
 };
 
-export default PublishPostDetails;
+export default PublishBlogDetails;

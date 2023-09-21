@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 
-const MemberAllPost = () => {
+const MemberAllBlog = () => {
     useTitle("MemberAllPost");
     const { user } = useContext(AllContext);
     let count = 1;
@@ -150,6 +150,6 @@ const MemberAllPost = () => {
     );
 };
 
-export default MemberAllPost;
+export default MemberAllBlog;
 
 

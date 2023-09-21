@@ -9,21 +9,21 @@ import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
-import PostDetailsComponent from './PostDetailsComponent';
 import { formatDate } from '../../utlis/dateFormat';
 import Loader from '../../Components/Common/Loader';
-import './PostDetails.css';
+import BlogDetailsComponent from './BlogDetailsComponent';
+import './BlogDetails.css';
 
-const AdminsPostDetails = () => {
-    useTitle("PostDetails");
+const AdminsBlogDetails = () => {
+    useTitle("BlogDetails");
     const { id } = useParams();
     const { user, loading, setLoading } = useContext(AllContext);
-    const [post, setPosts] = useState([]);
+    const [blog, setBlogs] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [isInputVisible, setInputVisible] = useState(false);
 
-    console.log("Admin Post Details : ", post);
+    console.log("Admin Blog Details : ", blog);
 
     useEffect(() => {
         setLoading(true);
@@ -37,7 +37,7 @@ const AdminsPostDetails = () => {
             .then(result => {
                 console.log(result);
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
-                    setPosts(result.data.blog.find(blog => blog.id == id));
+                    setBlogs(result.data.blog.find(blog => blog.id == id));
                 } else {
                     console.error("Invalid API response:", result);
                 }
@@ -49,8 +49,8 @@ const AdminsPostDetails = () => {
     }, [id]);
 
     // console.log(blog);
-    const { selectedStatus, setSelectedStatus } = useState(post?.status);
-    const [blogStatus, setBlogStatus] = useState(post?.status);
+    const { selectedStatus, setSelectedStatus } = useState(blog?.status);
+    const [blogStatus, setBlogStatus] = useState(blog?.status);
     const handleStatusChange = (newStatus) => {
         setBlogStatus(newStatus);
         if (newStatus == 'Ask for Review') {
@@ -106,19 +106,19 @@ const AdminsPostDetails = () => {
                 <div className="container py-3 ">
                     <div className="mb-0 pb-0">
                         <nav aria-label="" className="bg-light rounded-3 p-2  ">
-                            <h3 className='fw-bold text-center text-success'>{post?.title}</h3>
+                            <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
                         </nav>
 
                         <div className="">
                             <small className=' d-flex justify-content-center mt-2'>
-                                <p className=' d-flex  '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(post.created_at)}</p>
-                                <p className=' d-flex ms-3'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {post?.memberName}</p>
+                                <p className=' d-flex  '> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                                <p className=' d-flex ms-3'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
                             </small>
                         </div>
                     </div>
                     <div className=' col-lg-8 mx-auto' >
-                        <p>{post?.summery}</p>
-                        <PostDetailsComponent data={post} />
+                        <p>{blog?.summery}</p>
+                        <BlogDetailsComponent data={blog} />
 
                         <div className=' d-flex justify-content-between align-items-baseline mt-0 pt-0 '>
 
@@ -131,7 +131,7 @@ const AdminsPostDetails = () => {
                                         value={blogStatus}
                                         onChange={(e) => handleStatusChange(e.target.value)}
                                         className='form-select    max-w-xs' >
-                                        <option disabled selected>{post?.status}</option>
+                                        <option disabled selected>{blog?.status}</option>
                                         <option value="Approved">Approved</option>
                                         <option value="Ask for Review">Ask for Review</option>
                                         <option value="Disabled">Disabled</option>
@@ -153,4 +153,4 @@ const AdminsPostDetails = () => {
     );
 };
 
-export default AdminsPostDetails;
+export default AdminsBlogDetails;

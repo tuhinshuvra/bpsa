@@ -16,14 +16,6 @@ import AllEventPage from "../Pages/Event/AllEventPage";
 import EventDetailsPage from "../Pages/Event/EventDetailsPage";
 import MemberShipFeePage from "../Pages/MemberShipFeePage/MemberShipFeePage";
 import SSLCommerz from "../Pages/MemberShipFeePage/SSLCommerz";
-import EntryPost from "../Pages/Posts/EntryPosts";
-import AdminAllPost from "../Pages/Posts/AdminAllPost";
-import MemberAllPost from "../Pages/Posts/MemberAllPost";
-import UpdatePost from "../Pages/Posts/UpdatePost";
-import MemberPostDetails from "../Pages/Posts/MemberPostDetails";
-import PublishedPosts from "../Pages/Posts/PublishedPosts";
-import PublishPostDetails from "../Pages/Posts/PublishPostDetails";
-import PostAdminAssign from "../Pages/Posts/PostAdminAssign";
 import MemberImageUpload from "../Pages/MemberProfile/MemberImageUpload";
 import MemberCoCurriculamActivitiesEntry from "../Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
 import AllMemberDirectoryPage from "../Pages/AllMemberDirectory/AllMemberDirectoryPage";
@@ -34,7 +26,15 @@ import WrongRoute from "./WrongRoute/WrongRoute";
 import SuperAdminRoute from "./SuperAdminRoute";
 import AdminRoute from "./AdminRoute";
 import ResetPassword from "../Pages/Authentication/ResetPassword";
-import AdminsPostDetails from "../Pages/Posts/AdminsPostDetails";
+import AdminsPostDetails from "../Pages/Blogs/AdminsBlogDetails";
+import AdminAllBlog from "../Pages/Blogs/AdminAllBlog";
+import EntryBlog from "../Pages/Blogs/EntryBlog";
+import MemberAllBlog from "../Pages/Blogs/MemberAllBlog";
+import UpdateBlog from "../Pages/Blogs/UpdateBlog";
+import MemberBlogDetails from "../Pages/Blogs/MemberBlogDetails";
+import PublishedBlogs from "../Pages/Blogs/PublishedBlogs";
+import PublishBlogDetails from "../Pages/Blogs/PublishBlogDetails";
+import BlogAdminAssign from "../Pages/Blogs/BlogAdminAssign";
 
 
 const router = createBrowserRouter([
@@ -141,23 +141,23 @@ const router = createBrowserRouter([
             // blog routes
             {
                 path: "/blog_entry",
-                element: <PrivateRoute><EntryPost></EntryPost></PrivateRoute>
+                element: <PrivateRoute><EntryBlog></EntryBlog></PrivateRoute>
             },
             {
                 path: "/memberAllBlog",
-                element: <PrivateRoute><MemberAllPost></MemberAllPost></PrivateRoute>
+                element: <PrivateRoute><MemberAllBlog></MemberAllBlog></PrivateRoute>
             },
             {
                 path: "/blogDetails/:id",
-                element: <PrivateRoute><MemberPostDetails></MemberPostDetails></PrivateRoute>
+                element: <PrivateRoute><MemberBlogDetails></MemberBlogDetails></PrivateRoute>
             },
             {
                 path: "/updateBlog/:id",
-                element: <PrivateRoute><UpdatePost></UpdatePost></PrivateRoute>
+                element: <PrivateRoute><UpdateBlog></UpdateBlog></PrivateRoute>
             },
             {
                 path: "/adminAllBlog",
-                element: <AdminRoute> <AdminAllPost></AdminAllPost></AdminRoute>
+                element: <AdminRoute> <AdminAllBlog></AdminAllBlog></AdminRoute>
             },
             {
                 path: "/blog_details/:id",
@@ -165,15 +165,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/publishedBlogs",
-                element: <PrivateRoute><PublishedPosts></PublishedPosts></PrivateRoute>
+                element: <PrivateRoute><PublishedBlogs></PublishedBlogs></PrivateRoute>
             },
             {
                 path: "/publishedBlogDetail/:id",
-                element: <PrivateRoute><PublishPostDetails></PublishPostDetails></PrivateRoute>
+                element: <PrivateRoute><PublishBlogDetails></PublishBlogDetails></PrivateRoute>
             },
             {
                 path: "/blogAdminAssign",
-                element: <SuperAdminRoute><PostAdminAssign></PostAdminAssign></SuperAdminRoute>
+                element: <SuperAdminRoute><BlogAdminAssign></BlogAdminAssign></SuperAdminRoute>
             }
         ],
     },

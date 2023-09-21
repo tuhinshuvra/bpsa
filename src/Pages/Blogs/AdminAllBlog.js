@@ -10,12 +10,12 @@ import { FaUserAlt } from 'react-icons/fa';
 import { ImPrevious, ImNext } from 'react-icons/im';
 import { formatDate } from '../../utlis/dateFormat';
 import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
-import './PostListShow.css';
+import './BlogListShow.css';
 
-const AdminAllPost = () => {
-    useTitle("Admin'sAllPost")
+const AdminAllBlog = () => {
+    useTitle("Admin'sAllBlog")
     const { user, loading, setLoading } = useContext(AllContext);
-    const [posts, setPosts] = useState([]);
+    const [blogs, setBlogs] = useState([]);
     let count = 1;
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const AdminAllPost = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {
-                    setPosts(result.data.blog.filter(blog => blog.status != "Approved"));
+                    setBlogs(result.data.blog.filter(blog => blog.status != "Approved"));
                     setLoading(false);
 
                 } else {
@@ -42,19 +42,19 @@ const AdminAllPost = () => {
             });
     }, [setLoading]);
 
-    console.log(posts);
+    console.log(blogs);
 
 
 
     // pagination start
-    const totalPosts = posts.length;
+    const totalPosts = blogs.length;
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const displayedPosts = posts.slice(startIndex, endIndex);
+    const displayedPosts = blogs.slice(startIndex, endIndex);
 
-    const totalPages = Math.ceil(posts.length / itemsPerPage);
+    const totalPages = Math.ceil(blogs.length / itemsPerPage);
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setCurrentPage(newPage);
@@ -155,7 +155,7 @@ const AdminAllPost = () => {
                             <ImPrevious className='fs-3 text-main fw-bold' />
                         </button>
                         <span className="pagination-info text-black fw-bold mx-2">
-                            Page {currentPage} of {totalPages}, Total post = {posts.length}
+                            Page {currentPage} of {totalPages}, Total post = {blogs.length}
                         </span>
                         <button
                             className="btn btn-outline-light    mx-1"
@@ -172,4 +172,4 @@ const AdminAllPost = () => {
     );
 };
 
-export default AdminAllPost;
+export default AdminAllBlog;

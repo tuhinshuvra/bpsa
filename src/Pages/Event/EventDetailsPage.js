@@ -6,7 +6,7 @@ import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { TfiTime } from 'react-icons/tfi';
 import './EventDetails.css';
-import FullScreenImage from '../Posts/FullScreenImage/FullScreenImage';
+import FullScreenImage from '../Blogs/FullScreenImage/FullScreenImage';
 import useTitle from '../../hooks/useTitle';
 import { formatDate } from '../../utlis/dateFormat';
 

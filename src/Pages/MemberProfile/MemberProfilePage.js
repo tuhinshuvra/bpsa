@@ -13,7 +13,7 @@ import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguag
 import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 import './MemberProfilePage.css';
-import '../Posts/PostListShow.css';
+import '../Blogs/BlogListShow.css';
 
 const MemberProfilePage = () => {
     useTitle("Profile");

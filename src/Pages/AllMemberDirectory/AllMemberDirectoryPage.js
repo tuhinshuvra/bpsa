@@ -1,10 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import DirectoryImg1 from '../../assets/Image/messages/bdPolice03.jfif';
-import DirectoryImg2 from '../../assets/Image/messages/bdPolice02.jfif';
-import DirectoryImg3 from '../../assets/Image/messages/bdPolice04.jfif';
-import DirectoryImg4 from '../../assets/Image/messages/bdPolice05.jfif';
-import DirectoryImg5 from '../../assets/Image/messages/bdPolice06.jfif';
-import DirectoryImg6 from '../../assets/Image/messages/bdPolice07.jfif';
 import { useContext, useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import './AllMemberDirectoryPage.css';

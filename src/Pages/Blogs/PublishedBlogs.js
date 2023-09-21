@@ -8,9 +8,9 @@ import { FaUserAlt } from 'react-icons/fa';
 import { ImPrevious, ImNext } from 'react-icons/im';
 import { formatDate } from '../../utlis/dateFormat';
 import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
-import './PostListShow.css';
+import './BlogListShow.css';
 
-const PublishedPosts = () => {
+const PublishedBlogs = () => {
     useTitle("Posts");
     const { user, loading, setLoading } = useContext(AllContext);
     const [posts, setPosts] = useState([]);
@@ -125,4 +125,4 @@ const PublishedPosts = () => {
     );
 };
 
-export default PublishedPosts;
+export default PublishedBlogs;

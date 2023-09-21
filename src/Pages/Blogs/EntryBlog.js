@@ -6,8 +6,10 @@ import { AllContext } from '../../hooks/ContextData';
 import { getCookie } from '../../utlis/helper';
 import imageCompression from 'browser-image-compression';
 import axios from 'axios';
+import useTitle from '../../hooks/useTitle';
 
-const EntryPost = () => {
+const EntryBlog = () => {
+  useTitle("PostEntry");
   const editor = useRef(null);
   const [content, setContent] = useState('');
   const [statusDescription, setStatusDescription] = useState(false);
@@ -147,4 +149,4 @@ const EntryPost = () => {
   );
 };
 
-export default EntryPost;
+export default EntryBlog;

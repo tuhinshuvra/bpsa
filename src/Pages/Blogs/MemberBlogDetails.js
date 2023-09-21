@@ -8,12 +8,12 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import './PostDetails.css';
 import { formatDate } from '../../utlis/dateFormat';
 import Loader from '../../Components/Common/Loader';
-import PostDetailsComponent from './PostDetailsComponent';
+import BlogDetailsComponent from './BlogDetailsComponent';
+import './BlogDetails.css';
 
-const MemberPostDetails = () => {
+const MemberBlogDetails = () => {
     useTitle("PostDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
@@ -72,7 +72,7 @@ const MemberPostDetails = () => {
 
                         <div className=' col-lg-8 mx-auto'>
                             <p>{blog?.summery}</p>
-                            <PostDetailsComponent data={blog} />
+                            <BlogDetailsComponent data={blog} />
                             <div className=' d-flex justify-content-end'>
                                 <Link to={"/memberProfile"} className='btn btn-primary btn-sm w-28'>Back</Link>
                             </div>
@@ -86,4 +86,4 @@ const MemberPostDetails = () => {
     );
 };
 
-export default MemberPostDetails;
+export default MemberBlogDetails;

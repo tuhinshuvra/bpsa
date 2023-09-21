@@ -10,9 +10,9 @@ import { getCookie } from '../../utlis/helper';
 import imageCompression from 'browser-image-compression';
 import FullScreenImage from './FullScreenImage/FullScreenImage';
 import axios from 'axios';
-import './PostDetails.css';
+import './BlogDetails.css';
 
-const UpdatePost = () => {
+const UpdateBlog = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
   const { id } = useParams();
@@ -234,4 +234,4 @@ const UpdatePost = () => {
   );
 };
 
-export default UpdatePost;
+export default UpdateBlog;

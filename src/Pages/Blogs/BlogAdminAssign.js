@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import './PostAdminAssign.css';
 import useTitle from '../../hooks/useTitle';
+import './BlogAdminAssign.css';
 
 
 const handleAddAdminRole = (event) => {
@@ -19,7 +19,7 @@ const handleListMembers = (event) => {
     console.log('handleListMembers');
 }
 
-const PostAdminAssign = () => {
+const BlogAdminAssign = () => {
     useTitle("AssignPostAdmin")
 
     useEffect(() => {
@@ -105,4 +105,4 @@ const PostAdminAssign = () => {
     );
 };
 
-export default PostAdminAssign;
+export default BlogAdminAssign;
