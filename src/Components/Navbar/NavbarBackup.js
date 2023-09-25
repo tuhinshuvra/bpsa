@@ -186,7 +186,7 @@ const Navbar = () => {
           </div>
 
 
-          {!user?.email
+          {user?.email
             ?
             <>
               <div className="dropdown">

@@ -1,22 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
-import './AllMemberDirectoryPage.css';
 import { AllContext } from "../../hooks/ContextData";
 import axios from "axios";
 import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
+import MemberModal from "./MemberModal";
+import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
     const { user, loading, setLoading, memberBCSBatch } = useContext(AllContext);
     const [page, setPage] = useState(1);
     const [start, setStart] = useState(0);
-    const [end, setEnd] = useState(10);
-    const [showperPage, setShowPerPage] = useState(10);
+    const [end, setEnd] = useState(12);
+    const [showperPage, setShowPerPage] = useState(12);
     const [accessToken, setAccessToken] = useState('');
     const [batch, setBatch] = useState();
     const [searchBatch, setSearchBatch] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState('');
     const [apiResponse, setApiResponse] = useState(null);
     const [filterData, setFilterData] = useState(null);
     const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
@@ -31,12 +34,29 @@ const AllMemberDirectoryPage = () => {
     const data = 'grant_type=client_credentials';
 
     // console.log("Login User Data : ", user);
-    console.log("Directory Page filterData : ", filterData);
-    console.log("memberBCSBatch", memberBCSBatch);
+    // console.log("Directory Page filterData : ", filterData);
+    // console.log("memberBCSBatch", memberBCSBatch);
 
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+
+    const handldelModal = (memberId) => {
+        openModal()
+        setModalData(memberId)
+    }
+    const modalMember = filterData?.find(mem => mem?.employeecode === modalData);
+    // console.log("modalData:", modalData);
+    // console.log("showedMember:", modalMember);
 
     useEffect(() => {
-        setBatch(memberBCSBatch);
+        // setBatch(memberBCSBatch);
+        setBatch(25);
     }, [memberBCSBatch])
 
     useEffect(() => {
@@ -56,8 +76,8 @@ const AllMemberDirectoryPage = () => {
             if (!accessToken) {
                 return;
             }
-            // const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822`;
-            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.UniqueID}`;
+            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP750510460`;
+            // const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.UniqueID}`;
             const headers = {
                 'Authorization': `Bearer ${accessToken}`,
             };
@@ -182,7 +202,6 @@ const AllMemberDirectoryPage = () => {
                                     <label htmlFor="exampleInputEmail1" className="form-label text-white my-0 d-none d-lg-block">Search Keyword</label>
                                     <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-0 my-1 searchField mx-lg-0 mx-1" placeholder="Enter searchKeyword" />
 
-
                                     <select onChange={getSearchData} name="rank" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
                                         <option defaultValue>Select Rank</option>
                                         <option value="SP">SP</option>
@@ -247,7 +266,7 @@ const AllMemberDirectoryPage = () => {
                                 <div className=" d-flex justify-content-center align-items-center">
                                     <h6 className=" text-white ">BCS Batch:</h6>
 
-                                    <nav className=" ms-2" aria-label="Page navigation example" >
+                                    {/* <nav className=" ms-2" aria-label="Page navigation example" >
                                         <ul className="pagination my-auto py-2 ">
                                             <li className="page-item disabled"><Link className="page-link">Pre</Link></li>
 
@@ -267,23 +286,7 @@ const AllMemberDirectoryPage = () => {
 
                                             <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
                                         </ul>
-                                    </nav>
-
-
-                                    {/* <nav>
-                                        <BCSBatchPaginationComponent
-                                            count={Math.ceil(apiResponse?.length / showperPage)}
-                                            pageNumber={page}
-                                            onClick={() => setBatch(batch)}
-                                            className="flex items-center justify-between px-10 py-3"
-                                            start={1}
-                                            end={50}
-                                            total={apiResponse?.length}
-                                        />
                                     </nav> */}
-
-
-
                                 </div>
                             </div>
 
@@ -304,56 +307,45 @@ const AllMemberDirectoryPage = () => {
                                 )}
                             </div>
 
-                            {/* Default Member Show */}
+                            {/*  Default Member Show */}
                             <div className="defaultDataShow">
                                 {
-                                    filterData && filterData.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
-                                        <div className="col-md-6 my-auto d-flex flex-column   align-items-center">
-                                            {/* <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." /> */}
-                                            <img src={`data:image/jpeg;base64,${row.pic}`} className="memberDirectoryImg" alt="Image" />
-                                            {/* <p className="fw-bold my-0">{row?.employeename}</p> */}
-                                            <p className="fw-bold my-0">{row?.employeenameinenglish}</p>
-                                            {
-                                                row.current_designation ? <p className=" my-0"> <b> Designation </b>: {row.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
-                                            }
-                                            <p className="my-0"><b> BP/SIV No.</b>: {row?.employeecode}</p>
-                                            {/* <p className="my-0"><b> BCS Batch.</b>: {row?.cadre}</p> */}
-                                            <p className="my-0"><b> Rank</b>   : {row?.rankinenglish}</p>
+                                    filterData && filterData.slice(start, end).map((member, index) =>
+                                        <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" onClick={() => handldelModal(member?.employeecode)} key={index}>
 
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className=" d-flex justify-content-between">
-                                                <div className=" ">
-                                                    {/* <p className="my-0"><b> BP/SIV No.</b>: {row?.employeecode}</p>
-                                                    {/* <p className="my-0"><b> Rank</b>   : {row?.rank}</p> */}
-                                                    {/* <p className="my-0"><b> Rank</b>   : {row?.rankinenglish}</p> */}
-                                                    <p className="my-0"><b> BCS Batch.</b>: {row?.cadre}</p>
-                                                    {
-                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row?.main_unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
-                                                    }
-                                                    <p className="my-0"><b>Present work Place  </b>  : {row?.present_workplace}</p>
-                                                    <p className="my-0"> <b>Mobile no  </b>    : {row?.mobilephone}</p>
-                                                    {/* <p className="my-0"> <b>Email     </b>      : {row.email}</p> */}
-                                                    {
-                                                        row?.email ? <> <p className="my-0"> <b>Email     </b>      : <small> {row?.email}</small></p></> : <> <p className="my-0"> <b>Email     </b>      :N/A</p></>
-                                                    }
-                                                    <p className="my-0"><b> Degree  </b>  : {row?.degree} </p>
-                                                    <p className="my-0"><b> Gender </b> :  {row?.idsex}</p>
-                                                    <p className="my-0"><b> Own District </b> : {row?.homedistrict}</p>
-
+                                            <div className="mx-auto d-flex flex-column">
+                                                <div className=" d-flex justify-content-center">
+                                                    <img src={`data:image/jpeg;base64,${member.pic}`} className="memberDirectoryImg" alt="member_Image" />
                                                 </div>
+                                                <p className="fw-bold my-0">{member?.employeenameinenglish}</p>
+                                                {
+                                                    member.current_designation ? <p className=" my-0"> <b> Designation </b>: {member.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
+                                                }
+                                                <p className="my-0"><b> Rank</b>   : {member?.rankinenglish}</p>
 
+                                                <p className="my-0"><b> BCS Batch.</b>: {member?.cadre}</p>
+                                                <p className="my-0"> <b>Mobile no  </b>    : {member?.mobilephone}</p>
+                                                <p className="my-0"> <b>Blood Group  </b>    : {member?.blood_group}</p>
                                             </div>
-                                        </div>
-                                    </div>)
+
+                                        </div>)
                                 }
                             </div>
+
+                            <div className="">
+                                <MemberModal
+                                    isOpen={isModalOpen}
+                                    onClose={closeModal}
+                                    modalMember={modalMember}
+                                />
+                            </div>
+
 
                             <PaginationComponent
                                 count={Math.ceil(apiResponse?.length / showperPage)}
                                 pageNumber={page}
                                 handleChange={handleChange}
-                                className="flex items-center justify-between px-10 py-3"
+                                className="flex items-center justify-between px-lg-5 py-3"
                                 start={start}
                                 end={end}
                                 total={apiResponse?.length}

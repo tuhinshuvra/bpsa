@@ -1,0 +1,53 @@
+.modal-overlay {
+    position: fixed;
+    top: 15%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    height: auto;
+}
+
+.memberImg {
+    width: 145px;
+    border-radius: 6px;
+    box-shadow: 9px 7px 9px 0px
+}
+
+
+
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {}
+
+@media (min-width: 768px) and (max-width: 991.98px) {}
+
+@media (min-width: 425px) and (max-width: 767.98px) {
+    .modal-overlay {
+        position: fixed;
+        top: 9%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+    .modal-overlay {
+        position: fixed;
+        top: 7%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+}
