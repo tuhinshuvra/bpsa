@@ -1,8 +1,10 @@
+/* background-color: rgb(240 241 243); */
 .memberDirectory {
     margin: 0 0 80px 0;
     padding: 15px;
     border-radius: 15px;
-    background-color: rgb(94, 104, 239);
+    /* background-color: rgb(94, 104, 239); */
+    background-color: rgb(226 227 231);
 }
 
 .searchField {}
@@ -12,7 +14,7 @@
 }
 
 .defaultDataShow {
-    background-color: rgb(157, 190, 244);
+    background-color: white;
     border-radius: 10px;
     padding: 7px;
     margin: 0 10px 10px 10px;
@@ -44,6 +46,7 @@
     height: 125px;
     /* height: 100px; */
     border-radius: 50%;
+    box-shadow: 0px 0px 8px 0px
 }
 
 
@@ -57,13 +60,14 @@
 }
 
 .directoryMember {
-    background-color: rgb(200, 205, 247);
+    background-color: rgb(226 227 231);
     font-size: 13px;
     border-radius: 10px;
+    border: 1px solid #cec9c9;
 }
 
 .directoryMember:hover {
-    background-color: rgb(176, 182, 243);
+    background-color: rgb(192, 193, 196);
 }
 
 

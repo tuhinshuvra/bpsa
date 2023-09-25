@@ -7,6 +7,7 @@ import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
 import MemberModal from "./MemberModal";
 import './AllMemberDirectoryPage.css';
+import PageNumbers from "../../Components/PageNumbers";
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -37,6 +38,13 @@ const AllMemberDirectoryPage = () => {
     // console.log("Directory Page filterData : ", filterData);
     // console.log("memberBCSBatch", memberBCSBatch);
 
+    const [selectedPage, setSelectedPage] = useState(1);
+    const totalPages = 50; // Total number of pages
+
+    const handlePageClick = (newPage) => {
+        setSelectedPage(newPage);
+    };
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -52,7 +60,7 @@ const AllMemberDirectoryPage = () => {
     }
     const modalMember = filterData?.find(mem => mem?.employeecode === modalData);
     // console.log("modalData:", modalData);
-    // console.log("showedMember:", modalMember);
+    console.log("showedMember:", modalMember);
 
     useEffect(() => {
         // setBatch(memberBCSBatch);
@@ -181,6 +189,7 @@ const AllMemberDirectoryPage = () => {
     };
 
 
+
     if (loading) {
         return <Loader></Loader>
     }
@@ -191,15 +200,15 @@ const AllMemberDirectoryPage = () => {
                 <div className="container pt-3 pb-1 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        <h2 className='fw-bold text-center text-success'>MEMBER DIRECTORY</h2>
+                        <h2 className='fw-bold text-center'>MEMBER DIRECTORY</h2>
                     </nav>
 
                     <div className=" d-lg-flex memberDirectory ">
                         <div className=" col-lg-3 px-2">
-                            <p className=" fs-5 fw-bold text-center   rounded-lg py-1 text-white ">Search Pannel</p>
+                            <p className=" fs-5 fw-bold text-center rounded-lg py-1 ms-1 ">Search Pannel</p>
                             <form id="searchForm" onSubmit={handleSearchResult}>
                                 <div className=" d-md-flex d-lg-inline">
-                                    <label htmlFor="exampleInputEmail1" className="form-label text-white my-0 d-none d-lg-block">Search Keyword</label>
+                                    <label htmlFor="exampleInputEmail1" className="form-label my-0 d-none d-lg-block fw-bold">Search Keyword</label>
                                     <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-0 my-1 searchField mx-lg-0 mx-1" placeholder="Enter searchKeyword" />
 
                                     <select onChange={getSearchData} name="rank" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
@@ -264,15 +273,34 @@ const AllMemberDirectoryPage = () => {
                             {/* bcs batch pagination */}
                             <div className=" text-center  ">
                                 <div className=" d-flex justify-content-center align-items-center">
-                                    <h6 className=" text-white ">BCS Batch:</h6>
+                                    <p className=" fw-bold mt-2">BCS Batch:</p>
 
-                                    {/* <nav className=" ms-2" aria-label="Page navigation example" >
+                                    {/* <BCSBatchPaginationComponent
+                                        count={Math.ceil(50)}
+                                        pageNumber={page}
+                                        handleChange={handleBatch}
+                                        className="flex items-center justify-between px-lg-5 py-3"
+                                        start={1}
+                                        end={50}
+                                        total={apiResponse?.length}
+                                    /> */}
+
+                                    {/* <div>
+                                        <PageNumbers
+                                            selectedPage={selectedPage}
+                                            totalPages={totalPages}
+                                            onPageClick={handlePageClick}
+
+                                        />
+                                    </div> */}
+
+
+                                    <nav className=" ms-2 d-none d-md-block " aria-label="Page navigation example" >
                                         <ul className="pagination my-auto py-2 ">
-                                            <li className="page-item disabled"><Link className="page-link">Pre</Link></li>
+                                            {/* <li className="page-item disabled"><Link className="page-link">Pre</Link></li> */}
 
-                                            <li onClick={() => setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li>
-                                            <li onClick={() => setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li>
-                                            <li onClick={() => setBatch(21)} className="page-item"><Link className="page-link" href="#">21</Link></li>
+                                            {/* <li onClick={() => setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li> */}
+                                            {/* <li onClick={() => setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li> */}
                                             <li onClick={() => setBatch(22)} className="page-item"><Link className="page-link" href="#">22</Link></li>
                                             <li onClick={() => setBatch(23)} className="page-item"><Link className="page-link" href="#">23</Link></li>
                                             <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">24</Link></li>
@@ -283,14 +311,30 @@ const AllMemberDirectoryPage = () => {
                                             <li onClick={() => setBatch(29)} className="page-item"><Link className="page-link" href="#">29</Link></li>
                                             <li onClick={() => setBatch(30)} className="page-item"><Link className="page-link" href="#">30</Link></li>
                                             <li onClick={() => setBatch(31)} className="page-item"><Link className="page-link" href="#">31</Link></li>
+                                            <li onClick={() => setBatch(32)} className="page-item"><Link className="page-link" href="#">32</Link></li>
+                                            <li onClick={() => setBatch(33)} className="page-item"><Link className="page-link" href="#">33</Link></li>
+                                            <li onClick={() => setBatch(34)} className="page-item"><Link className="page-link" href="#">34</Link></li>
 
-                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
+                                            {/* <li className="page-item"><Link className="page-link" href="#">Next</Link></li> */}
                                         </ul>
-                                    </nav> */}
+                                    </nav>
+
+                                    <nav className=" ms-2 d-md-none  " aria-label="Page navigation example" >
+                                        <ul className="pagination my-auto py-2 ">
+                                            <li onClick={() => setBatch(23)} className="page-item"><Link className="page-link" href="#">23</Link></li>
+                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">24</Link></li>
+                                            <li onClick={() => setBatch(25)} className="page-item"><Link className="page-link" href="#">25</Link></li>
+                                            <li onClick={() => setBatch(26)} className="page-item"><Link className="page-link" href="#">26</Link></li>
+                                            <li onClick={() => setBatch(27)} className="page-item"><Link className="page-link" href="#">27</Link></li>
+                                            <li onClick={() => setBatch(28)} className="page-item"><Link className="page-link" href="#">28</Link></li>
+                                            <li onClick={() => setBatch(29)} className="page-item"><Link className="page-link" href="#">29</Link></li>
+
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
-                            <div className="d-flex justify-content-center align-items-baseline">
+                            {/* <div className="d-flex justify-content-center align-items-baseline">
                                 {searchButtonClicked && (
                                     <>
                                         <h4 className="text-white">Data is showing for:</h4>
@@ -305,7 +349,7 @@ const AllMemberDirectoryPage = () => {
                                         </ul>
                                     </>
                                 )}
-                            </div>
+                            </div> */}
 
                             {/*  Default Member Show */}
                             <div className="defaultDataShow">

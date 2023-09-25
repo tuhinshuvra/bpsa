@@ -19,7 +19,7 @@ const AboutUsPage = () => {
       <section style={{ backgroundColor: "#eee" }}>
         <div className="container pt-3 pb-5 ">
           <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-            <h2 className='fw-bold text-center text-success'>ABOUT US</h2>
+            <h2 className='fw-bold text-center'>ABOUT US</h2>
           </nav>
           <div>
             <AssociationInfoComponent />

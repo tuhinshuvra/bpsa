@@ -128,7 +128,7 @@ const MemberProfilePage = () => {
                 <div className="container pt-3 pb-3 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        <h2 className='fw-bold text-center text-success'>{memberData?.nameE} Profile</h2>
+                        <h2 className='fw-bold text-center  '>{memberData?.nameE} Profile</h2>
                     </nav>
 
                     <div className="row">

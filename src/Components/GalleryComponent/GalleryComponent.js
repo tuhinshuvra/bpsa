@@ -42,7 +42,7 @@ const GalleryComponent = ({ data, video }) => {
           <div className="container pt-3 pb-5 ">
 
             <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-              <h2 className='fw-bold text-center text-success'>GALLERY</h2>
+              <h2 className='fw-bold text-center'>GALLERY</h2>
             </nav>
             <div>
               <Container>

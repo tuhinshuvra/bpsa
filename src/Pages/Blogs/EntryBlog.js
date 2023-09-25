@@ -120,7 +120,7 @@ const EntryBlog = () => {
         <div className="container pt-3 pb-1 ">
 
           <nav aria-label="" className="bg-light rounded-3 p-2  ">
-            <h3 className='fw-bold text-center text-success'>Post Entry</h3>
+            <h3 className='fw-bold text-center '>Post Entry</h3>
           </nav>
 
           <form className='   ' onSubmit={handleBlock}>

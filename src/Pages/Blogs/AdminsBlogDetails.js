@@ -106,7 +106,7 @@ const AdminsBlogDetails = () => {
                 <div className="container py-3 ">
                     <div className="mb-0 pb-0">
                         <nav aria-label="" className="bg-light rounded-3 p-2  ">
-                            <h3 className='fw-bold text-center text-success'>{blog?.title}</h3>
+                            <h3 className='fw-bold text-center '>{blog?.title}</h3>
                         </nav>
 
                         <div className="">

@@ -58,7 +58,7 @@ const ContactComponent = () => {
         <div className="container pt-3  ">
           <div className="  mx-auto">
             <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-              <h2 className='fw-bold text-center text-success'>CONTACT</h2>
+              <h2 className='fw-bold text-center '>CONTACT</h2>
             </nav>
 
             <div className=" py-3">
