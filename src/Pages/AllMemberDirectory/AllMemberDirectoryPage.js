@@ -90,7 +90,9 @@ const AllMemberDirectoryPage = () => {
     }, [accessToken, batch])
 
     if (apiResponse) {
-        // console.log(apiResponse)
+       apiResponse.map(apiImage=>{
+        console.log(apiImage.pic)
+       })
     }
 
     const [searchData, setSearchData] = useState({
@@ -122,7 +124,7 @@ const AllMemberDirectoryPage = () => {
         event.preventDefault();
         let filterData=apiResponse;
         if(searchData?.searchKeyword){
-          filterData=filterData.filter(batchData => searchData?.searchKeyword === batchData.employeename);
+          filterData=filterData.filter(batchData =>batchData.employeename.includes(searchData?.searchKeyword));
           console.log(filterData)
         }
         if(searchData.rank!='Select Rank'&&searchData.rank){
@@ -249,6 +251,8 @@ const AllMemberDirectoryPage = () => {
                                             </li>
                                             <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">23</Link></li>
                                             <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
+                                            <li onClick={() => setBatch(31)} className="page-item"><Link className="page-link" href="#">31</Link></li>
+                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
                                         </ul>
                                     </nav>
 
@@ -293,7 +297,7 @@ const AllMemberDirectoryPage = () => {
                                 {
                                     filterData && filterData.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
                                         <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                            <img src={DirectoryImg1} className="memberDirectoryImg" alt="..." />
+                                        <img src={`data:image/jpeg;base64,${row.pic}`} className="memberDirectoryImg" alt="Image" />
                                             <p className="fw-bold my-0">{row.employeename}</p>
                                             {
                                                 row.current_designation ? <p className=" my-0"> <b> Designation </b>: {row.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
