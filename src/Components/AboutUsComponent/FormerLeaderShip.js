@@ -157,12 +157,12 @@ const FormerLeaderShip = () => {
   }, []);
 
   return (
-    <div className="bg-[#767fdc]  py-3  my-5 rounded-2xl">
+    <div className="bg-[#E2E3E7]  py-3  my-5 rounded-2xl">
       <Container>
         <HeadingComponent1
           first="Former  "
           second="Leadership"
-          className="text-center pb-3 text-white"
+          className="text-center pb-3 "
         />
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer >
@@ -174,8 +174,9 @@ const FormerLeaderShip = () => {
                       style={{
                         fontWeight: 600,
                         textAlign: "center",
-                        backgroundColor: "#009688",
-                        color: "white",
+                        backgroundColor: "#E2E3E7",
+                        border: "2px solid white",
+                        color: "black",
                         fontSize: 18,
                       }}
                       key={index}

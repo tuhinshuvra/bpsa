@@ -39,12 +39,12 @@ const LeaderShipComponent = () => {
   }, []);
 
   return (
-    <div className=" bg-fifth/40 py-3  my-5 rounded-2xl">
+    <div className=" bg-[#E2E3E7] py-3  my-5 rounded-2xl">
       <Container className="">
         <HeadingComponent1
           first="Current  "
           second="Leadership"
-          className="text-center pb-3 text-white mb-4"
+          className="text-center pb-3  mb-4"
         />
 
         <Swiper
@@ -95,11 +95,13 @@ const LeaderShipComponent = () => {
                       <div className=" col-lg-7">
                         <div
                           className="text-justify d-lg-block d-none"
+                          style={{ fontFamily: "SolaimanLipi" }}
                           dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 1500) }}
                         ></div>
 
                         <div
-                          className="text-justify d-lg-none "
+                          className="text-justify d-lg-none"
+                          style={{ fontFamily: "SolaimanLipi" }}
                           dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 300) }}
                         ></div>
 

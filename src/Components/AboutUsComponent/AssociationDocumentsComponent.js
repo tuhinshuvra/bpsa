@@ -43,12 +43,12 @@ const AssociationDocumentsComponent = () => {
   }
 
   return (
-    <div className="bg-main/60 py-3  my-5 rounded-2xl ">
+    <div className="bg-[#E2E3E7] py-3  my-5 rounded-2xl ">
       <Container>
         <HeadingComponent1
           first="Association"
           second="Documents"
-          className="text-center pb-3 text-white"
+          className="text-center pb-3 "
         />
         <Swiper
           cssMode={true}

@@ -6,12 +6,12 @@ import HeadingComponent1 from "../Common/HeadingComponent1";
 
 const ObjectivesComponent = () => {
   return (
-    <div className="py-3 bg-main/50 rounded-2xl">
+    <div className="py-3 bg-[#E2E3E7] rounded-2xl">
       <Container>
         <HeadingComponent1
           first="Goals and "
           second="Objectives"
-          className="text-center pb-3 text-white"
+          className="text-center pb-3"
         />
         <Row>
           {objectiveData &&

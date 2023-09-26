@@ -10,13 +10,13 @@ import { activitiesData } from "../../assets/Data/activitiesData";
 
 const ActivitiesComp = () => {
   return (
-    <div className="bg-main  py-3  my-5 text-white rounded-2xl ">
+    <div className="bg-[#E2E3E7]  py-3  my-5 text-white rounded-2xl ">
 
       <Container>
         <HeadingComponent1
           first="Our "
           second="Activities"
-          className="text-center pb-8"
+          className="text-center pb-8 text-black"
         />
         <Row>
           <Col md={6}>
