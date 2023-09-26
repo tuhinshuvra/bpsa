@@ -265,7 +265,7 @@ const AllMemberDirectoryPage = () => {
                                     </select>
                                 </div>
 
-                                <button type="submit" className=" btn btn-success w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
+                                <button type="submit" className=" btn btn-primary w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
 
                             </form>
                         </div>

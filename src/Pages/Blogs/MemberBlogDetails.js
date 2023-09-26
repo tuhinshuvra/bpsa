@@ -65,7 +65,7 @@ const MemberBlogDetails = () => {
 
                         <div className="">
                             <small className=' d-flex justify-content-center  mt-2'>
-                                <p className=' d-flex'> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                                <p className=' d-flex'> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog?.created_at)}</p>
                                 <p className=' d-flex ms-3'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
                             </small>
                         </div>

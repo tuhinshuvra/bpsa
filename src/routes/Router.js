@@ -121,8 +121,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/memberDirectory",
-                // element: <PrivateRoute><AllMemberDirectoryPage></AllMemberDirectoryPage></PrivateRoute>
-                element: <AllMemberDirectoryPage></AllMemberDirectoryPage>
+                element: <PrivateRoute><AllMemberDirectoryPage></AllMemberDirectoryPage></PrivateRoute>
             },
             {
                 path: "/memberDirectorySearchResult",

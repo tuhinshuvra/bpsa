@@ -58,7 +58,7 @@ const PublishBlogDetails = () => {
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">
                     <nav aria-label="" className="bg-light rounded-3 p-2  ">
-                        <h3 className='fw-bold text-center text-success'>{post?.title}</h3>
+                        <h3 className='fw-bold text-center '>{post?.title}</h3>
                     </nav>
 
                     <div className="">

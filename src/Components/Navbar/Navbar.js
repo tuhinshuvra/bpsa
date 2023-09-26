@@ -20,7 +20,7 @@ import './Navbar.css';
 const Navbar = () => {
   const location = useLocation();
   const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
-  console.log(user)
+  console.log("Navbar Login User Data: ", user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
@@ -213,11 +213,11 @@ const Navbar = () => {
                   <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
                   {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                   <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
-                  {user.role == "admin" &&
+                  {user?.MemberRole == "admin" &&
                     <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>
                   }
 
-                  {user.role == "superAdmin" &&
+                  {user?.MemberRole == "super_admin" &&
                     <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Post Admin Assign  </Link></li>
                   }
                   <li>
@@ -286,11 +286,11 @@ const Navbar = () => {
                 <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
                 {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                 <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
-                {user.role == "admin" &&
+                {user?.MemberRole == "admin" &&
                   <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>
                 }
 
-                {user.role == "superAdmin" &&
+                {user?.MemberRole == "super_admin" &&
                   <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Post Admin Assign  </Link></li>
                 }
                 <li>

@@ -186,7 +186,7 @@ const UpdateBlog = () => {
           </nav>
           <div>
             <form className=' my-3' onSubmit={handleBlock}>
-              <input defaultValue={post.title} type='text' name='block_title' className='form-control my-1 ' placeholder='Enter block title' required />
+              <input defaultValue={post?.title} type='text' name='block_title' className='form-control my-1 ' placeholder='Enter block title' required />
               <input defaultValue={post?.summery} type='text' name='block_summery' className='form-control my-1  ' placeholder='Enter post summary' />
 
               {
