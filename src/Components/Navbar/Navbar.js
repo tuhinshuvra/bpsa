@@ -20,7 +20,6 @@ import './Navbar.css';
 const Navbar = () => {
   const location = useLocation();
   const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
-console.log(user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);

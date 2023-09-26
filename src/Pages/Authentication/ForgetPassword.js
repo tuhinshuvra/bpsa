@@ -7,6 +7,7 @@ import { MdOutlineLockReset } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { AllContext } from '../../hooks/ContextData';
+import axios from 'axios';
 
 const ForgetPassword = () => {
     useTitle("ForgetPassword");
@@ -21,6 +22,41 @@ const ForgetPassword = () => {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [otpAccess, setOtpAccess] = useState();
+
+    const [user, setUser] = useState("");
+    const [accessToken, setAccessToken] = useState('');
+    const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
+    const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
+    const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
+    const credentials = `${clientId}:${clientSecret}`;
+    const base64Credentials = btoa(credentials);
+    const headers = {
+        'Authorization': `Basic ${base64Credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = 'grant_type=client_credentials';
+
+    useEffect(() => {
+        const getAccessToken = async () => {
+            try {
+                const response = await axios.post(tokenUrl, data, { headers });
+                setAccessToken(response.data.access_token);
+            } catch (error) {
+                console.error('Error getting access token:', error);
+            }
+        }
+        getAccessToken();
+    }, [])
+
+    if(accessToken){
+       axios.get('https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7203027807',{
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        }
+       })
+       .then(result=>console.log(result.data.items[0]))
+    }
+
 
     useEffect(() => {
         let countdownInterval;

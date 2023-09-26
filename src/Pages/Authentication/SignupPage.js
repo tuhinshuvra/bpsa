@@ -21,7 +21,7 @@ const SignupPage = () => {
     const [isCounting, setIsCounting] = useState(false);
     const [passwordValid, setPasswordValid] = useState(true);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState("");
     const [accessToken, setAccessToken] = useState('');
@@ -47,6 +47,10 @@ const SignupPage = () => {
         }
         getAccessToken();
     }, [])
+
+    if(accessToken){
+        console.log(accessToken)
+    }
 
     useEffect(() => {
         let countdownInterval;
@@ -92,19 +96,31 @@ const SignupPage = () => {
         },)
             .then(result => {
                 if (result.data.items.length > 0) {
-                    // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
-                    // .then(resOTP=>{
-                    //     console.log();
-                    //     setOtpData(resOTP.data.otp)
-                    // })
-                    startCountdown();
-                    setEnableOtp(true);
-                    setOTPCheckOne(true)
-                    setOtpData(2000)
-                    setUnique_id(form.unique_id.value);
-                    setUserFullName(result.data.items[0].name)
-                    setUser(result.data.items[0]);
-                    setErrorMessage("")
+                    // toast.success("user verified successfully");
+                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${form.unique_id.value}`)
+                        .then(verifyUser => {
+                            if (verifyUser.data.value == 1) {
+                                toast.error("user already registered")
+                            }
+                            else if (verifyUser.data.value == 2) {
+
+                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-082532`)
+                                .then(resOTP=>{
+                                    console.log();
+                                    setOtpData(resOTP.data.otp)
+                                })
+
+                                startCountdown();
+                                setEnableOtp(true);
+                                setOTPCheckOne(true)
+                                setOtpData(2000)
+                                setUnique_id(form.unique_id.value);
+                                setUserFullName(result.data.items[0].name)
+                                setUser(result.data.items[0]);
+                                setErrorMessage("")
+
+                            }
+                        })
                 }
                 else {
                     setErrorMessage("PMIS id and birth year not match")
