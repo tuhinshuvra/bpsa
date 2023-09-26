@@ -113,7 +113,6 @@ const SignupPage = () => {
                                 startCountdown();
                                 setEnableOtp(true);
                                 setOTPCheckOne(true)
-                                setOtpData(2000)
                                 setUnique_id(form.unique_id.value);
                                 setUserFullName(result.data.items[0].name)
                                 setUser(result.data.items[0]);
@@ -130,7 +129,7 @@ const SignupPage = () => {
 
     const handleVerifyOTP = (e) => {
         e.preventDefault();
-        if (userEnteredOTP != 2000) {
+        if (userEnteredOTP != otpData) {
             setErrorMessage("Otp not match")
             return;
         }
