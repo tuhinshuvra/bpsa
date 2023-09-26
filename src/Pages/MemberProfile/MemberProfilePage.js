@@ -26,14 +26,14 @@ const MemberProfilePage = () => {
     // console.log("memberBCSBatch", memberBCSBatch);
 
     // console.log("MemberProfilePage User Data: ", user);
-    // console.log("Member Profile Data: ", memberData);
-    // console.log("User UniqueID: ", user.UniqueID);
+    console.log("Member Profile Data memberData: ", memberData);
+    // console.log("User UniqueID: ", user?.BPID);
     // console.log("userNewData :", userNewData);
 
     // user new data
     useEffect(() => {
         setLoading(true);
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data.value)
@@ -45,15 +45,15 @@ const MemberProfilePage = () => {
     // login member profile data
     useEffect(() => {
         setLoading(true);
-        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                // console.log("Member Profile Data: ", data)
-                setMemberData(data.member)
-                setMemberBCSBatch(data.member?.batch);
+                console.log("Member Profile api Data: ", data?.member)
+                setMemberData(data?.member)
+                setMemberBCSBatch(data?.member?.batch);
                 setLoading(false)
             })
-    }, [setLoading, user.UniqueID])
+    }, [setLoading, user?.BPID])
 
     // id, nameB,nameE,bpn,fname,batch,birth,blood,bpn,phone    // designation,district,email,fname, gift, id, mname,nameB, ,    //  qualificattion,ranK,religion,status,unit,
 
@@ -89,8 +89,8 @@ const MemberProfilePage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const displayedPendingPosts = pendingPosts.slice(startIndex, endIndex);
-    const displayedArrovedBlogs = approvedPosts.slice(startIndex, endIndex);
+    const displayedPendingPosts = pendingPosts?.slice(startIndex, endIndex);
+    const displayedArrovedBlogs = approvedPosts?.slice(startIndex, endIndex);
 
     const totalPendingPostPages = Math.ceil(pendingPosts.length / itemsPerPage);
     const totalApprovedPostPages = Math.ceil(pendingPosts.length / itemsPerPage);
@@ -159,7 +159,7 @@ const MemberProfilePage = () => {
 
 
                                     <div className=' text-center'>
-                                        <h6 className="my-0 fw-bold">{memberData?.nameE.slice(0, 40)}
+                                        <h6 className="my-0 fw-bold">{memberData?.nameE?.slice(0, 40)}
                                         </h6>
                                         <h6 className="my-0 fs-6 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
                                         {userNewData?.CoCurriculumActivities &&
@@ -260,7 +260,7 @@ const MemberProfilePage = () => {
 
                                 <div className="col-md-10">
                                     <div className="card-body">
-                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title.slice(0, 95)}</Link>
+                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title?.slice(0, 95)}</Link>
 
                                         {(blog?.image && blog?.image !== 'link') ?
                                             <>
@@ -339,7 +339,7 @@ const MemberProfilePage = () => {
                                     <>
                                         <div className="col-md-10 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title.slice(0, 95)}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title?.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
                                                     __html: `${sliceTextWithMaxLength(stripHTMLTags(post?.description), 120)}
@@ -368,7 +368,7 @@ const MemberProfilePage = () => {
                                     <>
                                         <div className="col-md-12 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title.slice(0, 95)}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title?.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
                                                     __html: `${sliceTextWithMaxLength(stripHTMLTags(post?.description), 140)}

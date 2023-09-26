@@ -8,16 +8,16 @@ const ResetPassword = () => {
     const { user } = useContext(AllContext);
     // console.log(user)
     const [errorMessage, setErrorMessage] = useState("");
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const handleNew = (e) => {
         e.preventDefault();
         const form = e.target;
-        const currentPassword=form.currentPassword.value;
+        const currentPassword = form.currentPassword.value;
         const newPassword = form.newPassword.value;
         const confirmedPassword = form.confirmedPassword.value;
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-        const currentPasswordMatch=passwordPattern.test(currentPassword);
+        const currentPasswordMatch = passwordPattern.test(currentPassword);
 
         if (!currentPasswordMatch) {
             setErrorMessage("invalid current password,  Password combination must be lowercase, uppercase ,number . password total numbers must me eight");
@@ -40,35 +40,35 @@ const ResetPassword = () => {
         }
         else {
             setErrorMessage("");
-            const data={
-                uniqueId:user.UniqueID,
-                current_password:currentPassword,
-                password:newPassword,
-                password_confirmation:confirmedPassword,
+            const data = {
+                uniqueId: user?.BPID,
+                current_password: currentPassword,
+                password: newPassword,
+                password_confirmation: confirmedPassword,
             }
             console.log(data);
-            axios.post("https://dev.bpsa.com.bd/api/change-password",data)
-            .then(result=>{
-                // console.log(result);
-                if(result.status==201){
-                    if(result.data.massege=='Password changed successfully.'){
-                        toast.success("password reset update");
-                        form.reset();
-                        navigate("/memberProfile");
-                    }
-                    else if(result.data.massege=='Incorrect current password. '){
+            axios.post("https://dev.bpsa.com.bd/api/change-password", data)
+                .then(result => {
+                    // console.log(result);
+                    if (result.status == 201) {
+                        if (result.data.massege == 'Password changed successfully.') {
+                            toast.success("password reset update");
+                            form.reset();
+                            navigate("/memberProfile");
+                        }
+                        else if (result.data.massege == 'Incorrect current password. ') {
 
-                        setErrorMessage("Incorrect current password. ")
+                            setErrorMessage("Incorrect current password. ")
+                        }
+                        else {
+                            setErrorMessage("something is wrong, password not change. Please try again")
+                        }
                     }
-                    else{
+                    else {
                         setErrorMessage("something is wrong, password not change. Please try again")
                     }
-                }
-                else{
-                    setErrorMessage("something is wrong, password not change. Please try again")
-                }
-            })
-            .catch(err=>setErrorMessage(err.message));
+                })
+                .catch(err => setErrorMessage(err.message));
         }
     }
     return (

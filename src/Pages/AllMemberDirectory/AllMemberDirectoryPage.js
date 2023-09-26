@@ -85,7 +85,7 @@ const AllMemberDirectoryPage = () => {
                 return;
             }
             const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP750510460`;
-            // const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.UniqueID}`;
+            // const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`;
             const headers = {
                 'Authorization': `Bearer ${accessToken}`,
             };

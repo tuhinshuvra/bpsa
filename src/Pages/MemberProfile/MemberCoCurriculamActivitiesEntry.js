@@ -17,14 +17,14 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data.member)
                 setUserNewData(data?.value)
                 setLoading(false)
             })
-    }, [setLoading, user.UniqueID])
+    }, [setLoading, user?.BPID])
 
 
     // this function is used to post sign up data
