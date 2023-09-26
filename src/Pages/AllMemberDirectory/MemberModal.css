@@ -1,6 +1,6 @@
 .modal-overlay {
     position: fixed;
-    top: 15%;
+    top: 6%;
     left: 0;
     right: 0;
     z-index: 1000;
@@ -12,13 +12,19 @@
     padding: 20px;
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
     position: relative;
-    height: auto;
+    /* height: auto; */
+    /* height: 500px; */
+    font-size: 14.5px;
 }
 
 .memberImg {
     width: 145px;
     border-radius: 6px;
     box-shadow: 9px 7px 9px 0px
+}
+
+.modalBtn {
+    margin-top: 0;
 }
 
 
@@ -39,15 +45,29 @@
         right: 0;
         z-index: 1000;
     }
+
+    .memberImg {
+        width: 120px;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 424.98px) {
     .modal-overlay {
         position: fixed;
-        top: 7%;
+        top: 4%;
         left: 0;
         right: 0;
         z-index: 1000;
+    }
+
+    .memberImg {
+        width: 120px;
+    }
+
+
+    .modal-content {
+        padding: 10px;
+        font-size: 12px;
     }
 
 }

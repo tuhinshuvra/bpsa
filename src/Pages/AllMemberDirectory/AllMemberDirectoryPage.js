@@ -195,9 +195,9 @@ const AllMemberDirectoryPage = () => {
     }
 
     return (
-        <div className=' col-md-10 mx-auto'>
+        <div className=' col-md-10 col-12 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
-                <div className="container pt-3 pb-1 ">
+                <div className="container gx-lg-5 gx-md-4 gx-0 pt-3 pb-1 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
                         <h2 className='fw-bold text-center'>MEMBER DIRECTORY</h2>
@@ -208,10 +208,10 @@ const AllMemberDirectoryPage = () => {
                             <p className=" fs-5 fw-bold text-center rounded-lg py-1 ms-1 ">Search Pannel</p>
                             <form id="searchForm" onSubmit={handleSearchResult}>
                                 <div className=" d-md-flex d-lg-inline">
-                                    <label htmlFor="exampleInputEmail1" className="form-label my-0 d-none d-lg-block fw-bold">Search Keyword</label>
-                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-0 my-1 searchField mx-lg-0 mx-1" placeholder="Enter searchKeyword" />
+                                    <label htmlFor="searchKeyword" className="form-label my-0 d-none d-lg-block fw-bold">Search Keyword</label>
+                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter searchKeyword" />
 
-                                    <select onChange={getSearchData} name="rank" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="rank" className="form-select my-2 mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
                                         <option value="SP">SP</option>
                                         <option value="Additional DIG">Addl. DIG</option>
@@ -221,7 +221,7 @@ const AllMemberDirectoryPage = () => {
                                 </div>
 
                                 <div className=" d-md-flex d-lg-inline">
-                                    <select onChange={getSearchData} name="unit" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="unit" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Main Unit</option>
                                         <option value="পুলিশ হেডকোয়ার্টার্স">পুলিশ হেডকোয়ার্টার্স</option>
                                         <option value="খুলনা রেঞ্জ">খুলনা রেঞ্জ</option>
@@ -230,7 +230,7 @@ const AllMemberDirectoryPage = () => {
                                     </select>
 
 
-                                    <select onChange={getSearchData} name="subUnit" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="subUnit" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Sub Unit</option>
                                         <option value="SubUnitOne">SubUnitOne</option>
                                         <option value="SubUnitTwo">SubUnitTwo</option>
@@ -240,7 +240,7 @@ const AllMemberDirectoryPage = () => {
                                 </div>
 
                                 <div className=" d-md-flex d-lg-inline">
-                                    <select onChange={getSearchData} name="designation" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="designation" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Designation</option>
                                         <option value="DesignationOne">DesignationOne</option>
                                         <option value="DesignationTwo">DesignationTwo</option>
@@ -248,7 +248,7 @@ const AllMemberDirectoryPage = () => {
                                         <option value="DesignationFour">DesignationFour</option>
                                     </select>
 
-                                    <select onChange={getSearchData} name="district" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="district" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Own District</option>
                                         <option value="পাবনা">পাবনা</option>
                                         <option value="নড়াইল">নড়াইল</option>
@@ -263,7 +263,7 @@ const AllMemberDirectoryPage = () => {
                                     </select>
                                 </div>
 
-                                <button type="submit" className=" btn btn-success w-full btn-sm mt-lg-4 mt-2 mb-lg-0 mb-4">Search</button>
+                                <button type="submit" className=" btn btn-success w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
 
                             </form>
                         </div>

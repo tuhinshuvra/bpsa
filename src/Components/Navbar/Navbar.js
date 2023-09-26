@@ -89,7 +89,7 @@ const Navbar = () => {
           className={`flex items-center justify-between ${location?.pathname === "/"
             ? `${navColor ? "bg-main" : "bg-transparent"}`
             : "bg-main"
-            }  px-20 py-2`}
+            } navPadding  py-2`}
         >
           <div
             onClick={() => {

@@ -1,13 +1,13 @@
-/* background-color: rgb(240 241 243); */
 .memberDirectory {
     margin: 0 0 80px 0;
     padding: 15px;
     border-radius: 15px;
-    /* background-color: rgb(94, 104, 239); */
     background-color: rgb(226 227 231);
 }
 
-.searchField {}
+.searchField {
+    height: 40px;
+}
 
 .searchField:hover {
     background-color: rgb(203, 217, 244);
@@ -46,7 +46,8 @@
     height: 125px;
     /* height: 100px; */
     border-radius: 50%;
-    box-shadow: 0px 0px 8px 0px
+    box-shadow: 0px 0px 8px 0px;
+    margin-bottom: 5px;
 }
 
 
@@ -113,5 +114,9 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         /* gap: 10px 0px; */
+    }
+
+    .memberDirectory {
+        padding: 3px;
     }
 }
