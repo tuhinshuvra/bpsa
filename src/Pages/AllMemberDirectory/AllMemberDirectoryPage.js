@@ -128,7 +128,9 @@ const AllMemberDirectoryPage = () => {
     }, [accessToken, batch])
 
     if (apiResponse) {
-        // console.log(apiResponse)
+        apiResponse.map(apiImage => {
+            console.log(apiImage.pic)
+        })
     }
 
     const [searchData, setSearchData] = useState({
@@ -162,7 +164,7 @@ const AllMemberDirectoryPage = () => {
         event.preventDefault();
         let filterData = apiResponse;
         if (searchData?.searchKeyword) {
-            filterData = filterData.filter(batchData => searchData?.searchKeyword === batchData.employeename);
+            filterData = filterData.filter(batchData => batchData.employeename.includes(searchData?.searchKeyword));
             console.log(filterData)
         }
         if (searchData.rank != 'Select Rank' && searchData.rank) {

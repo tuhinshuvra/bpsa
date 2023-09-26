@@ -7,30 +7,46 @@ import { toast } from 'react-hot-toast';
 import './Login.css';
 import { Toast } from 'bootstrap';
 import axios from 'axios';
-
 const SignupPage = () => {
-    useTitle("SignUp");
-
-    // const [enableOtp, setEnableOtp] = useState(false);
+    useTitle("sign up");
     const [enableOtp, setEnableOtp] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
     const [otpVerified, setOtpVerified] = useState(false);
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const [passwordValid, setPasswordValid] = useState(true);
-    const [showPassword, setShowPassword] = useState(false);
-    const [remainingTime, setRemainingTime] = useState(5 * 60);
-    const [userFullName, setUserFullName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [otpData, setOtpData] = useState('');
     const [userEnteredOTP, setUserEnteredOTP] = useState('');
-    const [unique_id, setUniqueId] = useState("");
-    const [name, setName] = useState("");
-    const [year, setYear] = useState("");
-    const [OTPCheckOne, setOTPCheckOne] = useState(false);
-
-
+    const [errorMessage, setErrorMessage] = useState("");
+    const [otpData, setOtpData] = useState('');
     const [timeLeft, setTimeLeft] = useState(0);
+    const [OTPCheckOne, setOTPCheckOne] = useState(false);
+    const [userFullName, setUserFullName] = useState('');
+    const [unique_id, setUnique_id] = useState('');
     const [isCounting, setIsCounting] = useState(false);
+    const [passwordValid, setPasswordValid] = useState(true);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const navigate=useNavigate();
+
+    const [user, setUser] = useState("");
+    const [accessToken, setAccessToken] = useState('');
+    const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
+    const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
+    const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
+    const credentials = `${clientId}:${clientSecret}`;
+    const base64Credentials = btoa(credentials);
+    const headers = {
+        'Authorization': `Basic ${base64Credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = 'grant_type=client_credentials';
+
+    useEffect(() => {
+        const getAccessToken = async () => {
+            try {
+                const response = await axios.post(tokenUrl, data, { headers });
+                setAccessToken(response.data.access_token);
+            } catch (error) {
+                console.error('Error getting access token:', error);
+            }
+        }
+        getAccessToken();
+    }, [])
 
     useEffect(() => {
         let countdownInterval;
@@ -44,6 +60,7 @@ const SignupPage = () => {
                     setIsCounting(false);
                     // Perform any action when the countdown reaches zero.
                     setOtpVerified(false);
+                    setOTPCheckOne(false)
                     setOtpData("");
                     console.log('Countdown has reached zero.');
                 }
@@ -65,126 +82,70 @@ const SignupPage = () => {
 
     };
 
+    const handleVerifyUniqueId = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${form.unique_id.value}/${form.birth_year.value}`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            }
+        },)
+            .then(result => {
+                if (result.data.items.length > 0) {
+                    // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+                    // .then(resOTP=>{
+                    //     console.log();
+                    //     setOtpData(resOTP.data.otp)
+                    // })
+                    startCountdown();
+                    setEnableOtp(true);
+                    setOTPCheckOne(true)
+                    setOtpData(2000)
+                    setUnique_id(form.unique_id.value);
+                    setUserFullName(result.data.items[0].name)
+                    setUser(result.data.items[0]);
+                    setErrorMessage("")
+                }
+                else {
+                    setErrorMessage("PMIS id and birth year not match")
+                }
+            })
+    }
+
+    const handleVerifyOTP = (e) => {
+        e.preventDefault();
+        if (userEnteredOTP != 2000) {
+            setErrorMessage("Otp not match")
+            return;
+        }
+        setErrorMessage("");
+        setOtpVerified(true);
+        setEnableOtp(false);
+        setOTPCheckOne(false)
+
+    }
+
     const formatTime = (seconds) => {
         //   console.log(seconds)
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const navigate = useNavigate();
-
-
-    // const checkPasswordMatch = (password, retypePassword) => {
-    //     return password === retypePassword;
-    // };
-
-
-    // this function is used to veriry unique id
-    const handleVerifyUniqueId = (event) => {
-        event.preventDefault();
-        setErrorMessage("");
-        const form = event.target;
-        // if (!form) {
-        //     console.error("Form element not found");
-        //     return;
-        // }
-        const unique_id = form?.unique_id?.value;
-        const birth_year = form?.birth_year?.value;
-
-        // const verifyData = {
-        //     unique_id: unique_id,
-        //     birth_year: birth_year,
-        // }
-
-        // console.log("verifyData : ", verifyData);
-
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${birth_year}`, {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-
-                console.log("Verify unique Id", data);
-                if (data.value === 1) {
-                    // toast.success("OTP Sent Successfully. Please check your phone for OTP.");
-                    toast.success("Unique ID Verified Successfully!");
-                    console.log(data);
-                    setEnableOtp(true);
-                    form.reset();
-                    setUniqueId(unique_id);
-                    setYear(birth_year);
-                    setName(data.name);
-                    setOTPCheckOne(true);
-                    startCountdown();
-                    setOtpData(data.otp)
-                    setUserFullName(data.name)
-                    setPhone(data.phone)
-                }
-                else if (data.value === 2) {
-                    console.log(data);
-                    console.log(data.message);
-                    setErrorMessage("User ID verification failed");
-                    // toast.error('User ID verification failed');
-                }
-                else if (data.value === 3) {
-                    console.log(data);
-                    console.log(data.message);
-                    setErrorMessage("User ID already registered");
-                    // toast.error('User ID already registered');
-                }
-                else {
-                    // toast.error("Something error, Please try again later.");
-                    setErrorMessage("Something error, Please try again later.");
-                }
-
-
-                // After successful OTP verification, set otpVerified to true
-                // setOtpVerified(true);
-            })
-            .catch((error) => {
-                console.log("Error Occurred:", error.response.data);
-                setErrorMessage(error.response.data.error);
-            });
-    };
-
-
-    const handleVerifyOTP = (event) => {
-        event.preventDefault();
-        if (userEnteredOTP == otpData) {
-            toast.success("OTP Verified successfully!")
-            console.log('OTP Verified successfully!');
-            setOtpVerified(true);
-            setEnableOtp(false);
-            setOTPCheckOne(false);
-            setErrorMessage("");
-            setOtpData("");
-        } else {
-            console.log('Invalid OTP');
-            setErrorMessage("Invalid OTP");
-            // toast.success('OTP Verified successfully!');
-            // setOTPCheckOne(false);
-            // setOtpData("")
-            // setEnableOtp(true);
-            setEnableOtp(true);
-            setOTPCheckOne(true);
-        }
+    const handleResendOTP = (e) => {
+        e.preventDefault();
+        // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+        // .then(resOTP=>{
+        //     console.log();
+        //     setOtpData(resOTP.data.otp)
+        // })
+        startCountdown();
     }
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        const form = e.target;
 
-
-    // this function is used to post sign up data
-    const handleOnSubmit = (event) => {
-        event.preventDefault();
-        const form = event.target;
-
-        // const uniqueId = form.unique_id.value;
         const uniqueId = unique_id;
-        const fullName = name;
+        const fullName = userFullName;
         const email = form.user_name.value;
         const password = form.password.value;
         const confirmPassword = form.confirm_password.value;
@@ -231,68 +192,14 @@ const SignupPage = () => {
                 }
             })
             .catch(err => {
-                if(err.message=='Request failed with status code 422'){
+                if (err.message == 'Request failed with status code 422') {
                     setErrorMessage("user Name already another person have used Pleased change userName");
                 }
-                else{
+                else {
                     setErrorMessage("something is wrong. Please check your net connection and other issues")
                 }
             })
-
-        // fetch(`https://dev.bpsa.com.bd/api/signup`, {
-        //     method: "POST",
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(userData)
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Registerd User Data : ', data);
-        //         if (data) {
-        //             form.reset()
-        //             toast.success('Congratulation! User created successfully.')
-        //         }
-        //         navigate("/login");
-
-        //     })
-        //     .catch(error => {
-        //         console.log("Error Occured: ", error.response.data)
-        //         setErrorMessage(error.response.data.error)
-        //     })
-
     }
-
-
-
-    const handleResendOTP = (e) => {
-        e.preventDefault();
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${year}`, {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                toast.success("OTP resent your mobile")
-                setOtpData(data.otp)
-
-                startCountdown();
-
-                setErrorMessage("");
-
-                // After successful OTP verification, set otpVerified to true
-                // setOtpVerified(true);
-            })
-            .catch((error) => {
-                console.log("Error Occurred:", error.response.data);
-                setErrorMessage(error.response.data.error);
-            });
-
-    };
-
-
     return (
         <div className=' container my-4'>
             <div className=' col-lg-4 col-md-6 mx-auto'>
@@ -302,20 +209,6 @@ const SignupPage = () => {
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
                 <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
-                {/* {!passwordsMatch && (
-                    <p className="text-center text-danger fw-bold fs-6">Passwords do not match.</p>
-                )} */}
-
-                {/* {verifyMessage && (
-                    <p className="text-center text-danger fw-bold fs-6">Unique ID verified Successfully!</p>
-                )} */}
-
-
-                {/* {passwordValid ? <></> :
-                    <><p className=' text-warning'>Password must be at least 8 characters and contain an uppercase letter, a lowercase letter, and a numeric number.</p></>
-                } */}
-
-                {/* handle unique id verification  form*/}
                 {!otpData && !otpVerified && <form onSubmit={handleVerifyUniqueId}>
                     <TextField
                         label="Unique ID"
@@ -347,14 +240,9 @@ const SignupPage = () => {
                     <div className=' text-center'>
                         <button type='submit' className=' btn btn-primary btn-sm '>Verify</button>
                     </div>
-                    {/* <div className=' text-center'>
-                        <button type='submit' className=' btn btn-primary btn-sm '>Resend</button>
-                    </div> */}
 
                 </form>
                 }
-
-                {/* handle otp verification form */}
                 <form>
 
                     <div className=' d-flex   align-items-baseline  '>
@@ -498,10 +386,6 @@ const SignupPage = () => {
                             />
                         </>
                     }
-
-
-
-                    {/* <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p> */}
 
                     <div className=' d-flex justify-between mt-3'>
                         <button type="reset" className="btn btn-warning btn-sm">Reset</button>
