@@ -20,7 +20,7 @@ import './Navbar.css';
 const Navbar = () => {
   const location = useLocation();
   const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
-
+console.log(user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
@@ -63,7 +63,7 @@ const Navbar = () => {
 
   // user new data
   useEffect(() => {
-    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
       .then(res => res.json())
       .then(data => {
         // console.log("Member User table  Data: ", data.value)
@@ -186,7 +186,7 @@ const Navbar = () => {
           </div>
 
 
-          {user?.email
+          {user?.UserID
             ?
             <>
               <div className="dropdown">
@@ -259,7 +259,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {user?.email
+        {user?.UserID
           ?
           <>
             <div className="dropdown">
