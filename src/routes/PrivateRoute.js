@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
     //     return <Loader></Loader>;
     // }
 
-    if (user?.email) {
+    if (user?.UserID) {
         return children;
     }
 
