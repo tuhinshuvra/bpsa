@@ -14,6 +14,7 @@ import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
+import MemberProfileSample from './MemberProfileSample';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -45,10 +46,11 @@ const MemberProfilePage = () => {
     // login member profile data
     useEffect(() => {
         setLoading(true);
-        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
+        // fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
+        fetch(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7603027839`)
             .then(res => res.json())
             .then(data => {
-                console.log("Member Profile api Data: ", data?.member)
+                console.log("pims.police.gov.bd Member Profile Data: ", data)
                 setMemberData(data?.member)
                 setMemberBCSBatch(data?.member?.batch);
                 setLoading(false)
@@ -123,6 +125,8 @@ const MemberProfilePage = () => {
 
     return (
         <div className=' col-md-10 mx-auto'>
+
+            {/* <MemberProfileSample></MemberProfileSample> */}
 
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">

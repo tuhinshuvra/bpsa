@@ -4,9 +4,11 @@ import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import './Login.css';
 import { Toast } from 'bootstrap';
 import axios from 'axios';
+import './Login.css';
+
+
 const SignupPage = () => {
     useTitle("sign up");
     const [enableOtp, setEnableOtp] = useState(false);
@@ -21,7 +23,7 @@ const SignupPage = () => {
     const [isCounting, setIsCounting] = useState(false);
     const [passwordValid, setPasswordValid] = useState(true);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState("");
     const [accessToken, setAccessToken] = useState('');
@@ -47,6 +49,10 @@ const SignupPage = () => {
         }
         getAccessToken();
     }, [])
+
+    if (accessToken) {
+        console.log(accessToken)
+    }
 
     useEffect(() => {
         let countdownInterval;
@@ -75,11 +81,9 @@ const SignupPage = () => {
     }, [isCounting, timeLeft]);
 
     const startCountdown = () => {
-
         // Set the countdown time to 5 minutes (300 seconds)
         setTimeLeft(300);
         setIsCounting(true);
-
     };
 
     const handleVerifyUniqueId = (e) => {
@@ -92,19 +96,29 @@ const SignupPage = () => {
         },)
             .then(result => {
                 if (result.data.items.length > 0) {
-                    // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
-                    // .then(resOTP=>{
-                    //     console.log();
-                    //     setOtpData(resOTP.data.otp)
-                    // })
-                    startCountdown();
-                    setEnableOtp(true);
-                    setOTPCheckOne(true)
-                    setOtpData(2000)
-                    setUnique_id(form.unique_id.value);
-                    setUserFullName(result.data.items[0].name)
-                    setUser(result.data.items[0]);
-                    setErrorMessage("")
+                    // toast.success("user verified successfully");
+                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${form.unique_id.value}`)
+                        .then(verifyUser => {
+                            if (verifyUser.data.value == 1) {
+                                toast.error("user already registered")
+                            }
+                            else if (verifyUser.data.value == 2) {
+
+                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-082532`)
+                                    .then(resOTP => {
+                                        console.log();
+                                        setOtpData(resOTP.data.otp)
+                                    })
+
+                                startCountdown();
+                                setEnableOtp(true);
+                                setOTPCheckOne(true)
+                                setUnique_id(form.unique_id.value);
+                                setUserFullName(result.data.items[0].name)
+                                setUser(result.data.items[0]);
+                                setErrorMessage("")
+                            }
+                        })
                 }
                 else {
                     setErrorMessage("PMIS id and birth year not match")
@@ -114,15 +128,14 @@ const SignupPage = () => {
 
     const handleVerifyOTP = (e) => {
         e.preventDefault();
-        if (userEnteredOTP != 2000) {
+        if (userEnteredOTP != otpData) {
             setErrorMessage("Otp not match")
             return;
         }
         setErrorMessage("");
         setOtpVerified(true);
         setEnableOtp(false);
-        setOTPCheckOne(false)
-
+        setOTPCheckOne(false);
     }
 
     const formatTime = (seconds) => {
@@ -131,6 +144,7 @@ const SignupPage = () => {
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
+
     const handleResendOTP = (e) => {
         e.preventDefault();
         // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
@@ -140,6 +154,7 @@ const SignupPage = () => {
         // })
         startCountdown();
     }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -152,7 +167,6 @@ const SignupPage = () => {
         if (password !== confirmPassword) {
             setErrorMessage("password are not match")
             setPasswordsMatch(false);
-
             return;
         }
         else {
@@ -160,7 +174,6 @@ const SignupPage = () => {
         }
 
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
 
         const isPasswordValid = passwordPattern.test(password);
 
@@ -269,7 +282,6 @@ const SignupPage = () => {
 
                                 {/* <button className='btn btn-primary  ' onClick={handleResendOTP}>ResendOTP</button> */}
                                 <button onClick={(e) => handleVerifyOTP(e)} className='btn btn-primary'>Verify OTP</button>
-
                             </>
                         }
                     </div>
@@ -280,42 +292,11 @@ const SignupPage = () => {
                             }
                         </div>
                     }
-
-
-
-                    {otpVerified ?
-                        <>
-                            <TextField
-                                value={userFullName}
-                                name="full_name"
-                                id="full_name"
-                                type="text"
-                                margin="normal"
-                                disabled={true}
-                                fullWidth
-                            />
-                        </>
-                        :
-                        <>
-                            <TextField
-                                label="Full Name"
-                                name="full_name"
-                                id="full_name"
-                                type="text"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-                        </>
-                    }
                 </form>
 
                 {/* new user creation form */}
                 <form onSubmit={handleOnSubmit}>
-
-
-                    {otpVerified ?
+                    {otpVerified &&
                         <>
                             <TextField
                                 label="User name"
@@ -349,52 +330,14 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
-                        </>
-                        :
-                        <>
-                            <TextField
-                                label="User name"
-                                name="user_name"
-                                id="user_name"
-                                type="text"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-
-                            <TextField
-                                label="Password"
-                                name="password"
-                                id="password"
-                                type="password"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
-
-                            <TextField
-                                label="Retype Password"
-                                name="confirm_password"
-                                id="confirm_password"
-                                type="password"
-                                margin="normal"
-                                disabled={true}
-                                required
-                                fullWidth
-                            />
+                            <div className=' d-flex justify-between mt-3'>
+                                <button type="reset" className="btn btn-warning btn-sm">Reset</button>
+                                <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+                            </div>
                         </>
                     }
-
-                    <div className=' d-flex justify-between mt-3'>
-                        <button type="reset" className="btn btn-warning btn-sm">Reset</button>
-                        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
-                    </div>
-
                     <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
                 </form>
-
             </div>
         </div>
     );
