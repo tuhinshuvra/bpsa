@@ -6,8 +6,8 @@ import { BsCalendarDateFill } from 'react-icons/bs';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import Loader from '../../Components/Common/Loader';
-import './AllEventPage.css'
 import { formatDate } from '../../utlis/dateFormat';
+import './AllEventPage.css'
 
 const AllEventPage = () => {
     useTitle("Events")
@@ -37,7 +37,7 @@ const AllEventPage = () => {
 
     return (
         <div className=' col-md-10 mx-auto'>
-            <section style={{ backgroundColor: "#eee" }}>
+            <section style={{ backgroundColor: "#eee", minHeight: "70vh" }}>
                 <div className="container pt-3 pb-5 ">
                     <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
                         <h2 className='fw-bold text-center'>All EVENTS</h2>
@@ -51,7 +51,7 @@ const AllEventPage = () => {
                                         <div onClick={() => navigate(`/events/${item?.id}`)}>
                                             <img src={item?.image} className='allEventImage' alt="" />
                                             <div className='text-center mt-2'>
-                                                <p className='fw-bold my-0 text-primary'>{item?.title.slice(0, 27)}</p>
+                                                <p className='fw-bold my-0 '>{item?.title.slice(0, 27)}</p>
                                                 <p className='my-0'><b>Venue:</b> {item?.events}</p>
                                                 {item?.start_date &&
                                                     <p className='flex my-0 justify-center'>
@@ -62,7 +62,7 @@ const AllEventPage = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <Link className='btn btn-outline-primary btn-sm w-100 minTopMargin' to={`/events/${item?.id}`}>Show Details</Link>
+                                        <Link className='btn btn-outline-secondary text-black btn-sm w-100 minTopMargin' to={`/events/${item?.id}`}>Show Details</Link>
                                     </div>
                                 );
                             })}

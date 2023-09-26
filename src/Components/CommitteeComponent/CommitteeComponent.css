@@ -1,5 +1,5 @@
 .newCommitteArea {
-    background-color: #5E68EF;
+    background-color: #E2E3E7;
     margin: 40px 0 40px 0;
     padding: 0 20px 20px 20px;
     border-radius: 15px;
@@ -26,7 +26,8 @@
 
 .comNewRowPhoto {
     width: 130px;
-    border-radius: 15px;
+    /* border-radius: 15px; */
+    box-shadow: 3px 3px 10px;
 }
 
 .comRowPhoto {
