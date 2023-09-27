@@ -13,9 +13,9 @@ const ActivityUpdate = ({ data }) => {
       <HeadingComponent1
         first="Activity"
         second=" News"
-        className={"text-white bg-main/70 rounded-t-2xl  text-center py-3 mb-0 "}
+        className={" bg-[#E2E3E7] rounded-t-2xl  text-center py-3 mb-0 "}
       />
-      <div className="d-lg-flex gap-2 justify-content-between bg-success/50    rounded-b-2xl py-3 ps-3 pe-4">
+      <div className="d-lg-flex gap-2 justify-content-between bg-white    rounded-b-2xl py-3 ps-3 pe-4">
         <div className="col-lg-6">
           <NewsCard2
             item={showData[0]}

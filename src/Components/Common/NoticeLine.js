@@ -36,8 +36,8 @@ const NoticeLine = ({ data }) => {
   }
 
   return (
-    <div className="p-2 md:p-3 flex items-center space-x-2 md:space-x-4 bg-main/80">
-      <span className=" bg-second py-3 px-2  mx-[-8px] my-[-8px] text-white md:tracking-widest font-semibold text-xs md:text-[16px]">
+    <div className="p-2 md:p-3 flex items-center space-x-2 md:space-x-4 bg-white ">
+      <span className=" bg-black py-3 px-2  mx-[-8px] my-[-8px] text-white md:tracking-widest font-semibold text-xs md:text-[16px]">
         LATEST
       </span>
       {/* <ImageComponent image={noticeImg} className="w-[140px] object-contain" /> */}
@@ -48,7 +48,7 @@ const NoticeLine = ({ data }) => {
               <div
                 onClick={() => navigate(`/news/${item?.id}`)}
                 key={index}
-                className={` flex items-center  cursor-pointer ${index % 2 === 0 ? "text-white" : "text-white"}`}
+                className={` flex items-center  cursor-pointer ${index % 2 === 0 ? "text-black" : "text-black"}`}
               >
                 <span className="  text-white mx-4">
                   {/* <ArrowRightIcon /> */} |

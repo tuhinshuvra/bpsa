@@ -24,7 +24,7 @@ const AchievementComponent = ({ data }) => {
       <HeadingComponent1
         first={"Congratulation On "}
         second={"Achievement"}
-        className={"text-white bg-main/70 rounded-t-2xl  text-center py-3 mb-0 "}
+        className={" bg-[#E2E3E7] rounded-t-2xl  text-center py-3 mb-0 "}
       />
 
       <Swiper
@@ -34,7 +34,7 @@ const AchievementComponent = ({ data }) => {
         keyboard={true}
         loop={true}
         modules={[Navigation, Mousewheel, Keyboard]}
-        className="mySwiper  bg-success/50    rounded-b-2xl py-3 px-3"
+        className="mySwiper  bg-white    rounded-b-2xl py-3 px-3"
       >
         {data &&
           data?.map((item, index) => {
@@ -50,7 +50,7 @@ const AchievementComponent = ({ data }) => {
                       <div className=" ">
                         <ImageComponent
                           image={item?.Cover_Photo}
-                          className="w-full md:w-[400px] h-[230px]  mb-1 object-cover rounded-lg mx-auto block"
+                          className="w-full md:w-[350px] h-[200px]  mb-1 object-cover rounded-lg mx-auto block"
                         />
                       </div>
                     </div>

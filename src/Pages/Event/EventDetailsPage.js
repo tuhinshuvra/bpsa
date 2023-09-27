@@ -47,13 +47,12 @@ const EventDetailsPage = () => {
                         <h2 className='fw-bold text-center'>{eventDetails?.title}</h2>
                     </nav>
 
-                    <div className="card mb-3 p-3">
-                        <div className=' d-lg-flex'>
-                            <div className=" col-lg-5">
-                                <img src={eventDetails?.image} className=" eventDetailImg shadow-lg" alt="..." onClick={handleImageClick} />
-                            </div>
-                            <div className="card-body col-lg-7">
-                                <div className=' d-flex flex-column justify-content-lg-start'>
+                    <div className=" mb-3 p-3">
+                        <div className=''>
+                            <div className="">
+                                <img src={eventDetails?.image} className=" eventDetailImg " alt="..." onClick={handleImageClick} />
+
+                                <div className=' d-flex flex-column justify-content-lg-start ps-4'>
                                     {eventDetails?.events &&
                                         <h4> <b>Venue:</b> {eventDetails?.events} </h4>
                                     }
@@ -61,9 +60,6 @@ const EventDetailsPage = () => {
                                         <h5 className=' d-flex '><BsCalendarDateFill className=' me-1' /> {formatDate(eventDetails?.start_date)}
                                             {eventDetails?.date && <> - {formatDate(eventDetails?.date)}</>}
                                         </h5>
-
-
-
                                     }
 
                                     {eventDetails?.time &&
@@ -73,11 +69,11 @@ const EventDetailsPage = () => {
                                         </div>
                                     }
 
+                                    <p className="card-text mt-4"> <b></b>{eventDetails?.description}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <p className="card-text mt-4 mb-2"> <b></b>{eventDetails?.description}</p>
 
                     </div>
                 </div>

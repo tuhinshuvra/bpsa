@@ -9,7 +9,7 @@ const NewsDetailsInfoComponent = ({ data }) => {
   // console.log(    "🚀 ~ file: NewsDetailsInfoComponent.js:6 ~ NewsDetailsInfoComponent ~ data",    data  );
   return (
     <div>
-      <h4 className="text-main">{data?.Heading}</h4>
+      <h4 className="">{data?.Heading}</h4>
       <div className="flex items-center space-x-2">
         <BsCalendarDateFill className="mr-1" />
         {formatDate(data?.Pub_Date)}

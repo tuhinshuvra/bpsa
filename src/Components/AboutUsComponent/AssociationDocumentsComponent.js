@@ -70,22 +70,22 @@ const AssociationDocumentsComponent = () => {
                   <div className="border p-3 px-5 rounded-2xl">
                     <div className=" d-lg-flex">
                       <div className=" col-lg-8  my-auto">
-                        <h4 className="text-third font-semibold text-center mb-3">
+                        <h4 className=" font-semibold text-center mb-3">
                           {item?.title}
                         </h4>
                         <div
                           dangerouslySetInnerHTML={{ __html: item?.summary }}
-                          className="text-justify text-white"
+                          className="text-justify "
                         ></div>
                         <div className=" d-flex justify-content-center downLoadIconArea ">
-                          <div className="w-full md:w-[250px] h-[250px]  absolute downLoadIcon text-third  ">
+                          <div className="w-full md:w-[250px] h-[250px]  absolute downLoadIcon   ">
                             <a
                               href={item?.file}
                               target="_blank"
                               rel="noreferrer"
                               className="absolute bottom-[5px] left-2 m-0  flex items-center cursor-pointer"
                             >
-                              <DownloadIcon className="bg-third text-white rounded-md p-1 me-1" size={28} /> <span className=" text-third fw-bold"> Download Now</span>
+                              <DownloadIcon className="bg-primary text-white rounded-md p-1 me-1" size={24} /> <span className=" text-primary fw-bold"> Download Now</span>
                             </a>
                           </div>
                         </div>
