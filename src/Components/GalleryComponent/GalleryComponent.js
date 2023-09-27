@@ -45,29 +45,29 @@ const GalleryComponent = ({ data, video }) => {
               <h2 className='fw-bold text-center'>GALLERY</h2>
             </nav>
             <div>
-              <Container>
 
+              <Container>
                 <div className=" space-x-4 flex ">
                   <ButtonComponent
                     onClick={() => setSelectTitle("Photos")}
                     title="Photos"
                     className={`px-3 py-1  ${selectTitle === "Photos"
-                      ? "bg-main text-white"
-                      : "  bg-success  text-white "
+                      ? "bg-black text-white"
+                      : "  bg-[#09090964]  text-white "
                       }`}
                   />
                   <ButtonComponent
                     onClick={() => setSelectTitle("video")}
                     title="Videos"
                     className={`px-3 py-1  ${selectTitle === "video"
-                      ? "bg-main text-white"
-                      : "  bg-success text-white "
+                      ? "bg-black text-white"
+                      : "  bg-[#34333364]  text-white "
                       }`}
                   />
                 </div>
                 <button
                   onClick={() => setShowFilter(!showFilter)}
-                  className={`bg-second text-white px-4 py-2 flex items-center justify-between  md:hidden mt-3`}
+                  className={`bg-black text-white px-4 py-2 flex items-center justify-between  md:hidden mt-3`}
                 >
                   <FilterIcon size={24} className="mr-3" />
                   Filter
@@ -87,9 +87,9 @@ const GalleryComponent = ({ data, video }) => {
                                 setSelectedItem("All")
                               }}
                               className={`${selectedItem === "All"
-                                ? " bg-success text-white border rounded"
-                                : " bg-[#2B72EF] text-white border rounded"
-                                }  px-3 py-1 m-1 rounded-sm text-sm `}
+                                ? "bg-[#bcbdc0] text-black"
+                                : " bg-white  "
+                                }  px-3 py-1 me-1 my-1 text-sm `}
                               title={`All`}
                             />
 
@@ -105,9 +105,9 @@ const GalleryComponent = ({ data, video }) => {
                                       }} key={index}
 
                                       className={`${item === selectedItem
-                                        ? "bg-success text-white border rounded"
-                                        : "bg-[#2B72EF] text-white border rounded"
-                                        }  px-1 py-1 m-1 rounded-sm  text-sm  `}
+                                        ? "bg-[#bcbdc0] text-black"
+                                        : " bg-white    "
+                                        }  px-1 py-1 m-1  text-sm  `}
 
                                       title={item?.name}
                                     />

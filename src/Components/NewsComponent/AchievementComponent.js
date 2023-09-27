@@ -50,7 +50,7 @@ const AchievementComponent = ({ data }) => {
                       <div className=" ">
                         <ImageComponent
                           image={item?.Cover_Photo}
-                          className="w-full md:w-[350px] h-[200px]  mb-1 object-cover rounded-lg mx-auto block"
+                          className="w-full md:w-[350px] h-[200px]  mb-1 object-cover   mx-auto block"
                         />
                       </div>
                     </div>

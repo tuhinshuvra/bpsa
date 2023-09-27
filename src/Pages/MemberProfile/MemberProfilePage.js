@@ -14,7 +14,6 @@ import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
-import MemberProfileSample from './MemberProfileSample';
 
 const MemberProfilePage = () => {
     useTitle("Profile");

@@ -18,7 +18,7 @@ const NewsCard2 = ({ imgHeight, heading, item }) => {
       >
         <ImageComponent
           image={item?.Cover_Photo}
-          className={` ${imgHeight} w-full  object-cover rounded-md `}
+          className={` ${imgHeight} w-full  object-cover   `}
         />
 
         <div className=" bottom-6   mt-2 ">

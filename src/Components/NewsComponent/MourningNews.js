@@ -43,10 +43,10 @@ const MourningNews = ({ data }) => {
                     className="px-4  text-white"
                     onClick={() => { navigate(`/news/${item?.id}`) }}
                   >
-                    <div className=" col-lg-11 mx-auto bg-[#E2E3E7]  h-[40vh] px-4 py-3  text-black  d-flex flex-column justify-content-center align-items-center">
+                    <div className=" col-lg-11 mx-auto bg-white  h-[40vh] px-4 py-3  text-black  d-flex flex-column justify-content-center align-items-center">
 
-                      <div className="col-12 d-lg-flex justify-content-between rounded-lg  ">
-                        <p className=" fw-bold mb-2 p-1 rounded-lg col-lg-10">{item?.Heading}।</p>
+                      <div className="col-12 d-lg-flex justify-content-between    ">
+                        <p className=" fw-bold mb-2 p-1   col-lg-10">{item?.Heading}।</p>
                         <div className="d-flex align-items-center col-lg-2">
                           <div className=" d-flex ms-2 ">
                             <BsCalendarDateFill size={16} className="mr-1" />
@@ -55,8 +55,8 @@ const MourningNews = ({ data }) => {
                         </div>
                       </div>
 
-                      <div className="col-12 d-lg-flex justify-content-between rounded-lg">
-                        <img src={item?.Cover_Photo} className="w-full  md:w-[120px] h-[150px]  mb-1 object-cover rounded-lg   block" alt="..." />
+                      <div className="col-12 d-lg-flex justify-content-between  ">
+                        <img src={item?.Cover_Photo} className="w-full  md:w-[120px] h-[150px]  mb-1 object-cover border   block" alt="..." />
                         <div className=" my-auto ms-3">
                           <p dangerouslySetInnerHTML={{ __html: item?.Sub_Heading, }} className="text-sm mb-0 text-black "></p>
                         </div>
