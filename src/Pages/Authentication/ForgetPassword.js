@@ -22,6 +22,7 @@ const ForgetPassword = () => {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [otpAccess, setOtpAccess] = useState();
+    const [OtpData, setOtpData] = useState();
 
     const [user, setUser] = useState("");
     const [accessToken, setAccessToken] = useState('');
@@ -46,18 +47,7 @@ const ForgetPassword = () => {
             }
         }
         getAccessToken();
-    }, [])
-
-    if(accessToken){
-       axios.get('https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7203027807',{
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-        }
-       })
-       .then(result=>console.log(result.data.items[0]))
-    }
-
-
+    }, [headers])
     useEffect(() => {
         let countdownInterval;
 
@@ -97,36 +87,51 @@ const ForgetPassword = () => {
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
 
-    const handleOTPSend = (event) => {
+    const handleOTPSend = async(event) => {
         event.preventDefault();
+        console.log("hello")
         const form = event.target;
         const uniqueId = form.unique_id.value;
         const yearBirth = form.year.value;
-        fetch(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}&birth=${yearBirth}&year=${yearBirth}`, {
-            method: "GET",
+        if (!accessToken) {
+            return;
+        }
+        await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${uniqueId}/${yearBirth}`, {
             headers: {
-                "content-type": "application/json",
-            },
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data.value === 1) {
-                    toast.success("Unique ID Verified Successfully!");
-                    setErrorMessage("");
-                    setName(data.name);
-                    setUnique(form.unique_id.value);
-                    setVerifyOTP(true);
-                    setOtpAccess(data.otp)
-                    startCountdown();
-                    form.reset();
+                'Authorization': `Bearer ${accessToken}`,
+            }
+        },)
+            .then(result => {
+                console.log(result)
+                if (result.data.items.length > 0) {
+                    // toast.success("user verified successfully");
+                    setUser(result.data.items[0]);
+                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                        .then(verifyUser => {
+                            console.log(verifyUser.data)
+                            if (verifyUser.data.value == 1) {
+                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+                                    .then(resOTP => {
+                                        console.log(resOTP.data.otp);
+                                        // setOtpData(resOTP.data.otp)
+                                        setOtpAccess(resOTP.data.otp)
+                                    })
+                                toast.success("Unique ID Verified Successfully!");
+                                setErrorMessage("");
+                                setName(data.name);
+                                setUnique(form.unique_id.value);
+                                setVerifyOTP(true);
+                                startCountdown();
+                                form.reset();
+                            }
+                            else if (verifyUser.data.value == 2) {
+                                setErrorMessage("No matching PIMS_ID");
+                            }
+                        })
                 }
                 else {
-                    setErrorMessage("No matching PIMS_ID");
+                    setErrorMessage("PMIS id and birth year not match")
                 }
-            })
-            .catch(error => {
-                setErrorMessage(error.message);
             })
     }
 
@@ -140,6 +145,7 @@ const ForgetPassword = () => {
         if (otpValue == otpAccess) {
             setOTPVerified(true);
             setVerifyOTP(false);
+            toast.success("OTP verify success");
         }
         else {
             setErrorMessage("OTP not match");
@@ -166,30 +172,35 @@ const ForgetPassword = () => {
         }
         const userData = {
             Newpassword: form.password.value,
-            uniqueId: unique
+            mid: unique
         }
+        console.log(userData)
 
-        fetch("https://dev.bpsa.com.bd/api/change-password", {
-            method: "POST",
+        axios.post("https://dev.bpsa.com.bd/api/change-password", userData, {
             headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(userData)
+                'Content-Type': 'application/json',
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Reseted Password Data : ', data);
-                if (data) {
-                    form.reset()
+            .then(response => {
+                console.log('Reseted Password Data: ', response.data);
+                if (response.data) {
+                    form.reset();
                     toast.success('Congratulation! Password updated successfully.');
-                    navigate("/login")
+                    navigate("/login");
                 }
-
             })
             .catch(error => {
-                // console.log("Error Occured: ", error.response.data)
-                toast.error(error.response.data.error)
-            })
+                if (error.response) {
+                    console.error("Error Response Data: ", error.response.data);
+                    toast.error(error.response.data.error);
+                } else {
+                    console.error("Error Occurred: ", error);
+                    toast.error("An error occurred while processing your request.");
+                }
+            });
+
+
+
 
     }
     return (

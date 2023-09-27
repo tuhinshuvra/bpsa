@@ -89,7 +89,7 @@ const SignupPage = () => {
     const handleVerifyUniqueId = (e) => {
         e.preventDefault();
         const form = e.target;
-        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${form.unique_id.value}/${form.birth_year.value}`, {
+        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/BP7403091062/${form.birth_year.value}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }

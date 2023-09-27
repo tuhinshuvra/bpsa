@@ -14,6 +14,7 @@ import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
+import axios from 'axios';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -23,13 +24,58 @@ const MemberProfilePage = () => {
     const [approvedBlogs, setApprovedBlogs] = useState([]);
     const [pendingBlogs, setPendingBlogs] = useState([]);
 
+    const [profileUser,setProfileUser]=useState("");
+    const [accessToken, setAccessToken] = useState('');
+    const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
+    const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
+    const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
+    const credentials = `${clientId}:${clientSecret}`;
+    const base64Credentials = btoa(credentials);
+    const headers = {
+        'Authorization': `Basic ${base64Credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = 'grant_type=client_credentials';
+
+    useEffect(() => {
+        const getAccessToken = async () => {
+            try {
+                const response = await axios.post(tokenUrl, data, { headers });
+                setAccessToken(response.data.access_token);
+            } catch (error) {
+                console.error('Error getting access token:', error);
+            }
+        }
+        getAccessToken();
+    }, [])
+
+    useEffect(() => {
+        const profileData = async () => {
+            if (!accessToken) {
+                return;
+            }
+            await axios.get("https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822",{
+                headers:{
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            })
+            .then(result=>{
+                setProfileUser(result.data.items[0]);
+            })
+        }
+        profileData();
+    }, [accessToken])
+
+    if(profileUser){
+        console.log(profileUser);
+    }
+
     // console.log("MemberProfilePage User Data: ", user);
     // console.log("Member Profile Data: ", memberData);
     // console.log("User UniqueID: ", user.UniqueID);
     // console.log("pendingBlogs :", pendingBlogs);
     // console.log("approvedBlogs :", approvedBlogs);
     // console.log("userNewData :", userNewData);
-
     // user new data
     useEffect(() => {
         setLoading(true);
