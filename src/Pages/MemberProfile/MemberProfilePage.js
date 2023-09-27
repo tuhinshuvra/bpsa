@@ -1,6 +1,6 @@
-import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import useTitle from '../../hooks/useTitle';
+import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
 import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import { getCookie } from '../../utlis/helper';
@@ -12,21 +12,18 @@ import { formatDate } from '../../utlis/dateFormat';
 import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
 import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
+import useTitle from '../../hooks/useTitle';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
-import axios from 'axios';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
-    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular, setMemberBCSBatch } = useContext(AllContext);
-    const [memberData, setMemberData] = useState();
+    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular,
+        setMemberBCSBatch, setLoginUserPhoto, } = useContext(AllContext);
+    const [memberData, setMemberData] = useState("");
     const [userNewData, setUserNewData] = useState();
     const [approvedPosts, setApprovedPosts] = useState([]);
     const [pendingPosts, setPendingPosts] = useState([]);
-
-    // console.log("memberBCSBatch", memberBCSBatch);
-
-    const [profileUser,setProfileUser]=useState("");
     const [accessToken, setAccessToken] = useState('');
     const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
     const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
@@ -51,32 +48,34 @@ const MemberProfilePage = () => {
         getAccessToken();
     }, [])
 
+
+    // login member profile data
     useEffect(() => {
         const profileData = async () => {
             if (!accessToken) {
                 return;
             }
-            await axios.get("https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822",{
-                headers:{
+            await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`, {
+                headers: {
                     'Authorization': `Bearer ${accessToken}`,
                 }
             })
-            .then(result=>{
-                setProfileUser(result.data.items[0]);
-            })
+                .then(result => {
+                    setMemberData(result.data.items[0]);
+                    setLoginUserPhoto(result.data.items[0]?.pic)
+                    setMemberBCSBatch(result.data.items[0]?.cadre)
+                })
         }
         profileData();
     }, [accessToken])
 
-    if(profileUser){
-        console.log(profileUser);
+    if (memberData) {
+        console.log("profileUser data :", memberData);
     }
 
-    // console.log("MemberProfilePage User Data: ", user);
     console.log("Member Profile Data memberData: ", memberData);
-    // console.log("User UniqueID: ", user?.BPID);
-    // console.log("userNewData :", userNewData);
-    // user new data
+
+    // login user new data
     useEffect(() => {
         setLoading(true);
         fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
@@ -88,19 +87,7 @@ const MemberProfilePage = () => {
             })
     }, [])
 
-    // login member profile data
-    useEffect(() => {
-        setLoading(true);
-        // fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
-        fetch(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7603027839`)
-            .then(res => res.json())
-            .then(data => {
-                console.log("pims.police.gov.bd Member Profile Data: ", data)
-                setMemberData(data?.member)
-                setMemberBCSBatch(data?.member?.batch);
-                setLoading(false)
-            })
-    }, [setLoading, user?.BPID])
+
 
     // id, nameB,nameE,bpn,fname,batch,birth,blood,bpn,phone    // designation,district,email,fname, gift, id, mname,nameB, ,    //  qualificattion,ranK,religion,status,unit,
 
@@ -168,6 +155,10 @@ const MemberProfilePage = () => {
         setShowCoCurricular(!showCoCurricular);
     };
 
+
+    // blood_group cadre  current_designation dateofbirth degree email employeecode employeename employeenameinenglish fathername gift gov_email
+    // gov_mob homedistrict idsex main_unit marital_status mobilephone mothername pic rank rankinenglish religion sub_sub_unit sub_unit unit  
+
     return (
         <div className=' col-md-10 mx-auto'>
 
@@ -177,16 +168,16 @@ const MemberProfilePage = () => {
                 <div className="container pt-3 pb-3 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        <h2 className='fw-bold text-center  '>{memberData?.nameE} Profile</h2>
+                        <h2 className='fw-bold text-center  '>{memberData?.employeenameinenglish} PROFILE</h2>
                     </nav>
 
                     <div className="row">
                         <div className="col-lg-4 my-1 my-lg-0">
                             <div className="card  proCard shadow-lg">
                                 <div className="card-body proCardBody ">
-                                    {userNewData?.image ?
+                                    {memberData?.pic ?
                                         <>
-                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
+                                            <img src={`data:image/jpeg;base64,${memberData?.pic}`} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
                                         </>
                                         :
                                         <>
@@ -208,9 +199,19 @@ const MemberProfilePage = () => {
 
 
                                     <div className=' text-center'>
-                                        <h6 className="my-0 fw-bold">{memberData?.nameE?.slice(0, 40)}
+                                        <h6 className="my-0 fw-bold">{memberData?.employeenameinenglish?.slice(0, 40)}
                                         </h6>
-                                        <h6 className="my-0 fs-6 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
+                                        <h6 className="my-0 fs-6 ">
+                                            {memberData?.current_designation && <>
+                                                {memberData?.current_designation},&nbsp;
+                                            </>}
+                                            {memberData?.unit &&
+                                                <>
+                                                    {memberData?.unit}
+                                                </>
+                                            }
+
+                                        </h6>
                                         {userNewData?.CoCurriculumActivities &&
                                             <p className="mt-1 mb-0 coCurriculur"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
                                         }
@@ -237,30 +238,47 @@ const MemberProfilePage = () => {
                                 <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody my-auto">
-                                            <p className="my-0"><b> BP ID</b>: {memberData?.bpn}</p>
-                                            <p className="my-0"><b> BCS Batch</b>: {memberData?.batch}</p>
-                                            <p className="my-0"><b> Rank</b>: {memberData?.ranK}</p>
-                                            <p className="my-0"><b> DOB  </b>  : {memberData?.birth}</p>
-                                            <p className="my-0"><b> Phone no  </b>    : {memberData?.phone}
-                                                {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
+                                            {memberData?.current_designation &&
+                                                <p className="my-0"><b> Designation</b>: {memberData?.current_designation}</p>
+                                            }
+                                            <p className="my-0"><b> BP ID</b>: {memberData?.employeecode}</p>
+                                            <p className="my-0"><b> BCS Batch</b>: {memberData?.cadre}th</p>
+                                            <p className="my-0"><b> Unit</b>:
+                                                {memberData?.main_unit &&
+                                                    <> {memberData?.main_unit}</>
+                                                }
+                                                {memberData?.unit &&
+                                                    <>, {memberData?.unit}</>
+                                                }
+                                                {memberData?.sub_unit &&
+                                                    <>, {memberData?.sub_unit}</>
+                                                }
+                                                {memberData?.sub_sub_unit &&
+                                                    <>, {memberData?.sub_sub_unit}</>
+                                                }
+                                            </p>
+                                            <p className="my-0"><b> Rank</b>: {memberData?.rank}({memberData?.rankinenglish})</p>
+                                            <p className="my-0"><b> Phone no  </b>    : {memberData?.mobilephone}
+                                                {memberData?.gov_mob && <>,&nbsp;{memberData?.gov_mob}</>}
                                             </p>
                                             <p className="my-0"> <b> Email</b>    : <small>{memberData?.email}</small>
-                                                {memberData?.email02 && <>, <small>  {memberData?.email02}</small></>}
+                                                {memberData?.gov_email && <>, <small className=' my-0'>  {memberData?.gov_email}</small></>}
                                             </p>
-                                            <p className="my-0"> <b> Medal </b> : {memberData?.gift}</p>
+                                            <p className="my-0"><b> Medal </b> : {memberData?.gift}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody">
-                                            <p className="my-0"><b> Father’s Name </b> : {memberData?.fname} </p>
-                                            <p className="my-0"><b> Mother’s Name </b>: {memberData?.mname}</p>
-                                            <p className="my-0"><b> Education </b> : {memberData?.qualificattion}</p>
-                                            <p className="my-0"><b> Marital Status </b>: {memberData?.status}</p>
-                                            <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood} </p>
+                                            <p className="my-0"><b> Father’s Name </b> : {memberData?.fathername} </p>
+                                            <p className="my-0"><b> Mother’s Name </b>: {memberData?.mothername}</p>
+                                            <p className="my-0"><b> Education </b> : {memberData?.degree}</p>
+                                            <p className="my-0"><b> DOB  </b>  :  {new Date(memberData?.dateofbirth).toDateString()}</p>
+                                            <p className="my-0"><b> Marital Status </b>: {memberData?.marital_status}</p>
+                                            <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood_group} </p>
                                             <p className="my-0"><b> Religion    </b>  : {memberData?.religion}</p>
-                                            <p className="my-0"><b> Home District </b> : {memberData?.district}</p>
+                                            <p className="my-0"><b> Home District </b> : {memberData?.homedistrict}</p>
 
                                         </div>
                                     </div>

@@ -9,6 +9,7 @@ const ContextData = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [authError, setAuthError] = useState("");
     const [authSuccess, setAuthSuccess] = useState("");
+    const [loginUserPhoto, setLoginUserPhoto] = useState("");
     const [showImageUpload, setShowImageUpload] = useState(false);
     const [showCoCurricular, setShowCoCurricular] = useState(false);
     const [token, setToken] = useState("");
@@ -26,6 +27,8 @@ const ContextData = ({ children }) => {
         authError,
         setAuthError,
         authSuccess,
+        loginUserPhoto,
+        setLoginUserPhoto,
         setAuthSuccess,
         showImageUpload,
         setShowImageUpload,

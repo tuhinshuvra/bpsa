@@ -7,7 +7,6 @@ import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
 import MemberModal from "./MemberModal";
 import './AllMemberDirectoryPage.css';
-import PageNumbers from "../../Components/PageNumbers";
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -63,8 +62,7 @@ const AllMemberDirectoryPage = () => {
     console.log("showedMember:", modalMember);
 
     useEffect(() => {
-        // setBatch(memberBCSBatch);
-        setBatch(25);
+        setBatch({ memberBCSBatch });
     }, [memberBCSBatch])
 
     useEffect(() => {
@@ -79,13 +77,13 @@ const AllMemberDirectoryPage = () => {
         getAccessToken();
     }, [])
 
+
     useEffect(() => {
         const batchCadre = async () => {
             if (!accessToken) {
                 return;
             }
-            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP750510460`;
-            // const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`;
+            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`;
             const headers = {
                 'Authorization': `Bearer ${accessToken}`,
             };
@@ -134,7 +132,6 @@ const AllMemberDirectoryPage = () => {
     }
 
     const [searchData, setSearchData] = useState({
-        // batch: "22",
         batch: batch,
         searchKeyword: "",
         rank: "",
@@ -144,11 +141,6 @@ const AllMemberDirectoryPage = () => {
         district: "",
     });
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
-
-    const navigate = useNavigate();
-
-
-    // console.log("Search Data : ", searchData);
 
     const getSearchData = (event) => {
         const field = event.target.name;
@@ -179,22 +171,19 @@ const AllMemberDirectoryPage = () => {
         console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
-        // navigate('/memberDirectorySearchResult')
     }
 
     const handleChange = (event, value) => {
-
         setPage(value);
-
         setStart(showperPage * value - showperPage);
         setEnd(showperPage * value);
     };
 
 
-
     if (loading) {
         return <Loader></Loader>
     }
+
 
     return (
         <div className=' col-md-10 col-12 mx-auto'>
@@ -361,7 +350,7 @@ const AllMemberDirectoryPage = () => {
 
                                             <div className="mx-auto d-flex flex-column">
                                                 <div className=" d-flex justify-content-center">
-                                                    <img src={`data:image/jpeg;base64,${member.pic}`} className="memberDirectoryImg" alt="member_Image" />
+                                                    <img src={`data:image/jpeg;base64,${member?.pic}`} className="memberDirectoryImg" alt="member_Image" />
                                                 </div>
                                                 <p className="fw-bold my-0">{member?.employeenameinenglish}</p>
                                                 {

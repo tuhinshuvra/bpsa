@@ -19,8 +19,8 @@ import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
-  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
-  console.log("Navbar Login User Data: ", user)
+  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading, loginUserPhoto } = useContext(AllContext);
+  // console.log("Navbar Login User Data: ", user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
@@ -29,6 +29,7 @@ const Navbar = () => {
   const [userNewData, setUserNewData] = useState();
 
   // console.log("userNewData :", userNewData);
+  console.log("Login User Data :", user);
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
@@ -201,12 +202,12 @@ const Navbar = () => {
                     </>
                     :
                     <>
-                      <img className="userImgNav" src={DefaultMemberImg} alt="" />
+                      {/* <img className="userImgNav" src={DefaultMemberImg} alt="" /> */}
+                      <img className="userImgNav" src={`data:image/jpeg;base64,${loginUserPhoto}`} alt="login_user_photo" />
                     </>
                   }
                 </Link>
                 <ul className="dropdown-menu navDropdownMenu">
-                  {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
                   <li><Link className=" navDropdownbtn    py-1    w-full d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
                   <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />Change Password</Link></li>
                   <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
