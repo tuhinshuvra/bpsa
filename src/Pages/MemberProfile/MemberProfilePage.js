@@ -172,7 +172,7 @@ const MemberProfilePage = () => {
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">
 
-                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
+                    <nav aria-label="breadcrumb" className="mx-1 bg-light rounded-3 p-2 mb-4">
                         <h2 className='fw-bold text-center  '>{memberData?.employeenameinenglish} PROFILE</h2>
                     </nav>
 
