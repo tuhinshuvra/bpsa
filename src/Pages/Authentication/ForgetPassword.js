@@ -171,8 +171,8 @@ const ForgetPassword = () => {
             return
         }
         const userData = {
-            Newpassword: form.password.value,
-            mid: unique
+            newpassword: form.password.value,
+            uniqueId: unique
         }
         console.log(userData)
 

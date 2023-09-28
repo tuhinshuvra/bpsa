@@ -54,7 +54,7 @@ const MemberProfilePage = () => {
             if (!accessToken) {
                 return;
             }
-            await axios.get("https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822",{
+            await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`,{
                 headers:{
                     'Authorization': `Bearer ${accessToken}`,
                 }
