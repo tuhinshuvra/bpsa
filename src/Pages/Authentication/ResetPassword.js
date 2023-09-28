@@ -1,14 +1,18 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
+import { MdLockReset } from 'react-icons/md';
 import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+
+
 const ResetPassword = () => {
     const { user } = useContext(AllContext);
     // console.log(user)
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+
     const handleNew = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -71,15 +75,62 @@ const ResetPassword = () => {
                 .catch(err => setErrorMessage(err.message));
         }
     }
+
     return (
-        <div className='my-4 text-center'>
-            <h2 className=' text-center fs-3'>Reset Password</h2>
+        <div className='col-xl-3 col-lg-4 col-md-6 mx-auto my-4 px-2 '>
+            <div className=' d-flex flex-column align-items-center mb-3'>
+                <MdLockReset className='signup_person'></MdLockReset>
+                <h2 className=' text-center fs-3'>Reset Password</h2>
+            </div>
             {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+
+
             <form onSubmit={handleNew}>
-                <input type="password" name="currentPassword" id="currentPassword" className="input input-bordered w-full max-w-xs my-1" placeholder='Enter your current password' required /><br />
-                <input type="password" name="newPassword" id="newPassword" className="input input-bordered w-full max-w-xs my-1" placeholder='Enter your new password' required /><br />
-                <input type="password" name="confirmedPassword" id="confirmedPassword" className="input input-bordered w-full max-w-xs my-1" placeholder='Enter your confirmed password' required /><br />
-                <button className='btn  btn-info w-full max-w-xs my-2 '>submit</button>
+
+                <div className=' mb-3'>
+                    <label for="currentPassword" class="form-label my-0 fst-italic ">Current Password</label>
+                    <input
+                        className=" form-control  my-0"
+                        type="password"
+                        name="currentPassword"
+                        id="currentPassword"
+                        placeholder='Enter your current password'
+                        required
+                    />
+                </div>
+
+                <div className=' my-0 '>
+                    <label for="newPassword" class="form-label my-0 fst-italic  ">New Password</label>
+                    <input
+                        className=" form-control my-0 "
+                        type="password"
+                        name="newPassword"
+                        id="newPassword"
+                        placeholder='Enter your new password'
+                        required />
+                </div>
+
+                <label className='passwordMessage mt-0 text-center' htmlFor="">
+                    Password should be at least 8 characters and must contain a capital letter, a small letter, and a numeric character.
+                </label>
+
+                <div className=' my-3'>
+                    <label for="confirmedPassword" class="form-label my-0 fst-italic ">Confirm Password</label>
+                    <input
+                        className=" form-control my-0 "
+                        type="password"
+                        name="confirmedPassword"
+                        id="confirmedPassword"
+                        placeholder='Enter your confirmed password'
+                        required
+                    />
+                </div>
+
+                <div className=' d-flex justify-content-between my-3'>
+                    <button type='reset' className='btn btn-warning btn-sm  w-25'>Reset</button>
+                    <button type='submit' className='btn   btn-primary  btn-sm  w-25'>Submit</button>
+                </div>
+
             </form>
         </div>
     );

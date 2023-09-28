@@ -87,7 +87,7 @@ const ForgetPassword = () => {
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
 
-    const handleOTPSend = async(event) => {
+    const handleOTPSend = async (event) => {
         event.preventDefault();
         console.log("hello")
         const form = event.target;
@@ -238,7 +238,11 @@ const ForgetPassword = () => {
                 }
                 {OTPVerified &&
                     <form onSubmit={handleForgetPassword}>
-                        <TextField label="Password" name="password" id="password" type="password" margin="normal" disabled={false} required fullWidth />
+                        <TextField
+                            label="Password" name="password" id="password" type="password" margin="normal" disabled={false} required fullWidth />
+                        <label className='passwordMessage mt-0 text-center' htmlFor="">
+                            Password should be at least 8 characters and must contain a capital letter, a small letter, and a numeric character.
+                        </label>
                         <TextField label="Retype Password" name="confirm_password" id="confirm_password" type="password" margin="normal" disabled={false} required fullWidth />
                         <div className='text-center'>
                             <button className=' btn btn-primary btn-sm '>submit</button>

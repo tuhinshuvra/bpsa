@@ -149,10 +149,10 @@ const SignupPage = () => {
     const handleResendOTP = (e) => {
         e.preventDefault();
         axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
-        .then(resOTP=>{
-            console.log();
-            setOtpData(resOTP.data.otp)
-        })
+            .then(resOTP => {
+                console.log();
+                setOtpData(resOTP.data.otp)
+            })
         startCountdown();
     }
 
@@ -309,8 +309,8 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
-
                             <TextField
+                                className=' mb-0'
                                 label="Password"
                                 name="password"
                                 id="password"
@@ -320,6 +320,9 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
+                            <label className='passwordMessage mt-0 text-center' htmlFor="">
+                                Password should be at least 8 characters and must contain a capital letter, a small letter, and a numeric character.
+                            </label>
 
                             <TextField
                                 label="Retype Password"

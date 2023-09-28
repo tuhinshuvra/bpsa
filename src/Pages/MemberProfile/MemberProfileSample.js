@@ -31,7 +31,11 @@ const MemberProfileSample = ({ member }) => {
 
                                         <div className="media">
                                             <label>Work Place:</label>
-                                            <p>{member?.mobilephone}</p>
+                                            <p> {member?.main_unit && <> {member?.main_unit}</>}
+                                                {member?.unit && <>/ {member?.unit}</>}
+                                                {member?.sub_unit && <>/ {member?.sub_unit}</>}
+                                                {member?.sub_sub_unit && <>/ {member?.sub_sub_unit}</>}
+                                            </p>
                                         </div>
                                         <div className="media">
                                             <label>Phone:</label>
@@ -59,10 +63,6 @@ const MemberProfileSample = ({ member }) => {
                                             <p>{member?.email}</p>
                                         </div>
 
-                                        <div className="media">
-                                            <label>Birthday:</label>
-                                            <p>{new Date(member?.dateofbirth).toDateString()}</p>
-                                        </div>
 
                                         {/* <div className="media">
                                             <label>Age</label>
@@ -89,6 +89,10 @@ const MemberProfileSample = ({ member }) => {
                                         <div className="media">
                                             <label>Mother's Name:</label>
                                             <p>{member?.mothername}</p>
+                                        </div>
+                                        <div className="media">
+                                            <label>Birthday:</label>
+                                            <p>{new Date(member?.dateofbirth).toDateString()}</p>
                                         </div>
                                         <div className="media">
                                             <label>Marital Status:</label>
