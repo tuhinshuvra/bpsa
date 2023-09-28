@@ -59,7 +59,7 @@ const AllMemberDirectoryPage = () => {
     }
     const modalMember = filterData?.find(mem => mem?.employeecode === modalData);
     // console.log("modalData:", modalData);
-    console.log("showedMember:", modalMember);
+    // console.log("showedMember:", modalMember);
 
     useEffect(() => {
         setBatch({ memberBCSBatch });
@@ -127,7 +127,7 @@ const AllMemberDirectoryPage = () => {
 
     if (apiResponse) {
         apiResponse.map(apiImage => {
-            console.log(apiImage.pic)
+            // console.log(apiImage.pic)
         })
     }
 
@@ -168,7 +168,7 @@ const AllMemberDirectoryPage = () => {
         if (searchData.district !== "Own District" && searchData.district) {
             filterData = filterData.filter(batchData => searchData.district === batchData.homedistrict);
         }
-        console.log("Search Data:", searchData);
+        // console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
     }

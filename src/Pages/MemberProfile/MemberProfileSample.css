@@ -3,6 +3,8 @@ body {
     margin-top: 20px;
 }
 
+
+
 .section {
     padding: 100px 0;
     position: relative;
@@ -12,14 +14,19 @@ body {
     background-color: #f5f5f5;
 }
 
-img {
-    max-width: 100%;
+.memberImage {
+    width: 300px;
+    border-radius: 50%;
+    /* vertical-align: middle; */
+    /* border-style: none; */
+    box-shadow: 0px 0px 10px;
 }
 
-img {
-    vertical-align: middle;
-    border-style: none;
-}
+/* img {
+    max-width: 100%;
+} */
+
+/* img {} */
 
 /* About Me 
 ---------------------*/
@@ -65,14 +72,14 @@ img {
 }
 
 .about-list label {
-    color: #20247b;
+    /* color: #20247b; */
     font-weight: 600;
-    width: 88px;
+    /* width: 88px; */
     margin: 0;
     position: relative;
 }
 
-.about-list label:after {
+/* .about-list label:after {
     content: "";
     position: absolute;
     top: 0;
@@ -88,7 +95,7 @@ img {
     transform: rotate(15deg);
     margin: auto;
     opacity: 0.5;
-}
+} */
 
 .about-list p {
     margin: 0;

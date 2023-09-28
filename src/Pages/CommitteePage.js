@@ -146,7 +146,7 @@ const CommitteePage = () => {
                 <img src={bpsaLogo} className='comBPSALogo' alt="" />
               </div>
 
-              <h5 className="text-center text-sm font-semibold md:text-xl text-white">
+              <h5 className="text-center text-sm font-semibold md:text-xl  ">
                 {igpData?.designation}
               </h5>
 
@@ -158,17 +158,11 @@ const CommitteePage = () => {
                 <img src={igpData?.photo} className='comIGPPhoto mx-auto' alt="" />
 
               </div>
-              <h5 className="text-center text-sm md:text-xl text-white">
+              <h5 className="text-center text-sm md:text-xl ">
                 {igpData?.Name} <br /> {igpData?.Officail_Designation}
               </h5>
-
               <div>
-                {/* <div className=" text-center  mt-4 mb-2">
-              <button onClick={() => handleChangeYear(2023)} variant="contained" className='mx-1 btn btn-success btn-sm'>2023</button>
-              <button onClick={() => handleChangeYear(2022)} variant="contained" className='mx-1 btn btn-success btn-sm'>2022</button>
-              <button onClick={() => handleChangeYear(2021)} variant="contained" className='mx-1 btn btn-success btn-sm'>2021</button>
-              <button onClick={() => handleChangeYear(2020)} variant="contained" className='mx-1 btn btn-success btn-sm'>2020</button>
-            </div> */}
+
                 <div className="mx-auto mb-4">
                   <Paper className="p-4 mb-2">
                     <div className="">

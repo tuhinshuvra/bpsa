@@ -12,7 +12,7 @@ const MemberImageUpload = () => {
 
     const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
-    console.log("Login userData :", user);
+    // console.log(" MemberImageUpload Login userData :", user);
 
     // user new data
     useEffect(() => {

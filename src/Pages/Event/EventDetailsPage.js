@@ -41,7 +41,7 @@ const EventDetailsPage = () => {
 
     return (
         <div className=' col-md-10 mx-auto'>
-            <section style={{ backgroundColor: "#eee", minHeight: "70vh" }}>
+            <section style={{ backgroundColor: "#eee", minHeight: "100vh" }}>
                 <div className="container pt-3 pb-5 ">
                     <nav aria-label=" " className="bg-light rounded-3 p-2 mb-4">
                         <h2 className='fw-bold text-center'>{eventDetails?.title}</h2>

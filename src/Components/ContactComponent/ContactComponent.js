@@ -182,7 +182,7 @@ const ContactComponent = () => {
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <button type="submit" className=" btn btn-primary w-25 ">Submit</button>
+                  <button type="submit" className=" btn btn-outline-secondary  w-25 ">Submit</button>
                 </div>
               </Form>
             </div>

@@ -29,7 +29,7 @@ const Navbar = () => {
   const [userNewData, setUserNewData] = useState();
 
   // console.log("userNewData :", userNewData);
-  console.log("Login User Data :", user);
+  // console.log("Login User Data :", user);
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {

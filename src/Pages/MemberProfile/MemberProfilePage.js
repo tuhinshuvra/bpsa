@@ -15,6 +15,7 @@ import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEnt
 import useTitle from '../../hooks/useTitle';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
+import MemberProfileSample from './MemberProfileSample';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
@@ -35,6 +36,8 @@ const MemberProfilePage = () => {
         'Content-Type': 'application/x-www-form-urlencoded',
     };
     const data = 'grant_type=client_credentials';
+
+    // console.log("Login User Data:", user);
 
     useEffect(() => {
         const getAccessToken = async () => {
@@ -107,9 +110,9 @@ const MemberProfilePage = () => {
                 return res.json();
             })
             .then(result => {
-                const approvedPosts = result.data.blog.filter(post => post?.memberName == user.name && post?.status == "Approved");
+                const approvedPosts = result.data.blog.filter(blog => blog?.memberName == user?.Name && blog?.status == "Approved");
                 setApprovedPosts(approvedPosts);
-                const pendingPosts = result.data.blog.filter(post => post?.memberName == user.name && post?.status != "Approved");
+                const pendingPosts = result.data.blog.filter(blog => blog?.memberName == user?.Name && blog?.status != "Approved");
                 setPendingPosts(pendingPosts);
             })
             .catch(error => console.log(error));
@@ -162,7 +165,9 @@ const MemberProfilePage = () => {
     return (
         <div className=' col-md-10 mx-auto'>
 
-            {/* <MemberProfileSample></MemberProfileSample> */}
+            <MemberProfileSample
+                member={memberData}
+            ></MemberProfileSample>
 
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">
@@ -238,6 +243,7 @@ const MemberProfilePage = () => {
                                 <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody my-auto">
+                                            <p className="my-0"><b> Rank</b>: {memberData?.rank}({memberData?.rankinenglish})</p>
                                             {memberData?.current_designation &&
                                                 <p className="my-0"><b> Designation</b>: {memberData?.current_designation}</p>
                                             }
@@ -257,7 +263,6 @@ const MemberProfilePage = () => {
                                                     <>, {memberData?.sub_sub_unit}</>
                                                 }
                                             </p>
-                                            <p className="my-0"><b> Rank</b>: {memberData?.rank}({memberData?.rankinenglish})</p>
                                             <p className="my-0"><b> Phone no  </b>    : {memberData?.mobilephone}
                                                 {memberData?.gov_mob && <>,&nbsp;{memberData?.gov_mob}</>}
                                             </p>
@@ -316,7 +321,7 @@ const MemberProfilePage = () => {
                         </div>
                     </div>
 
-                    {displayedArrovedBlogs && displayedArrovedBlogs.map((blog, index) => (
+                    {displayedArrovedBlogs.length > 0 ? displayedArrovedBlogs.map((blog, index) => (
                         <div className="card blogArea my-1 px-1" key={index}>
                             <div className="d-flex px-lg-3 px-md-2">
                                 {blog?.image && blog?.image !== 'link' && (
@@ -354,7 +359,7 @@ const MemberProfilePage = () => {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    )) : <h5 className=' fw-bold text-center'>No blog to show</h5>}
 
                     {/* pagination start */}
                     {totalApprovedPosts > 5 &&
@@ -393,7 +398,7 @@ const MemberProfilePage = () => {
                     </div>
 
 
-                    {displayedPendingPosts && displayedPendingPosts.map((post, index) => (
+                    {displayedPendingPosts.length > 0 ? displayedPendingPosts.map((post, index) => (
                         <div className="card blogArea my-1 px-1" key={index} >
                             <div className="d-flex px-lg-3 px-md-2">
                                 {post?.image && post?.image !== 'link' && (
@@ -464,7 +469,7 @@ const MemberProfilePage = () => {
                             </div>
                         </div>
 
-                    ))}
+                    )) : <h5 className=' fw-bold text-center'>No blog to show</h5>}
                 </div>
 
                 {/* pagination start */}

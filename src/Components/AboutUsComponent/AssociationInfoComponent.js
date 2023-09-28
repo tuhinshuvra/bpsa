@@ -17,7 +17,7 @@ const AssociationInfoComponent = () => {
 
   return (
     <div>
-      <Container className=" pt-4 pb-5 ">
+      <Container className=" py-3  mb-5  bg-[#E2E3E7] rounded-2xl ">
         <HeadingComponent1
           first="About "
           second="Bangladesh Police Service Association"
