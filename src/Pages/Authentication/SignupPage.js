@@ -89,12 +89,13 @@ const SignupPage = () => {
     const handleVerifyUniqueId = (e) => {
         e.preventDefault();
         const form = e.target;
-        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/BP7403091062/${form.birth_year.value}`, {
+        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${form.unique_id.value}/${form.birth_year.value}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }
         },)
             .then(result => {
+                console.log(result);
                 if (result.data.items.length > 0) {
                     // toast.success("user verified successfully");
                     axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${form.unique_id.value}`)
@@ -147,11 +148,11 @@ const SignupPage = () => {
 
     const handleResendOTP = (e) => {
         e.preventDefault();
-        // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
-        // .then(resOTP=>{
-        //     console.log();
-        //     setOtpData(resOTP.data.otp)
-        // })
+        axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+        .then(resOTP=>{
+            console.log();
+            setOtpData(resOTP.data.otp)
+        })
         startCountdown();
     }
 
