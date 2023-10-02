@@ -22,14 +22,12 @@ const AllMemberDirectoryPage = () => {
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(12);
 
-    const [listBCS, setListBCS] = useState(1);
-    const [startList, setStartList] = useState(0);
-    const [endList, setEndList] = useState(12);
+    const [BcsAddress, setBcsAddress] = useState();
 
 
     const [showperPage, setShowPerPage] = useState(12);
     const [accessToken, setAccessToken] = useState('');
-    const [batch, setBatch] = useState();
+    const [batch, setBatch] = useState(0);
     const [searchBatch, setSearchBatch] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState('');
@@ -103,9 +101,7 @@ const AllMemberDirectoryPage = () => {
             })
                 .then(result => {
                     setBcsList(result.data.items);
-                    console.log(result.data.items[0].display_value)
                 })
-
         }
         BcsLIST();
 
@@ -165,9 +161,11 @@ const AllMemberDirectoryPage = () => {
         batchData();
     }, [accessToken, batch])
 
-    if (apiResponse) {
-        // console.log(rank)
-    }
+    useEffect(() => {
+        const index = BcsList?.findIndex((element) => element.display_value == batch);
+        setBcsAddress(index);
+
+    }, [batch, BcsList])
 
 
     const [searchData, setSearchData] = useState({
@@ -218,7 +216,6 @@ const AllMemberDirectoryPage = () => {
             filterData = filterData.filter(batchData => searchData.blood == batchData.blood_group);
         }
 
-
         // console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
@@ -230,7 +227,28 @@ const AllMemberDirectoryPage = () => {
         setEnd(showperPage * value);
     };
 
-
+    const handleBCSId = (status) => {
+        if (status == 1) {
+            if (BcsAddress < 0) {
+                setBcsAddress(BcsList.length - 1);
+            }
+            else {
+                setBcsAddress(BcsAddress - 1);
+            }
+        }
+        if (status == 2) {
+            if (BcsAddress >= BcsList.length) {
+                setBcsAddress(0)
+            }
+            else {
+                setBcsAddress(BcsAddress + 1)
+            }
+        }
+        console.log(status)
+    }
+    if (BcsAddress) {
+        console.log(BcsAddress)
+    }
     if (loading) {
         return <Loader></Loader>
     }
@@ -258,7 +276,7 @@ const AllMemberDirectoryPage = () => {
                                     <select onChange={getSearchData} name="rank" className="form-select my-2 mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
                                         {
-                                            rank && rank.map(rank => <option value={rank}>{rank}</option>)
+                                            rank && rank.map(rank => <option value={rank} key={rank}>{rank}</option>)
                                         }
                                     </select>
                                 </div>
@@ -267,13 +285,13 @@ const AllMemberDirectoryPage = () => {
                                     <select onChange={getSearchData} name="unit" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Main Unit</option>
                                         {
-                                            MainUnit && MainUnit.map(MainUnit => <option value={MainUnit}>{MainUnit}</option>)
+                                            MainUnit && MainUnit.map(MainUnit => <option value={MainUnit} key={MainUnit}>{MainUnit}</option>)
                                         }
                                     </select>
                                     <select onChange={getSearchData} name="blood" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Blood group</option>
                                         {
-                                            blood && blood.map(blood => <option value={blood}>{blood}</option>)
+                                            blood && blood.map(blood => <option value={blood} key={blood}>{blood}</option>)
                                         }
                                     </select>
                                 </div>
@@ -282,14 +300,14 @@ const AllMemberDirectoryPage = () => {
                                     <select onChange={getSearchData} name="designation" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Designation</option>
                                         {
-                                            Designation && Designation.map(Designation => <option value={Designation}>{Designation}</option>)
+                                            Designation && Designation.map(Designation => <option value={Designation} key={Designation}>{Designation}</option>)
                                         }
                                     </select>
 
                                     <select onChange={getSearchData} name="district" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Own District</option>
                                         {
-                                            district && district.map(district => <option value={district}>{district}</option>)
+                                            district && district.map(district => <option value={district} key={district}>{district}</option>)
                                         }
                                     </select>
                                 </div>
@@ -328,15 +346,47 @@ const AllMemberDirectoryPage = () => {
 
                                     <nav className=" ms-2 d-none d-md-block " aria-label="Page navigation example" >
                                         <ul className="pagination my-auto py-2 ">
+
+                                            <li onClick={() => handleBCSId(1)} className="page-item">
+                                                <Link className="page-link" href="#">Before</Link>
+                                            </li>
+
                                             {
-                                                BcsList && BcsList.slice(0, 10).map(BCS => (
+                                                BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
-                                                        <Link className="page-link" href="#">{BCS?.display_value}</Link>
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }}>{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
                                             }
 
-
+                                            {/* {
+                                                batch && <li onClick={() => setBatch(BcsAddress)} className="page-item">
+                                                    <Link className="page-link " style={{ backgroundColor: 'orange' }} href="#">{batch.toString()}</Link>
+                                                </li>
+                                            } */}
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }} >{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }}>{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            <li onClick={() => handleBCSId(2)} className="page-item">
+                                                <Link className="page-link" href="#">Next</Link>
+                                            </li>
 
                                             {/* <li className="page-item"><Link className="page-link" href="#">Next</Link></li> */}
                                         </ul>
@@ -384,13 +434,13 @@ const AllMemberDirectoryPage = () => {
 
 
                             <PaginationComponent
-                                count={Math.ceil(apiResponse?.length / showperPage)}
+                                count={Math.ceil(filterData?.length / showperPage)}
                                 pageNumber={page}
                                 handleChange={handleChange}
                                 className="flex items-center justify-between px-lg-5 py-3"
                                 start={start}
                                 end={end}
-                                total={apiResponse?.length}
+                                total={filterData?.length}
                                 isShow={true}
                             />
                         </div>
