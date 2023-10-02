@@ -206,12 +206,19 @@ const ForgetPassword = () => {
     return (
         <div className=' container my-4'>
             <div className=' col-lg-4 col-md-6 mx-auto'>
-
                 <div className=' d-flex flex-column align-items-center'>
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
-
                     <h2 className=' text-center fs-3'>Password forget</h2>
                 </div>
+            </div>
+
+            <div className=' col-lg-6 col-md-9 mx-auto  text-center'>
+                <p className='welcomeMessage'>Welcome to the Bangladesh Police Service Association website. <br />
+                    As an association member, to reset your password on this site please provide your BPID and birth year in the following fields and follow the process.
+                </p>
+            </div>
+
+            <div className=' col-lg-4 col-md-6 mx-auto'>
                 <p className='text-center my-2 text-red-600'>{errorMessage}</p>
                 {
                     name && <p className='text-center my-2 text-main'>{name}</p>

@@ -54,6 +54,7 @@ const MemberProfilePage = () => {
 
     // login member profile data
     useEffect(() => {
+        setLoading(true);
         const profileData = async () => {
             if (!accessToken) {
                 return;
@@ -67,6 +68,7 @@ const MemberProfilePage = () => {
                     setMemberData(result.data.items[0]);
                     setLoginUserPhoto(result.data.items[0]?.pic)
                     setMemberBCSBatch(result.data.items[0]?.cadre)
+                    setLoading(false)
                 })
         }
         profileData();
@@ -114,9 +116,10 @@ const MemberProfilePage = () => {
                 setApprovedPosts(approvedPosts);
                 const pendingPosts = result.data.blog.filter(blog => blog?.memberName == user?.Name && blog?.status != "Approved");
                 setPendingPosts(pendingPosts);
+                setLoading(false);
             })
             .catch(error => console.log(error));
-    }, [setLoading, user.name])
+    }, [setLoading, user?.Name])
 
 
     // pagination start
@@ -326,7 +329,7 @@ const MemberProfilePage = () => {
                             <div className="d-flex px-lg-3 px-md-2">
                                 {blog?.image && blog?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">
-                                        <img src={blog?.image} className="adminBlogListImg rounded-lg" alt="..." />
+                                        <img src={blog?.image} className="adminBlogListImg" alt="..." />
                                     </div>
                                 )}
 
@@ -403,7 +406,7 @@ const MemberProfilePage = () => {
                             <div className="d-flex px-lg-3 px-md-2">
                                 {post?.image && post?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">
-                                        <img src={post?.image} className="adminBlogListImg rounded-lg" alt="..." />
+                                        <img src={post?.image} className="adminBlogListImg" alt="..." />
                                     </div>
                                 )}
 

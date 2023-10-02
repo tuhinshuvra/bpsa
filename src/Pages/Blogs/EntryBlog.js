@@ -16,6 +16,8 @@ const EntryBlog = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
 
+  console.log(" EntryBlog user", user);
+
   const handleBlock = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -32,7 +34,7 @@ const EntryBlog = () => {
       description: content,
       status: 'pending',
       member_id: user?.id,
-      memberName: user?.name,
+      memberName: user?.Name,
     };
 
     let imageFile;

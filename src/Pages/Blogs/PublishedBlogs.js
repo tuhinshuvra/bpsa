@@ -62,7 +62,7 @@ const PublishedBlogs = () => {
                                 <div className="d-flex px-lg-3 px-md-2">
                                     {post?.image && post?.image !== 'link' && (
                                         <div className="col-md-2 my-auto">
-                                            <img src={post?.image} className="adminBlogListImg rounded-lg" alt="..." />
+                                            <img src={post?.image} className="adminBlogListImg" alt="..." />
                                         </div>
                                     )}
 

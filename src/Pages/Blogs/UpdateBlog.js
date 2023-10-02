@@ -85,7 +85,7 @@ const UpdateBlog = () => {
       description: content,
       status: "pending",
       member_id: user?.id,
-      memberName: user?.name,
+      memberName: user?.Name,
       blog_id: id,
     };
 

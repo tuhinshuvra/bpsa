@@ -16,6 +16,7 @@ import { FaSignOutAlt, FaBloggerB, FaExchangeAlt } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { RiAdminFill } from 'react-icons/ri';
 import './Navbar.css';
+import Loader from "../Common/Loader";
 
 const Navbar = () => {
   const location = useLocation();
@@ -64,6 +65,7 @@ const Navbar = () => {
 
   // user new data
   useEffect(() => {
+    setLoading(true);
     fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
       .then(res => res.json())
       .then(data => {
@@ -79,6 +81,10 @@ const Navbar = () => {
       toast.success('User Logout Successfully')
       navigate("/login")
     })
+  }
+
+  if (loading) {
+    return <Loader></Loader>
   }
 
 
