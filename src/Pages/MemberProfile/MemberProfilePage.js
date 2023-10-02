@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
 import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import { getCookie, setLocalStorage } from '../../utlis/helper';
@@ -37,7 +36,7 @@ const MemberProfilePage = () => {
     };
     const data = 'grant_type=client_credentials';
 
-    // console.log("Login User Data:", user);
+    console.log("Profile Page Login User Data:", user);
 
     useEffect(() => {
         const getAccessToken = async () => {
@@ -75,10 +74,10 @@ const MemberProfilePage = () => {
     }, [accessToken])
 
     if (memberData) {
-        console.log("profileUser data :", memberData);
+        // console.log("profileUser data :", memberData);
     }
 
-    console.log("Member Profile Data memberData: ", memberData);
+    // console.log("Member Profile Data memberData: ", memberData);
 
     // login user new data
     useEffect(() => {
@@ -92,9 +91,6 @@ const MemberProfilePage = () => {
             })
     }, [])
 
-
-
-    // id, nameB,nameE,bpn,fname,batch,birth,blood,bpn,phone    // designation,district,email,fname, gift, id, mname,nameB, ,    //  qualificattion,ranK,religion,status,unit,
 
     // member all post
     useEffect(() => {
@@ -183,13 +179,13 @@ const MemberProfilePage = () => {
                         <div className="col-lg-4 my-1 my-lg-0">
                             <div className="card  proCard shadow-lg">
                                 <div className="card-body proCardBody ">
-                                    {memberData?.pic ?
+                                    {user?.image ?
                                         <>
-                                            <img src={`data:image/jpeg;base64,${memberData?.pic}`} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
+                                            <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px" }} />
                                         </>
                                         :
                                         <>
-                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px" }} />
+                                            <img src={`data:image/jpeg;base64,${memberData?.pic}`} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
                                         </>
                                     }
 

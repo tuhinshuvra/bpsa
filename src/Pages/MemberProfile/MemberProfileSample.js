@@ -1,7 +1,9 @@
-import React from 'react';
+import { useContext } from 'react';
 import "./MemberProfileSample.css";
+import { AllContext } from '../../hooks/ContextData';
 
 const MemberProfileSample = ({ member }) => {
+    const { user, loading, setLoading } = useContext(AllContext);
     console.log("MemberProfileSample memberData : ", member);
     // blood_group cadre  current_designation dateofbirth degree email employeecode employeename employeenameinenglish fathername gift gov_email
     // gov_mob homedistrict idsex main_unit marital_status mobilephone mothername pic rank rankinenglish religion sub_sub_unit sub_unit unit  
@@ -17,9 +19,20 @@ const MemberProfileSample = ({ member }) => {
                     <div className="row    bg-white mx-1    rounded-xl  py-3 ">
 
                         <div className="col-lg-5 my-auto">
-                            <div className="about-avatar">
+
+                            {user?.image ?
+                                <>
+                                    <img src={user?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
+                                </>
+                                :
+                                <>
+                                    <img src={`data:image/jpeg;base64,${member?.pic}`} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
+                                </>
+                            }
+
+                            {/* <div className="about-avatar">
                                 <img src={`data:image/jpeg;base64,${member?.pic}`} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
-                            </div>
+                            </div> */}
                         </div>
                         <div className="col-lg-7">
                             <div className="about-text go-to">

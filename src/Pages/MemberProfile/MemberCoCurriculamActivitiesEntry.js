@@ -20,11 +20,11 @@ const MemberCoCurriculamActivitiesEntry = () => {
         fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                // console.log("Member User table  Data: ", data.member)
+                console.log("MemberCoCurriculamActivitiesEntry user  Data: ", data)
                 setUserNewData(data?.value)
                 setLoading(false)
             })
-    }, [setLoading, user?.BPID])
+    }, [setLoading, user?.BPID]);
 
 
     // this function is used to post sign up data

@@ -30,7 +30,7 @@ const Navbar = () => {
   const [userNewData, setUserNewData] = useState();
 
   const loginUserPhoto = getLocalStorage("loginUserPhoto");
-  console.log("Navbar loginUserPhoto :", loginUserPhoto);
+  // console.log("Navbar loginUserPhoto :", loginUserPhoto);
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
