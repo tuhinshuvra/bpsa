@@ -13,16 +13,20 @@ import ImageComponent from "../../Common/ImageComponent";
 export default function HeroSlider({ data }) {
   // console.log("🚀 ~ file: HeroSlider.js:14 ~ HeroSlider ~ data", data);
   return (
-    <div style={{ marginTop: "-90px", zIndex: 10 }}>
+    // <div style={{ marginTop: "-90px", zIndex: 10 }}>
+    <div style={{ marginTop: "-18px", zIndex: 10 }}>
       <Swiper
-        // autoplay={{
-        //   delay: 3500,
-        //   disableOnInteraction: false,
-        // }}
+
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+
         navigation={true}
         speed={2000}
         loop={true}
-        modules={[Navigation]}
+        // modules={[Navigation]}
+        modules={[Navigation, Pagination, Autoplay]}
         className="mySwiper"
       >
         {data &&
@@ -52,6 +56,6 @@ export default function HeroSlider({ data }) {
             );
           })}
       </Swiper>
-    </div>
+    </div >
   );
 }

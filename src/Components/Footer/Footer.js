@@ -11,7 +11,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="bg-main py-2   footerArea">
+    <footer className="bg-[#508BF2] py-2   footerArea">
       <div className="container d-lg-flex  ">
 
 

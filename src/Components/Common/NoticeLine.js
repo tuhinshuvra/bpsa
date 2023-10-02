@@ -37,7 +37,7 @@ const NoticeLine = ({ data }) => {
 
   return (
     <div className="p-2 md:p-3 flex items-center space-x-2 md:space-x-4 bg-white ">
-      <span className=" bg-black py-3 px-2  mx-[-8px] my-[-8px] text-white md:tracking-widest font-semibold text-xs md:text-[16px]">
+      <span className=" bg-[#3F9888] py-3 px-2  mx-[-8px] my-[-8px] text-white md:tracking-widest font-semibold text-xs md:text-[16px]">
         LATEST
       </span>
       {/* <ImageComponent image={noticeImg} className="w-[140px] object-contain" /> */}

@@ -95,8 +95,10 @@ const Navbar = () => {
       <div className="hidden md:block">
         <div
           className={`flex items-center justify-between ${location?.pathname === "/"
-            ? `${navColor ? "bg-main" : "bg-transparent"}`
-            : "bg-main"
+            // ? `${navColor ? "bg-main" : "bg-transparent"}`
+            // ? `${navColor ? "bg-main" : "bg-main"}`
+            ? `${navColor ? "bg-[#508bf2]" : "bg-[#508bf2]"}`
+            : "bg-[#508bf2]"
             } navPadding  py-2`}
         >
           <div
@@ -242,7 +244,7 @@ const Navbar = () => {
             <>
               <div
                 onClick={() => { navigate("/login"); }}
-                className={`d-flex bg-second tracking-[1px] rounded-md items-center text-white px-3 py-2 cursor-pointer `}
+                className={`d-flex bg-[#0742a9] tracking-[1px] rounded-md items-center text-white px-3 py-2 cursor-pointer `}
               >
                 <UsersIcon size={24} className="mr-2" />
                 <ButtonComponent title="Login" className="" />

@@ -18,11 +18,11 @@ const GalleryComp = ({ data }) => {
   }, [data]);
   return (
     <div>
-      <Container className="py-3 bg-slate-500/60 rounded-2xl">
+      <Container className="py-3 bg-[#E2E3E7] rounded-2xl">
         <HeadingComponent1
           first="Association  "
           second={"Photos"}
-          className="text-center text-[#FFFFFF] pb-3"
+          className="text-center  pb-3"
         />
         <div className={`${Styles.galleryGridView}`}>
           {data &&

@@ -3,9 +3,11 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background-color: #2b72ef;
+  /* background-color: #2b72ef; */
+  background-color: #0742a9;
   border-radius: 4px;
-  padding: 8px 20px;
+  padding: 8px 10px;
+
 }
 
 /* .activenav__style {
@@ -17,9 +19,10 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background-color: #2b72ef;
+  /* background-color: #2b72ef; */
+  background-color: #508bf2;
   border-radius: 4px;
-  padding: 8px 5px;
+  padding: 8px 10px;
 }
 
 .normalnav__Style:hover {
