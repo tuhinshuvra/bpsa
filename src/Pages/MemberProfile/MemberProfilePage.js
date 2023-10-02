@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
 import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
-import { getCookie } from '../../utlis/helper';
+import { getCookie, setLocalStorage } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
@@ -20,7 +20,7 @@ import MemberProfileSample from './MemberProfileSample';
 const MemberProfilePage = () => {
     useTitle("Profile");
     const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular,
-        setMemberBCSBatch, setLoginUserPhoto, } = useContext(AllContext);
+        setMemberBCSBatch } = useContext(AllContext);
     const [memberData, setMemberData] = useState("");
     const [userNewData, setUserNewData] = useState();
     const [approvedPosts, setApprovedPosts] = useState([]);
@@ -66,7 +66,7 @@ const MemberProfilePage = () => {
             })
                 .then(result => {
                     setMemberData(result.data.items[0]);
-                    setLoginUserPhoto(result.data.items[0]?.pic)
+                    setLocalStorage("loginUserPhoto", result.data.items[0]?.pic)
                     setMemberBCSBatch(result.data.items[0]?.cadre)
                     setLoading(false)
                 })

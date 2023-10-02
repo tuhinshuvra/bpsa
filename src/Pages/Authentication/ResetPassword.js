@@ -56,7 +56,7 @@ const ResetPassword = () => {
                     // console.log(result);
                     if (result.status == 201) {
                         if (result.data.massege == 'Password changed successfully.') {
-                            toast.success("password reset update");
+                            toast.success("Password changed successfully");
                             form.reset();
                             navigate("/memberProfile");
                         }
@@ -88,7 +88,7 @@ const ResetPassword = () => {
             <form onSubmit={handleNew}>
 
                 <div className=' mb-3'>
-                    <label for="currentPassword" class="form-label my-0 fst-italic ">Current Password</label>
+                    <label for="currentPassword" className="form-label my-0 fst-italic ">Current Password</label>
                     <input
                         className=" form-control  my-0"
                         type="password"
@@ -100,7 +100,7 @@ const ResetPassword = () => {
                 </div>
 
                 <div className=' my-0 '>
-                    <label for="newPassword" class="form-label my-0 fst-italic  ">New Password</label>
+                    <label for="newPassword" className="form-label my-0 fst-italic  ">New Password</label>
                     <input
                         className=" form-control my-0 "
                         type="password"
@@ -115,7 +115,7 @@ const ResetPassword = () => {
                 </label>
 
                 <div className=' my-3'>
-                    <label for="confirmedPassword" class="form-label my-0 fst-italic ">Confirm Password</label>
+                    <label for="confirmedPassword" className="form-label my-0 fst-italic ">Confirm Password</label>
                     <input
                         className=" form-control my-0 "
                         type="password"

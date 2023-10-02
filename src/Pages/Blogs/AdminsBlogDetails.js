@@ -104,6 +104,7 @@ const AdminsBlogDetails = () => {
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container py-3 ">
+
                     <div className="mb-0 pb-0">
                         <nav aria-label="" className="bg-light rounded-3 p-2  ">
                             <h3 className='fw-bold text-center '>{blog?.title}</h3>
@@ -116,37 +117,39 @@ const AdminsBlogDetails = () => {
                             </small>
                         </div>
                     </div>
+
                     <div className=' col-lg-8 mx-auto' >
                         <p>{blog?.summery}</p>
                         <BlogDetailsComponent data={blog} />
-
-                        <div className=' d-flex justify-content-between align-items-baseline mt-0 pt-0 '>
-
-                            <Link to={"/adminAllBlog"} className='btn btn-primary btn-sm w-28'>Back</Link>
-
-                            <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
-                                <div>
-                                    <select
-                                        id="status"
-                                        value={blogStatus}
-                                        onChange={(e) => handleStatusChange(e.target.value)}
-                                        className='form-select    max-w-xs' >
-                                        <option disabled selected>{blog?.status}</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Ask for Review">Ask for Review</option>
-                                        <option value="Disabled">Disabled</option>
-                                    </select>
-                                    {isInputVisible && (
-                                        <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" required />
-                                    )}
-                                </div>
-
-                                <div>
-                                    <button className='btn btn-primary btn-sm w-36 ms-1' type="submit">update status</button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
+
+                </div>
+
+                <div className='col-lg-8 mx-auto  d-flex justify-content-between align-items-baseline mt-0 pt-0 pb-3 '>
+
+                    <Link to={"/adminAllBlog"} className='btn btn-primary btn-sm w-28'>Back</Link>
+
+                    <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
+                        <div>
+                            <select
+                                id="status"
+                                value={blogStatus}
+                                onChange={(e) => handleStatusChange(e.target.value)}
+                                className='form-select    max-w-xs' >
+                                <option disabled selected>{blog?.status}</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Ask for Review">Ask for Review</option>
+                                <option value="Disabled">Disabled</option>
+                            </select>
+                            {isInputVisible && (
+                                <input type="text" name='message' placeholder="feedback message for update" className="input input-bordered w-full max-w-xs my-3" required />
+                            )}
+                        </div>
+
+                        <div>
+                            <button className='btn btn-primary btn-sm w-36 ms-1' type="submit">update status</button>
+                        </div>
+                    </form>
                 </div>
             </section>
         </div>

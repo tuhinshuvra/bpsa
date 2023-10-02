@@ -9,18 +9,18 @@ import MobileMenu from "./MobileMenu";
 import Styles from "./Navbar.module.css";
 import { useContext } from "react";
 import { AllContext } from "../../hooks/ContextData";
-import { signout } from "../../utlis/helper";
+import { getLocalStorage, removeLocalStorage, signout } from "../../utlis/helper";
 import { toast } from "react-hot-toast";
 import { GoFileDirectoryFill } from 'react-icons/go';
 import { FaSignOutAlt, FaBloggerB, FaExchangeAlt } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { RiAdminFill } from 'react-icons/ri';
-import './Navbar.css';
 import Loader from "../Common/Loader";
+import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
-  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading, loginUserPhoto } = useContext(AllContext);
+  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
   // console.log("Navbar Login User Data: ", user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -29,8 +29,8 @@ const Navbar = () => {
   const [navColor, setNavColor] = useState("");
   const [userNewData, setUserNewData] = useState();
 
-  // console.log("userNewData :", userNewData);
-  // console.log("Login User Data :", user);
+  const loginUserPhoto = getLocalStorage("loginUserPhoto");
+  console.log("Navbar loginUserPhoto :", loginUserPhoto);
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
@@ -80,6 +80,7 @@ const Navbar = () => {
       setUser("");
       toast.success('User Logout Successfully')
       navigate("/login")
+      removeLocalStorage("loginUserPhoto");
     })
   }
 
@@ -218,7 +219,6 @@ const Navbar = () => {
                   <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />Change Password</Link></li>
                   <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
                   <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
-                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
                   <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
                   {user?.MemberRole == "admin" &&
                     <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>

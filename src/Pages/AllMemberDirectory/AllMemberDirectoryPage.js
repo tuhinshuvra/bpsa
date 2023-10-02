@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import { AllContext } from "../../hooks/ContextData";
@@ -33,12 +33,12 @@ const AllMemberDirectoryPage = () => {
     };
     const data = 'grant_type=client_credentials';
 
-    // console.log("Login User Data : ", user);
-    // console.log("Directory Page filterData : ", filterData);
-    // console.log("memberBCSBatch", memberBCSBatch);
-
     const [selectedPage, setSelectedPage] = useState(1);
     const totalPages = 50; // Total number of pages
+
+
+    // console.log("AllMemberDirectoryPage filterData ", filterData);
+    // console.log("AllMemberDirectoryPage memberProfile ", memberProfile);
 
     const handlePageClick = (newPage) => {
         setSelectedPage(newPage);
@@ -91,6 +91,7 @@ const AllMemberDirectoryPage = () => {
             try {
                 const response = await axios.get(apiUrl, { headers });
                 setBatch(response.data.items[0]?.cadre);
+
             } catch (error) {
                 console.error('Error calling API:', error);
             }
