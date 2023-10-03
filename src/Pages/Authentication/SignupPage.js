@@ -18,6 +18,7 @@ const SignupPage = () => {
     const [otpData, setOtpData] = useState('');
     const [timeLeft, setTimeLeft] = useState(0);
     const [OTPCheckOne, setOTPCheckOne] = useState(false);
+    const [uniqueIDVerified, setUniqueIDVerified] = useState(false);
     const [userFullName, setUserFullName] = useState('');
     const [unique_id, setUnique_id] = useState('');
     const [isCounting, setIsCounting] = useState(false);
@@ -86,26 +87,31 @@ const SignupPage = () => {
         setIsCounting(true);
     };
 
-    const handleVerifyUniqueId = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${form.unique_id.value}/${form.birth_year.value}`, {
+    const handleVerifyUniqueId = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const uniqueId = form.unique_id.value.trim();
+        const birthYear = form.birth_year.value;
+        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${uniqueId}/${birthYear}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }
         },)
             .then(result => {
                 console.log(result);
+                setErrorMessage("");
                 if (result.data.items.length > 0) {
                     // toast.success("user verified successfully");
-                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${form.unique_id.value}`)
+                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
                         .then(verifyUser => {
                             if (verifyUser.data.value == 1) {
-                                toast.error("user already registered")
+                                setErrorMessage("User already registered")
+                                // toast.error("user already registered")
                             }
                             else if (verifyUser.data.value == 2) {
 
-                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-082532`)
+                                // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-082532`)
+                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-08253200`)
                                     .then(resOTP => {
                                         console.log();
                                         setOtpData(resOTP.data.otp)
@@ -117,6 +123,7 @@ const SignupPage = () => {
                                 setUnique_id(form.unique_id.value);
                                 setUserFullName(result.data.items[0].name)
                                 setUser(result.data.items[0]);
+                                setUniqueIDVerified(true);
                                 setErrorMessage("")
                             }
                         })
@@ -180,7 +187,7 @@ const SignupPage = () => {
 
         if (!isPasswordValid) {
             setPasswordValid(false);
-            setErrorMessage("password combination must be lowercase, uppercase and number. password total numbers must me eight");
+            setErrorMessage("Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.");
             return;
         }
 
@@ -207,7 +214,7 @@ const SignupPage = () => {
             })
             .catch(err => {
                 if (err.message == 'Request failed with status code 422') {
-                    setErrorMessage("user Name already another person have used Pleased change userName");
+                    setErrorMessage("username already exists, please use another userName");
                 }
                 else {
                     setErrorMessage("something is wrong. Please check your net connection and other issues")
@@ -221,52 +228,64 @@ const SignupPage = () => {
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3'>Sign up</h2>
                 </div>
-            </div>
+                {/* </div> */}
 
-            <div className=' col-lg-6 col-md-9 mx-auto  text-center'>
-                <p className='welcomeMessage'>Welcome to the Bangladesh Police Service Association website. <br />
-                    As an association member, to reset your password on this site please provide your BPID and birth year in the following fields and follow the process.
-                </p>
-            </div>
-
-            <div className=' col-lg-4 col-md-6 mx-auto'>
-                <p className=' text-center text-danger fw-bold fs-6'>{errorMessage}</p>
-                {!otpData && !otpVerified && <form onSubmit={handleVerifyUniqueId}>
-                    <TextField
-                        label="Unique ID"
-                        name="unique_id"
-                        id="unique_id"
-                        type="text"
-                        margin="normal"
-
-                        fullWidth
-                        required
-                    />
-
-                    <TextField
-                        label="Birth Year"
-                        name="birth_year"
-                        id="birth_year"
-                        type="number"
-                        margin="normal"
-                        fullWidth
-                        InputProps={{
-                            inputProps: {
-                                min: 1900, // Set a minimum value for birth year
-                                max: new Date().getFullYear(), // Set a maximum value as the current year
-                            },
-                        }}
-                        required
-                    />
-
-                    <div className=' text-center'>
-                        <button type='submit' className=' btn btn-primary btn-sm '>Verify</button>
+                {!uniqueIDVerified &&
+                    <div className='text-center'>
+                        <p className='welcomeMessage'>Welcome to the Bangladesh Police Service Association website. <br />
+                            As an association member, to sign-up please provide your BPID and Birth Year in the following fields and follow the instructions.
+                        </p>
                     </div>
-
-                </form>
                 }
-                <form>
+                {otpVerified &&
+                    <div className='text-center'>
+                        <p className='welcomeMessage'>
+                            Enter a username of a minimum of 4 characters and provide your password.
+                        </p>
+                    </div>
+                }
 
+                {/* <div className=' col-lg-4 col-md-6 mx-auto'> */}
+                <p className=' small  text-center text-danger fw-bold  my-1'>{errorMessage}</p>
+                {!otpData && !otpVerified &&
+                    <form onSubmit={handleVerifyUniqueId} className=' mt-0'>
+                        <TextField
+                            className=' mt-0'
+                            label="Unique ID"
+                            name="unique_id"
+                            id="unique_id"
+                            type="text"
+                            margin="normal"
+
+                            fullWidth
+                            required
+                        />
+
+                        <TextField
+                            label="Birth Year"
+                            name="birth_year"
+                            id="birth_year"
+                            type="number"
+                            margin="normal"
+                            fullWidth
+                            InputProps={{
+                                inputProps: {
+                                    min: 1900, // Set a minimum value for birth year
+                                    max: new Date().getFullYear(), // Set a maximum value as the current year
+                                },
+                            }}
+                            required
+                        />
+
+                        <div className=' text-center'>
+                            <button type='submit' className=' btn btn-primary btn-sm '>Verify</button>
+                        </div>
+
+                    </form>
+                }
+
+
+                <form>
                     <div className=' d-flex   align-items-baseline  '>
                         {/* <button className='btn btn-primary btn-sm'>Counter</button> */}
                         {otpData && enableOtp &&
@@ -329,7 +348,7 @@ const SignupPage = () => {
                                 fullWidth
                             />
                             <label className='passwordMessage mt-0 text-center' htmlFor="">
-                                Password should be at least 8 characters and must contain a capital letter, a small letter, and a numeric character.
+                                Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.
                             </label>
 
                             <TextField
@@ -342,9 +361,13 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
-                            <div className=' d-flex justify-between mt-3'>
-                                <button type="reset" className="btn btn-warning btn-sm">Reset</button>
-                                <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+                            <div className="col-12 row my-2">
+                                <div className="col-5 text-start">
+                                    <button type="reset" className="btn btn-warning btn-sm">Reset</button>
+                                </div>
+                                <div className="col-7 text-start">
+                                    <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+                                </div>
                             </div>
                         </>
                     }

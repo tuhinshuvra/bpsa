@@ -10,6 +10,10 @@
 }
 
 .welcomeMessage {
-    font-size: 12px;
-
+    font-size: 14px;
+    color: #3F9888;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 18px;
+    margin: 0 0 10px 0;
 }

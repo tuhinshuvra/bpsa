@@ -16,6 +16,7 @@ const ForgetPassword = () => {
     const [verifyOTP, setVerifyOTP] = useState(false);
     const [otpValue, setOtpValue] = useState('');
     const [OTPVerified, setOTPVerified] = useState(false);
+    const [uniqueIDVerified, setUniqueIDVerified] = useState(false);
     const [timeLeft, setTimeLeft] = useState(0);
     const [isCounting, setIsCounting] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -91,7 +92,8 @@ const ForgetPassword = () => {
         event.preventDefault();
         console.log("hello")
         const form = event.target;
-        const uniqueId = form.unique_id.value;
+        // const uniqueId = form.unique_id.value;
+        const uniqueId = form.unique_id.value.trim();
         const yearBirth = form.year.value;
         if (!accessToken) {
             return;
@@ -110,27 +112,29 @@ const ForgetPassword = () => {
                         .then(verifyUser => {
                             console.log(verifyUser.data)
                             if (verifyUser.data.value == 1) {
-                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+                                // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0172560194400`)
                                     .then(resOTP => {
                                         console.log(resOTP.data.otp);
                                         // setOtpData(resOTP.data.otp)
                                         setOtpAccess(resOTP.data.otp)
                                     })
-                                toast.success("Unique ID Verified Successfully!");
+                                toast.success("PIMS ID Verified Successfully!");
                                 setErrorMessage("");
                                 setName(data.name);
                                 setUnique(form.unique_id.value);
                                 setVerifyOTP(true);
+                                setUniqueIDVerified(true);
                                 startCountdown();
                                 form.reset();
                             }
                             else if (verifyUser.data.value == 2) {
-                                setErrorMessage("No matching PIMS_ID");
+                                setErrorMessage("No matching PIMS ID");
                             }
                         })
                 }
                 else {
-                    setErrorMessage("PMIS id and birth year not match")
+                    setErrorMessage("PMIS ID and birth year do not match")
                 }
             })
     }
@@ -167,7 +171,7 @@ const ForgetPassword = () => {
         // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         const isPasswordValid = passwordPattern.test(password);
         if (!isPasswordValid) {
-            setErrorMessage("password combination must be lowercase, uppercase and number. password total numbers must me eight");
+            setErrorMessage("Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.");
             return
         }
         const userData = {
@@ -210,37 +214,102 @@ const ForgetPassword = () => {
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
                     <h2 className=' text-center fs-3'>Password forget</h2>
                 </div>
-            </div>
+                {/* </div> */}
 
-            <div className=' col-lg-6 col-md-9 mx-auto  text-center'>
-                <p className='welcomeMessage'>Welcome to the Bangladesh Police Service Association website. <br />
-                    As an association member, to reset your password on this site please provide your BPID and birth year in the following fields and follow the process.
-                </p>
-            </div>
+                {!uniqueIDVerified &&
+                    <div className=' text-center'>
+                        <p className='welcomeMessage'>
+                            As an association member, to reset your password please provide your BPID and Birth Year in the following fields and follow the instructions.
+                        </p>
+                    </div>
+                }
 
-            <div className=' col-lg-4 col-md-6 mx-auto'>
-                <p className='text-center my-2 text-red-600'>{errorMessage}</p>
+                {OTPVerified &&
+                    <div className=' text-center'>
+                        <p className='welcomeMessage'>
+                            Please provide your password and retype the password.
+                        </p>
+                    </div>
+                }
+
+                {/* <div className=' col-lg-4 col-md-6 mx-auto'> */}
+                <p className=' small  text-center text-danger fw-bold  my-1'>{errorMessage}</p>
                 {
                     name && <p className='text-center my-2 text-main'>{name}</p>
                 }
+
                 {
-                    otpAccess && <p className='text-center my-2 text-main'>OTP: {otpAccess}</p>
+                    otpAccess && <p className='text-center my-2 text-main'>
+
+                        {!OTPVerified &&
+                            <> OTP: {otpAccess}</>
+                        }
+
+                    </p>
                 }
-                <form onSubmit={handleOTPSend}>
-                    <TextField label="Unique ID" name="unique_id" id="unique_id" type="text" margin="normal" fullWidth required />
-                    <TextField label="Birth Year" name="year" id="year" type="text" margin="normal" fullWidth required />
-                    <div className='text-center'>
-                        <button className=' btn btn-primary btn-sm '>Verify</button>
-                    </div>
-                </form>
+
+                {!uniqueIDVerified &&
+                    <form onSubmit={handleOTPSend}>
+                        <TextField
+                            className=' mt-0'
+                            label="Unique ID"
+                            name="unique_id"
+                            id="unique_id"
+                            type="text"
+                            margin="normal"
+                            fullWidth
+                            required
+                        />
+                        <TextField
+                            label="Birth Year"
+                            name="year"
+                            id="year"
+                            type="text"
+                            margin="normal"
+                            fullWidth
+                            required
+                        />
+
+                        <div className='text-center'>
+                            <button className=' btn btn-primary btn-sm '>Verify</button>
+                        </div>
+                    </form>
+                }
+
+
+
                 {
-                    verifyOTP && <div className='text-center my-4'>
+                    verifyOTP &&
+                    <div className='text-center my-4'>
+
                         <button style={{ textTransform: 'none' }} ><span className='text-xl'><span className='text-orange-400 text-2xl'>{formatTime(timeLeft)}</span> Before put your OTP</span></button>
-                        <TextField label="OTP add" name="otp_id" id="otp_id" type="text" margin="normal" fullWidth required value={otpValue} onChange={handleOtpChange} />
-                        <div className='flex justify-between items-center'>
+
+                        <TextField
+                            label="OTP add"
+                            name="otp_id"
+                            id="otp_id"
+                            type="text"
+                            margin="normal"
+                            fullWidth
+                            required
+                            value={otpValue}
+                            onChange={handleOtpChange}
+                        />
+
+                        {/* <div className='flex justify-between items-center'>
                             <button onClick={handleResetCountTime} className=' btn btn-primary btn-sm '>resend</button>
                             <button onClick={handleOTPVerify} className=' btn btn-primary btn-sm '>submit</button>
+                        </div> */}
+
+                        <div className="col-12 row my-2">
+                            <div className="col-5 text-start">
+                                <button onClick={handleResetCountTime} type="reset" className="btn btn-warning btn-sm">Reset</button>
+                            </div>
+                            <div className="col-7 text-start">
+                                <button onClick={handleOTPVerify} type="submit" className="btn btn-primary btn-sm">Submit</button>
+                            </div>
                         </div>
+
                     </div>
                 }
                 {OTPVerified &&
@@ -248,7 +317,7 @@ const ForgetPassword = () => {
                         <TextField
                             label="Password" name="password" id="password" type="password" margin="normal" disabled={false} required fullWidth />
                         <label className='passwordMessage mt-0 text-center' htmlFor="">
-                            Password should be at least 8 characters and must contain a capital letter, a small letter, and a numeric character.
+                            Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.
                         </label>
                         <TextField label="Retype Password" name="confirm_password" id="confirm_password" type="password" margin="normal" disabled={false} required fullWidth />
                         <div className='text-center'>

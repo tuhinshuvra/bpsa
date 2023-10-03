@@ -323,29 +323,8 @@ const AllMemberDirectoryPage = () => {
                             {/* bcs batch pagination */}
                             <div className=" text-center  ">
                                 <div className=" d-flex justify-content-center align-items-center">
-                                    <p className=" fw-bold mt-2">BCS Batch:</p>
-
-                                    {/* <BCSBatchPaginationComponent
-                                        count={Math.ceil(50)}
-                                        pageNumber={page}
-                                        handleChange={handleBatch}
-                                        className="flex items-center justify-between px-lg-5 py-3"
-                                        start={1}
-                                        end={50}
-                                        total={apiResponse?.length}
-                                    /> */}
-
-                                    {/* <div>
-                                        <PageNumbers
-                                            selectedPage={selectedPage}
-                                            totalPages={totalPages}
-                                            onPageClick={handlePageClick}
-
-                                        />
-                                    </div> */}
-
-
-                                    <nav className=" ms-2 d-none d-md-block " aria-label="Page navigation example" >
+                                    <nav className=" ms-2 d-flex justify-content-center align-items-center "  >
+                                        <span className="fw-bold me-1">BCS Batch:</span>
                                         <ul className="pagination my-auto py-2 ">
 
                                             <li onClick={() => handleBCSId(1)} className="page-item">
@@ -362,11 +341,6 @@ const AllMemberDirectoryPage = () => {
                                                 ))
                                             }
 
-                                            {/* {
-                                                batch && <li onClick={() => setBatch(BcsAddress)} className="page-item">
-                                                    <Link className="page-link " style={{ backgroundColor: 'orange' }} href="#">{batch.toString()}</Link>
-                                                </li>
-                                            } */}
                                             {
                                                 BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
@@ -389,15 +363,10 @@ const AllMemberDirectoryPage = () => {
                                                 <Link className="page-link" href="#">Next</Link>
                                             </li>
 
-                                            {/* <li className="page-item"><Link className="page-link" href="#">Next</Link></li> */}
                                         </ul>
                                     </nav>
 
-                                    <nav className=" ms-2 d-md-none  " aria-label="Page navigation example" >
-                                        <ul className="pagination my-auto py-2 ">
 
-                                        </ul>
-                                    </nav>
                                 </div>
                             </div>
 
