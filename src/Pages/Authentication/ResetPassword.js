@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { TextField } from '@mui/material';
 import { AllContext } from '../../hooks/ContextData';
 import { MdLockReset } from 'react-icons/md';
 import { useContext } from 'react';
@@ -88,40 +89,47 @@ const ResetPassword = () => {
             <form onSubmit={handleNew}>
 
                 <div className=' mb-3'>
-                    <label for="currentPassword" className="form-label my-0 fst-italic ">Current Password</label>
-                    <input
-                        className=" form-control  my-0"
+                    <TextField
+                        className=' mt-0'
+                        label="Current Password"
                         type="password"
                         name="currentPassword"
                         id="currentPassword"
-                        placeholder='Enter your current password'
+                        margin="normal"
+
+                        fullWidth
                         required
                     />
                 </div>
 
                 <div className=' my-0 '>
-                    <label for="newPassword" className="form-label my-0 fst-italic  ">New Password</label>
-                    <input
-                        className=" form-control my-0 "
+                    <TextField
+                        className=' mt-0'
+                        label="New Password"
                         type="password"
                         name="newPassword"
                         id="newPassword"
-                        placeholder='Enter your new password'
-                        required />
+                        margin="normal"
+
+                        fullWidth
+                        required
+                    />
                 </div>
 
                 <label className='passwordMessage mt-0 text-center' htmlFor="">
-                    Password should be at least 8 characters and must contain a capital letter, a small letter, and a numeric character.
+                    Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.
                 </label>
 
                 <div className=' my-3'>
-                    <label for="confirmedPassword" className="form-label my-0 fst-italic ">Confirm Password</label>
-                    <input
-                        className=" form-control my-0 "
+                    <TextField
+                        className=' mt-0'
+                        label="Confirm Password"
                         type="password"
                         name="confirmedPassword"
                         id="confirmedPassword"
-                        placeholder='Enter your confirmed password'
+                        margin="normal"
+
+                        fullWidth
                         required
                     />
                 </div>

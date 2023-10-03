@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsersIcon } from "../../assets/Icons/Icons";
-import logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
+import logo from "../../assets/Image/logo/bpsa_nav_logo.png";
 import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
 import ButtonComponent from "../Common/ButtonComponent";
 import ImageComponent from "../Common/ImageComponent";
@@ -20,7 +20,7 @@ import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
-  const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
+  const { user, setUser, loading, setLoading } = useContext(AllContext);
   // console.log("Navbar Login User Data: ", user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -211,7 +211,6 @@ const Navbar = () => {
                     </>
                     :
                     <>
-                      {/* <img className="userImgNav" src={DefaultMemberImg} alt="" /> */}
                       <img className="userImgNav" src={`data:image/jpeg;base64,${loginUserPhoto}`} alt="login_user_photo" />
                     </>
                   }

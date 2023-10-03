@@ -12,7 +12,7 @@ import Loader from "../Common/Loader";
 import './ContactComponent.css';
 
 const ContactComponent = () => {
-  useTitle("ContactUs")
+  useTitle("Contact")
   const { loading, setLoading } = useContext(AllContext);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");

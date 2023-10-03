@@ -338,7 +338,8 @@ const AllMemberDirectoryPage = () => {
                                                 BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className="">
                                                         <Link className="page-link" href="#" style={{
-                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                            backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
+                                                            color: BCS?.display_value == batch ? 'white' : 'initial',
                                                         }}>{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
@@ -348,7 +349,8 @@ const AllMemberDirectoryPage = () => {
                                                 BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className="">
                                                         <Link className="page-link" href="#" style={{
-                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                            backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
+                                                            color: BCS?.display_value == batch ? 'white' : 'initial',
                                                         }} >{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
@@ -356,9 +358,12 @@ const AllMemberDirectoryPage = () => {
                                             {
                                                 BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className=" ">
-                                                        <Link className="page-link" href="#" style={{
-                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
-                                                        }}>{BCS?.display_value}</Link>
+                                                        <Link className="page-link" href="#"
+                                                            style={{
+                                                                backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
+                                                                color: BCS?.display_value == batch ? 'white' : 'initial',
+                                                            }}>
+                                                            {BCS?.display_value}</Link>
                                                     </li>
                                                 ))
                                             }

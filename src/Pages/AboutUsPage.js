@@ -8,7 +8,7 @@ import useTitle from "../hooks/useTitle";
 import '../Components/AboutUsComponent/AboutUs.css'
 
 const AboutUsPage = () => {
-  useTitle("AboutUs")
+  useTitle("About")
   return (
     <div className=' col-md-10 mx-auto'>
       <section style={{ backgroundColor: "#eee" }}>

@@ -2,5 +2,6 @@
     /* border-radius: 15px; */
     width: 350px;
     max-height: 400px;
-    float: left;
+    margin: 0 auto;
+    /* float: left; */
 }
