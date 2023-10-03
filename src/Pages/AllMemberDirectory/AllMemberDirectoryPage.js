@@ -7,6 +7,7 @@ import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
 import MemberModal from "./MemberModal";
 import './AllMemberDirectoryPage.css';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -324,16 +325,18 @@ const AllMemberDirectoryPage = () => {
                             <div className=" text-center  ">
                                 <div className=" d-flex justify-content-center align-items-center">
                                     <nav className=" ms-2 d-flex justify-content-center align-items-center "  >
-                                        <span className="fw-bold me-1">BCS Batch:</span>
-                                        <ul className="pagination my-auto py-2 ">
+                                        <span className="fw-bold me-1 bcsBatch">BCS Batch:</span>
+                                        <ul className="pagination customPagination my-auto py-2 ">
 
-                                            <li onClick={() => handleBCSId(1)} className="page-item">
-                                                <Link className="page-link" href="#">Before</Link>
+                                            <li onClick={() => handleBCSId(1)} className="page-item my-auto">
+                                                <Link>
+                                                    <MdKeyboardArrowLeft className=" fs-3" />
+                                                </Link>
                                             </li>
 
                                             {
                                                 BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="">
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
                                                         }}>{BCS?.display_value}</Link>
@@ -343,7 +346,7 @@ const AllMemberDirectoryPage = () => {
 
                                             {
                                                 BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="">
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
                                                         }} >{BCS?.display_value}</Link>
@@ -352,15 +355,17 @@ const AllMemberDirectoryPage = () => {
                                             }
                                             {
                                                 BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className=" ">
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
                                                         }}>{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
                                             }
-                                            <li onClick={() => handleBCSId(2)} className="page-item">
-                                                <Link className="page-link" href="#">Next</Link>
+                                            <li onClick={() => handleBCSId(2)} className="page-item my-auto">
+                                                <Link>
+                                                    <MdKeyboardArrowRight className=" fs-3" />
+                                                </Link>
                                             </li>
 
                                         </ul>
