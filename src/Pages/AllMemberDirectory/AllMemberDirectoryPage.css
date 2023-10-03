@@ -71,6 +71,9 @@
     background-color: rgb(192, 193, 196);
 }
 
+.customPagination {}
+
+.bcsBatch {}
 
 
 @media (min-width: 1440px) and (max-width: 2559.98px) {}
@@ -102,6 +105,13 @@
         grid-template-columns: repeat(2, 1fr);
         /* gap: 10px 0px; */
     }
+
+
+    .customPagination {
+        --bs-pagination-padding-x: 0.15rem !important;
+        --bs-pagination-padding-y: 0.01rem !important;
+        --bs-pagination-font-size: 14px !important;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 424.98px) {
@@ -119,4 +129,17 @@
     .memberDirectory {
         padding: 3px;
     }
+
+
+    .customPagination {
+        --bs-pagination-padding-x: 0.15rem !important;
+        --bs-pagination-padding-y: 0.01rem !important;
+        --bs-pagination-font-size: 14px !important;
+    }
+
+    .bcsBatch {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
 }
