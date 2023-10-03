@@ -9,18 +9,19 @@ import MobileMenu from "./MobileMenu";
 import Styles from "./Navbar.module.css";
 import { useContext } from "react";
 import { AllContext } from "../../hooks/ContextData";
-import { signout } from "../../utlis/helper";
+import { getLocalStorage, removeLocalStorage, signout } from "../../utlis/helper";
 import { toast } from "react-hot-toast";
 import { GoFileDirectoryFill } from 'react-icons/go';
 import { FaSignOutAlt, FaBloggerB, FaExchangeAlt } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { RiAdminFill } from 'react-icons/ri';
+import Loader from "../Common/Loader";
 import './Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
   const { user, setUser, userDetails, setUserDetails, token, setToken, loading, setLoading } = useContext(AllContext);
-
+  // console.log("Navbar Login User Data: ", user)
   const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [show, setShow] = useState(false);
@@ -28,7 +29,8 @@ const Navbar = () => {
   const [navColor, setNavColor] = useState("");
   const [userNewData, setUserNewData] = useState();
 
-  // console.log("userNewData :", userNewData);
+  const loginUserPhoto = getLocalStorage("loginUserPhoto");
+  // console.log("Navbar loginUserPhoto :", loginUserPhoto);
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
@@ -63,7 +65,8 @@ const Navbar = () => {
 
   // user new data
   useEffect(() => {
-    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+    setLoading(true);
+    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
       .then(res => res.json())
       .then(data => {
         // console.log("Member User table  Data: ", data.value)
@@ -77,7 +80,12 @@ const Navbar = () => {
       setUser("");
       toast.success('User Logout Successfully')
       navigate("/login")
+      removeLocalStorage("loginUserPhoto");
     })
+  }
+
+  if (loading) {
+    return <Loader></Loader>
   }
 
 
@@ -87,9 +95,11 @@ const Navbar = () => {
       <div className="hidden md:block">
         <div
           className={`flex items-center justify-between ${location?.pathname === "/"
-            ? `${navColor ? "bg-main" : "bg-transparent"}`
-            : "bg-main"
-            }  px-20 py-2`}
+            // ? `${navColor ? "bg-main" : "bg-transparent"}`
+            // ? `${navColor ? "bg-main" : "bg-main"}`
+            ? `${navColor ? "bg-[#508bf2]" : "bg-[#508bf2]"}`
+            : "bg-[#508bf2]"
+            } navPadding  py-2`}
         >
           <div
             onClick={() => {
@@ -186,7 +196,7 @@ const Navbar = () => {
           </div>
 
 
-          {user?.email
+          {user?.UserID
             ?
             <>
               <div className="dropdown">
@@ -201,24 +211,23 @@ const Navbar = () => {
                     </>
                     :
                     <>
-                      <img className="userImgNav" src={DefaultMemberImg} alt="" />
+                      {/* <img className="userImgNav" src={DefaultMemberImg} alt="" /> */}
+                      <img className="userImgNav" src={`data:image/jpeg;base64,${loginUserPhoto}`} alt="login_user_photo" />
                     </>
                   }
                 </Link>
                 <ul className="dropdown-menu navDropdownMenu">
-                  {/* <li><Link className="btn btn-secondary btn-sm w-full">{userNewData?.name}</Link></li> */}
                   <li><Link className=" navDropdownbtn    py-1    w-full d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
-                  <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />change Password</Link></li>
+                  <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />Change Password</Link></li>
                   <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
-                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
-                  {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
-                  <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
-                  {user.role == "admin" &&
-                    <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
+                  <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
+                  <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
+                  {user?.MemberRole == "admin" &&
+                    <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>
                   }
 
-                  {user.role == "superAdmin" &&
-                    <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
+                  {user?.MemberRole == "super_admin" &&
+                    <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Post Admin Assign  </Link></li>
                   }
                   <li>
                     <div
@@ -235,7 +244,7 @@ const Navbar = () => {
             <>
               <div
                 onClick={() => { navigate("/login"); }}
-                className={`d-flex bg-second tracking-[1px] rounded-md items-center text-white px-3 py-2 cursor-pointer `}
+                className={`d-flex bg-[#0742a9] tracking-[1px] rounded-md items-center text-white px-3 py-2 cursor-pointer `}
               >
                 <UsersIcon size={24} className="mr-2" />
                 <ButtonComponent title="Login" className="" />
@@ -259,7 +268,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {user?.email
+        {user?.UserID
           ?
           <>
             <div className="dropdown">
@@ -281,17 +290,17 @@ const Navbar = () => {
 
               <ul className="dropdown-menu navDropdownMenu">
                 <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/memberProfile"><CgProfile className="navDropdownIcon   me-2" /> My Profile </Link></li>
-                <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />change Password</Link></li>
+                <li><Link className=" navDropdownbtn  w-full  d-flex align-items-center " to="/resetPassword"><FaExchangeAlt className="navDropdownIcon   me-2" />Change Password</Link></li>
                 <li><Link className=" navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/memberDirectory "><GoFileDirectoryFill className="navDropdownIcon my-auto me-2" /> Directory</Link></li>
-                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blogs  </Link></li>
+                <li><Link className="navDropdownbtn   w-full my-1 d-flex   align-items-center" to="/publishedBlogs"><FaBloggerB className="navDropdownIcon my-auto me-2" />Posts  </Link></li>
                 {/* <li><Link className="btn btn-secondary  btn-sm w-full my-1" to="/memberAllBlog">My Blogs </Link></li> */}
-                <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Blog Entry  </Link></li>
-                {user.role == "admin" &&
-                  <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Blog  </Link></li>
+                <li><Link className=" navDropdownbtn w-full my-1 d-flex   align-items-center" to="/blog_entry"><FaBloggerB className="navDropdownIcon my-auto me-2" />Post Entry  </Link></li>
+                {user?.MemberRole == "admin" &&
+                  <li><Link className="navDropdownbtn w-full my-1 d-flex   align-items-center" to="/adminAllBlog"><RiAdminFill className="navDropdownIcon my-auto me-2" />Admin's All Post  </Link></li>
                 }
 
-                {user.role == "super admin" &&
-                  <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Blog Admin Assign  </Link></li>
+                {user?.MemberRole == "super_admin" &&
+                  <li><Link className="navDropdownbtn w-full my-1 d-flex  align-items-center" to="/blogAdminAssign"><RiAdminFill className="navDropdownIcon my-auto me-2" />Post Admin Assign  </Link></li>
                 }
                 <li>
                   <div

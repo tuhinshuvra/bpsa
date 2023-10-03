@@ -1,29 +1,38 @@
-import { Link, useNavigate } from "react-router-dom";
-import DirectoryImg1 from '../../assets/Image/messages/bdPolice03.jfif';
-import DirectoryImg2 from '../../assets/Image/messages/bdPolice02.jfif';
-import DirectoryImg3 from '../../assets/Image/messages/bdPolice04.jfif';
-import DirectoryImg4 from '../../assets/Image/messages/bdPolice05.jfif';
-import DirectoryImg5 from '../../assets/Image/messages/bdPolice06.jfif';
-import DirectoryImg6 from '../../assets/Image/messages/bdPolice07.jfif';
+import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
-import './AllMemberDirectoryPage.css';
 import { AllContext } from "../../hooks/ContextData";
 import axios from "axios";
 import PaginationComponent from "../../Components/Common/PaginationComponent";
+import Loader from "../../Components/Common/Loader";
+import MemberModal from "./MemberModal";
+import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
-    const { user } = useContext(AllContext);
+
+    const [BcsList, setBcsList] = useState();
+    const [rank, setRank] = useState();
+    const [MainUnit, setMainUnit] = useState();
+    const [blood, setBlood] = useState();
+    const [Designation, setDesignation] = useState();
+    const [district, setDistrict] = useState();
+    const { user, loading, setLoading, memberBCSBatch } = useContext(AllContext);
     const [page, setPage] = useState(1);
     const [start, setStart] = useState(0);
-    const [end, setEnd] = useState(10);
-    const [showperPage, setShowPerPage] = useState(10);
+    const [end, setEnd] = useState(12);
+
+    const [BcsAddress, setBcsAddress] = useState();
+
+
+    const [showperPage, setShowPerPage] = useState(12);
     const [accessToken, setAccessToken] = useState('');
-    const [batch, setBatch] = useState();
+    const [batch, setBatch] = useState(0);
     const [searchBatch, setSearchBatch] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState('');
     const [apiResponse, setApiResponse] = useState(null);
-    const [filterData,setFilterData]=useState(null);
+    const [filterData, setFilterData] = useState(null);
     const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
     const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
     const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
@@ -34,6 +43,38 @@ const AllMemberDirectoryPage = () => {
         'Content-Type': 'application/x-www-form-urlencoded',
     };
     const data = 'grant_type=client_credentials';
+
+    const [selectedPage, setSelectedPage] = useState(1);
+    const totalPages = 50; // Total number of pages
+
+
+    // console.log("AllMemberDirectoryPage filterData ", filterData);
+    // console.log("AllMemberDirectoryPage memberProfile ", memberProfile);
+
+    const handlePageClick = (newPage) => {
+        setSelectedPage(newPage);
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+
+    const handldelModal = (memberId) => {
+        openModal()
+        setModalData(memberId)
+    }
+    const modalMember = filterData?.find(mem => mem?.employeecode === modalData);
+    // console.log("modalData:", modalData);
+    // console.log("showedMember:", modalMember);
+
+    useEffect(() => {
+        setBatch({ memberBCSBatch });
+    }, [memberBCSBatch])
 
     useEffect(() => {
         const getAccessToken = async () => {
@@ -46,19 +87,41 @@ const AllMemberDirectoryPage = () => {
         }
         getAccessToken();
     }, [])
+
+    useEffect(() => {
+        const BcsLIST = async () => {
+            if (!accessToken) {
+                return;
+            }
+
+            await axios.get("https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/cadrelist", {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            })
+                .then(result => {
+                    setBcsList(result.data.items);
+                })
+        }
+        BcsLIST();
+
+    }, [accessToken])
+
+
     useEffect(() => {
         const batchCadre = async () => {
             if (!accessToken) {
                 return;
             }
-            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/BP7303027822`;
+            const apiUrl = `https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`;
             const headers = {
                 'Authorization': `Bearer ${accessToken}`,
             };
 
             try {
                 const response = await axios.get(apiUrl, { headers });
-                setBatch(response.data.items[0].cadre);
+                setBatch(response.data.items[0]?.cadre);
+
             } catch (error) {
                 console.error('Error calling API:', error);
             }
@@ -67,6 +130,7 @@ const AllMemberDirectoryPage = () => {
     }, [accessToken])
 
     useEffect(() => {
+        setLoading(true);
         const batchData = async () => {
             if (!accessToken) {
                 return;
@@ -82,34 +146,40 @@ const AllMemberDirectoryPage = () => {
                 const response = await axios.get(apiUrl, { headers });
                 setApiResponse(response.data?.items);
                 setFilterData(response.data?.items)
+                setLoading(false);
+                // console.log(apiResponse)
+                setRank([...new Set(response.data?.items.map(obj => obj.rank))]);
+                setMainUnit([...new Set(response.data?.items.map(obj => obj.main_unit))]);
+                setBlood([...new Set(response.data?.items.map(obj => obj.blood_group))]);
+                setDesignation([...new Set(response.data?.items.map(obj => obj.current_designation))]);
+                setDistrict([...new Set(response.data?.items.map(obj => obj.homedistrict))]);
+
             } catch (error) {
                 console.error('Error calling API:', error);
+                setLoading(false);
             }
         }
         batchData();
     }, [accessToken, batch])
 
-    if (apiResponse) {
-       apiResponse.map(apiImage=>{
-        console.log(apiImage.pic)
-       })
-    }
+    useEffect(() => {
+        const index = BcsList?.findIndex((element) => element.display_value == batch);
+        setBcsAddress(index);
+
+    }, [batch, BcsList])
+
 
     const [searchData, setSearchData] = useState({
-        batch: "22",
+        batch: batch,
         searchKeyword: "",
+        phoneNumber: "",
         rank: "",
         unit: "",
-        subUnit: "",
+        blood: "",
         designation: "",
         district: "",
     });
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
-
-    const navigate = useNavigate();
-
-
-    // console.log("Search Data : ", searchData);
 
     const getSearchData = (event) => {
         const field = event.target.name;
@@ -120,106 +190,130 @@ const AllMemberDirectoryPage = () => {
             [field]: value
         }));
     };
+
     const handleSearchResult = (event) => {
         event.preventDefault();
-        let filterData=apiResponse;
-        if(searchData?.searchKeyword){
-          filterData=filterData.filter(batchData =>batchData.employeename.includes(searchData?.searchKeyword));
-          console.log(filterData)
+        let filterData = apiResponse;
+        if (searchData?.searchKeyword) {
+            filterData = filterData.filter(batchData => batchData.employeenameinenglish.toLowerCase().includes(searchData?.searchKeyword.toLowerCase()));
+            console.log(filterData)
         }
-        if(searchData.rank!='Select Rank'&&searchData.rank){
-            filterData=filterData.filter(batchData => searchData.rank === batchData.rank);
+        if (searchData.phoneNumber) {
+            filterData = filterData.filter(batchData => batchData.mobilephone.includes(searchData?.phoneNumber));
         }
-        if(searchData.unit!='Select Main Unit'&&searchData.unit){
-            filterData=filterData.filter(batchData => searchData.unit === batchData.main_unit);
+        if (searchData.rank != 'Select Rank' && searchData.rank) {
+            filterData = filterData.filter(batchData => searchData.rank == batchData.rank);
         }
-        if(searchData.district!=="Own District"&&searchData.district){
-            filterData=filterData.filter(batchData => searchData.district === batchData.homedistrict);
+        if (searchData.unit != 'Select Main Unit' && searchData.unit) {
+            filterData = filterData.filter(batchData => searchData.unit == batchData.main_unit);
         }
-        console.log("Search Data:", searchData);
+        if (searchData.district !== "Own District" && searchData.district) {
+            filterData = filterData.filter(batchData => searchData.district == batchData.homedistrict);
+        }
+        if (searchData.designation != 'Select Designation' && searchData.designation) {
+            filterData = filterData.filter(batchData => searchData.designation == batchData.current_designation);
+        }
+        if (searchData.blood != 'Select Blood group' && searchData.blood) {
+            filterData = filterData.filter(batchData => searchData.blood == batchData.blood_group);
+        }
+
+        // console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
-        // navigate('/memberDirectorySearchResult')
     }
 
     const handleChange = (event, value) => {
-
         setPage(value);
-
         setStart(showperPage * value - showperPage);
         setEnd(showperPage * value);
     };
+
+    const handleBCSId = (status) => {
+        if (status == 1) {
+            if (BcsAddress < 0) {
+                setBcsAddress(BcsList.length - 1);
+            }
+            else {
+                setBcsAddress(BcsAddress - 1);
+            }
+        }
+        if (status == 2) {
+            if (BcsAddress >= BcsList.length) {
+                setBcsAddress(0)
+            }
+            else {
+                setBcsAddress(BcsAddress + 1)
+            }
+        }
+        console.log(status)
+    }
+    if (BcsAddress) {
+        console.log(BcsAddress)
+    }
+    if (loading) {
+        return <Loader></Loader>
+    }
+
+
+
     return (
-        <div className=' col-md-10 mx-auto'>
+        <div className=' col-md-10 col-12 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
-                <div className="container pt-3 pb-1 ">
+                <div className="container gx-lg-5 gx-md-4 gx-0 pt-3 pb-1 ">
 
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        <h2 className='fw-bold text-center text-success'>MEMBER DIRECTORY</h2>
+                        <h2 className='fw-bold text-center'>MEMBER DIRECTORY</h2>
                     </nav>
 
                     <div className=" d-lg-flex memberDirectory ">
                         <div className=" col-lg-3 px-2">
-                            <p className=" fs-5 fw-bold text-center   rounded-lg py-1 text-white ">Search Pannel</p>
+                            <p className=" fs-5 fw-bold text-center rounded-lg py-1 ms-1 ">Search Pannel</p>
                             <form id="searchForm" onSubmit={handleSearchResult}>
                                 <div className=" d-md-flex d-lg-inline">
-                                    <label htmlFor="exampleInputEmail1" className="form-label text-white my-0 d-none d-lg-block">Search Keyword</label>
-                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-0 my-1 searchField mx-lg-0 mx-1" placeholder="Enter searchKeyword" />
-
-
-                                    <select onChange={getSearchData} name="rank" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <label htmlFor="searchKeyword" className="form-label my-0 d-none d-lg-block fw-bold">Search name</label>
+                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter name" />
+                                    <label htmlFor="phoneNumber" className="form-label my-0 d-none d-lg-block fw-bold">search mobile number</label>
+                                    <input onChange={getSearchData} type="text" name="phoneNumber" aria-label="phoneNumber" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter mobile number" />
+                                    <select onChange={getSearchData} name="rank" className="form-select my-2 mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
-                                        <option value="এসপি">এসপি</option>
-                                        <option value="অ্যাডিশনাল ডিআইজি">অ্যাডিশনাল ডিআইজি</option>
-                                        <option value="RankThree">RankThree</option>
-                                        <option value="RankFour">RankFour</option>
+                                        {
+                                            rank && rank.map(rank => <option value={rank} key={rank}>{rank}</option>)
+                                        }
                                     </select>
                                 </div>
 
                                 <div className=" d-md-flex d-lg-inline">
-                                    <select onChange={getSearchData} name="unit" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="unit" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Main Unit</option>
-                                        <option value="পুলিশ হেডকোয়ার্টার্স">পুলিশ হেডকোয়ার্টার্স</option>
-                                        <option value="খুলনা রেঞ্জ">খুলনা রেঞ্জ</option>
-                                        <option value="N/A">N/A</option>
-                                        <option value="ডিএমপি, ঢাকা">ডিএমপি, ঢাকা</option>
+                                        {
+                                            MainUnit && MainUnit.map(MainUnit => <option value={MainUnit} key={MainUnit}>{MainUnit}</option>)
+                                        }
                                     </select>
-
-
-                                    <select onChange={getSearchData} name="subUnit" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
-                                        <option defaultValue>Select Sub Unit</option>
-                                        <option value="SubUnitOne">SubUnitOne</option>
-                                        <option value="SubUnitTwo">SubUnitTwo</option>
-                                        <option value="SubUnitThree">SubUnitThree</option>
-                                        <option value="SubUnitFour">SubUnitFour</option>
+                                    <select onChange={getSearchData} name="blood" className="form-select my-2 mx-lg-0 mx-1">
+                                        <option defaultValue>Select Blood group</option>
+                                        {
+                                            blood && blood.map(blood => <option value={blood} key={blood}>{blood}</option>)
+                                        }
                                     </select>
                                 </div>
 
                                 <div className=" d-md-flex d-lg-inline">
-                                    <select onChange={getSearchData} name="designation" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="designation" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Designation</option>
-                                        <option value="DesignationOne">DesignationOne</option>
-                                        <option value="DesignationTwo">DesignationTwo</option>
-                                        <option value="DesignationThree">DesignationThree</option>
-                                        <option value="DesignationFour">DesignationFour</option>
+                                        {
+                                            Designation && Designation.map(Designation => <option value={Designation} key={Designation}>{Designation}</option>)
+                                        }
                                     </select>
 
-                                    <select onChange={getSearchData} name="district" className="form-select my-3 mx-lg-0 mx-1" aria-label="Default select example">
+                                    <select onChange={getSearchData} name="district" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Own District</option>
-                                        <option value="পাবনা">পাবনা</option>
-                                        <option value="নড়াইল">নড়াইল</option>
-                                        <option value="খুলনা">খুলনা</option>
-                                        <option value="মাগুরা">মাগুরা</option>
-                                        <option value=" সুনামগঞ্জ"> সুনামগঞ্জ</option>
-                                        <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
-                                        <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
-                                        <option value="সাতক্ষীরা">সাতক্ষীরা</option>
-                                        <option value="ফরিদপুর">ফরিদপুর</option>
-                                        <option value="গাজীপুর">গাজীপুর</option>
+                                        {
+                                            district && district.map(district => <option value={district} key={district}>{district}</option>)
+                                        }
                                     </select>
                                 </div>
 
-                                <button type="submit" className=" btn btn-success w-full btn-sm mt-lg-4 mt-2 mb-lg-0 mb-4">Search</button>
+                                <button type="submit" className=" btn btn-primary w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
 
                             </form>
                         </div>
@@ -229,115 +323,94 @@ const AllMemberDirectoryPage = () => {
                             {/* bcs batch pagination */}
                             <div className=" text-center  ">
                                 <div className=" d-flex justify-content-center align-items-center">
-                                    <h6 className=" text-white ">BCS Batch:</h6>
-
-                                    <nav className=" d-none d-lg-block ms-2" aria-label="Page navigation example" >
+                                    <nav className=" ms-2 d-flex justify-content-center align-items-center "  >
+                                        <span className="fw-bold me-1">BCS Batch:</span>
                                         <ul className="pagination my-auto py-2 ">
-                                            <li className="page-item disabled">
-                                                <Link className="page-link">Previous</Link>
+
+                                            <li onClick={() => handleBCSId(1)} className="page-item">
+                                                <Link className="page-link" href="#">Before</Link>
                                             </li>
-                                            <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">2</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">3</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">5</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">6</Link></li>
-                                            <li className=" fs-5 mx-2 text-white fw-bolder">... ... </li>
-                                            <li onClick={() => setBatch(18)} className="page-item"><Link className="page-link" href="#">18</Link></li>
-                                            <li onClick={() => setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li>
-                                            <li onClick={() => setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li>
-                                            <li onClick={() => setBatch(21)} className="page-item"><Link className="page-link" href="#">21</Link></li>
-                                            <li onClick={() => setBatch(22)} className="page-item active" aria-current="page">
-                                                <Link className="page-link" href="#">22 <span className="visually-hidden">(current)</span></Link>
+
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }}>{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }} >{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }}>{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            <li onClick={() => handleBCSId(2)} className="page-item">
+                                                <Link className="page-link" href="#">Next</Link>
                                             </li>
-                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">23</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
-                                            <li onClick={() => setBatch(31)} className="page-item"><Link className="page-link" href="#">31</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
+
                                         </ul>
                                     </nav>
 
-                                    {/* for mobile and tab */}
-                                    <nav className=" d-lg-none  ms-2" aria-label="Page navigation example" >
-                                        <ul className="pagination my-auto py-2 ">
-                                            <li className="page-item disabled">
-                                                <Link className="page-link">Previous</Link>
-                                            </li>
-                                            <li className="page-item"><Link className="page-link" href="#">1</Link></li>
-                                            <li className=" fs-5 mx-2 text-white fw-bolder">...</li>
-                                            <li className="page-item active" aria-current="page">
-                                                <Link className="page-link" href="#">22 <span className="visually-hidden">(current)</span></Link>
-                                            </li>
-                                            <li className="page-item"><Link className="page-link" href="#">25</Link></li>
-                                            <li className="page-item"><Link className="page-link" href="#">Next</Link></li>
-                                        </ul>
-                                    </nav>
 
                                 </div>
                             </div>
 
-                            <div className="d-flex justify-content-center align-items-baseline">
-                                {searchButtonClicked && (
-                                    <>
-                                        <h4 className="text-white">Data is showing for:</h4>
-                                        <ul className="text-white d-flex">
-                                            {Object.entries(searchData).map(([key, value]) => (
-                                                value !== "" && ( // Only render if the value is not empty
-                                                    <div key={key} className="mx-1">
-                                                        {value}
-                                                    </div>
-                                                )
-                                            ))}
-                                        </ul>
-                                    </>
-                                )}
-                            </div>
-
-                            {/* Default Member Show */}
                             <div className="defaultDataShow">
                                 {
-                                    filterData && filterData.slice(start, end).map((row, index) => <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" key={index}>
-                                        <div className="col-md-5 my-auto d-flex flex-column   align-items-center">
-                                        <img src={`data:image/jpeg;base64,${row.pic}`} className="memberDirectoryImg" alt="Image" />
-                                            <p className="fw-bold my-0">{row.employeename}</p>
-                                            {
-                                                row.current_designation ? <p className=" my-0"> <b> Designation </b>: {row.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
-                                            }
+                                    filterData && filterData.slice(start, end).map((member, index) =>
+                                        <div className="d-flex px-md-3 px-1  py-2 directoryMember shadow-lg my-1 mx-1" onClick={() => handldelModal(member?.employeecode)} key={index}>
 
-                                        </div>
-                                        <div className="col-md-7">
-                                            <div className=" d-flex justify-content-between">
-                                                <div className=" ">
-                                                    <p className="my-0"><b> BP/SIV No.</b>: {row.employeecode}</p>
-                                                    <p className="my-0"><b> Rank</b>   : {row.rank}</p>
-                                                    {
-                                                        row.unit ? <p className="my-0"><b> Main Unit</b>: {row.main_unit}</p> : <p className="my-0"><b> Main Unit</b>:N/A</p>
-                                                    }
-                                                    <p className="my-0"><b>Present work Place  </b>  : {row.present_workplace}</p>
-                                                    <p className="my-0"> <b>Mobile no  </b>    : {row.mobilephone}</p>
-                                                    {/* <p className="my-0"> <b>Email     </b>      : {row.email}</p> */}
-                                                    {
-                                                        row.email ? <> <p className="my-0"> <b>Email     </b>      : {row.email}</p></> : <> <p className="my-0"> <b>Email     </b>      :N/A</p></>
-                                                    }
-                                                    <p className="my-0"><b> Degree  </b>  : {row.degree} </p>
-                                                    <p className="my-0"><b> Gender </b> :  {row.idsex}</p>
-                                                    <p className="my-0"><b> Own District </b> : {row.homedistrict}</p>
-
+                                            <div className="mx-auto d-flex flex-column">
+                                                <div className=" d-flex justify-content-center">
+                                                    <img src={`data:image/jpeg;base64,${member?.pic}`} className="memberDirectoryImg" alt="member_Image" />
                                                 </div>
+                                                <p className="fw-bold my-0">{member?.employeenameinenglish}</p>
+                                                {
+                                                    member.current_designation ? <p className=" my-0"> <b> Designation </b>: {member.current_designation}</p> : <p className=" my-0"> <b> Designation </b>:N/A</p>
+                                                }
+                                                <p className="my-0"><b> Rank</b>   : {member?.rankinenglish}</p>
 
+                                                <p className="my-0"><b> BCS Batch.</b>: {member?.cadre}</p>
+                                                <p className="my-0"> <b>Mobile no  </b>    : {member?.mobilephone}</p>
+                                                <p className="my-0"> <b>Blood Group  </b>    : {member?.blood_group}</p>
                                             </div>
-                                        </div>
-                                    </div>)
+
+                                        </div>)
                                 }
                             </div>
 
+                            <div className="">
+                                <MemberModal
+                                    isOpen={isModalOpen}
+                                    onClose={closeModal}
+                                    modalMember={modalMember}
+                                />
+                            </div>
+
+
                             <PaginationComponent
-                                count={Math.ceil(apiResponse?.length / showperPage)}
+                                count={Math.ceil(filterData?.length / showperPage)}
                                 pageNumber={page}
                                 handleChange={handleChange}
-                                className="flex items-center justify-between px-10 py-3"
+                                className="flex items-center justify-between px-lg-5 py-3"
                                 start={start}
                                 end={end}
-                                total={apiResponse?.length}
+                                total={filterData?.length}
                                 isShow={true}
                             />
                         </div>

@@ -6,12 +6,13 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+
 const MemberAllBlog = () => {
-    useTitle("MemberAllBlog")
+    useTitle("MemberAllPost");
     const { user } = useContext(AllContext);
     let count = 1;
-    const [blogs, setBlogs] = useState();
-    const [pendingBlogs, setPendingBlogs] = useState();
+    const [posts, setPosts] = useState();
+    const [pendingPosts, setPendingPosts] = useState();
     useEffect(() => {
         fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
@@ -26,15 +27,15 @@ const MemberAllBlog = () => {
                 return res.json();
             })
             .then(result => {
-                const filterData = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status == "Approved");
-                setBlogs(filterData);
-                const filterData2 = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status != "Approved");
-                setPendingBlogs(filterData2);
+                const filterData = result.data.blog.filter(post => post?.memberName == user.name && post?.status == "Approved");
+                setPosts(filterData);
+                const filterData2 = result.data.blog.filter(post => post?.memberName == user.name && post?.status != "Approved");
+                setPendingPosts(filterData2);
             })
             .catch(error => console.log(error));
     }, [])
-    if (blogs) {
-        console.log(blogs);
+    if (posts) {
+        console.log(posts);
     }
     const formatDate = (dateString) => {
         const options = { year: 'numeric', day: '2-digit', month: '2-digit' };
@@ -47,34 +48,34 @@ const MemberAllBlog = () => {
             <div className="row mt-5 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                        <h4 className=' text-center'>Approved Blogs </h4>
+                        <h4 className=' text-center'>Approved Posts</h4>
                     </nav>
                 </div>
             </div>
             {
-                blogs && blogs.map(blog => (
-                    <div className="card blogArea my-1" key={blog?.id}>
+                posts && posts.map(post => (
+                    <div className="card blogArea my-1" key={post?.id}>
                         <div className="d-flex">
                             <div className="col-md-10">
                                 <div className="card-body">
-                                    <h5 className=" ">{blog?.title}</h5>
+                                    <h5 className=" ">{post?.title}</h5>
                                     {/* <p className=" my-0 ">{blog?.description}</p> */}
-                                    <p>{blog?.summary}</p>
+                                    <p>{post?.summary}</p>
                                     <div className=' d-flex justify-content-evenly'>
                                         <div className=' d-flex col-md-5 me-auto   my-0'>
-                                            <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+                                            <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {post?.memberName} </small></p>
 
-                                            <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
+                                            <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(post?.created_at)}</small></p>
                                             {/* <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p> */}
                                         </div>
                                         <div>
-                                            <Link to={`/blogDetails/${blog.id}?source=memberAllBlog`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Show Details</Link>
+                                            <Link to={`/blogDetails/${post.id}?source=memberAllBlog`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Show Details</Link>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-2 my-auto">
-                                <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
+                                <img src={post.image} className="memberBlogImg rounded-lg" alt="..." />
                             </div>
 
                         </div>
@@ -85,35 +86,35 @@ const MemberAllBlog = () => {
                 <div className="row mt-5 mb-2">
                     <div className="col">
                         <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                            <h4 className=' text-center'>Pending Blogs </h4>
+                            <h4 className=' text-center'>Pending Posts </h4>
                         </nav>
                     </div>
                 </div>
                 {
-                    pendingBlogs && pendingBlogs.map(blog => (
-                        <div className="card blogArea my-1" key={blog?.id}>
+                    pendingPosts && pendingPosts.map(post => (
+                        <div className="card blogArea my-1" key={post?.id}>
                             <div className="d-flex">
                                 <div className="col-md-10">
                                     <div className="card-body">
-                                        <h5 className=" ">{blog?.title}</h5>
+                                        <h5 className=" ">{post?.title}</h5>
                                         {/* <p className=" my-0 ">{blog?.description}</p> */}
-                                        <p>{blog.summary}</p>
+                                        <p>{post.summary}</p>
                                         <div className=' d-flex justify-content-evenly'>
                                             <div className=' d-flex col-md-5 me-auto   my-0'>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {blog?.memberName} </small></p>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Blogger:</b> {post?.memberName} </small></p>
 
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(blog?.created_at)}</small></p>
-                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {blog?.status}</small></p>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> Published:</b> {formatDate(post?.created_at)}</small></p>
+                                                <p className="card-text my-0"><small className="text-body-secondary"> <b> status:</b> {post?.status}</small></p>
                                             </div>
                                             <div>
-                                                <Link to={`/blogDetails/${blog?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg'>Show Details</Link>
-                                                <Link to={`/updateBlog/${blog?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Edit</Link>
+                                                <Link to={`/blogDetails/${post?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg'>Show Details</Link>
+                                                <Link to={`/updateBlog/${post?.id}`} className='text-white uppercase bg-main px-[2vw] py-[2vh] mx-5 rounded-lg '>Edit</Link>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-2 my-auto">
-                                    <img src={blog.image} className="memberBlogImg rounded-lg" alt="..." />
+                                    <img src={post.image} className="memberBlogImg rounded-lg" alt="..." />
                                 </div>
 
                             </div>

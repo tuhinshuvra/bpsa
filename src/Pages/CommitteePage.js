@@ -13,8 +13,8 @@ import bpsaLogo from "../assets/Image/logo/bpsa_logo_removebg.png";
 import TextField from "@mui/material/TextField";
 import ButtonComponent from "../Components/Common/ButtonComponent";
 import PaginationComponent from "../Components/Common/PaginationComponent";
-import '../Components/CommitteeComponent/CommitteeComponent.css';
 import useTitle from '../hooks/useTitle';
+import '../Components/CommitteeComponent/CommitteeComponent.css';
 
 const columns = [{ label: "পরিচিতি" }, { label: "নাম, পদবি " }];
 
@@ -111,12 +111,12 @@ const CommitteePage = () => {
       <section style={{ backgroundColor: "#eee" }}>
         <div className="container pt-3 pb-5 ">
           <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-            <h2 className='fw-bold text-center text-success'>COMMITTEE</h2>
+            <h2 className='fw-bold text-center'>COMMITTEE</h2>
           </nav>
           <div>
             <div className='col-lg-3 ms-auto '>
               <div className='d-flex align-items-center '>
-                <button className='btn btn-primary btn-sm w-1/2   me-1' type="submit">Select Year:</button>
+                <button className='btn btn-secondary btn-sm w-1/2   me-1' type="submit">Select Year:</button>
                 <select
                   id="selectMenu"
                   onChange={(e) => handleChangeYear(parseInt(e.target.value))}
@@ -136,17 +136,17 @@ const CommitteePage = () => {
                 <img src={policeLogo} className='comPoliceLogo' alt="" />
 
                 <div className="text-center py-4 ">
-                  <h2 className="text-sm md:text-2xl  fw-bold text-white ">
+                  <h2 className="text-sm md:text-2xl  fw-bold  ">
                     বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
                   </h2>
-                  <h2 className="text-sm md:text-xl font-semibold text-white">
-                    কেন্দ্রীয় কার্যনির্বাহী কমিটি- {igpData?.Association_Year}
+                  <h2 className="text-sm md:text-xl font-semibold ">
+                    কেন্দ্রীয় কার্যনির্বাহী কমিটি {igpData?.Association_Year}
                   </h2>
                 </div>
                 <img src={bpsaLogo} className='comBPSALogo' alt="" />
               </div>
 
-              <h5 className="text-center text-sm font-semibold md:text-xl text-white">
+              <h5 className="text-center text-sm font-semibold md:text-xl  ">
                 {igpData?.designation}
               </h5>
 
@@ -158,17 +158,11 @@ const CommitteePage = () => {
                 <img src={igpData?.photo} className='comIGPPhoto mx-auto' alt="" />
 
               </div>
-              <h5 className="text-center text-sm md:text-xl text-white">
+              <h5 className="text-center text-sm md:text-xl ">
                 {igpData?.Name} <br /> {igpData?.Officail_Designation}
               </h5>
-
               <div>
-                {/* <div className=" text-center  mt-4 mb-2">
-              <button onClick={() => handleChangeYear(2023)} variant="contained" className='mx-1 btn btn-success btn-sm'>2023</button>
-              <button onClick={() => handleChangeYear(2022)} variant="contained" className='mx-1 btn btn-success btn-sm'>2022</button>
-              <button onClick={() => handleChangeYear(2021)} variant="contained" className='mx-1 btn btn-success btn-sm'>2021</button>
-              <button onClick={() => handleChangeYear(2020)} variant="contained" className='mx-1 btn btn-success btn-sm'>2020</button>
-            </div> */}
+
                 <div className="mx-auto mb-4">
                   <Paper className="p-4 mb-2">
                     <div className="">
@@ -186,7 +180,7 @@ const CommitteePage = () => {
                           setSelectedItem("All");
                         }}
                         className={`${selectedItem === "All"
-                          ? " bg-success text-white"
+                          ? "bg-[#E2E3E7] text-black"
                           : "border border-second"
                           }  px-4 py-1 m-1 rounded-sm `}
 
@@ -205,7 +199,7 @@ const CommitteePage = () => {
                                   setEnd(showperPage * 1);
                                 }}
                                 className={`${item === selectedItem
-                                  ? "bg-success text-white"
+                                  ? "bg-[#E2E3E7] text-black"
                                   : "border border-second"
                                   }  px-2 py-1 m-1 rounded-sm`}
                                 title={item}
@@ -221,7 +215,7 @@ const CommitteePage = () => {
                   ) : (
                     <Paper sx={{ width: "100%", overflow: "hidden" }}>
                       <TableContainer>
-                        <Table stickyHeader aria-label="sticky table">
+                        <Table stickyHeader aria-label="sticky table" style={{ border: "1.5px solid white" }}>
                           <TableHead>
                             <TableRow>
                               {columns.map((column, index) => (
@@ -229,9 +223,10 @@ const CommitteePage = () => {
                                   style={{
                                     fontWeight: 600,
                                     textAlign: "center",
-                                    backgroundColor: "#198754",
-                                    color: "white",
+                                    backgroundColor: "#E2E3E7",
+                                    color: "black",
                                     fontSize: 18,
+                                    fontFamily: "SolaimanLipi"
                                   }}
                                   key={index}
                                 >
@@ -258,7 +253,7 @@ const CommitteePage = () => {
                                       <TableCell>
                                         <p className=" ">
                                           <div className="flex items-center flex-col md:flex-row">
-                                            <img src={row?.photo} className='comNewRowPhoto shadow-lg' alt="" />
+                                            <img src={row?.photo} className='comNewRowPhoto ' alt="" />
                                             <div className="ml-4 md:text-left">
                                               <p className="text-md  m-0 pb-1 font-semibold">
                                                 {row?.Name}

@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
 import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
+
 const Blog_Details = () => {
     useTitle("BlogDetails");
     const location = useLocation();

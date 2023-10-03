@@ -20,11 +20,11 @@ import { useNavigate } from "react-router-dom";
 const TestimonialComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className=" bg-blue-600/70 py-3 rounded-2xl ">
+    <div className=" bg-[#E2E3E7] py-3 rounded-2xl ">
       <HeadingComponent1
         first="Leadership "
         second="Message"
-        className={`text-center text-white pb-4`}
+        className={`text-center pb-4`}
       />
 
       <div className="col-11 mx-auto  grid md:grid-cols-3 gap-10 ">

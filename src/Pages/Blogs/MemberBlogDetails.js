@@ -8,13 +8,13 @@ import useTitle from '../../hooks/useTitle';
 import { getCookie } from '../../utlis/helper';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
-import BlogDetailsComponent from './BlogDetailsComponent';
-import './BlogDetails.css';
 import { formatDate } from '../../utlis/dateFormat';
 import Loader from '../../Components/Common/Loader';
+import BlogDetailsComponent from './BlogDetailsComponent';
+import './BlogDetails.css';
 
 const MemberBlogDetails = () => {
-    useTitle("BlogDetails");
+    useTitle("PostDetails");
     const location = useLocation();
     const source = new URLSearchParams(location.search).get('source');
     console.log(source);
@@ -22,7 +22,7 @@ const MemberBlogDetails = () => {
     const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
 
-    console.log("MemberBlogDetails : ", blog);
+    console.log("MemberPostDetails : ", blog);
 
     useEffect(() => {
         setLoading(true)
@@ -65,7 +65,7 @@ const MemberBlogDetails = () => {
 
                         <div className="">
                             <small className=' d-flex justify-content-center  mt-2'>
-                                <p className=' d-flex'> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog.created_at)}</p>
+                                <p className=' d-flex'> <BsCalendarDateFill className=' fs-6 mx-1'></BsCalendarDateFill>  {formatDate(blog?.created_at)}</p>
                                 <p className=' d-flex ms-3'>  <FaUserAlt className=' fs-6 mx-1'></FaUserAlt>   {blog?.memberName}</p>
                             </small>
                         </div>

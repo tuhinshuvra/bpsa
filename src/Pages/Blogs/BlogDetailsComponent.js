@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import FullScreenImage from "./FullScreenImage/FullScreenImage";
+import "./BlogDetails.css";
 
 const BlogDetailsComponent = ({ data }) => {
   const [showFullScreenImage, setShowFullScreenImage] = useState(false);
@@ -11,17 +11,19 @@ const BlogDetailsComponent = ({ data }) => {
 
   // console.log(" BlogDetailsPage", data);
   return (
-    <div className="">
-      <div className=" ">
-        {(data?.image && data?.image !== 'link') && <>
+    <div>
+      <div>
+        <div className=" float-left me-md-3">
+          {(data?.image && data?.image !== 'link') && <>
 
-          <img
-            className="w-full md:h-[400px] object-contain rounded-md my-2"
-            src={data?.image}
-            alt="blog_image"
-            onClick={handleImageClick}
-          />
-        </>}
+            <img
+              className="detailsImg object-contain "
+              src={data?.image}
+              alt="post_image"
+              onClick={handleImageClick}
+            />
+          </>}
+        </div>
         <p dangerouslySetInnerHTML={{ __html: data?.description }} className="text-justify" />
       </div>
 

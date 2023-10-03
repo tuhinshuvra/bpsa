@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { GetNewsDetails, GetNewsUpdateData } from "../api";
-import HeroComponent1 from "../Components/Common/HeroComponent1";
 import NoticeLine from "../Components/Common/NoticeLine";
-import NewsCategoriesComponent from "../Components/NewsDetailsComponent/NewsCategoriesComponent";
 import NewsDetailsInfoComponent from "../Components/NewsDetailsComponent/NewsDetailsInfoComponent";
 import NewsGalleryComponent from "../Components/NewsDetailsComponent/NewsGalleryComponent";
 import RelatedPostsComponent from "../Components/NewsDetailsComponent/RelatedPostsComponent";
@@ -57,7 +55,7 @@ const NewsDetailsPage = () => {
         <section style={{ backgroundColor: "#eee" }}>
           <div className="container pt-3 pb-5 ">
             <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-              <h2 className='fw-bold text-center text-success'>NEWS DETAILS</h2>
+              <h2 className='fw-bold text-center'>NEWS DETAILS</h2>
             </nav>
 
             <div>

@@ -35,14 +35,14 @@ const QuicksLinks = ({ local, international }) => {
       <HeadingComponent1
         first="Quick "
         second="Links"
-        className="text-white text-center pb-4"
+        className=" text-center pb-4"
       />
       <Row>
         <div className="col-lg-7 mb-3 mb-lg-0">
           <div className="p-2 bg-[#FFFFFF] rounded-2xl">
             <HeadingComponent1
               second="Local"
-              className="text-third pl-5 text-center py-2"
+              className=" pl-5 text-center py-2"
             />
             <Row>
               <Col md={6}>
@@ -58,7 +58,7 @@ const QuicksLinks = ({ local, international }) => {
                             className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                           >
                             {/* <BsArrowRight size={24} className="mr-2" /> */}
-                            <img src={BDPolice} className="linkLogo" alt="" />
+                            <img src={item?.photo} className="linkLogo" alt="" />
 
                             {item?.title}
                           </a>
@@ -78,10 +78,10 @@ const QuicksLinks = ({ local, international }) => {
                             rel="noreferrer"
                             target="_blank"
                             href={`${item?.link}`}
-                            className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
+                            className="flex items-center space-x-2  py-2 hover:text-second text-[15px]"
                           >
                             {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
-                            <img src={BDPolice} className="linkLogo" alt="" />
+                            <img src={item?.photo} className="linkLogo" alt="" />
                             {item?.title}
                           </a>
                         </li>
@@ -96,7 +96,7 @@ const QuicksLinks = ({ local, international }) => {
           <div className="p-2 bg-[#FFFFFF] rounded-2xl">
             <HeadingComponent1
               second="International"
-              className="text-third pl-5 text-center py-2"
+              className=" pl-5 text-center py-2"
             />
             <ul>
               {international &&
@@ -110,7 +110,7 @@ const QuicksLinks = ({ local, international }) => {
                         className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                       >
                         {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
-                        <img src={BDPolice} className="linkLogo" alt="" />
+                        <img src={item?.photo} className="linkLogo" alt="" />
                         {item?.title}
                       </a>
                     </li>

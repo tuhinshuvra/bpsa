@@ -14,7 +14,7 @@ const AdminRoute = ({ children }) => {
     //         <Loader></Loader>
     //     );
     // }
-    if (user?.email && user.role == "admin") {
+    if (user?.UserID && user?.MemberRole == "admin") {
         return children;
     }
 

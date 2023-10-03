@@ -1,9 +1,8 @@
-import DefaultMemberImg from '../../assets/Image/member/default_member_image.png'
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import useTitle from '../../hooks/useTitle';
 import { useContext, useEffect, useState } from 'react';
 import { AllContext } from '../../hooks/ContextData';
-import { getCookie } from '../../utlis/helper';
+import { getCookie, setLocalStorage } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
 import { BsCalendarDateFill } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
@@ -12,28 +11,78 @@ import { formatDate } from '../../utlis/dateFormat';
 import { sliceTextWithMaxLength, stripHTMLTags } from '../../utlis/DetectLanguage';
 import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
+import useTitle from '../../hooks/useTitle';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
+import MemberProfileSample from './MemberProfileSample';
 
 const MemberProfilePage = () => {
     useTitle("Profile");
-    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
-    const [memberData, setMemberData] = useState();
+    const { user, loading, setLoading, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular,
+        setMemberBCSBatch } = useContext(AllContext);
+    const [memberData, setMemberData] = useState("");
     const [userNewData, setUserNewData] = useState();
-    const [approvedBlogs, setApprovedBlogs] = useState([]);
-    const [pendingBlogs, setPendingBlogs] = useState([]);
+    const [approvedPosts, setApprovedPosts] = useState([]);
+    const [pendingPosts, setPendingPosts] = useState([]);
+    const [accessToken, setAccessToken] = useState('');
+    const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
+    const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
+    const clientSecret = 'ZIBtAfMkfuKKYqZtbik-TA..';
+    const credentials = `${clientId}:${clientSecret}`;
+    const base64Credentials = btoa(credentials);
+    const headers = {
+        'Authorization': `Basic ${base64Credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = 'grant_type=client_credentials';
 
-    // console.log("MemberProfilePage User Data: ", user);
-    // console.log("Member Profile Data: ", memberData);
-    // console.log("User UniqueID: ", user.UniqueID);
-    // console.log("pendingBlogs :", pendingBlogs);
-    // console.log("approvedBlogs :", approvedBlogs);
-    // console.log("userNewData :", userNewData);
+    console.log("Profile Page Login User Data:", user);
 
-    // user new data
+    useEffect(() => {
+        const getAccessToken = async () => {
+            try {
+                const response = await axios.post(tokenUrl, data, { headers });
+                setAccessToken(response.data.access_token);
+            } catch (error) {
+                console.error('Error getting access token:', error);
+            }
+        }
+        getAccessToken();
+    }, [])
+
+
+    // login member profile data
     useEffect(() => {
         setLoading(true);
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+        const profileData = async () => {
+            if (!accessToken) {
+                return;
+            }
+            await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/member-profile/${user?.BPID}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            })
+                .then(result => {
+                    setMemberData(result.data.items[0]);
+                    setLocalStorage("loginUserPhoto", result.data.items[0]?.pic)
+                    setMemberBCSBatch(result.data.items[0]?.cadre)
+                    setLoading(false)
+                })
+        }
+        profileData();
+    }, [accessToken])
+
+    if (memberData) {
+        // console.log("profileUser data :", memberData);
+    }
+
+    // console.log("Member Profile Data memberData: ", memberData);
+
+    // login user new data
+    useEffect(() => {
+        setLoading(true);
+        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data.value)
@@ -42,21 +91,8 @@ const MemberProfilePage = () => {
             })
     }, [])
 
-    // login member profile data
-    useEffect(() => {
-        setLoading(true);
-        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.UniqueID}`)
-            .then(res => res.json())
-            .then(data => {
-                // console.log("Member Profile Data: ", data)
-                setMemberData(data.member)
-                setLoading(false)
-            })
-    }, [setLoading, user.UniqueID])
 
-    // id, nameB,nameE,bpn,fname,batch,birth,blood,bpn,phone    // designation,district,email,fname, gift, id, mname,nameB, ,    //  qualificattion,ranK,religion,status,unit,
-
-    // member all blog
+    // member all post
     useEffect(() => {
         setLoading(true);
         fetch("https://dev.bpsa.com.bd/api/blog", {
@@ -72,36 +108,37 @@ const MemberProfilePage = () => {
                 return res.json();
             })
             .then(result => {
-                const approvedBlogs = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status == "Approved");
-                setApprovedBlogs(approvedBlogs);
-                const pendingBlogs = result.data.blog.filter(blog => blog?.memberName == user.name && blog?.status != "Approved");
-                setPendingBlogs(pendingBlogs);
+                const approvedPosts = result.data.blog.filter(blog => blog?.memberName == user?.Name && blog?.status == "Approved");
+                setApprovedPosts(approvedPosts);
+                const pendingPosts = result.data.blog.filter(blog => blog?.memberName == user?.Name && blog?.status != "Approved");
+                setPendingPosts(pendingPosts);
+                setLoading(false);
             })
             .catch(error => console.log(error));
-    }, [setLoading, user.name])
+    }, [setLoading, user?.Name])
 
 
     // pagination start
-    const totalPendingBlogs = pendingBlogs.length;
-    const totalApprovedBlogs = approvedBlogs.length;
+    const totalPendingPosts = pendingPosts.length;
+    const totalApprovedPosts = approvedPosts.length;
     const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const displayedPendingBlogs = pendingBlogs.slice(startIndex, endIndex);
-    const displayedArrovedBlogs = approvedBlogs.slice(startIndex, endIndex);
+    const displayedPendingPosts = pendingPosts?.slice(startIndex, endIndex);
+    const displayedArrovedBlogs = approvedPosts?.slice(startIndex, endIndex);
 
-    const totalPendingBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
-    const totalApprovedBlogPages = Math.ceil(pendingBlogs.length / itemsPerPage);
+    const totalPendingPostPages = Math.ceil(pendingPosts.length / itemsPerPage);
+    const totalApprovedPostPages = Math.ceil(pendingPosts.length / itemsPerPage);
 
     const handlePageChange = (newPage) => {
-        if (totalPendingBlogPages) {
-            if (newPage >= 1 && newPage <= totalPendingBlogPages) {
+        if (totalPendingPostPages) {
+            if (newPage >= 1 && newPage <= totalPendingPostPages) {
                 setCurrentPage(newPage);
             }
         }
-        if (totalApprovedBlogPages) {
-            if (newPage >= 1 && newPage <= totalApprovedBlogPages) {
+        if (totalApprovedPostPages) {
+            if (newPage >= 1 && newPage <= totalApprovedPostPages) {
                 setCurrentPage(newPage);
             }
         }
@@ -120,27 +157,35 @@ const MemberProfilePage = () => {
         setShowCoCurricular(!showCoCurricular);
     };
 
+
+    // blood_group cadre  current_designation dateofbirth degree email employeecode employeename employeenameinenglish fathername gift gov_email
+    // gov_mob homedistrict idsex main_unit marital_status mobilephone mothername pic rank rankinenglish religion sub_sub_unit sub_unit unit  
+
     return (
         <div className=' col-md-10 mx-auto'>
+
+            <MemberProfileSample
+                member={memberData}
+            ></MemberProfileSample>
 
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-3 ">
 
-                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4">
-                        <h2 className='fw-bold text-center text-success'>{memberData?.nameE} Profile</h2>
+                    <nav aria-label="breadcrumb" className="mx-1 bg-light rounded-3 p-2 mb-4">
+                        <h2 className='fw-bold text-center  '>{memberData?.employeenameinenglish} PROFILE</h2>
                     </nav>
 
                     <div className="row">
                         <div className="col-lg-4 my-1 my-lg-0">
                             <div className="card  proCard shadow-lg">
                                 <div className="card-body proCardBody ">
-                                    {userNewData?.image ?
+                                    {user?.image ?
                                         <>
-                                            <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
+                                            <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px" }} />
                                         </>
                                         :
                                         <>
-                                            <img src={DefaultMemberImg} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px" }} />
+                                            <img src={`data:image/jpeg;base64,${memberData?.pic}`} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
                                         </>
                                     }
 
@@ -158,9 +203,19 @@ const MemberProfilePage = () => {
 
 
                                     <div className=' text-center'>
-                                        <h6 className="my-0 fw-bold">{memberData?.nameE.slice(0, 40)}
+                                        <h6 className="my-0 fw-bold">{memberData?.employeenameinenglish?.slice(0, 40)}
                                         </h6>
-                                        <h6 className="my-0 fs-6 ">{memberData?.designation},&nbsp;{memberData?.unit}</h6>
+                                        <h6 className="my-0 fs-6 ">
+                                            {memberData?.current_designation && <>
+                                                {memberData?.current_designation},&nbsp;
+                                            </>}
+                                            {memberData?.unit &&
+                                                <>
+                                                    {memberData?.unit}
+                                                </>
+                                            }
+
+                                        </h6>
                                         {userNewData?.CoCurriculumActivities &&
                                             <p className="mt-1 mb-0 coCurriculur"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
                                         }
@@ -187,30 +242,47 @@ const MemberProfilePage = () => {
                                 <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody my-auto">
-                                            <p className="my-0"><b> BP ID</b>: {memberData?.bpn}</p>
-                                            <p className="my-0"><b> BCS Batch</b>: {memberData?.batch}</p>
-                                            <p className="my-0"><b> Rank</b>: {memberData?.ranK}</p>
-                                            <p className="my-0"><b> DOB  </b>  : {memberData?.birth}</p>
-                                            <p className="my-0"><b> Phone no  </b>    : {memberData?.phone}
-                                                {memberData?.Phone_office && <>,&nbsp;{memberData?.Phone_office}</>}
+                                            <p className="my-0"><b> Rank</b>: {memberData?.rank}({memberData?.rankinenglish})</p>
+                                            {memberData?.current_designation &&
+                                                <p className="my-0"><b> Designation</b>: {memberData?.current_designation}</p>
+                                            }
+                                            <p className="my-0"><b> BP ID</b>: {memberData?.employeecode}</p>
+                                            <p className="my-0"><b> BCS Batch</b>: {memberData?.cadre}th</p>
+                                            <p className="my-0"><b> Unit</b>:
+                                                {memberData?.main_unit &&
+                                                    <> {memberData?.main_unit}</>
+                                                }
+                                                {memberData?.unit &&
+                                                    <>, {memberData?.unit}</>
+                                                }
+                                                {memberData?.sub_unit &&
+                                                    <>, {memberData?.sub_unit}</>
+                                                }
+                                                {memberData?.sub_sub_unit &&
+                                                    <>, {memberData?.sub_sub_unit}</>
+                                                }
+                                            </p>
+                                            <p className="my-0"><b> Phone no  </b>    : {memberData?.mobilephone}
+                                                {memberData?.gov_mob && <>,&nbsp;{memberData?.gov_mob}</>}
                                             </p>
                                             <p className="my-0"> <b> Email</b>    : <small>{memberData?.email}</small>
-                                                {memberData?.email02 && <>, <small>  {memberData?.email02}</small></>}
+                                                {memberData?.gov_email && <>, <small className=' my-0'>  {memberData?.gov_email}</small></>}
                                             </p>
-                                            <p className="my-0"> <b> Medal </b> : {memberData?.gift}</p>
+                                            <p className="my-0"><b> Medal </b> : {memberData?.gift}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6 my-1 my-lg-0">
                                     <div className="card proCard shadow-lg">
                                         <div className="card-body proCardBody">
-                                            <p className="my-0"><b> Father’s Name </b> : {memberData?.fname} </p>
-                                            <p className="my-0"><b> Mother’s Name </b>: {memberData?.mname}</p>
-                                            <p className="my-0"><b> Education </b> : {memberData?.qualificattion}</p>
-                                            <p className="my-0"><b> Marital Status </b>: {memberData?.status}</p>
-                                            <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood} </p>
+                                            <p className="my-0"><b> Father’s Name </b> : {memberData?.fathername} </p>
+                                            <p className="my-0"><b> Mother’s Name </b>: {memberData?.mothername}</p>
+                                            <p className="my-0"><b> Education </b> : {memberData?.degree}</p>
+                                            <p className="my-0"><b> DOB  </b>  :  {new Date(memberData?.dateofbirth).toDateString()}</p>
+                                            <p className="my-0"><b> Marital Status </b>: {memberData?.marital_status}</p>
+                                            <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood_group} </p>
                                             <p className="my-0"><b> Religion    </b>  : {memberData?.religion}</p>
-                                            <p className="my-0"><b> Home District </b> : {memberData?.district}</p>
+                                            <p className="my-0"><b> Home District </b> : {memberData?.homedistrict}</p>
 
                                         </div>
                                     </div>
@@ -243,23 +315,23 @@ const MemberProfilePage = () => {
                     <div className="row mt-5 mb-2">
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                                <h4 className=' text-center'>Approved Blogs </h4>
+                                <h4 className=' text-center'>Approved Posts</h4>
                             </nav>
                         </div>
                     </div>
 
-                    {displayedArrovedBlogs && displayedArrovedBlogs.map((blog, index) => (
+                    {displayedArrovedBlogs.length > 0 ? displayedArrovedBlogs.map((blog, index) => (
                         <div className="card blogArea my-1 px-1" key={index}>
                             <div className="d-flex px-lg-3 px-md-2">
                                 {blog?.image && blog?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">
-                                        <img src={blog?.image} className="adminBlogListImg rounded-lg" alt="..." />
+                                        <img src={blog?.image} className="adminBlogListImg" alt="..." />
                                     </div>
                                 )}
 
                                 <div className="col-md-10">
                                     <div className="card-body">
-                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title.slice(0, 95)}</Link>
+                                        <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}?source=memberAllBlog`}>{blog?.title?.slice(0, 95)}</Link>
 
                                         {(blog?.image && blog?.image !== 'link') ?
                                             <>
@@ -286,10 +358,10 @@ const MemberProfilePage = () => {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    )) : <h5 className=' fw-bold text-center'>No blog to show</h5>}
 
                     {/* pagination start */}
-                    {totalApprovedBlogs > 5 &&
+                    {totalApprovedPosts > 5 &&
                         <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                             <button
                                 className=" btn btn-outline-light   mx-1"
@@ -300,12 +372,12 @@ const MemberProfilePage = () => {
                                 <ImPrevious className=' fs-3 text-main fw-bold' />
                             </button>
                             <span className="pagination-info text-black fw-bold mx-2">
-                                Page {currentPage} of {totalApprovedBlogPages}, Total blog = {totalApprovedBlogs}
+                                Page {currentPage} of {totalApprovedPostPages}, Total post = {totalApprovedPosts}
                             </span>
                             <button
                                 className=" btn btn-outline-light  mx-1"
                                 onClick={() => handlePageChange(currentPage + 1)}
-                                disabled={currentPage === totalApprovedBlogPages}
+                                disabled={currentPage === totalApprovedPostPages}
                             >
                                 {/* Next */}
                                 <ImNext className=' fs-3 fw-bold text-main' />
@@ -315,51 +387,51 @@ const MemberProfilePage = () => {
                     {/* pagination end */}
 
 
-                    {/* member's non approved blogs */}
+                    {/* member's non approved posts */}
                     <div className="row mt-5 mb-2">
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
-                                <h4 className=' text-center'>Non Approved Blogs </h4>
+                                <h4 className=' text-center'>Non Approved Posts</h4>
                             </nav>
                         </div>
                     </div>
 
 
-                    {displayedPendingBlogs && displayedPendingBlogs.map((blog, index) => (
+                    {displayedPendingPosts.length > 0 ? displayedPendingPosts.map((post, index) => (
                         <div className="card blogArea my-1 px-1" key={index} >
                             <div className="d-flex px-lg-3 px-md-2">
-                                {blog?.image && blog?.image !== 'link' && (
+                                {post?.image && post?.image !== 'link' && (
                                     <div className="col-md-2 my-auto">
-                                        <img src={blog?.image} className="adminBlogListImg rounded-lg" alt="..." />
+                                        <img src={post?.image} className="adminBlogListImg" alt="..." />
                                     </div>
                                 )}
 
-                                {(blog?.image && blog?.image !== 'link') ?
+                                {(post?.image && post?.image !== 'link') ?
                                     <>
                                         <div className="col-md-10 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title.slice(0, 95)}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title?.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 120)}
-                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(post?.description), 120)}
+                                                    ... <a href="/blogDetails/${post.id}">details</a>`
                                                 }}>
                                                 </div>
 
                                                 <div className='d-flex my-0'>
                                                     <div className='my-0 d-flex justify-content-between'>
-                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{post?.memberName}</small>
                                                         <small className='d-flex ms-1'>
                                                             <BsCalendarDateFill className='fs-5 mx-1'>
-                                                            </BsCalendarDateFill>{formatDate(blog?.created_at)}
+                                                            </BsCalendarDateFill>{formatDate(post?.created_at)}
                                                         </small>
                                                     </div>
                                                 </div>
 
                                             </div>
                                             <div className="my-auto">
-                                                <p className=' fw-bold text-center '>{blog?.status}</p>
-                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                                <p className=' fw-bold text-center '>{post?.status}</p>
+                                                <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
                                             </div>
                                         </div>
                                     </>
@@ -367,28 +439,28 @@ const MemberProfilePage = () => {
                                     <>
                                         <div className="col-md-12 d-md-flex justify-content-between">
                                             <div className=" card-body">
-                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${blog.id}`}>{blog?.title.slice(0, 95)}</Link>
+                                                <Link className='blogDetailsLink fs-5' to={`/blogDetails/${post.id}`}>{post?.title?.slice(0, 95)}</Link>
 
                                                 <div className="my-0 small" dangerouslySetInnerHTML={{
-                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(blog?.description), 140)}
-                                                    ... <a href="/blogDetails/${blog.id}">details</a>`
+                                                    __html: `${sliceTextWithMaxLength(stripHTMLTags(post?.description), 140)}
+                                                    ... <a href="/blogDetails/${post.id}">details</a>`
                                                 }}>
                                                 </div>
 
                                                 <div className='d-flex my-0'>
                                                     <div className='my-0 d-flex justify-content-between'>
-                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{blog?.memberName}</small>
+                                                        <small className='d-flex'><FaUserAlt className='fs-6 mx-1'></FaUserAlt>{post?.memberName}</small>
                                                         <small className='d-flex ms-1'>
                                                             <BsCalendarDateFill className='fs-5 mx-1'>
-                                                            </BsCalendarDateFill>{formatDate(blog?.created_at)}
+                                                            </BsCalendarDateFill>{formatDate(post?.created_at)}
                                                         </small>
                                                     </div>
                                                 </div>
 
                                             </div>
                                             <div className="my-auto">
-                                                <p className=' fw-bold text-center '>{blog?.status}</p>
-                                                <Link to={`/updateBlog/${blog?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                                <p className=' fw-bold text-center '>{post?.status}</p>
+                                                <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
                                             </div>
                                         </div>
                                     </>
@@ -396,11 +468,11 @@ const MemberProfilePage = () => {
                             </div>
                         </div>
 
-                    ))}
+                    )) : <h5 className=' fw-bold text-center'>No blog to show</h5>}
                 </div>
 
                 {/* pagination start */}
-                {totalPendingBlogs > 5 &&
+                {totalPendingPosts > 5 &&
                     <div className="pagination d-flex justify-content-center align-items-center pt-1 pb-4">
                         <button
                             className="btn btn-outline-light mx-1"
@@ -410,12 +482,12 @@ const MemberProfilePage = () => {
                             <ImPrevious className='fs-3 text-main fw-bold' />
                         </button>
                         <span className="pagination-info text-black fw-bold mx-2">
-                            Page {currentPage} of {totalPendingBlogPages}, Total blog = {totalPendingBlogs}
+                            Page {currentPage} of {totalPendingPostPages}, Total post = {totalPendingPosts}
                         </span>
                         <button
                             className="btn btn-outline-light mx-1"
                             onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPendingBlogPages}
+                            disabled={currentPage === totalPendingPostPages}
                         >
                             <ImNext className=' fs-3 fw-bold  text-main' />
                         </button>

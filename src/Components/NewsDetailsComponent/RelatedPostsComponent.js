@@ -5,7 +5,7 @@ import NewsCard1 from "../NewsComponent/NewsCard1";
 const RelatedPostsComponent = ({ data }) => {
   return (
     <div>
-      <h5 className="text-main pb-3">Related Posts</h5>
+      <h5 className=" fw-bold pb-3">Related Posts</h5>
       <Row>
         {data &&
           data?.map((item, index) => {

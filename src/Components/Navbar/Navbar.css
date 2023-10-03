@@ -1,3 +1,7 @@
+.navPadding {
+    padding: 0 80px 0;
+}
+
 .userImgNav {
     width: 45px !important;
     height: 45px !important;
@@ -63,4 +67,42 @@
 
 .loginText {
     font-size: 15px;
+}
+
+
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+    .navPadding {
+        padding: 0 60px 0;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {
+    .navPadding {
+        padding: 0 60px 0;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .navPadding {
+        padding: 0 30px 0;
+    }
+
+    .userImgNav {
+        margin-top: -20px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767.98px) {
+    .navPadding {
+        padding: 0 20px 0;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+    .navPadding {
+        padding: 0 15px 0;
+    }
 }

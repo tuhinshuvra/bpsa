@@ -6,14 +6,14 @@ import ButtonComponent from "../Common/ButtonComponent";
 import HeroComponent1 from "../Common/HeroComponent1";
 import { toast } from "react-hot-toast";
 import useTitle from "../../hooks/useTitle";
-import './ContactComponent.css';
 import { AllContext } from "../../hooks/ContextData";
 import { useContext } from "react";
 import Loader from "../Common/Loader";
+import './ContactComponent.css';
 
 const ContactComponent = () => {
-  const { loading, setLoading } = useContext(AllContext);
   useTitle("ContactUs")
+  const { loading, setLoading } = useContext(AllContext);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -58,14 +58,14 @@ const ContactComponent = () => {
         <div className="container pt-3  ">
           <div className="  mx-auto">
             <nav aria-label="" className="bg-light rounded-3 p-2 mb-4">
-              <h2 className='fw-bold text-center text-success'>CONTACT</h2>
+              <h2 className='fw-bold text-center '>CONTACT</h2>
             </nav>
 
             <div className=" py-3">
               <div className=" d-lg-flex  align-items-center gap-2">
                 <div className="col-lg-6 contactAddress my-2 my-lg-0 ">
                   <div className=" ">
-                    <h2 className="text-center py-3 text-main font-semibold">Our Address</h2>
+                    <h2 className="text-center py-3  font-semibold">Our Address</h2>
                     <div className=" d-flex justify-content-center align-items-sm-start ">
                       <div className=" d-flex flex-column  align-items-start gap-2 ">
                         <div className="flex items-center justify-center ">
@@ -124,7 +124,7 @@ const ContactComponent = () => {
             </div>
 
             <div className="py-5">
-              <h2 className="text-center py-3 text-main font-semibold">
+              <h2 className="text-center py-3  font-semibold">
                 We Value Your Feedback
               </h2>
 
@@ -182,7 +182,7 @@ const ContactComponent = () => {
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <button type="submit" className=" btn btn-primary w-25 ">Submit</button>
+                  <button type="submit" className=" btn btn-outline-secondary  w-25 ">Submit</button>
                 </div>
               </Form>
             </div>

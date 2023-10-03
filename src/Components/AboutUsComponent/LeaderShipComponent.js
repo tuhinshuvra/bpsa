@@ -6,19 +6,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../AboutUsComponent/AboutUs.css";
+import "./AboutUs.css";
 
 // import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 
 import { Col, Container, Row } from "react-bootstrap";
 import HeadingComponent1 from "../Common/HeadingComponent1";
-import { Paper } from "@mui/material";
 import ImageComponent from "../Common/ImageComponent";
-import { FbIcon, LinkedInIcon, TwitterIcon } from "../../utlis/icons";
-import img1 from "../../assets/Image/messages/IGP_Image.jpeg";
-import img2 from "../../assets/Image/messages/President_2021_Stamp.jpg";
-import img3 from "../../assets/Image/messages/assaduzzaman.jpg";
 import { GetLeadershipData } from "../../api";
 import ButtonComponent from "../Common/ButtonComponent";
 
@@ -39,12 +34,12 @@ const LeaderShipComponent = () => {
   }, []);
 
   return (
-    <div className=" bg-fifth/40 py-3  my-5 rounded-2xl">
+    <div className=" bg-[#E2E3E7] py-3  my-5 rounded-2xl">
       <Container className="">
         <HeadingComponent1
           first="Current  "
           second="Leadership"
-          className="text-center pb-3 text-white mb-4"
+          className="text-center pb-3  mb-4"
         />
 
         <Swiper
@@ -67,23 +62,23 @@ const LeaderShipComponent = () => {
                 <SwiperSlide key={index}>
                   <div className=" border rounded-xl p-4">
                     <div className="row  ">
-                      <div className="text-center col-lg-5 my-auto">
+                      <div className="text-center col-lg-4 my-auto">
                         <ImageComponent
                           image={item?.photo}
-                          className="w-[200px] h-[200px]  mx-auto mb-1 object-contain "
+                          className="leaderShipImg w-[200px]   mx-auto mb-1 object-contain "
                         />
-                        <p className="text-black text-md m-0 mb-2 ">
+                        <p className="text-black text-md my-0   ">
                           {item?.name}
                         </p>
 
-                        <p className="text-black p-0 m-0">
+                        <p className="text-black p-0 my-0">
                           {item?.Official_designation}
                         </p>
-                        <span className="p-0 m-0 text-black">ও</span>
-                        <p className="p-0 m-0 text-black">
+                        <p className="p-0 my-0 text-black">ও</p>
+                        <p className="p-0  my-0 text-black">
                           {item?.BPSA_Designation.split(",")[0]}
                         </p>
-                        <p className="p-0 m-0 text-black">
+                        <p className="p-0 my-0 text-black">
                           {item?.BPSA_Designation.split(",")[1]}
                         </p>
                         {/* <div className="flex items-center justify-center text-main space-x-3">
@@ -92,14 +87,16 @@ const LeaderShipComponent = () => {
                         <TwitterIcon size={28} />
                       </div> */}
                       </div>
-                      <div className=" col-lg-7">
+                      <div className=" col-lg-8">
                         <div
                           className="text-justify d-lg-block d-none"
-                          dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 1500) }}
+                          style={{ fontFamily: "SolaimanLipi" }}
+                          dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 1950) }}
                         ></div>
 
                         <div
-                          className="text-justify d-lg-none "
+                          className="text-justify d-lg-none"
+                          style={{ fontFamily: "SolaimanLipi" }}
                           dangerouslySetInnerHTML={{ __html: seeMore ? item?.note : item?.note.slice(0, 300) }}
                         ></div>
 

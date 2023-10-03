@@ -1,7 +1,7 @@
 import { useEffect, } from 'react';
 
 const SessionTimer = ({ onLogout }) => {
-    const inactivityTimeout = 5 * 60 * 1000;
+    const inactivityTimeout = 10 * 60 * 1000;
 
     useEffect(() => {
         let timer;

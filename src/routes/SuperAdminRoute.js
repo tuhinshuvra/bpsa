@@ -14,7 +14,7 @@ const SuperAdminRoute = ({ children }) => {
     //         <Loader></Loader>
     //     );
     // }
-    if (user?.email && user.role == "superAdmin") {
+    if (user?.UserID && user?.MemberRole == "super_admin") {
         return children;
     }
 

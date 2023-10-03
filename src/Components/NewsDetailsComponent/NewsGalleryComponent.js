@@ -40,7 +40,7 @@ const NewsGalleryComponent = ({ data }) => {
               >
                 <ImageComponent
                   image={item}
-                  className="w-full h-[250px] md:h-[100px] object-cover rounded-md cursor-pointer"
+                  className="w-full h-[250px] md:h-[100px] object-cover   cursor-pointer"
                 />
               </Col>
             );

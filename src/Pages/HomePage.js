@@ -208,7 +208,9 @@ const HomePage = () => {
           style={{ zIndex: 50 }}
           className="rounded-md absolute w-full mx-auto"
         >
-          <h1 className="text-lg md:text-5xl p-2 text-center bg-main/70 w-fit text-white rounded-md block mx-auto md:leading-[70px] -mt-[43px]  md:-mt-[86px]">
+          <h1 className="text-lg md:text-5xl p-2 text-center bg-black/60 w-fit text-[#0c5ded]    block mx-auto md:leading-[70px] -mt-[43px]  md:-mt-[86px]"
+
+            style={{ WebkitTextStroke: '1.5px white', textStroke: '1px white' }}>
             Bangladesh Police Service Association
           </h1>
         </div>
@@ -223,7 +225,7 @@ const HomePage = () => {
             <TestimonialComponent data={messageData} />
             <SummaryComp data={successData} />
 
-            <div className="bg-[#6e5ff7] py-3 rounded-2xl my-5">
+            <div className="bg-[#E2E3E7] py-3 rounded-2xl my-3">
               <QuicksLinks local={localLink} international={internationalLink} />
             </div>
 

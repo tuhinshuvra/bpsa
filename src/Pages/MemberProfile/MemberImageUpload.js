@@ -12,19 +12,19 @@ const MemberImageUpload = () => {
 
     const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
-    // console.log("userNewData :", userNewData);
+    // console.log(" MemberImageUpload Login userData :", user);
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                // console.log("Member User table  Data: ", data.member)
+                console.log("Member Image Upload uer Data: ", data.member)
                 setUserNewData(data?.value);
-
                 setLoading(false);
             })
-    }, [setLoading, user.UniqueID])
+    }, [setLoading, user?.BPID]);
+
 
     const handleImageUpload = async (event) => {
         event.preventDefault();

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { GetGalleryData, GetVideosData } from "../api";
-import CommonHead from "../Components/Common/CommonHead";
 import Loader from "../Components/Common/Loader";
 import GalleryComponent from "../Components/GalleryComponent/GalleryComponent";
 import { getGalleryCategory } from "../redux/gallery/galleryAction";
