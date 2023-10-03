@@ -10,13 +10,24 @@ import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
+
+    const [BcsList, setBcsList] = useState();
+    const [rank, setRank] = useState();
+    const [MainUnit, setMainUnit] = useState();
+    const [blood, setBlood] = useState();
+    const [Designation, setDesignation] = useState();
+    const [district, setDistrict] = useState();
     const { user, loading, setLoading, memberBCSBatch } = useContext(AllContext);
     const [page, setPage] = useState(1);
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(12);
+
+    const [BcsAddress, setBcsAddress] = useState();
+
+
     const [showperPage, setShowPerPage] = useState(12);
     const [accessToken, setAccessToken] = useState('');
-    const [batch, setBatch] = useState();
+    const [batch, setBatch] = useState(0);
     const [searchBatch, setSearchBatch] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState('');
@@ -77,6 +88,25 @@ const AllMemberDirectoryPage = () => {
         getAccessToken();
     }, [])
 
+    useEffect(() => {
+        const BcsLIST = async () => {
+            if (!accessToken) {
+                return;
+            }
+
+            await axios.get("https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/cadrelist", {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            })
+                .then(result => {
+                    setBcsList(result.data.items);
+                })
+        }
+        BcsLIST();
+
+    }, [accessToken])
+
 
     useEffect(() => {
         const batchCadre = async () => {
@@ -117,6 +147,12 @@ const AllMemberDirectoryPage = () => {
                 setApiResponse(response.data?.items);
                 setFilterData(response.data?.items)
                 setLoading(false);
+                // console.log(apiResponse)
+                setRank([...new Set(response.data?.items.map(obj => obj.rank))]);
+                setMainUnit([...new Set(response.data?.items.map(obj => obj.main_unit))]);
+                setBlood([...new Set(response.data?.items.map(obj => obj.blood_group))]);
+                setDesignation([...new Set(response.data?.items.map(obj => obj.current_designation))]);
+                setDistrict([...new Set(response.data?.items.map(obj => obj.homedistrict))]);
 
             } catch (error) {
                 console.error('Error calling API:', error);
@@ -126,18 +162,20 @@ const AllMemberDirectoryPage = () => {
         batchData();
     }, [accessToken, batch])
 
-    if (apiResponse) {
-        apiResponse.map(apiImage => {
-            // console.log(apiImage.pic)
-        })
-    }
+    useEffect(() => {
+        const index = BcsList?.findIndex((element) => element.display_value == batch);
+        setBcsAddress(index);
+
+    }, [batch, BcsList])
+
 
     const [searchData, setSearchData] = useState({
         batch: batch,
         searchKeyword: "",
+        phoneNumber: "",
         rank: "",
         unit: "",
-        subUnit: "",
+        blood: "",
         designation: "",
         district: "",
     });
@@ -157,18 +195,28 @@ const AllMemberDirectoryPage = () => {
         event.preventDefault();
         let filterData = apiResponse;
         if (searchData?.searchKeyword) {
-            filterData = filterData.filter(batchData => batchData.employeename.includes(searchData?.searchKeyword));
+            filterData = filterData.filter(batchData => batchData.employeenameinenglish.toLowerCase().includes(searchData?.searchKeyword.toLowerCase()));
             console.log(filterData)
         }
+        if (searchData.phoneNumber) {
+            filterData = filterData.filter(batchData => batchData.mobilephone.includes(searchData?.phoneNumber));
+        }
         if (searchData.rank != 'Select Rank' && searchData.rank) {
-            filterData = filterData.filter(batchData => searchData.rank === batchData.rank);
+            filterData = filterData.filter(batchData => searchData.rank == batchData.rank);
         }
         if (searchData.unit != 'Select Main Unit' && searchData.unit) {
-            filterData = filterData.filter(batchData => searchData.unit === batchData.main_unit);
+            filterData = filterData.filter(batchData => searchData.unit == batchData.main_unit);
         }
         if (searchData.district !== "Own District" && searchData.district) {
-            filterData = filterData.filter(batchData => searchData.district === batchData.homedistrict);
+            filterData = filterData.filter(batchData => searchData.district == batchData.homedistrict);
         }
+        if (searchData.designation != 'Select Designation' && searchData.designation) {
+            filterData = filterData.filter(batchData => searchData.designation == batchData.current_designation);
+        }
+        if (searchData.blood != 'Select Blood group' && searchData.blood) {
+            filterData = filterData.filter(batchData => searchData.blood == batchData.blood_group);
+        }
+
         // console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
@@ -180,10 +228,32 @@ const AllMemberDirectoryPage = () => {
         setEnd(showperPage * value);
     };
 
-
+    const handleBCSId = (status) => {
+        if (status == 1) {
+            if (BcsAddress < 0) {
+                setBcsAddress(BcsList.length - 1);
+            }
+            else {
+                setBcsAddress(BcsAddress - 1);
+            }
+        }
+        if (status == 2) {
+            if (BcsAddress >= BcsList.length) {
+                setBcsAddress(0)
+            }
+            else {
+                setBcsAddress(BcsAddress + 1)
+            }
+        }
+        console.log(status)
+    }
+    if (BcsAddress) {
+        console.log(BcsAddress)
+    }
     if (loading) {
         return <Loader></Loader>
     }
+
 
 
     return (
@@ -200,58 +270,46 @@ const AllMemberDirectoryPage = () => {
                             <p className=" fs-5 fw-bold text-center rounded-lg py-1 ms-1 ">Search Pannel</p>
                             <form id="searchForm" onSubmit={handleSearchResult}>
                                 <div className=" d-md-flex d-lg-inline">
-                                    <label htmlFor="searchKeyword" className="form-label my-0 d-none d-lg-block fw-bold">Search Keyword</label>
-                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter searchKeyword" />
-
+                                    <label htmlFor="searchKeyword" className="form-label my-0 d-none d-lg-block fw-bold">Search name</label>
+                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter name" />
+                                    <label htmlFor="phoneNumber" className="form-label my-0 d-none d-lg-block fw-bold">search mobile number</label>
+                                    <input onChange={getSearchData} type="text" name="phoneNumber" aria-label="phoneNumber" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter mobile number" />
                                     <select onChange={getSearchData} name="rank" className="form-select my-2 mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
-                                        <option value="SP">SP</option>
-                                        <option value="Additional DIG">Addl. DIG</option>
-                                        <option value="RankThree">RankThree</option>
-                                        <option value="RankFour">RankFour</option>
+                                        {
+                                            rank && rank.map(rank => <option value={rank} key={rank}>{rank}</option>)
+                                        }
                                     </select>
                                 </div>
 
                                 <div className=" d-md-flex d-lg-inline">
                                     <select onChange={getSearchData} name="unit" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Main Unit</option>
-                                        <option value="পুলিশ হেডকোয়ার্টার্স">পুলিশ হেডকোয়ার্টার্স</option>
-                                        <option value="খুলনা রেঞ্জ">খুলনা রেঞ্জ</option>
-                                        <option value="N/A">N/A</option>
-                                        <option value="ডিএমপি, ঢাকা">ডিএমপি, ঢাকা</option>
+                                        {
+                                            MainUnit && MainUnit.map(MainUnit => <option value={MainUnit} key={MainUnit}>{MainUnit}</option>)
+                                        }
                                     </select>
-
-
-                                    <select onChange={getSearchData} name="subUnit" className="form-select my-2 mx-lg-0 mx-1">
-                                        <option defaultValue>Select Sub Unit</option>
-                                        <option value="SubUnitOne">SubUnitOne</option>
-                                        <option value="SubUnitTwo">SubUnitTwo</option>
-                                        <option value="SubUnitThree">SubUnitThree</option>
-                                        <option value="SubUnitFour">SubUnitFour</option>
+                                    <select onChange={getSearchData} name="blood" className="form-select my-2 mx-lg-0 mx-1">
+                                        <option defaultValue>Select Blood group</option>
+                                        {
+                                            blood && blood.map(blood => <option value={blood} key={blood}>{blood}</option>)
+                                        }
                                     </select>
                                 </div>
 
                                 <div className=" d-md-flex d-lg-inline">
                                     <select onChange={getSearchData} name="designation" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Designation</option>
-                                        <option value="DesignationOne">DesignationOne</option>
-                                        <option value="DesignationTwo">DesignationTwo</option>
-                                        <option value="DesignationThree">DesignationThree</option>
-                                        <option value="DesignationFour">DesignationFour</option>
+                                        {
+                                            Designation && Designation.map(Designation => <option value={Designation} key={Designation}>{Designation}</option>)
+                                        }
                                     </select>
 
                                     <select onChange={getSearchData} name="district" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Own District</option>
-                                        <option value="পাবনা">পাবনা</option>
-                                        <option value="নড়াইল">নড়াইল</option>
-                                        <option value="খুলনা">খুলনা</option>
-                                        <option value="মাগুরা">মাগুরা</option>
-                                        <option value=" সুনামগঞ্জ"> সুনামগঞ্জ</option>
-                                        <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
-                                        <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
-                                        <option value="সাতক্ষীরা">সাতক্ষীরা</option>
-                                        <option value="ফরিদপুর">ফরিদপুর</option>
-                                        <option value="গাজীপুর">গাজীপুর</option>
+                                        {
+                                            district && district.map(district => <option value={district} key={district}>{district}</option>)
+                                        }
                                     </select>
                                 </div>
 
@@ -289,23 +347,47 @@ const AllMemberDirectoryPage = () => {
 
                                     <nav className=" ms-2 d-none d-md-block " aria-label="Page navigation example" >
                                         <ul className="pagination my-auto py-2 ">
-                                            {/* <li className="page-item disabled"><Link className="page-link">Pre</Link></li> */}
 
-                                            {/* <li onClick={() => setBatch(19)} className="page-item"><Link className="page-link" href="#">19</Link></li> */}
-                                            {/* <li onClick={() => setBatch(20)} className="page-item"><Link className="page-link" href="#">20</Link></li> */}
-                                            <li onClick={() => setBatch(22)} className="page-item"><Link className="page-link" href="#">22</Link></li>
-                                            <li onClick={() => setBatch(23)} className="page-item"><Link className="page-link" href="#">23</Link></li>
-                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">24</Link></li>
-                                            <li onClick={() => setBatch(25)} className="page-item"><Link className="page-link" href="#">25</Link></li>
-                                            <li onClick={() => setBatch(26)} className="page-item"><Link className="page-link" href="#">26</Link></li>
-                                            <li onClick={() => setBatch(27)} className="page-item"><Link className="page-link" href="#">27</Link></li>
-                                            <li onClick={() => setBatch(28)} className="page-item"><Link className="page-link" href="#">28</Link></li>
-                                            <li onClick={() => setBatch(29)} className="page-item"><Link className="page-link" href="#">29</Link></li>
-                                            <li onClick={() => setBatch(30)} className="page-item"><Link className="page-link" href="#">30</Link></li>
-                                            <li onClick={() => setBatch(31)} className="page-item"><Link className="page-link" href="#">31</Link></li>
-                                            <li onClick={() => setBatch(32)} className="page-item"><Link className="page-link" href="#">32</Link></li>
-                                            <li onClick={() => setBatch(33)} className="page-item"><Link className="page-link" href="#">33</Link></li>
-                                            <li onClick={() => setBatch(34)} className="page-item"><Link className="page-link" href="#">34</Link></li>
+                                            <li onClick={() => handleBCSId(1)} className="page-item">
+                                                <Link className="page-link" href="#">Before</Link>
+                                            </li>
+
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }}>{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+
+                                            {/* {
+                                                batch && <li onClick={() => setBatch(BcsAddress)} className="page-item">
+                                                    <Link className="page-link " style={{ backgroundColor: 'orange' }} href="#">{batch.toString()}</Link>
+                                                </li>
+                                            } */}
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }} >{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            {
+                                                BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
+                                                        <Link className="page-link" href="#" style={{
+                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                        }}>{BCS?.display_value}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            <li onClick={() => handleBCSId(2)} className="page-item">
+                                                <Link className="page-link" href="#">Next</Link>
+                                            </li>
 
                                             {/* <li className="page-item"><Link className="page-link" href="#">Next</Link></li> */}
                                         </ul>
@@ -313,37 +395,12 @@ const AllMemberDirectoryPage = () => {
 
                                     <nav className=" ms-2 d-md-none  " aria-label="Page navigation example" >
                                         <ul className="pagination my-auto py-2 ">
-                                            <li onClick={() => setBatch(23)} className="page-item"><Link className="page-link" href="#">23</Link></li>
-                                            <li onClick={() => setBatch(24)} className="page-item"><Link className="page-link" href="#">24</Link></li>
-                                            <li onClick={() => setBatch(25)} className="page-item"><Link className="page-link" href="#">25</Link></li>
-                                            <li onClick={() => setBatch(26)} className="page-item"><Link className="page-link" href="#">26</Link></li>
-                                            <li onClick={() => setBatch(27)} className="page-item"><Link className="page-link" href="#">27</Link></li>
-                                            <li onClick={() => setBatch(28)} className="page-item"><Link className="page-link" href="#">28</Link></li>
-                                            <li onClick={() => setBatch(29)} className="page-item"><Link className="page-link" href="#">29</Link></li>
 
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
 
-                            {/* <div className="d-flex justify-content-center align-items-baseline">
-                                {searchButtonClicked && (
-                                    <>
-                                        <h4 className="text-white">Data is showing for:</h4>
-                                        <ul className="text-white d-flex my-a">
-                                            {Object.entries(searchData).map(([key, value]) => (
-                                                value !== "" && ( // Only render if the value is not empty
-                                                    <div key={key} className="mx-1">
-                                                        {value}
-                                                    </div>
-                                                )
-                                            ))}
-                                        </ul>
-                                    </>
-                                )}
-                            </div> */}
-
-                            {/*  Default Member Show */}
                             <div className="defaultDataShow">
                                 {
                                     filterData && filterData.slice(start, end).map((member, index) =>
@@ -378,13 +435,13 @@ const AllMemberDirectoryPage = () => {
 
 
                             <PaginationComponent
-                                count={Math.ceil(apiResponse?.length / showperPage)}
+                                count={Math.ceil(filterData?.length / showperPage)}
                                 pageNumber={page}
                                 handleChange={handleChange}
                                 className="flex items-center justify-between px-lg-5 py-3"
                                 start={start}
                                 end={end}
-                                total={apiResponse?.length}
+                                total={filterData?.length}
                                 isShow={true}
                             />
                         </div>
