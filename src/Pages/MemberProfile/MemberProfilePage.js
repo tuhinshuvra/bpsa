@@ -120,6 +120,7 @@ const MemberProfilePage = () => {
 
             <MemberProfileSample
                 member={memberData}
+                userNewData={userNewData}
             ></MemberProfileSample>
 
             <section style={{ backgroundColor: "#eee" }}>
