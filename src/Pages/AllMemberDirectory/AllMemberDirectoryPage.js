@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import { AllContext } from "../../hooks/ContextData";
@@ -7,7 +7,6 @@ import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
 import MemberModal from "./MemberModal";
 import './AllMemberDirectoryPage.css';
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -45,12 +44,12 @@ const AllMemberDirectoryPage = () => {
     };
     const data = 'grant_type=client_credentials';
 
+    // console.log("Login User Data : ", user);
+    // console.log("Directory Page filterData : ", filterData);
+    // console.log("memberBCSBatch", memberBCSBatch);
+
     const [selectedPage, setSelectedPage] = useState(1);
     const totalPages = 50; // Total number of pages
-
-
-    // console.log("AllMemberDirectoryPage filterData ", filterData);
-    // console.log("AllMemberDirectoryPage memberProfile ", memberProfile);
 
     const handlePageClick = (newPage) => {
         setSelectedPage(newPage);
@@ -122,7 +121,6 @@ const AllMemberDirectoryPage = () => {
             try {
                 const response = await axios.get(apiUrl, { headers });
                 setBatch(response.data.items[0]?.cadre);
-
             } catch (error) {
                 console.error('Error calling API:', error);
             }
@@ -155,6 +153,10 @@ const AllMemberDirectoryPage = () => {
                 setDesignation([...new Set(response.data?.items.map(obj => obj.current_designation))]);
                 setDistrict([...new Set(response.data?.items.map(obj => obj.homedistrict))]);
 
+                setPage(1);
+                setStart(0);
+                setEnd(showperPage);
+                
             } catch (error) {
                 console.error('Error calling API:', error);
                 setLoading(false);
@@ -221,6 +223,10 @@ const AllMemberDirectoryPage = () => {
         // console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
+
+        setPage(1);
+        setStart(0);
+        setEnd(showperPage);
     }
 
     const handleChange = (event, value) => {
@@ -324,19 +330,38 @@ const AllMemberDirectoryPage = () => {
                             {/* bcs batch pagination */}
                             <div className=" text-center  ">
                                 <div className=" d-flex justify-content-center align-items-center">
-                                    <nav className=" ms-2 d-flex justify-content-center align-items-center "  >
-                                        <span className="fw-bold me-1 bcsBatch">BCS Batch:</span>
-                                        <ul className="pagination customPagination my-auto py-2 ">
+                                    <p className=" fw-bold mt-2">BCS Batch:</p>
 
-                                            <li onClick={() => handleBCSId(1)} className="page-item my-auto">
-                                                <Link>
-                                                    <MdKeyboardArrowLeft className=" fs-3" />
-                                                </Link>
+                                    {/* <BCSBatchPaginationComponent
+                                        count={Math.ceil(50)}
+                                        pageNumber={page}
+                                        handleChange={handleBatch}
+                                        className="flex items-center justify-between px-lg-5 py-3"
+                                        start={1}
+                                        end={50}
+                                        total={apiResponse?.length}
+                                    /> */}
+
+                                    {/* <div>
+                                        <PageNumbers
+                                            selectedPage={selectedPage}
+                                            totalPages={totalPages}
+                                            onPageClick={handlePageClick}
+
+                                        />
+                                    </div> */}
+
+
+                                    <nav className=" ms-2 d-none d-md-block " aria-label="Page navigation example" >
+                                        <ul className="pagination my-auto py-2 ">
+
+                                            <li onClick={() => handleBCSId(1)} className="page-item">
+                                                <Link className="page-link" href="#">Before</Link>
                                             </li>
 
                                             {
                                                 BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="">
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
                                                         }}>{BCS?.display_value}</Link>
@@ -344,9 +369,14 @@ const AllMemberDirectoryPage = () => {
                                                 ))
                                             }
 
+                                            {/* {
+                                                batch && <li onClick={() => setBatch(BcsAddress)} className="page-item">
+                                                    <Link className="page-link " style={{ backgroundColor: 'orange' }} href="#">{batch.toString()}</Link>
+                                                </li>
+                                            } */}
                                             {
                                                 BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="">
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
                                                         }} >{BCS?.display_value}</Link>
@@ -355,23 +385,26 @@ const AllMemberDirectoryPage = () => {
                                             }
                                             {
                                                 BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className=" ">
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="page-item">
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
                                                         }}>{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
                                             }
-                                            <li onClick={() => handleBCSId(2)} className="page-item my-auto">
-                                                <Link>
-                                                    <MdKeyboardArrowRight className=" fs-3" />
-                                                </Link>
+                                            <li onClick={() => handleBCSId(2)} className="page-item">
+                                                <Link className="page-link" href="#">Next</Link>
                                             </li>
 
+                                            {/* <li className="page-item"><Link className="page-link" href="#">Next</Link></li> */}
                                         </ul>
                                     </nav>
 
+                                    <nav className=" ms-2 d-md-none  " aria-label="Page navigation example" >
+                                        <ul className="pagination my-auto py-2 ">
 
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
