@@ -17,6 +17,7 @@ import { CgProfile } from 'react-icons/cg';
 import { RiAdminFill } from 'react-icons/ri';
 import Loader from "../Common/Loader";
 import './Navbar.css';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const Navbar = () => {
   const location = useLocation();
@@ -208,10 +209,12 @@ const Navbar = () => {
                   {userNewData?.image ?
                     <>
                       <img className="userImgNav" src={userNewData?.image} alt="" />
+                      <MdOutlineKeyboardArrowDown className=" userArrow" />
                     </>
                     :
                     <>
                       <img className="userImgNav" src={`data:image/jpeg;base64,${loginUserPhoto}`} alt="login_user_photo" />
+                      <MdOutlineKeyboardArrowDown className=" userArrow" />
                     </>
                   }
                 </Link>
@@ -279,10 +282,12 @@ const Navbar = () => {
                 {userNewData?.image ?
                   <>
                     <img className="userImgNav" src={userNewData?.image} alt="" />
+                    {/* <MdOutlineKeyboardArrowDown className=" userArrow" /> */}
                   </>
                   :
                   <>
-                    <img className="userImgNav" src={DefaultMemberImg} alt="" />
+                    <img className="userImgNav" src={`data:image/jpeg;base64,${loginUserPhoto}`} alt="login_user_photo" />
+                    {/* <MdOutlineKeyboardArrowDown className=" userArrow" /> */}
                   </>
                 }
               </Link>
