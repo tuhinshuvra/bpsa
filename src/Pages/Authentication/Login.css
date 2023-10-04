@@ -17,3 +17,33 @@
     line-height: 18px;
     margin: 0 0 10px 0;
 }
+
+.otpVerifyBtn {
+    background: #3F9888;
+    width: 200px;
+    height: 40px;
+    color: white;
+    border-radius: 5px;
+}
+
+.resendOTPText {
+    font-size: 15px;
+}
+
+
+
+@media (min-width: 1440px) and (max-width: 2559.98px) {}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {}
+
+@media (min-width: 992px) and (max-width: 1023.98px) {}
+
+@media (min-width: 768px) and (max-width: 991.98px) {}
+
+@media (min-width: 425px) and (max-width: 767.98px) {}
+
+@media (min-width: 320px) and (max-width: 424.98px) {
+    .resendOTPText {
+        font-size: 12px;
+    }
+}

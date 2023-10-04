@@ -4,7 +4,6 @@ import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Toast } from 'bootstrap';
 import axios from 'axios';
 import './Login.css';
 
@@ -83,7 +82,8 @@ const SignupPage = () => {
 
     const startCountdown = () => {
         // Set the countdown time to 5 minutes (300 seconds)
-        setTimeLeft(300);
+        // setTimeLeft(300);
+        setTimeLeft(3000);
         setIsCounting(true);
     };
 
@@ -224,10 +224,10 @@ const SignupPage = () => {
     }
     return (
         <div className=' container my-4'>
-            <div className=' col-lg-4 col-md-6 mx-auto'>
+            <div className=' col-lg-4 col-md-7 col-10 mx-auto'>
                 <div className=' d-flex flex-column align-items-center'>
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
-                    <h2 className=' text-center fs-3'>Sign up</h2>
+                    <h2 className=' text-center fs-3 fw-bold'>Sign up</h2>
                 </div>
                 {/* </div> */}
 
@@ -238,15 +238,24 @@ const SignupPage = () => {
                         </p>
                     </div>
                 }
-                {otpVerified &&
+
+                {uniqueIDVerified && !otpVerified &&
                     <div className='text-center'>
+                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>OPT Verification</h3>
+                        <p className='welcomeMessage mt-0'>Enter the verification code we send to your mobile</p>
+                    </div>
+                }
+
+                {otpVerified &&
+                    <div className='text-center col-lg-9 mx-auto'>
+                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>Set Username & Password</h3>
+
                         <p className='welcomeMessage'>
                             Enter a username of a minimum of 4 characters and provide your password.
                         </p>
                     </div>
                 }
 
-                {/* <div className=' col-lg-4 col-md-6 mx-auto'> */}
                 <p className=' small  text-center text-danger fw-bold  my-1'>{errorMessage}</p>
                 {!otpData && !otpVerified &&
                     <form onSubmit={handleVerifyUniqueId} className=' mt-0'>
@@ -271,8 +280,8 @@ const SignupPage = () => {
                             fullWidth
                             InputProps={{
                                 inputProps: {
-                                    min: 1900, // Set a minimum value for birth year
-                                    max: new Date().getFullYear(), // Set a maximum value as the current year
+                                    min: 1900,
+                                    max: new Date().getFullYear(),
                                 },
                             }}
                             required
@@ -287,44 +296,57 @@ const SignupPage = () => {
 
 
                 <form>
-                    <div className=' d-flex   align-items-baseline  '>
+                    <div className='   '>
                         {/* <button className='btn btn-primary btn-sm'>Counter</button> */}
                         {otpData && enableOtp &&
                             <>
                                 <div className=' d-flex justify-content-center align-items-center  '>
-                                    <button className='btn btn-primary '>{formatTime(timeLeft)}</button>
+                                    {/* <button className='btn btn-primary btn-sm '>{formatTime(timeLeft)}</button> */}
+
+                                    <button className=' btn btn-success mx-1 btn-sm'>{otpData}</button> <br />
                                 </div>
-                                <button className=' btn btn-success mx-1'>{otpData}</button>
 
-                                <TextField
-                                    className='mx-1'
-                                    label="User OTP"
-                                    name="user_otp"
-                                    id="user_otp"
-                                    type="text"
-                                    margin="normal"
-                                    value={userEnteredOTP}
-                                    onChange={(e) => setUserEnteredOTP(e.target.value)}
-                                    required
-                                    fullWidth
-                                />
+                                <div className=' text-center'>
+                                    <label htmlFor="user_otp" className=' text-gray-500 mt-3 mb-0' >Type the security code from your mobile</label>
+                                </div>
 
-                                {/* <button className='btn btn-primary  ' onClick={handleResendOTP}>ResendOTP</button> */}
-                                <button onClick={(e) => handleVerifyOTP(e)} className='btn btn-primary'>Verify OTP</button>
+                                <div className=' col-lg-9 mx-auto d-flex justify-content-center align-items-center mt-0'>
+                                    <TextField
+                                        className=' w-50'
+                                        label="Enter OTP"
+                                        name="user_otp"
+                                        id="user_otp"
+                                        type="text"
+                                        margin="normal"
+                                        value={userEnteredOTP}
+                                        onChange={(e) => setUserEnteredOTP(e.target.value)}
+                                        required
+                                    />
+
+                                    <button className=' mt-2 btn btn-secondary text-blue-800 btn-sm w-24 h-14 ms-1 fs-6'>{formatTime(timeLeft)}</button>
+                                </div>
+
+                                {/* <button onClick={(e) => handleVerifyOTP(e)} className='btn btn-primary'>Verify</button> */}
                             </>
                         }
                     </div>
                     {
-                        OTPCheckOne && enableOtp && <div className='text-center my-3'>
-                            {
-                                <button onClick={(e) => handleResendOTP(e)} className='btn btn-primary'>Resent OTP</button>
-                            }
+                        OTPCheckOne && enableOtp &&
+                        <div className='resendOTPText d-flex justify-content-center align-items-center'>
+                            <span className='  text-secondary'>Didn't you receive your OTP? </span>
+                            <button onClick={(e) => handleResendOTP(e)} className='  fw-bold text-blue-800 ms-2 '>Resent OTP</button>
+                        </div>
+                    }
+
+                    {otpData && enableOtp &&
+                        <div className=' text-center mt-3'>
+                            <button onClick={(e) => handleVerifyOTP(e)} className='otpVerifyBtn'>Verify</button>
                         </div>
                     }
                 </form>
 
                 {/* new user creation form */}
-                <form onSubmit={handleOnSubmit}>
+                <form onSubmit={handleOnSubmit} className=' col-lg-9 mx-auto'>
                     {otpVerified &&
                         <>
                             <TextField
@@ -372,7 +394,10 @@ const SignupPage = () => {
                             </div>
                         </>
                     }
-                    <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
+
+                    {!uniqueIDVerified &&
+                        <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
+                    }
                 </form>
             </div>
         </div>
