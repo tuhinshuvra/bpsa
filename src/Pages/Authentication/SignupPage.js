@@ -4,6 +4,7 @@ import useTitle from '../../hooks/useTitle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { Toast } from 'bootstrap';
 import axios from 'axios';
 import './Login.css';
 
