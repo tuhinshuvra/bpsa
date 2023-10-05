@@ -37,7 +37,8 @@ export default function HeroSlider({ data }) {
                   {" "}
                   <ImageComponent
                     image={item?.image}
-                    className="h-[300px] md:h-[600px] w-full object-cover"
+                    // className="h-[300px] md:h-[600px] w-full object-cover"
+                    className="h-[300px] md:h-[650px] w-full object-cover"
                   />{" "}
                   <div className="">
                     <div className="absolute top-[62%]  md:top-[78%] text-center mx-auto w-full text-white">

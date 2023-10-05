@@ -1,38 +1,101 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useTitle from '../../hooks/useTitle';
 import './BlogAdminAssign.css';
+import { AllContext } from '../../hooks/ContextData';
+import toast from 'react-hot-toast';
+import Loader from '../../Components/Common/Loader';
 
-
-const handleAddAdminRole = (event) => {
-    event.preventDefault()
-
-    console.log('handleAddAdminRole');
-}
-
-const handleRemoveAdminRole = (event) => {
-    event.preventDefault()
-    console.log('handleRemoveAdminRole');
-}
-
-const handleListMembers = (event) => {
-    event.preventDefault()
-    console.log('handleListMembers');
-}
 
 const BlogAdminAssign = () => {
     useTitle("AssignPostAdmin")
+    const { user, loading, setLoading } = useContext(AllContext);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [memberList, setMemberList] = useState([]);
 
-    useEffect(() => {
-        fetch('/data/bpsa_member_data.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+
+    // console.log("AdminAssign Member List: ", memberList);
+
+
+    const handleAddMember = (event) => {
+        // event.preventDefault();
+
+        // Get the value of the input field with name 'bpid'
+        const bpid = document.querySelector('input[name="bpid"]').value;
+
+        // Check if 'bpid' is empty
+        if (!bpid) {
+            toast("Please enter a BPID");
+            setErrorMessage("Please enter a BPID");
+            return;
+        }
+
+        // Fetch the member data using the entered BPID
+        fetch(`https://dev.bpsa.com.bd/api/profile/${bpid}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data?.member) {
+                    setMemberList([...memberList, data?.member]);
+                    // Member exists, you can proceed here
+                    console.log("Member User table Data: ", data?.member);
+                    console.log("AdminAssing MemberList: ", memberList);
+                    // You can add your logic to handle the member data
+                } else {
+                    toast("This member does not exist in our system");
                 }
-                return response.json();
             })
-            .then(data => console.log("BPSA Member Data: ", data))
-            .catch(error => console.error("Fetch error: ", error));
-    }, []);
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+                toast("An error occurred while fetching member data");
+            });
+    };
+
+
+    const handleAddAdminRole = (event) => {
+        event.preventDefault()
+
+        console.log('handleAddAdminRole');
+    }
+
+    const handleRemoveAdminRole = (event) => {
+        event.preventDefault()
+        console.log('handleRemoveAdminRole');
+    }
+
+
+    const handleRoleUpdate = (BPID, role) => {
+        let newRole;
+        if (role === 'member') {
+            newRole = 'admin';
+        } else if (role === 'admin') {
+            newRole = 'member';
+        }
+
+        const updatedData = {
+            BPID: BPID,
+            newRole: newRole,
+        };
+
+        fetch(`https://dev.bpsa.com.bd/api/member-status?pmsid=${BPID}&role=${newRole}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                toast.success(data?.message)
+            })
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+                toast("An error occurred while updating member role");
+            });
+    }
+
+
+    if (loading) {
+        return <Loader></Loader>
+    }
 
     return (
         // <div className=' container col-xl-4 col-lg-6 col-md-8 mx-auto'>
@@ -42,8 +105,35 @@ const BlogAdminAssign = () => {
                     <nav aria-label="" className="bg-light rounded-3 p-2 ">
                         <h3 className='fw-bold text-center text-success'>Post Admin Assign</h3>
                     </nav>
-                    <div className='  col-lg-6 col-md-8 mx-auto  my-4'>
-                        <form className='adminAssign'>
+                    <div className='  col-lg-6 col-md-8 mx-auto  my-4 adminAssign'>
+
+                        <p className=' text-danger fw-bold text-center'>{errorMessage}</p>
+                        <div className=' d-flex justify-content-between align-items-baseline'>
+                            <div className="mb-3 d-flex align-items-baseline ">
+                                <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
+                                <input className="form-control" type="text" name='bpid' id="bpid" placeholder='Enter member BPID' />
+                            </div>
+                            <button onClick={() => handleAddMember()} className=' btn btn-primary btn-sm w-20   ms-md-0 me-4'>Add</button>
+                        </div>
+
+
+
+
+
+                        <div className="">
+                            {
+                                memberList.map((member, index) =>
+                                    <div className=" d-flex my-1 " key={index}>
+                                        <p className="my-0 col-md-6"><b> Name</b>: {member?.Name}</p>
+                                        <p className="my-0 col-md-3"><b> Role</b>: {member?.MemberRole}</p>
+                                        <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm col-md-3"> Role Update </button>
+                                    </div>)
+                            }
+                        </div>
+
+
+
+                        {/* <form className='adminAssign'>
                             <div className=' d-flex justify-content-evenly align-items-baseline'>
                                 <div className="mb-3 d-flex align-items-baseline ">
                                     <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
@@ -85,13 +175,11 @@ const BlogAdminAssign = () => {
                                         <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> 
+                        </form> */}
 
-                            {/* <div className=' d-flex justify-content-between'>
-                        <button type="reset" className="btn btn-primary btn-sm">Reset</button>
-                        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
-                    </div> */}
-                        </form>
+
+
                     </div>
                 </div>
             </section>
