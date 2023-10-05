@@ -47,43 +47,47 @@ const EventDetailsPage = () => {
                         <h2 className='fw-bold text-center'>{eventDetails?.title}</h2>
                     </nav>
 
-                    <div className=" mb-3 p-3">
-                        <div className=''>
-                            <div className="">
-                                <img src={eventDetails?.image} className=" eventDetailImg " alt="..." onClick={handleImageClick} />
+                    <div className=" col-12 d-md-flex mb-3 p-3">
 
-                                <div className=' d-flex flex-column justify-content-lg-start ps-4'>
-                                    {eventDetails?.events &&
-                                        <h4> <b>Venue:</b> {eventDetails?.events} </h4>
-                                    }
-                                    {eventDetails?.start_date &&
-                                        <h5 className=' d-flex '><BsCalendarDateFill className=' me-1' /> {formatDate(eventDetails?.start_date)}
-                                            {eventDetails?.date && <> - {formatDate(eventDetails?.date)}</>}
-                                        </h5>
-                                    }
-
-                                    {eventDetails?.time &&
-                                        <div className=' d-flex align-items-center'>
-                                            <TfiTime className=' fs-5 fw-bolder' />
-                                            <span className=' fs-5 ms-1'> {eventDetails?.time} </span>
-                                        </div>
-                                    }
-
-                                    <p className="card-text mt-4"> <b></b>{eventDetails?.description}</p>
-                                </div>
-                            </div>
+                        <div className=' col-md-4 mb-3 mb-md-0'>
+                            <img src={eventDetails?.image} className=" eventDetailImg " alt="..." onClick={handleImageClick} />
                         </div>
+
+
+                        <div className=' col-md-8  d-flex flex-column justify-content-lg-start ps-4'>
+                            {eventDetails?.events &&
+                                <h4> <b>Venue:</b> {eventDetails?.events} </h4>
+                            }
+                            {eventDetails?.start_date &&
+                                <h5 className=' d-flex '><BsCalendarDateFill className=' me-1' /> {formatDate(eventDetails?.start_date)}
+                                    {eventDetails?.date && <> - {formatDate(eventDetails?.date)}</>}
+                                </h5>
+                            }
+
+                            {eventDetails?.time &&
+                                <div className=' d-flex align-items-center'>
+                                    <TfiTime className=' fs-5 fw-bolder' />
+                                    <span className=' fs-5 ms-1'> {eventDetails?.time} </span>
+                                </div>
+                            }
+
+                            <p className="card-text mt-4"> <b></b>{eventDetails?.description}</p>
+
+                        </div>
+
 
 
                     </div>
                 </div>
 
-                {showFullScreenImage &&
+                {
+                    showFullScreenImage &&
                     <FullScreenImage
                         image={eventDetails?.image}
                         id={eventDetails?.id}
-                    />}
-            </section>
+                    />
+                }
+            </section >
         </div >
     );
 };

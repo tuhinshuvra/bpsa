@@ -32,7 +32,7 @@ const EntryBlog = () => {
       title: form.block_title.value,
       summery: form.block_summery.value,
       description: content,
-      status: 'pending',
+      status: 'Pending',
       member_id: user?.id,
       memberName: user?.Name,
     };

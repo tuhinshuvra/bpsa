@@ -13,6 +13,15 @@
     opacity: 0.8;
 }
 
+.userArrow {
+    color: white;
+    margin: -20px 0px 0px 27px;
+    font-size: 19px;
+    background-color: #3a3737;
+    border-radius: 50%;
+    position: relative;
+}
+
 .navDropdownMenu {
     width: 230px;
     background-color: #2B72EF !important;

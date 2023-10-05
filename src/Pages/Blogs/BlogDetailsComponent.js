@@ -13,25 +13,24 @@ const BlogDetailsComponent = ({ data }) => {
   return (
     <div>
       <div>
-        <div className=" float-left me-md-3">
+        <div className="">
           {(data?.image && data?.image !== 'link') && <>
 
             <img
-              className="detailsImg object-contain "
+              className="blogDetailsImg object-contain  "
               src={data?.image}
               alt="post_image"
               onClick={handleImageClick}
             />
           </>}
         </div>
-        <p dangerouslySetInnerHTML={{ __html: data?.description }} className="text-justify" />
+        <p dangerouslySetInnerHTML={{ __html: data?.description }} className="text-justify mx-2 mx-md-2" />
       </div>
 
       {showFullScreenImage &&
         <FullScreenImage
           image={data?.image}
         />}
-
     </div>
   );
 };

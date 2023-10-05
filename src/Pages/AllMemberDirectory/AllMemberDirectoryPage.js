@@ -45,12 +45,12 @@ const AllMemberDirectoryPage = () => {
     };
     const data = 'grant_type=client_credentials';
 
+    // console.log("Login User Data : ", user);
+    // console.log("Directory Page filterData : ", filterData);
+    // console.log("memberBCSBatch", memberBCSBatch);
+
     const [selectedPage, setSelectedPage] = useState(1);
     const totalPages = 50; // Total number of pages
-
-
-    // console.log("AllMemberDirectoryPage filterData ", filterData);
-    // console.log("AllMemberDirectoryPage memberProfile ", memberProfile);
 
     const handlePageClick = (newPage) => {
         setSelectedPage(newPage);
@@ -122,7 +122,6 @@ const AllMemberDirectoryPage = () => {
             try {
                 const response = await axios.get(apiUrl, { headers });
                 setBatch(response.data.items[0]?.cadre);
-
             } catch (error) {
                 console.error('Error calling API:', error);
             }
@@ -154,6 +153,10 @@ const AllMemberDirectoryPage = () => {
                 setBlood([...new Set(response.data?.items.map(obj => obj.blood_group))]);
                 setDesignation([...new Set(response.data?.items.map(obj => obj.current_designation))]);
                 setDistrict([...new Set(response.data?.items.map(obj => obj.homedistrict))]);
+
+                setPage(1);
+                setStart(0);
+                setEnd(showperPage);
 
             } catch (error) {
                 console.error('Error calling API:', error);
@@ -221,6 +224,10 @@ const AllMemberDirectoryPage = () => {
         // console.log("Search Data:", searchData);
         setFilterData(filterData);
         setSearchButtonClicked(true);
+
+        setPage(1);
+        setStart(0);
+        setEnd(showperPage);
     }
 
     const handleChange = (event, value) => {
@@ -270,12 +277,21 @@ const AllMemberDirectoryPage = () => {
                         <div className=" col-lg-3 px-2">
                             <p className=" fs-5 fw-bold text-center rounded-lg py-1 ms-1 ">Search Pannel</p>
                             <form id="searchForm" onSubmit={handleSearchResult}>
-                                <div className=" d-md-flex d-lg-inline">
-                                    <label htmlFor="searchKeyword" className="form-label my-0 d-none d-lg-block fw-bold">Search name</label>
-                                    <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter name" />
-                                    <label htmlFor="phoneNumber" className="form-label my-0 d-none d-lg-block fw-bold">search mobile number</label>
-                                    <input onChange={getSearchData} type="text" name="phoneNumber" aria-label="phoneNumber" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mx-lg-0 mx-1" placeholder="Enter mobile number" />
-                                    <select onChange={getSearchData} name="rank" className="form-select my-2 mx-lg-0 mx-1" >
+
+                                <div className=" col-12 d-md-flex   d-lg-inline">
+                                    <div className=" col-lg-12 col-md-6">
+                                        <label htmlFor="searchKeyword" className="form-label my-0   fw-bold">Search by name</label>
+                                        <input onChange={getSearchData} type="text" name="searchKeyword" aria-label="searchKeyword" className="form-control mt-lg-0 mt-md-2 mt-0   searchField nameSearch mx-lg-0  " placeholder="Enter name" />
+                                    </div>
+
+                                    <div className=" col-lg-12 col-md-6 ms-md-1 ms-lg-0 ">
+                                        <label htmlFor="phoneNumber" className="form-label my-0   fw-bold   ">Search by mobile number</label>
+                                        <input onChange={getSearchData} type="text" name="phoneNumber" aria-label="phoneNumber" className="form-control mt-lg-0 mt-md-2 mt-0   searchField mobileSearch mx-lg-0 me-md-2  " placeholder="Enter mobile number" />
+                                    </div>
+                                </div>
+
+                                <div className=" me-lg-0 me-md-2 me-0">
+                                    <select onChange={getSearchData} name="rank" className="form-select mt-lg-0 mt-2   mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
                                         {
                                             rank && rank.map(rank => <option value={rank} key={rank}>{rank}</option>)
@@ -338,17 +354,24 @@ const AllMemberDirectoryPage = () => {
                                                 BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className="">
                                                         <Link className="page-link" href="#" style={{
-                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                            backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
+                                                            color: BCS?.display_value == batch ? 'white' : 'initial',
                                                         }}>{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
                                             }
 
+                                            {/* {
+                                                batch && <li onClick={() => setBatch(BcsAddress)} className="page-item">
+                                                    <Link className="page-link " style={{ backgroundColor: 'orange' }} href="#">{batch.toString()}</Link>
+                                                </li>
+                                            } */}
                                             {
                                                 BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className="">
                                                         <Link className="page-link" href="#" style={{
-                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
+                                                            backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
+                                                            color: BCS?.display_value == batch ? 'white' : 'initial',
                                                         }} >{BCS?.display_value}</Link>
                                                     </li>
                                                 ))
@@ -356,9 +379,12 @@ const AllMemberDirectoryPage = () => {
                                             {
                                                 BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
                                                     <li onClick={() => setBatch(BCS?.display_value)} className=" ">
-                                                        <Link className="page-link" href="#" style={{
-                                                            backgroundColor: BCS?.display_value == batch ? 'orange' : 'initial',
-                                                        }}>{BCS?.display_value}</Link>
+                                                        <Link className="page-link" href="#"
+                                                            style={{
+                                                                backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
+                                                                color: BCS?.display_value == batch ? 'white' : 'initial',
+                                                            }}>
+                                                            {BCS?.display_value}</Link>
                                                     </li>
                                                 ))
                                             }
@@ -368,10 +394,15 @@ const AllMemberDirectoryPage = () => {
                                                 </Link>
                                             </li>
 
+                                            {/* <li className="page-item"><Link className="page-link" href="#">Next</Link></li> */}
                                         </ul>
                                     </nav>
 
+                                    <nav className=" ms-2 d-md-none  " aria-label="Page navigation example" >
+                                        <ul className="pagination my-auto py-2 ">
 
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 

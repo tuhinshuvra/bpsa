@@ -7,6 +7,7 @@ import ImageComponent from "../Common/ImageComponent";
 import { GetMessageDetails } from "../../api";
 import { useParams } from "react-router-dom";
 import Loading from "../Common/Loader";
+import useTitle from "../../hooks/useTitle";
 
 // const messageData = [
 //   {
@@ -35,6 +36,7 @@ import Loading from "../Common/Loader";
 // বাংলাদেশ পুলিশ সার্ভিস অ্যাসোসিয়েশন
 
 const MessageDetailsComponent = () => {
+  useTitle("Message")
   const [messageShow, setMessageShow] = useState("Chief");
   const [msgData, setMsgData] = useState("");
   const [loading, setLoading] = useState(false);

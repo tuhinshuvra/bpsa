@@ -1,11 +1,9 @@
 import React from "react";
-import { Button, Col, Container, Image, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { BsTwitter, BsYoutube } from 'react-icons/bs';
 import { SiYoutubemusic } from 'react-icons/si';
 import { AiFillTwitterCircle } from 'react-icons/ai';
 import { FaFacebook } from 'react-icons/fa';
-import Logo from "../../assets/Image/logo/WhatsApp_Image_2023-01-05_at_15.56.30-removebg-preview.png";
+import Logo from "../../assets/Image/logo/bpsa_nav_logo.png";
 import FooterQuickLink from "./FooterQuickLink";
 import './Footer.css';
 

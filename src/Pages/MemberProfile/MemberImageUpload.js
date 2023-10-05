@@ -12,15 +12,15 @@ const MemberImageUpload = () => {
 
     const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
-    // console.log(" MemberImageUpload Login userData :", user);
+    console.log(" MemberImageUpload Login user :", user);
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                console.log("Member Image Upload uer Data: ", data.member)
-                setUserNewData(data?.value);
+                console.log("Member Image Upload user Data: ", data?.member)
+                setUserNewData(data?.member);
                 setLoading(false);
             })
     }, [setLoading, user?.BPID]);

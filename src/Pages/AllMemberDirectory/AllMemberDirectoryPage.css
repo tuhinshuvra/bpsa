@@ -13,6 +13,10 @@
     background-color: rgb(203, 217, 244);
 }
 
+.nameSearch {}
+
+.mobileSearch {}
+
 .defaultDataShow {
     background-color: white;
     border-radius: 10px;
@@ -92,6 +96,15 @@
         grid-template-columns: repeat(3, 1fr);
         /* gap: 10px 0px; */
     }
+
+    /* .nameSearch {
+        width: 134% !important;
+    }
+
+    .mobileSearch {
+        width: 97% !important;
+        margin-left: 79px !important;
+    } */
 }
 
 @media (min-width: 425px) and (max-width: 767.98px) {

@@ -1,9 +1,20 @@
 import { useContext } from 'react';
-import "./MemberProfileSample.css";
 import { AllContext } from '../../hooks/ContextData';
+import MemberImageUpload from './MemberImageUpload';
+import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
+import "./MemberProfileSample.css";
 
-const MemberProfileSample = ({ member }) => {
-    const { user, loading, setLoading } = useContext(AllContext);
+const MemberProfileSample = ({ member, userNewData }) => {
+    const { user, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
+
+    const toggleImageUpload = () => {
+        setShowImageUpload(!showImageUpload);
+    };
+
+    const toggleCoCurricularUpload = () => {
+        setShowCoCurricular(!showCoCurricular);
+    };
+
     console.log("MemberProfileSample memberData : ", member);
     // blood_group cadre  current_designation dateofbirth degree email employeecode employeename employeenameinenglish fathername gift gov_email
     // gov_mob homedistrict idsex main_unit marital_status mobilephone mothername pic rank rankinenglish religion sub_sub_unit sub_unit unit  
@@ -20,15 +31,44 @@ const MemberProfileSample = ({ member }) => {
 
                         <div className="col-lg-5 my-auto">
 
-                            {user?.image ?
+                            {userNewData?.image ?
                                 <>
-                                    <img src={user?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
+                                    <img src={userNewData?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
                                 </>
                                 :
                                 <>
                                     <img src={`data:image/jpeg;base64,${member?.pic}`} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
                                 </>
                             }
+                            <div className='col-lg-9 mx-auto text-center mt-1  mb-[-7px] '>
+                                {showImageUpload ? (
+                                    <div>
+                                        <MemberImageUpload />
+                                    </div>
+                                ) : (
+                                    <button className='imageUpload' onClick={toggleImageUpload}>
+                                        {userNewData?.image ? <>Update Image</> : <>Image Upload</>}
+                                    </button>
+                                )}
+                            </div>
+
+                            <div className=' col-lg-9 mx-auto text-center mt-3'>
+
+                                {userNewData?.CoCurriculumActivities &&
+                                    <p className="mt-1 mb-0 coCurriculur"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
+                                }
+
+
+                                {showCoCurricular ? (
+                                    <div>
+                                        <MemberCoCurriculamActivitiesEntry />
+                                    </div>
+                                ) : (
+                                    <button className='coCurricularUpload' onClick={toggleCoCurricularUpload}>
+                                        {userNewData?.CoCurriculumActivities ? <>Update Co-Curricular Activities</> : <>  CoCurricular Activities Upload</>}
+                                    </button>
+                                )}
+                            </div>
 
                             {/* <div className="about-avatar">
                                 <img src={`data:image/jpeg;base64,${member?.pic}`} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
