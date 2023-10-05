@@ -246,7 +246,6 @@ const SignupPage = () => {
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3 fw-bold'>Sign up</h2>
                 </div>
-                {/* </div> */}
 
                 {!uniqueIDVerified &&
                     <div className='text-center'>
