@@ -31,9 +31,9 @@ const MemberProfileSample = ({ member, userNewData }) => {
 
                         <div className="col-lg-5 my-auto">
 
-                            {user?.image ?
+                            {userNewData?.image ?
                                 <>
-                                    <img src={user?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
+                                    <img src={userNewData?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
                                 </>
                                 :
                                 <>

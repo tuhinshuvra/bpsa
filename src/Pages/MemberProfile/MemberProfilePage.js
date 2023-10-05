@@ -72,17 +72,16 @@ const MemberProfilePage = () => {
         // console.log("profileUser data :", memberData);
     }
 
-    // login user new data
+    // user new data
     useEffect(() => {
-        setLoading(true);
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                // console.log("Member User table  Data: ", data.value)
-                setUserNewData(data?.value)
+                // console.log("Member User table  Data: ", data?.member)
+                setUserNewData(data?.member)
                 setLoading(false)
             })
-    }, [])
+    }, [setLoading, user?.BPID]);
 
 
     // member all post

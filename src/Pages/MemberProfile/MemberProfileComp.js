@@ -19,15 +19,15 @@ const MemberProfileComp = ({ memberData, userNewData }) => {
         <div>
 
             <nav aria-label="breadcrumb" className="mx-1 bg-light rounded-3 p-2 mb-4">
-                <h2 className='fw-bold text-center  '>{memberData?.employeenameinenglish} PROFILE</h2>
+                <h2 className='fw-bold text-center'>{memberData?.employeenameinenglish} PROFILE</h2>
             </nav>
             <div className="row">
                 <div className="col-lg-4 my-1 my-lg-0">
                     <div className="card  proCard shadow-lg">
                         <div className="card-body proCardBody ">
-                            {user?.image ?
+                            {userNewData?.image ?
                                 <>
-                                    <img src={user?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px" }} />
+                                    <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", maxHeight: "178px" }} />
                                 </>
                                 :
                                 <>
@@ -46,7 +46,6 @@ const MemberProfileComp = ({ memberData, userNewData }) => {
                                     </button>
                                 )}
                             </div>
-
 
                             <div className=' text-center'>
                                 <h6 className="my-0 fw-bold">{memberData?.employeenameinenglish?.slice(0, 40)}

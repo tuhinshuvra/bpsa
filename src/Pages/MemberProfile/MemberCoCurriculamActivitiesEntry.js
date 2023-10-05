@@ -11,24 +11,22 @@ const MemberCoCurriculamActivitiesEntry = () => {
     useTitle("Profile Update");
     const [userNewData, setUserNewData] = useState();
     // console.log("userNewData :", userNewData);
-    const { user, loading, setLoading, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
+    const { user, loading, setLoading, setShowCoCurricular } = useContext(AllContext);
 
     const navigate = useNavigate();
 
     // user new data
     useEffect(() => {
-        // fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
         fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                console.log("MemberCoCurriculamActivitiesEntry user  Data: ", data)
-                setUserNewData(data?.value)
+                console.log("MemberCoCurriculamActivitiesEntry user new  Data: ", data)
+                setUserNewData(data?.member)
                 setLoading(false)
             })
     }, [setLoading, user?.BPID]);
 
 
-    // this function is used to post sign up data
     const handleOnSubmit = (event) => {
         // navigate("/memberProfile")
         event.preventDefault();

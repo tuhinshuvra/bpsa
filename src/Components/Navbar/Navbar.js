@@ -64,17 +64,21 @@ const Navbar = () => {
   }, [lastScrollY]);
 
 
+
+
   // user new data
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
+    fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
       .then(res => res.json())
       .then(data => {
-        // console.log("Member User table  Data: ", data.value)
-        setUserNewData(data.value)
+        // console.log("Member new  Data: ", data?.member)
+        setUserNewData(data?.member)
         setLoading(false)
       })
-  }, [])
+  }, [setLoading, user?.BPID]);
+
+
+
 
   const handleSignOut = () => {
     signout(() => {
