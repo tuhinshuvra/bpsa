@@ -17,7 +17,8 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
+        // fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.BPID}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 console.log("MemberCoCurriculamActivitiesEntry user  Data: ", data)

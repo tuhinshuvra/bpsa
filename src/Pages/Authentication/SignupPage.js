@@ -83,8 +83,8 @@ const SignupPage = () => {
 
     const startCountdown = () => {
         // Set the countdown time to 5 minutes (300 seconds)
-        // setTimeLeft(300);
-        setTimeLeft(3000);
+        setTimeLeft(300);
+        // setTimeLeft(3000);
         setIsCounting(true);
     };
 
@@ -289,7 +289,7 @@ const SignupPage = () => {
                         />
 
                         <div className=' text-center'>
-                            <button type='submit' className=' btn btn-primary btn-sm '>Verify</button>
+                            <button type='submit' className=' otpVerifyBtn'>Verify</button>
                         </div>
 
                     </form>
@@ -302,7 +302,6 @@ const SignupPage = () => {
                         {otpData && enableOtp &&
                             <>
                                 <div className=' d-flex justify-content-center align-items-center  '>
-                                    {/* <button className='btn btn-primary btn-sm '>{formatTime(timeLeft)}</button> */}
 
                                     <button className=' btn btn-success mx-1 btn-sm'>{otpData}</button> <br />
                                 </div>
@@ -326,8 +325,6 @@ const SignupPage = () => {
 
                                     <button className=' mt-2 btn btn-secondary text-blue-800 btn-sm w-24 h-14 ms-1 fs-6'>{formatTime(timeLeft)}</button>
                                 </div>
-
-                                {/* <button onClick={(e) => handleVerifyOTP(e)} className='btn btn-primary'>Verify</button> */}
                             </>
                         }
                     </div>

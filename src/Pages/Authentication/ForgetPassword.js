@@ -36,6 +36,7 @@ const ForgetPassword = () => {
         'Authorization': `Basic ${base64Credentials}`,
         'Content-Type': 'application/x-www-form-urlencoded',
     };
+
     const data = 'grant_type=client_credentials';
 
     useEffect(() => {
@@ -49,6 +50,8 @@ const ForgetPassword = () => {
         }
         getAccessToken();
     }, [headers])
+
+
     useEffect(() => {
         let countdownInterval;
 
@@ -74,7 +77,6 @@ const ForgetPassword = () => {
     }, [isCounting, timeLeft]);
 
     const startCountdown = () => {
-
         // Set the countdown time to 5 minutes (300 seconds)
         setTimeLeft(300);
         setIsCounting(true);
@@ -155,6 +157,7 @@ const ForgetPassword = () => {
             setErrorMessage("OTP not match");
         }
     }
+
     const handleForgetPassword = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -166,9 +169,9 @@ const ForgetPassword = () => {
             return;
         }
 
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
+        // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-        // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         const isPasswordValid = passwordPattern.test(password);
         if (!isPasswordValid) {
             setErrorMessage("Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.");
@@ -176,10 +179,11 @@ const ForgetPassword = () => {
         }
         const userData = {
             newpassword: form.password.value,
-            uniqueId: unique
+            UniqueID: unique
         }
         console.log(userData)
 
+        // axios.post("https://dev.bpsa.com.bd/api/change-password", userData, {
         axios.post("https://dev.bpsa.com.bd/api/change-password", userData, {
             headers: {
                 'Content-Type': 'application/json',
@@ -202,17 +206,25 @@ const ForgetPassword = () => {
                     toast.error("An error occurred while processing your request.");
                 }
             });
-
-
-
-
     }
+
+    const handleResendOTP = (e) => {
+        e.preventDefault();
+        axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+            .then(resOTP => {
+                console.log();
+                setOtpData(resOTP.data.otp)
+            })
+        startCountdown();
+    }
+
+
     return (
         <div className=' container my-4'>
             <div className=' col-lg-4 col-md-6 mx-auto'>
                 <div className=' d-flex flex-column align-items-center'>
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
-                    <h2 className=' text-center fs-3'>Password forget</h2>
+                    <h2 className=' text-center fs-3 fw-bold'>Password forget</h2>
                 </div>
                 {/* </div> */}
 
@@ -224,13 +236,20 @@ const ForgetPassword = () => {
                     </div>
                 }
 
-                {OTPVerified &&
+                {uniqueIDVerified && !OTPVerified &&
+                    <div className='text-center'>
+                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>OPT Verification</h3>
+                        <p className='welcomeMessage mt-0'>Enter the verification code we send to your mobile</p>
+                    </div>
+                }
+
+                {/* {OTPVerified &&
                     <div className=' text-center'>
                         <p className='welcomeMessage'>
                             Please provide your password and retype the password.
                         </p>
                     </div>
-                }
+                } */}
 
                 {/* <div className=' col-lg-4 col-md-6 mx-auto'> */}
                 <p className=' small  text-center text-danger fw-bold  my-1'>{errorMessage}</p>
@@ -242,7 +261,7 @@ const ForgetPassword = () => {
                     otpAccess && <p className='text-center my-2 text-main'>
 
                         {!OTPVerified &&
-                            <> OTP: {otpAccess}</>
+                            <button className=' btn btn-success btn-sm'> {otpAccess}</button>
                         }
 
                     </p>
@@ -271,7 +290,7 @@ const ForgetPassword = () => {
                         />
 
                         <div className='text-center'>
-                            <button className=' btn btn-primary btn-sm '>Verify</button>
+                            <button className=' otpVerifyBtn '>Verify</button>
                         </div>
                     </form>
                 }
@@ -279,41 +298,52 @@ const ForgetPassword = () => {
 
 
                 {
-                    verifyOTP &&
-                    <div className='text-center my-4'>
-
-                        <button style={{ textTransform: 'none' }} ><span className='text-xl'><span className='text-orange-400 text-2xl'>{formatTime(timeLeft)}</span> Before put your OTP</span></button>
-
-                        <TextField
-                            label="OTP add"
-                            name="otp_id"
-                            id="otp_id"
-                            type="text"
-                            margin="normal"
-                            fullWidth
-                            required
-                            value={otpValue}
-                            onChange={handleOtpChange}
-                        />
-
-                        {/* <div className='flex justify-between items-center'>
-                            <button onClick={handleResetCountTime} className=' btn btn-primary btn-sm '>resend</button>
-                            <button onClick={handleOTPVerify} className=' btn btn-primary btn-sm '>submit</button>
-                        </div> */}
-
-                        <div className="col-12 row my-2">
-                            <div className="col-5 text-start">
-                                <button onClick={handleResetCountTime} type="reset" className="btn btn-warning btn-sm">Reset</button>
-                            </div>
-                            <div className="col-7 text-start">
-                                <button onClick={handleOTPVerify} type="submit" className="btn btn-primary btn-sm">Submit</button>
-                            </div>
+                    verifyOTP && <>
+                        <div className=' text-center'>
+                            <label htmlFor="user_otp" className=' text-gray-500 mt-3 mb-0' >Type the security code from your mobile</label>
+                        </div>
+                        <div className=' col-lg-10 mx-auto d-flex justify-content-center align-items-center mt-0'>
+                            <TextField
+                                className=' w-50'
+                                label="Enter OTP"
+                                name="otp_id"
+                                id="otp_id"
+                                type="text"
+                                margin="normal"
+                                fullWidth
+                                required
+                                value={otpValue}
+                                onChange={handleOtpChange}
+                            />
+                            <button className=' mt-2 btn btn-secondary text-blue-800 btn-sm w-24 h-14 ms-1 fs-6'>{formatTime(timeLeft)}</button>
+                        </div>
+                        <div className='resendOTPText d-flex justify-content-center align-items-center'>
+                            <span className='  text-secondary'>Didn't you receive your OTP? </span>
+                            <button onClick={(e) => handleResendOTP(e)} className='  fw-bold text-blue-800 ms-2 '>Resent OTP</button>
                         </div>
 
-                    </div>
+
+                        {/* <div className="col-12 row my-2">
+                            <div className="col-7 text-start">
+                                <button onClick={handleOTPVerify} type="submit" className="btn btn-primary btn-sm">Verify</button>
+                            </div>
+                        </div> */}
+
+                        <div className=' text-center mt-3'>
+                            <button onClick={handleOTPVerify} className='otpVerifyBtn'>Verify</button>
+                        </div>
+                    </>
                 }
+
                 {OTPVerified &&
                     <form onSubmit={handleForgetPassword}>
+                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>Set Username & Password</h3>
+
+                        <div className=' text-center'>
+                            <p className='welcomeMessage'>
+                                Please provide your password and retype the password.
+                            </p>
+                        </div>
                         <TextField
                             label="Password" name="password" id="password" type="password" margin="normal" disabled={false} required fullWidth />
                         <label className='passwordMessage mt-0 text-center' htmlFor="">
@@ -321,12 +351,12 @@ const ForgetPassword = () => {
                         </label>
                         <TextField label="Retype Password" name="confirm_password" id="confirm_password" type="password" margin="normal" disabled={false} required fullWidth />
                         <div className='text-center'>
-                            <button className=' btn btn-primary btn-sm '>submit</button>
+                            <button type='submit' className='otpVerifyBtn '>Submit</button>
                         </div>
                     </form>
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

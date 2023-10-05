@@ -20,27 +20,28 @@ const ResetPassword = () => {
         const currentPassword = form.currentPassword.value;
         const newPassword = form.newPassword.value;
         const confirmedPassword = form.confirmedPassword.value;
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
         const currentPasswordMatch = passwordPattern.test(currentPassword);
 
         if (!currentPasswordMatch) {
-            setErrorMessage("invalid current password,  Password combination must be lowercase, uppercase ,number . password total numbers must me eight");
+            setErrorMessage("Wrong current password");
             return;
         }
 
         const isPasswordValid = passwordPattern.test(newPassword);
         if (!isPasswordValid) {
-            setErrorMessage("new Password combination must be lowercase, uppercase ,number . password total numbers must me eight");
+            setErrorMessage("New password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character");
             return;
         }
         const isConfirmedPasswordValid = passwordPattern.test(confirmedPassword);
         if (!isConfirmedPasswordValid) {
-            setErrorMessage("confirmed password combination must be lowercase, uppercase ,number. password total numbers must me eight");
+            setErrorMessage("Conrirm password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character");
             return;
         }
         if (newPassword !== confirmedPassword) {
-            setErrorMessage("new password and confirmed password not match");
+            setErrorMessage("The new password and confirm password do not match.");
             return;
         }
         else {
@@ -52,7 +53,8 @@ const ResetPassword = () => {
                 password_confirmation: confirmedPassword,
             }
             console.log(data);
-            axios.post("https://dev.bpsa.com.bd/api/change-password", data)
+            // axios.post("https://dev.bpsa.com.bd/api/change-password", data)
+            axios.post("https://dev.bpsa.com.bd/api/change-password-member", data)
                 .then(result => {
                     // console.log(result);
                     if (result.status == 201) {
