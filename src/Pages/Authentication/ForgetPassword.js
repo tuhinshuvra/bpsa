@@ -96,11 +96,24 @@ const ForgetPassword = () => {
         const form = event.target;
         // const uniqueId = form.unique_id.value;
         const uniqueId = form.unique_id.value.trim();
+
+        const firstTwoChars = uniqueId.slice(0, 2);
+
+        let newUniqueId;
+        if (firstTwoChars.toLowerCase() === 'bp') {
+            newUniqueId = uniqueId.toUpperCase();
+        } else {
+            newUniqueId = 'BP' + uniqueId.toUpperCase();
+        }
+
+
+
         const yearBirth = form.year.value;
         if (!accessToken) {
             return;
         }
-        await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${uniqueId}/${yearBirth}`, {
+        // await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${uniqueId}/${yearBirth}`, {
+        await axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${newUniqueId}/${yearBirth}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }
@@ -110,7 +123,8 @@ const ForgetPassword = () => {
                 if (result.data.items.length > 0) {
                     // toast.success("user verified successfully");
                     setUser(result.data.items[0]);
-                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                    // axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${newUniqueId}`)
                         .then(verifyUser => {
                             console.log(verifyUser.data)
                             if (verifyUser.data.value == 1) {
@@ -131,7 +145,7 @@ const ForgetPassword = () => {
                                 form.reset();
                             }
                             else if (verifyUser.data.value == 2) {
-                                setErrorMessage("No matching PIMS ID");
+                                setErrorMessage("No member found with this BPID");
                             }
                         })
                 }

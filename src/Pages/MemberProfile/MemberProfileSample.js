@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import "./MemberProfileSample.css";
 import { AllContext } from '../../hooks/ContextData';
 import MemberImageUpload from './MemberImageUpload';
 import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
+import "./MemberProfileSample.css";
 
 const MemberProfileSample = ({ member, userNewData }) => {
     const { user, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);

@@ -88,12 +88,28 @@ const SignupPage = () => {
         setIsCounting(true);
     };
 
+
+
     const handleVerifyUniqueId = (event) => {
         event.preventDefault();
         const form = event.target;
         const uniqueId = form.unique_id.value.trim();
+
+        const firstTwoChars = uniqueId.slice(0, 2);
+
+        let newUniqueId;
+        if (firstTwoChars.toLowerCase() === 'bp') {
+            newUniqueId = uniqueId.toUpperCase();
+        } else {
+            newUniqueId = 'BP' + uniqueId.toUpperCase();
+        }
+
+        console.log("Old Unique ID", uniqueId);
+        console.log("New Unique ID", newUniqueId);
+
         const birthYear = form.birth_year.value;
-        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${uniqueId}/${birthYear}`, {
+        // axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${uniqueId}/${birthYear}`, {
+        axios.get(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${newUniqueId}/${birthYear}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }
@@ -103,11 +119,11 @@ const SignupPage = () => {
                 setErrorMessage("");
                 if (result.data.items.length > 0) {
                     // toast.success("user verified successfully");
-                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                    // axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${newUniqueId}`)
                         .then(verifyUser => {
                             if (verifyUser.data.value == 1) {
                                 setErrorMessage("User already registered")
-                                // toast.error("user already registered")
                             }
                             else if (verifyUser.data.value == 2) {
 
