@@ -73,7 +73,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
                                     </div>
                                     <div className="my-auto">
                                         <p className=' fw-bold text-center '>{post?.status}</p>
-                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-outline-secondary btn-sm ms-3 w-24 '>Edit</Link>
                                     </div>
                                 </div>
                             </>
@@ -102,7 +102,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
                                     </div>
                                     <div className="my-auto">
                                         <p className=' fw-bold text-center '>{post?.status}</p>
-                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-outline-secondary btn-sm ms-3 w-24 '>Edit</Link>
                                     </div>
                                 </div>
                             </>

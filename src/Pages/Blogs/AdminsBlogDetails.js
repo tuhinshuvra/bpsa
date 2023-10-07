@@ -127,7 +127,7 @@ const AdminsBlogDetails = () => {
 
                 <div className='col-lg-8 mx-auto  d-flex justify-content-between align-items-baseline mt-0 pt-0 pb-3 '>
 
-                    <Link to={"/adminAllBlog"} className='btn btn-primary btn-sm w-28'>Back</Link>
+                    <Link to={"/adminAllBlog"} className='btn btn-outline-secondary btn-sm w-28'>Back</Link>
 
                     <form onSubmit={handleSubmit} className=' d-flex align-items-baseline'>
                         <div>
@@ -147,7 +147,7 @@ const AdminsBlogDetails = () => {
                         </div>
 
                         <div>
-                            <button className='btn btn-primary btn-sm w-36 ms-1' type="submit">update status</button>
+                            <button className='btn btn-outline-secondary btn-sm w-36 ms-1' type="submit">update status</button>
                         </div>
                     </form>
                 </div>

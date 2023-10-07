@@ -104,7 +104,7 @@ const LeaderShipComponent = () => {
                           <ButtonComponent
                             onClick={() => setSeeMore(!seeMore)}
                             title={seeMore ? "See Less" : "See More"}
-                            className="btn btn-primary btn-sm my-0"
+                            className="btn btn-outline-secondary btn-sm my-0"
                           />
                         </div>
                       </div>

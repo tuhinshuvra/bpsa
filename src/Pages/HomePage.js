@@ -225,7 +225,7 @@ const HomePage = () => {
             <TestimonialComponent data={messageData} />
             <SummaryComp data={successData} />
 
-            <div className="bg-[#E2E3E7] py-3 rounded-2xl my-3">
+            <div className="bg-[white] rounded-2xl my-3">
               <QuicksLinks local={localLink} international={internationalLink} />
             </div>
 

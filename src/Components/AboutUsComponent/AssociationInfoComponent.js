@@ -41,7 +41,7 @@ const AssociationInfoComponent = () => {
               <ButtonComponent
                 onClick={() => setSeeMore(!seeMore)}
                 title={seeMore ? "See Less" : "See More"}
-                className="btn btn-secondary btn-sm"
+                className="btn btn-outline-secondary btn-sm"
               />
             </div>
           </div>

@@ -25,7 +25,7 @@ const NewsDetailsInfoComponent = ({ data }) => {
       {data?.Document_Link && (
         <a href={data?.Document_Link} target="_blank" rel="noreferrer">
           <ButtonComponent
-            className={"bg-second text-white px-4 py-2"}
+            className={" btn btn-outline-secondary btn-sm"}
             title="View Document"
           />
         </a>

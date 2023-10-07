@@ -17,13 +17,16 @@ const GalleryComp = ({ data }) => {
     }
   }, [data]);
   return (
-    <div>
-      <Container className="py-3 bg-[#E2E3E7] rounded-2xl">
-        <HeadingComponent1
-          first="Association  "
-          second={"Photos"}
-          className="text-center  pb-3"
-        />
+    <div className="  bg-[white] rounded-2xl ">
+
+      <HeadingComponent1
+        first="Association  "
+        second={"Photos"}
+        // className="text-center  pb-3"
+        className={" bg-[#E2E3E7]  rounded-t-2xl  text-center py-3 mb-0 "}
+      />
+      <div className=" container pt-2 pb-3">
+
         <div className={`${Styles.galleryGridView}`}>
           {data &&
             data?.slice(0, 10)?.map((item, index) => {
@@ -45,7 +48,8 @@ const GalleryComp = ({ data }) => {
             title="See More"
           />
         </div>
-      </Container>
+      </div>
+
     </div>
   );
 };
