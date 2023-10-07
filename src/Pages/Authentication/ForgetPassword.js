@@ -22,8 +22,8 @@ const ForgetPassword = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const [name, setName] = useState("");
-    const [otpAccess, setOtpAccess] = useState();
-    const [OtpData, setOtpData] = useState();
+    // const [OtpData, setOtpData] = useState();
+    const [OtpData, setOtpData] = useState('');
 
     const [user, setUser] = useState("");
     const [accessToken, setAccessToken] = useState('');
@@ -133,7 +133,7 @@ const ForgetPassword = () => {
                                     .then(resOTP => {
                                         console.log(resOTP.data.otp);
                                         // setOtpData(resOTP.data.otp)
-                                        setOtpAccess(resOTP.data.otp)
+                                        setOtpData(resOTP.data.otp)
                                     })
                                 toast.success("PIMS ID Verified Successfully!");
                                 setErrorMessage("");
@@ -162,7 +162,7 @@ const ForgetPassword = () => {
         setOtpValue(event.target.value);
     };
     const handleOTPVerify = () => {
-        if (otpValue == otpAccess) {
+        if (otpValue == OtpData) {
             setOTPVerified(true);
             setVerifyOTP(false);
             toast.success("OTP verify success");
@@ -234,8 +234,8 @@ const ForgetPassword = () => {
 
 
     return (
-        <div className=' container my-4'>
-            <div className=' col-lg-4 col-md-6 mx-auto'>
+        <div className='container'>
+            <div className='col-xl-4 col-lg-6 col-md-8 mx-auto loginPage'>
                 <div className=' d-flex flex-column align-items-center'>
                     <MdOutlineLockReset className='signup_person'></MdOutlineLockReset>
                     <h2 className=' text-center fs-3 fw-bold'>Password forget</h2>
@@ -244,7 +244,8 @@ const ForgetPassword = () => {
 
                 {!uniqueIDVerified &&
                     <div className=' text-center'>
-                        <p className='welcomeMessage'>
+                        <h3 className=' text-center fs-6 fw-bold   mb-3'>Verify your Identity</h3>
+                        <p className='associationMem'>
                             As an association member, to reset your password please provide your BPID and Birth Year in the following fields and follow the instructions.
                         </p>
                     </div>
@@ -252,8 +253,8 @@ const ForgetPassword = () => {
 
                 {uniqueIDVerified && !OTPVerified &&
                     <div className='text-center'>
-                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>OPT Verification</h3>
-                        <p className='welcomeMessage mt-0'>Enter the verification code we send to your mobile</p>
+                        <h3 className=' text-center fs-5 fw-bold mt-2 mb-0'>OPT Verification</h3>
+                        <p className='associationMem mt-0'>Enter the verification code we send to your mobile</p>
                     </div>
                 }
 
@@ -272,10 +273,10 @@ const ForgetPassword = () => {
                 }
 
                 {
-                    otpAccess && <p className='text-center my-2 text-main'>
+                    OtpData && <p className='text-center my-2 text-main'>
 
                         {!OTPVerified &&
-                            <button className=' btn btn-success btn-sm'> {otpAccess}</button>
+                            <button className=' btn btn-success btn-sm'> {OtpData}</button>
                         }
 
                     </p>
@@ -304,17 +305,16 @@ const ForgetPassword = () => {
                         />
 
                         <div className='text-center'>
-                            <button className=' otpVerifyBtn '>Verify</button>
+                            {/* <button className=' otpVerifyBtn '>Verify</button> */}
+                            <button className=' btn btn-outline-secondary w-full'>Verify</button>
                         </div>
                     </form>
                 }
 
-
-
                 {
                     verifyOTP && <>
                         <div className=' text-center'>
-                            <label htmlFor="user_otp" className=' text-gray-500 mt-3 mb-0' >Type the security code from your mobile</label>
+                            <label htmlFor="user_otp" className=' text-gray-500 mt-3 mb-0'>Type the security code from your mobile</label>
                         </div>
                         <div className=' col-lg-10 mx-auto d-flex justify-content-center align-items-center mt-0'>
                             <TextField
@@ -344,17 +344,18 @@ const ForgetPassword = () => {
                         </div> */}
 
                         <div className=' text-center mt-3'>
-                            <button onClick={handleOTPVerify} className='otpVerifyBtn'>Verify</button>
+                            {/* <button onClick={handleOTPVerify} className='otpVerifyBtn'>Verify</button> */}
+                            <button onClick={handleOTPVerify} className=' btn btn-outline-secondary w-full'>Verify</button>
                         </div>
                     </>
                 }
 
                 {OTPVerified &&
                     <form onSubmit={handleForgetPassword}>
-                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>Set Username & Password</h3>
+                        <h3 className=' text-center fs-5 fw-bold mt-0 mb-3'>Set New Password</h3>
 
                         <div className=' text-center'>
-                            <p className='welcomeMessage'>
+                            <p className='associationMem'>
                                 Please provide your password and retype the password.
                             </p>
                         </div>
@@ -364,8 +365,9 @@ const ForgetPassword = () => {
                             Password should be at least 8 characters long and must contain CAPITAL letter, small letter, and numeric character.
                         </label>
                         <TextField label="Retype Password" name="confirm_password" id="confirm_password" type="password" margin="normal" disabled={false} required fullWidth />
-                        <div className='text-center'>
-                            <button type='submit' className='otpVerifyBtn '>Submit</button>
+                        <div className='text-center  mt-4'>
+                            {/* <button type='submit' className=''>Submit</button> */}
+                            <button type='submit' className='btn btn-outline-secondary w-full'>Submit</button>
                         </div>
                     </form>
                 }

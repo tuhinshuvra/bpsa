@@ -41,7 +41,7 @@ const GalleryComp = ({ data }) => {
         <div className="text-center">
           <ButtonComponent
             onClick={() => navigate("/gallery")}
-            className="bg-primary text-white px-3 py-2 rounded-md"
+            className=" btn btn-outline-secondary w-32"
             title="See More"
           />
         </div>

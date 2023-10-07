@@ -80,13 +80,13 @@ const ResetPassword = () => {
     }
 
     return (
-        <div className='col-xl-3 col-lg-4 col-md-6 mx-auto my-4 px-2 '>
+        <div className='col-xl-4 col-lg-5 col-md-8 col-11 mx-auto  loginPage '>
             <div className=' d-flex flex-column align-items-center mb-3'>
                 <MdLockReset className='signup_person'></MdLockReset>
                 <h2 className=' text-center fs-3'>Reset Password</h2>
+                {/* <h3 className=' text-center fs-5 fw-bold mt-0 mb-3'>Set New Password</h3> */}
             </div>
             {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
-
 
             <form onSubmit={handleNew}>
 
@@ -137,8 +137,8 @@ const ResetPassword = () => {
                 </div>
 
                 <div className=' d-flex justify-content-between my-3'>
-                    <button type='reset' className='btn btn-warning btn-sm  w-25'>Reset</button>
-                    <button type='submit' className='btn   btn-primary  btn-sm  w-25'>Submit</button>
+                    {/* <button type='reset' className='btn btn-warning btn-sm  w-25'>Reset</button> */}
+                    <button type='submit' className='btn btn-outline-secondary w-full '>Submit</button>
                 </div>
 
             </form>

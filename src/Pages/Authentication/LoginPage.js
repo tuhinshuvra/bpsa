@@ -67,7 +67,7 @@ const LoginPage = () => {
 
   return (
     <div className=' container '>
-      <div className=' col-lg-4 col-md-6 mx-auto loginPage'>
+      <div className='col-xl-4 col-lg-6 col-md-8 mx-auto loginPage'>
         <div className=' d-flex flex-column align-items-center'>
           <FaLock className='signup_person'></FaLock>
           <h2 className=' text-center fs-3'>Log in</h2>
@@ -107,17 +107,20 @@ const LoginPage = () => {
           />
 
 
-          <button type='submit' className=' w-full btn btn-primary my-2'>Sign in</button>
+          <button type='submit' className=' w-full btn btn-outline-secondary  my-2'>Sign in</button>
 
-          <div className=' d-flex justify-content-between my-2'>
+          <div className=' d-flex flex-md-row  flex-column justify-content-md-between text-md-start text-center  my-2'>
 
-            <Link to="/forgotpassword" variant="body2" disabled={!resetPassword}>
+            <Link className=' small' to="/forgotpassword" variant="body2" disabled={!resetPassword}>
               Forgot password?
             </Link>
 
-            <Link to="/signup" variant="body2">
-              {"Don't have an account? Sign Up"}
-            </Link>
+            <div className='d-flex small  align-items-baseline mx-md-0  mx-auto'>
+              <p className=' text-secondary'>Don't have an account?</p>
+              <Link className=' ms-1' to="/signup" variant="body2">
+                Sign Up
+              </Link>
+            </div>
           </div>
         </form>
 

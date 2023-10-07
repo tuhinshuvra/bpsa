@@ -241,32 +241,36 @@ const SignupPage = () => {
     }
     return (
         <div className=' container my-4'>
-            <div className=' col-lg-4 col-md-7 col-10 mx-auto'>
+            <div className='col-xl-4 col-lg-6 col-md-8 mx-auto loginPage'>
                 <div className=' d-flex flex-column align-items-center'>
                     <BsPersonCircle className='signup_person'></BsPersonCircle>
                     <h2 className=' text-center fs-3 fw-bold'>Sign up</h2>
+                    <p className='welcomeMessage text-center'>Welcome to Bangladesh Police Service Association website.</p>
                 </div>
 
                 {!uniqueIDVerified &&
                     <div className='text-center'>
-                        <p className='welcomeMessage'>Welcome to the Bangladesh Police Service Association website. <br />
-                            As an association member, to sign-up please provide your BPID and Birth Year in the following fields and follow the instructions.
+                        <h3 className=' text-center fs-5 fw-bold mt-2 mb-0'>Verify your Identity</h3>
+                        <p className='  associationMem '>
+                            To Sign Up as an association member,  please verify your BPID and Birth Year in the following fields and follow the instructions.
                         </p>
                     </div>
                 }
 
+
                 {uniqueIDVerified && !otpVerified &&
                     <div className='text-center'>
-                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>OPT Verification</h3>
+                        {/* <p className='welcomeMessage'>Welcome to Bangladesh Police Service Association website.</p> */}
+                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>Verify OPT</h3>
                         <p className='welcomeMessage mt-0'>Enter the verification code we send to your mobile</p>
                     </div>
                 }
 
                 {otpVerified &&
                     <div className='text-center col-lg-9 mx-auto'>
-                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>Set Username & Password</h3>
+                        <h3 className=' text-center fs-4 fw-bold mt-2 mb-0'>Setup Credential</h3>
 
-                        <p className='welcomeMessage'>
+                        <p className='associationMem'>
                             Enter a username of a minimum of 4 characters and provide your password.
                         </p>
                     </div>
@@ -304,7 +308,8 @@ const SignupPage = () => {
                         />
 
                         <div className=' text-center'>
-                            <button type='submit' className=' otpVerifyBtn'>Verify</button>
+                            {/* <button type='submit' className=' otpVerifyBtn'>Verify</button> */}
+                            <button type='submit' className=' btn  btn-outline-secondary w-full'>Verify</button>
                         </div>
 
                     </form>
@@ -353,13 +358,14 @@ const SignupPage = () => {
 
                     {otpData && enableOtp &&
                         <div className=' text-center mt-3'>
-                            <button onClick={(e) => handleVerifyOTP(e)} className='otpVerifyBtn'>Verify</button>
+                            {/* <button onClick={(e) => handleVerifyOTP(e)} className='otpVerifyBtn'>Verify</button> */}
+                            <button onClick={(e) => handleVerifyOTP(e)} className='btn btn-outline-secondary w-full'>Verify</button>
                         </div>
                     }
                 </form>
 
                 {/* new user creation form */}
-                <form onSubmit={handleOnSubmit} className=' col-lg-9 mx-auto'>
+                <form onSubmit={handleOnSubmit} className=' mx-auto'>
                     {otpVerified &&
                         <>
                             <TextField
@@ -397,19 +403,19 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
-                            <div className="col-12 row my-2">
-                                <div className="col-5 text-start">
+                            <div className="  mt-3">
+                                {/* <div className="col-5 text-start">
                                     <button type="reset" className="btn btn-warning btn-sm">Reset</button>
-                                </div>
-                                <div className="col-7 text-start">
-                                    <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+                                </div> */}
+                                <div className=" ">
+                                    <button type="submit" className="btn btn-outline-secondary w-full  ">Submit</button>
                                 </div>
                             </div>
                         </>
                     }
 
                     {!uniqueIDVerified &&
-                        <p className=' text-center my-2'>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
+                        <p className=' text-center my-2 text-secondary small '>Already have an account? go to<Link to="/login" className=' ms-1'>Login</Link> </p>
                     }
                 </form>
             </div>
