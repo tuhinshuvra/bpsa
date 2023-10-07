@@ -5,24 +5,30 @@ import { AllContext } from '../../hooks/ContextData';
 import toast from 'react-hot-toast';
 import Loader from '../../Components/Common/Loader';
 
-
 const BlogAdminAssign = () => {
     useTitle("AssignPostAdmin")
     const { user, loading, setLoading } = useContext(AllContext);
     const [errorMessage, setErrorMessage] = useState("");
     const [memberList, setMemberList] = useState([]);
 
+    useEffect(() => {
+        // Fetch the initial member list data at the time of page load
+        fetch(`https://dev.bpsa.com.bd/api/adminlist/admin`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Admin List: ", data?.data?.admin);
+                setMemberList(data?.data?.admin); // Set the initial member list
+            })
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+                toast("An error occurred while fetching member data");
+            });
 
-    // console.log("AdminAssign Member List: ", memberList);
+    }, [])
 
-
-    const handleAddMember = (event) => {
-        // event.preventDefault();
-
-        // Get the value of the input field with name 'bpid'
+    const handleAddMember = () => {
         const bpid = document.querySelector('input[name="bpid"]').value;
 
-        // Check if 'bpid' is empty
         if (!bpid) {
             toast("Please enter a BPID");
             setErrorMessage("Please enter a BPID");
@@ -34,11 +40,9 @@ const BlogAdminAssign = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data?.member) {
-                    setMemberList([...memberList, data?.member]);
-                    // Member exists, you can proceed here
+                    setMemberList([...memberList, data?.member]); // Add the new member to the list
                     console.log("Member User table Data: ", data?.member);
                     console.log("AdminAssing MemberList: ", memberList);
-                    // You can add your logic to handle the member data
                 } else {
                     toast("This member does not exist in our system");
                 }
@@ -49,19 +53,11 @@ const BlogAdminAssign = () => {
             });
     };
 
-
     const handleRemoveMember = (mem) => {
-        // event.preventDefault()
+        // Remove the member from the list
         const newMemberList = memberList.filter((member) => member.BPID !== mem.BPID);
         setMemberList(newMemberList);
-
     }
-
-    const handleRemoveAdminRole = (event) => {
-        event.preventDefault()
-        console.log('handleRemoveAdminRole');
-    }
-
 
     const handleRoleUpdate = (BPID, role) => {
         let newRole;
@@ -71,27 +67,36 @@ const BlogAdminAssign = () => {
             newRole = 'member';
         }
 
-        const updatedData = {
-            // BPID: BPID,
-            // newRole: newRole,
-        };
-
+        // Update the member role first
         fetch(`https://dev.bpsa.com.bd/api/member-status?pmsid=${BPID}&role=${newRole}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updatedData),
         })
             .then((res) => res.json())
             .then((data) => {
-                toast.success(data?.message)
+                toast.success(data?.message);
+
+                // Fetch the updated member list after making the role change
+                fetch(`https://dev.bpsa.com.bd/api/adminlist/member`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log("Updated Admin List: ", data?.data?.admin);
+                        // setMemberList(data?.data?.admin); 
+                    })
+                    .catch((error) => {
+                        console.error("Fetch error: ", error);
+                        toast("An error occurred while fetching updated member data");
+                    });
             })
             .catch((error) => {
                 console.error("Fetch error: ", error);
                 toast("An error occurred while updating member role");
             });
-    }
+    };
+
+
 
 
     if (loading) {
@@ -99,7 +104,6 @@ const BlogAdminAssign = () => {
     }
 
     return (
-        // <div className=' container col-xl-4 col-lg-6 col-md-8 mx-auto'>
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-1 ">
@@ -107,7 +111,6 @@ const BlogAdminAssign = () => {
                         <h3 className='fw-bold text-center text-success'>Post Admin Assign</h3>
                     </nav>
                     <div className='col-xl-7  col-lg-10 mx-auto  my-4 adminAssign'>
-
                         <p className=' text-danger fw-bold text-center'>{errorMessage}</p>
                         <div className=' d-flex justify-content-between align-items-baseline'>
                             <div className="mb-3 d-flex align-items-baseline ">
@@ -116,22 +119,7 @@ const BlogAdminAssign = () => {
                             </div>
                             <button onClick={() => handleAddMember()} className=' btn btn-primary btn-sm w-20   ms-md-0 me-5'>Add</button>
                         </div>
-
-
-
-
-
                         <div className="">
-                            {/* {
-                                memberList.map((member, index) =>
-                                    <div className=" d-flex my-1 " key={index}>
-                                        <p className="my-0 col-md-6"><b> Name</b>: {member?.Name}</p>
-                                        <p className="my-0 col-md-3"><b> Role</b>: {member?.MemberRole}</p>
-                                        <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm col-md-3"> Role Update </button>
-                                    </div>)
-                            } */}
-
-
                             <table className="table table-striped table-hover adminAssignTable">
                                 <thead>
                                     <tr className=' bg-secondary text-white'>
@@ -140,83 +128,35 @@ const BlogAdminAssign = () => {
                                         <th className=' fw-bold' scope="col">BPID</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Role Update</th>
-                                        <th scope="col">Action</th>
+                                        {/* <th scope="col">Action</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {memberList.map((member, index) =>
-                                        <tr>
+                                        <tr key={index}>
                                             <th scope="row">{index + 1}</th>
                                             <td>{member?.Name}</td>
                                             <td className=' small'>{member?.BPID}</td>
-                                            <td>{member?.MemberRole == 'admin' ? <>Admin</> : <>Member</>}</td>
-                                            {/* <td className=' text-success fst-italic fw-bold'>Admin</td> */}
+                                            <td>{member?.MemberRole === 'admin' ? <>Admin</> : <>Member</>}</td>
                                             <td className='  '>
-                                                {member?.MemberRole == 'member' ?
-                                                    <>
-                                                        <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm">Make Admin</button>
-                                                    </>
+                                                {member?.MemberRole === 'member' ?
+                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm">Make Admin</button>
                                                     :
-                                                    <>
-                                                        <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm "> Make Member</button>
-                                                    </>
+                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm "> Make Member</button>
                                                 }
-
                                             </td>
-                                            <td className='   '> <button onClick={() => handleRemoveMember(member)} className=' btn btn-primary btn-sm adminAssignBtn'> <span> X </span></button> </td>
+                                            {/* <td className='   '>
+                                                <button onClick={() => handleRemoveMember(member)} className=' btn btn-primary btn-sm adminAssignBtn'> <span> X </span></button>
+                                            </td> */}
                                         </tr>
                                     )}
-
                                 </tbody>
                             </table>
                         </div>
-
-
-
-                        {/* <form className='adminAssign'>
-                            <div className=' d-flex justify-content-evenly align-items-baseline'>
-                                <div className="mb-3 d-flex align-items-baseline ">
-                                    <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
-                                    <input type="text" className="form-control" id="bpid" placeholder='Enter member BPID' aria-describedby="bpidHelp" />
-                                </div>
-                                <button className=' btn btn-primary btn-sm w-25 ms-md-0 ms-1'>Add</button>
-                            </div>
-                            <h5 className=' text-primary text-center fw-bold'>Post Admins</h5>
-                            <table className="table table-striped table-hover adminAssignTable">
-                                <thead>
-                                    <tr className=' bg-secondary text-white'>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Role Update</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Abdur Zabbar</td>
-                                        <td className=' text-success fst-italic fw-bold'>Admin</td>
-                                        <td className=' text-center '> <button onClick={handleRemoveAdminRole} className=' btn btn-primary btn-sm adminAssignBtn'>RemoveAdmin</button> </td>
-                                        <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
-                                    </tr>
-                                     
-                                </tbody>
-                            </table> 
-                        </form> */}
-
-
-
                     </div>
                 </div>
             </section>
         </div>
-
-
-
-
-
-        // </div>
     );
 };
 
