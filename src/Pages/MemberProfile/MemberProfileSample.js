@@ -97,20 +97,15 @@ const MemberProfileSample = ({ member, userNewData }) => {
                                                 {member?.sub_sub_unit && <>/ {member?.sub_sub_unit}</>}
                                             </p>
                                         </div>
-                                        <div className="media">
-                                            <label>Phone:</label>
-                                            <p>{member?.mobilephone}</p>
-                                        </div>
 
-                                        {member?.gov_mob &&
-                                            <div className="media">
-                                                <label>Gov-Phone:</label>
-                                                <p>{member?.gov_mob}</p>
-                                            </div>
-                                        }
                                         <div className="media">
                                             <label>BCS Batch:</label>
                                             <p>{member?.cadre}th</p>
+                                        </div>
+
+                                        <div className="media">
+                                            <label>Phone:</label>
+                                            <p>{member?.mobilephone}</p>
                                         </div>
 
                                         <div className="media">
@@ -140,6 +135,10 @@ const MemberProfileSample = ({ member, userNewData }) => {
                                             <label>Blood Group:</label>
                                             <p>{member?.blood_group}</p>
                                         </div>
+                                        <div className="media">
+                                            <label>Medel:</label>
+                                            <p>{member?.gift}</p>
+                                        </div>
                                     </div>
 
                                     <div className="col-md-6">
@@ -151,6 +150,13 @@ const MemberProfileSample = ({ member, userNewData }) => {
                                             <label>Mother's Name:</label>
                                             <p>{member?.mothername}</p>
                                         </div>
+
+                                        {member?.gov_mob &&
+                                            <div className="media">
+                                                <label>Gov-Phone:</label>
+                                                <p>{member?.gov_mob}</p>
+                                            </div>
+                                        }
 
                                         <div className="media">
                                             <label>Birthday:</label>

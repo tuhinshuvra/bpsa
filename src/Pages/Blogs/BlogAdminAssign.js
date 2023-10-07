@@ -50,10 +50,11 @@ const BlogAdminAssign = () => {
     };
 
 
-    const handleAddAdminRole = (event) => {
-        event.preventDefault()
+    const handleRemoveMember = (mem) => {
+        // event.preventDefault()
+        const newMemberList = memberList.filter((member) => member.BPID !== mem.BPID);
+        setMemberList(newMemberList);
 
-        console.log('handleAddAdminRole');
     }
 
     const handleRemoveAdminRole = (event) => {
@@ -71,8 +72,8 @@ const BlogAdminAssign = () => {
         }
 
         const updatedData = {
-            BPID: BPID,
-            newRole: newRole,
+            // BPID: BPID,
+            // newRole: newRole,
         };
 
         fetch(`https://dev.bpsa.com.bd/api/member-status?pmsid=${BPID}&role=${newRole}`, {
@@ -105,7 +106,7 @@ const BlogAdminAssign = () => {
                     <nav aria-label="" className="bg-light rounded-3 p-2 ">
                         <h3 className='fw-bold text-center text-success'>Post Admin Assign</h3>
                     </nav>
-                    <div className='  col-lg-6 col-md-8 mx-auto  my-4 adminAssign'>
+                    <div className='col-xl-7  col-lg-10 mx-auto  my-4 adminAssign'>
 
                         <p className=' text-danger fw-bold text-center'>{errorMessage}</p>
                         <div className=' d-flex justify-content-between align-items-baseline'>
@@ -113,7 +114,7 @@ const BlogAdminAssign = () => {
                                 <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
                                 <input className="form-control" type="text" name='bpid' id="bpid" placeholder='Enter member BPID' />
                             </div>
-                            <button onClick={() => handleAddMember()} className=' btn btn-primary btn-sm w-20   ms-md-0 me-4'>Add</button>
+                            <button onClick={() => handleAddMember()} className=' btn btn-primary btn-sm w-20   ms-md-0 me-5'>Add</button>
                         </div>
 
 
@@ -121,14 +122,53 @@ const BlogAdminAssign = () => {
 
 
                         <div className="">
-                            {
+                            {/* {
                                 memberList.map((member, index) =>
                                     <div className=" d-flex my-1 " key={index}>
                                         <p className="my-0 col-md-6"><b> Name</b>: {member?.Name}</p>
                                         <p className="my-0 col-md-3"><b> Role</b>: {member?.MemberRole}</p>
                                         <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm col-md-3"> Role Update </button>
                                     </div>)
-                            }
+                            } */}
+
+
+                            <table className="table table-striped table-hover adminAssignTable">
+                                <thead>
+                                    <tr className=' bg-secondary text-white'>
+                                        <th className=' fw-bold' scope="col">SL</th>
+                                        <th className=' fw-bold' scope="col">Name</th>
+                                        <th className=' fw-bold' scope="col">BPID</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Role Update</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {memberList.map((member, index) =>
+                                        <tr>
+                                            <th scope="row">{index + 1}</th>
+                                            <td>{member?.Name}</td>
+                                            <td className=' small'>{member?.BPID}</td>
+                                            <td>{member?.MemberRole == 'admin' ? <>Admin</> : <>Member</>}</td>
+                                            {/* <td className=' text-success fst-italic fw-bold'>Admin</td> */}
+                                            <td className='  '>
+                                                {member?.MemberRole == 'member' ?
+                                                    <>
+                                                        <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm">Make Admin</button>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm "> Make Member</button>
+                                                    </>
+                                                }
+
+                                            </td>
+                                            <td className='   '> <button onClick={() => handleRemoveMember(member)} className=' btn btn-primary btn-sm adminAssignBtn'> <span> X </span></button> </td>
+                                        </tr>
+                                    )}
+
+                                </tbody>
+                            </table>
                         </div>
 
 
@@ -160,20 +200,7 @@ const BlogAdminAssign = () => {
                                         <td className=' text-center '> <button onClick={handleRemoveAdminRole} className=' btn btn-primary btn-sm adminAssignBtn'>RemoveAdmin</button> </td>
                                         <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Takia Islam</td>
-                                        <td className=' text-primary fst-italic fw-bold'>Member</td>
-                                        <td className=' text-center '> <button onClick={handleAddAdminRole} className=' btn btn-success btn-sm adminAssignBtn'>Make Admin</button> </td>
-                                        <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Khorshed Alam</td>
-                                        <td className=' text-primary fst-italic fw-bold'>Member</td>
-                                        <td className=' text-center '> <button onClick={handleAddAdminRole} className=' btn btn-success btn-sm adminAssignBtn'>Make Admin</button> </td>
-                                        <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
-                                    </tr>
+                                     
                                 </tbody>
                             </table> 
                         </form> */}

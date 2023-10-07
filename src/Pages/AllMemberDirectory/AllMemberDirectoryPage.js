@@ -290,7 +290,7 @@ const AllMemberDirectoryPage = () => {
                                     </div>
                                 </div>
 
-                                <div className=" me-lg-0 me-md-2 me-0">
+                                <div className=" me-lg-0 me-md-2 me-0 mt-lg-2">
                                     <select onChange={getSearchData} name="rank" className="form-select mt-lg-0 mt-2   mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
                                         {

@@ -1,3 +1,10 @@
+.loginPage {
+    background-color: #EEEEEE;
+    padding: 33px;
+    border-radius: 6px;
+    margin: 7% 0;
+}
+
 .signup_person {
     width: 40px;
     height: 40px;

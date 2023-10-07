@@ -9,8 +9,8 @@ import { authenticate, isAuth } from '../../utlis/helper';
 import { AllContext } from '../../hooks/ContextData';
 import { toast } from 'react-hot-toast';
 import { useRef } from 'react';
-import "./Login.css";
 import Loader from '../../Components/Common/Loader';
+import "./Login.css";
 
 const LoginPage = () => {
   useTitle("Login");
@@ -38,7 +38,7 @@ const LoginPage = () => {
       data: { email, password },
     })
       .then((response) => {
-                console.log("Signin Access: ", response.data.token);
+        console.log("Signin Access: ", response.data.token);
         navigate(location?.state?.from || "/", { replace: true });
         setErrorMessage("");
         authenticate(response.data, () => {
@@ -66,8 +66,8 @@ const LoginPage = () => {
   }
 
   return (
-    <div className=' container my-4'>
-      <div className=' col-lg-4 col-md-6 mx-auto'>
+    <div className=' container '>
+      <div className=' col-lg-4 col-md-6 mx-auto loginPage'>
         <div className=' d-flex flex-column align-items-center'>
           <FaLock className='signup_person'></FaLock>
           <h2 className=' text-center fs-3'>Log in</h2>
