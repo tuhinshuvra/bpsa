@@ -7,6 +7,8 @@ import "./MemberProfileSample.css";
 const MemberProfileSample = ({ member, userNewData }) => {
     const { user, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
 
+    console.log("Login Member Data: ", member);
+
     const toggleImageUpload = () => {
         setShowImageUpload(!showImageUpload);
     };
@@ -84,7 +86,7 @@ const MemberProfileSample = ({ member, userNewData }) => {
                                     {member?.sub_unit && <>, {member?.sub_unit}</>}
                                     {member?.sub_sub_unit && <>, {member?.sub_sub_unit}</>}
                                 </h6>
-                                <p className=' fw-bold'>{member.rank}<> </> ({member?.rankinenglish})</p>
+                                <p className=' fw-bold'>{member?.rank}<> </> ({member?.rankinenglish})</p>
                                 {/* <p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p> */}
                                 <div className="row about-list">
                                     <div className="col-md-6">

@@ -32,6 +32,7 @@ const MemberProfilePage = () => {
     const data = 'grant_type=client_credentials';
 
     console.log("Profile Page Login User Data:", user);
+    console.log("Profile Page Login member police database Data:", memberData);
 
     useEffect(() => {
         const getAccessToken = async () => {

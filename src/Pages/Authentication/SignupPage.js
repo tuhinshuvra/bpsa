@@ -104,6 +104,9 @@ const SignupPage = () => {
             newUniqueId = 'BP' + uniqueId.toUpperCase();
         }
 
+        setUnique_id(newUniqueId);
+
+
         console.log("Old Unique ID", uniqueId);
         console.log("New Unique ID", newUniqueId);
 
@@ -137,7 +140,8 @@ const SignupPage = () => {
                                 startCountdown();
                                 setEnableOtp(true);
                                 setOTPCheckOne(true)
-                                setUnique_id(form.unique_id.value);
+                                // setUnique_id(form.unique_id.value);
+                                setUnique_id(newUniqueId);
                                 setUserFullName(result.data.items[0].name)
                                 setUser(result.data.items[0]);
                                 setUniqueIDVerified(true);
@@ -182,9 +186,11 @@ const SignupPage = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+
         const form = e.target;
 
         const uniqueId = unique_id;
+        console.log("handleOnSubmit : ", uniqueId);
         const fullName = userFullName;
         const email = form.user_name.value;
         const password = form.password.value;
