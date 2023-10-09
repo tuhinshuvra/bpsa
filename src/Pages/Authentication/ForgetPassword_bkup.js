@@ -37,7 +37,7 @@ const ForgetPassword_bkup = () => {
         const unique_id = form.unique_id.value;
         // console.log("unique_id : ", unique_id);
 
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`, {
+        fetch(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -87,7 +87,7 @@ const ForgetPassword_bkup = () => {
 
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
         // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        
+
         const isPasswordValid = passwordPattern.test(password);
 
         if (!isPasswordValid) {
@@ -102,7 +102,7 @@ const ForgetPassword_bkup = () => {
         }
         // console.log("userData : ", userData);
 
-        fetch("https://dev.bpsa.com.bd/api/change-password", {
+        fetch("https://admin.bpsa.com.bd/api/change-password", {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

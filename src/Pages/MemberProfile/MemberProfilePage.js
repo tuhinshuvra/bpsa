@@ -75,7 +75,7 @@ const MemberProfilePage = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
+        fetch(`https://admin.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 // console.log("Member User table  Data: ", data?.member)
@@ -88,7 +88,7 @@ const MemberProfilePage = () => {
     // member all post
     useEffect(() => {
         setLoading(true);
-        fetch("https://dev.bpsa.com.bd/api/blog", {
+        fetch("https://admin.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`,

@@ -17,7 +17,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
+        fetch(`https://admin.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 console.log("MemberCoCurriculamActivitiesEntry user new  Data: ", data)
@@ -39,7 +39,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
         }
         console.log("userData : ", userData);
 
-        fetch(`https://dev.bpsa.com.bd/api/profile-update/${user?.id}`, {
+        fetch(`https://admin.bpsa.com.bd/api/profile-update/${user?.id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'

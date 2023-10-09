@@ -28,7 +28,7 @@ const SignupPage = () => {
     const [timeLeft, setTimeLeft] = useState(0);
     const [isCounting, setIsCounting] = useState(false);
 
-    const [user,setUser]=useState("");
+    const [user, setUser] = useState("");
     const [accessToken, setAccessToken] = useState('');
     const tokenUrl = 'https://pims.police.gov.bd:8443/pimslive/webpims/oauth/token';
     const clientId = 'ipzE6wqhPmeED-EV3lvPUA..';
@@ -52,7 +52,7 @@ const SignupPage = () => {
         }
         getAccessToken();
     }, [])
-    if(accessToken){
+    if (accessToken) {
         console.log(accessToken);
     }
 
@@ -114,28 +114,28 @@ const SignupPage = () => {
         const unique_id = form?.unique_id?.value;
         const birth_year = form?.birth_year?.value;
 
-        fetch(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${unique_id}/${birth_year}`,{
-            method:"GET",
-            headers:{
+        fetch(`https://pims.police.gov.bd:8443/pimslive/webpims/asp-info/sign-up/${unique_id}/${birth_year}`, {
+            method: "GET",
+            headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }
         })
-        .then(res=>res.json())
-        .then(result=>{
-            if(result.items[0]){
-                setUser(result.items[0])
-                axios.get(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`)
-                .then(loggedUser=>{
-                    console.log(loggedUser.data);
-                })
-            }
-            else{
-                setErrorMessage("BPSA Id not valid")
-            }
-        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.items[0]) {
+                    setUser(result.items[0])
+                    axios.get(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`)
+                        .then(loggedUser => {
+                            console.log(loggedUser.data);
+                        })
+                }
+                else {
+                    setErrorMessage("BPSA Id not valid")
+                }
+            })
 
 
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${birth_year}`, {
+        fetch(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${birth_year}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -252,7 +252,7 @@ const SignupPage = () => {
         }
         console.log("userData : ", userData);
 
-        axios.post("https://dev.bpsa.com.bd/api/signup", userData)
+        axios.post("https://admin.bpsa.com.bd/api/signup", userData)
             .then(result => {
                 console.log(result);
                 if (result.status == 201) {
@@ -265,15 +265,15 @@ const SignupPage = () => {
                 }
             })
             .catch(err => {
-                if(err.message=='Request failed with status code 422'){
+                if (err.message == 'Request failed with status code 422') {
                     setErrorMessage("user Name already another person have used Pleased change userName");
                 }
-                else{
+                else {
                     setErrorMessage("something is wrong. Please check your net connection and other issues")
                 }
             })
 
-        // fetch(`https://dev.bpsa.com.bd/api/signup`, {
+        // fetch(`https://admin.bpsa.com.bd/api/signup`, {
         //     method: "POST",
         //     headers: {
         //         'content-type': 'application/json'
@@ -301,7 +301,7 @@ const SignupPage = () => {
 
     const handleResendOTP = (e) => {
         e.preventDefault();
-        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${year}`, {
+        fetch(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${year}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -473,7 +473,7 @@ const SignupPage = () => {
                                 required
                                 fullWidth
                             />
-                            
+
                             <TextField
                                 label="Password"
                                 name="password"

@@ -20,7 +20,7 @@ const AllEventPage = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("https://dev.bpsa.com.bd/api/event")
+        fetch("https://admin.bpsa.com.bd/api/event")
             .then(response => response.json())
             .then(data => {
                 // console.log("All Event :", data.data.event)

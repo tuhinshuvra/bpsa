@@ -68,7 +68,7 @@ const Navbar = () => {
 
   // user new data
   useEffect(() => {
-    fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
+    fetch(`https://admin.bpsa.com.bd/api/profile/${user?.BPID}`)
       .then(res => res.json())
       .then(data => {
         // console.log("Member new  Data: ", data?.member)

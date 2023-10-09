@@ -63,7 +63,7 @@ const Navbar = () => {
 
   // user new data
   useEffect(() => {
-    fetch(`https://dev.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
+    fetch(`https://admin.bpsa.com.bd/api/pms?PIMS_ID= ${user?.UniqueID}`)
       .then(res => res.json())
       .then(data => {
         // console.log("Member User table  Data: ", data.value)

@@ -14,7 +14,7 @@ const MemberAllBlog = () => {
     const [posts, setPosts] = useState();
     const [pendingPosts, setPendingPosts] = useState();
     useEffect(() => {
-        fetch("https://dev.bpsa.com.bd/api/blog", {
+        fetch("https://admin.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token

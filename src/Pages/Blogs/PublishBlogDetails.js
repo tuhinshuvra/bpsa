@@ -33,7 +33,7 @@ const PublishBlogDetails = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("https://dev.bpsa.com.bd/api/Approvedblog")
+        fetch("https://admin.bpsa.com.bd/api/Approvedblog")
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success' && result.data && Array.isArray(result.data.blog)) {

@@ -123,13 +123,13 @@ const ForgetPassword = () => {
                 if (result.data.items.length > 0) {
                     // toast.success("user verified successfully");
                     setUser(result.data.items[0]);
-                    // axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
-                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${newUniqueId}`)
+                    // axios.get(`https://admin.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                    axios.get(`https://admin.bpsa.com.bd/api/forgetpass?PIMS_ID=${newUniqueId}`)
                         .then(verifyUser => {
                             console.log(verifyUser.data)
                             if (verifyUser.data.value == 1) {
-                                // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
-                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0172560194400`)
+                                // axios.get(`https://admin.bpsa.com.bd/api/verify?mobile=01725601944`)
+                                axios.get(`https://admin.bpsa.com.bd/api/verify?mobile=0172560194400`)
                                     .then(resOTP => {
                                         console.log(resOTP.data.otp);
                                         // setOtpData(resOTP.data.otp)
@@ -197,8 +197,8 @@ const ForgetPassword = () => {
         }
         console.log(userData)
 
-        // axios.post("https://dev.bpsa.com.bd/api/change-password", userData, {
-        axios.post("https://dev.bpsa.com.bd/api/change-password", userData, {
+        // axios.post("https://admin.bpsa.com.bd/api/change-password", userData, {
+        axios.post("https://admin.bpsa.com.bd/api/change-password", userData, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -224,7 +224,7 @@ const ForgetPassword = () => {
 
     const handleResendOTP = (e) => {
         e.preventDefault();
-        axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+        axios.get(`https://admin.bpsa.com.bd/api/verify?mobile=01725601944`)
             .then(resOTP => {
                 console.log();
                 setOtpData(resOTP.data.otp)

@@ -53,8 +53,8 @@ const ResetPassword = () => {
                 password_confirmation: confirmedPassword,
             }
             console.log(data);
-            // axios.post("https://dev.bpsa.com.bd/api/change-password", data)
-            axios.post("https://dev.bpsa.com.bd/api/change-password-member", data)
+            // axios.post("https://admin.bpsa.com.bd/api/change-password", data)
+            axios.post("https://admin.bpsa.com.bd/api/change-password-member", data)
                 .then(result => {
                     // console.log(result);
                     if (result.status == 201) {

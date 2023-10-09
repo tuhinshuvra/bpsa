@@ -122,16 +122,16 @@ const SignupPage = () => {
                 setErrorMessage("");
                 if (result.data.items.length > 0) {
                     // toast.success("user verified successfully");
-                    // axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
-                    axios.get(`https://dev.bpsa.com.bd/api/forgetpass?PIMS_ID=${newUniqueId}`)
+                    // axios.get(`https://admin.bpsa.com.bd/api/forgetpass?PIMS_ID=${uniqueId}`)
+                    axios.get(`https://admin.bpsa.com.bd/api/forgetpass?PIMS_ID=${newUniqueId}`)
                         .then(verifyUser => {
                             if (verifyUser.data.value == 1) {
                                 setErrorMessage("User already registered")
                             }
                             else if (verifyUser.data.value == 2) {
 
-                                // axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-082532`)
-                                axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=0 1711-08253200`)
+                                // axios.get(`https://admin.bpsa.com.bd/api/verify?mobile=0 1711-082532`)
+                                axios.get(`https://admin.bpsa.com.bd/api/verify?mobile=0 1711-08253200`)
                                     .then(resOTP => {
                                         console.log();
                                         setOtpData(resOTP.data.otp)
@@ -176,7 +176,7 @@ const SignupPage = () => {
 
     const handleResendOTP = (e) => {
         e.preventDefault();
-        axios.get(`https://dev.bpsa.com.bd/api/verify?mobile=01725601944`)
+        axios.get(`https://admin.bpsa.com.bd/api/verify?mobile=01725601944`)
             .then(resOTP => {
                 console.log();
                 setOtpData(resOTP.data.otp)
@@ -224,7 +224,7 @@ const SignupPage = () => {
         }
         console.log("userData : ", userData);
 
-        axios.post("https://dev.bpsa.com.bd/api/signup", userData)
+        axios.post("https://admin.bpsa.com.bd/api/signup", userData)
             .then(result => {
                 console.log(result);
                 if (result.status == 201) {
