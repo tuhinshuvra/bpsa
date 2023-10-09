@@ -138,7 +138,7 @@ const ForgetPassword = () => {
                                 toast.success("PIMS ID Verified Successfully!");
                                 setErrorMessage("");
                                 setName(data.name);
-                                setUnique(form.unique_id.value);
+                                setUnique(newUniqueId);
                                 setVerifyOTP(true);
                                 setUniqueIDVerified(true);
                                 startCountdown();
