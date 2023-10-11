@@ -31,15 +31,16 @@ const localLinkData = [
 
 const QuicksLinks = ({ local, international }) => {
   return (
-    <Container>
+    <div>
       <HeadingComponent1
         first="Quick "
         second="Links"
-        className=" text-center pb-4"
+        // className=" text-center pb-4"
+        className={" bg-[#E2E3E7]  rounded-t-2xl  text-center py-3 mb-0 "}
       />
-      <Row>
-        <div className="col-lg-7 mb-3 mb-lg-0">
-          <div className="p-2 bg-[#FFFFFF] rounded-2xl">
+      <div className=" container  d-lg-flex gap-1">
+        <div className="col-lg-7 my-3 mb-lg-0">
+          <div className="p-2 bg-[#E2E3E7] rounded-2xl">
             <HeadingComponent1
               second="Local"
               className=" pl-5 text-center py-2"
@@ -80,7 +81,6 @@ const QuicksLinks = ({ local, international }) => {
                             href={`${item?.link}`}
                             className="flex items-center space-x-2  py-2 hover:text-second text-[15px]"
                           >
-                            {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
                             <img src={item?.photo} className="linkLogo" alt="" />
                             {item?.title}
                           </a>
@@ -92,8 +92,8 @@ const QuicksLinks = ({ local, international }) => {
             </Row>
           </div>
         </div>
-        <div className="col-lg-5">
-          <div className="p-2 bg-[#FFFFFF] rounded-2xl">
+        <div className="col-lg-5  my-3">
+          <div className="p-2 bg-[#E2E3E7] rounded-2xl">
             <HeadingComponent1
               second="International"
               className=" pl-5 text-center py-2"
@@ -109,7 +109,6 @@ const QuicksLinks = ({ local, international }) => {
                         href={`${item?.link}`}
                         className="flex items-center space-x-2 text-main py-2 hover:text-second text-[15px]"
                       >
-                        {/* <BsArrowRight size={24} className="mr-2" />{" "} */}
                         <img src={item?.photo} className="linkLogo" alt="" />
                         {item?.title}
                       </a>
@@ -119,8 +118,8 @@ const QuicksLinks = ({ local, international }) => {
             </ul>
           </div>
         </div>
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 

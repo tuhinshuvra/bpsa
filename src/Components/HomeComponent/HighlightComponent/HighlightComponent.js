@@ -11,14 +11,15 @@ import { formatDate } from "../../../utlis/dateFormat";
 const HighlightComponent = ({ data }) => {
   const navigate = useNavigate();
   return (
-    <div className=" bg-[#E2E3E7]  mb-3 py-3 rounded-2xl ">
-      <Container>
+    <div className=" bg-white  rounded-2xl  mb-3">
+      <div>
         <HeadingComponent1
           first="Activity "
           second="Highlights"
-          className=" pb-4 text-center"
+          // className="bg-[#E2E3E7]  rounded-t-2xl pb-4 text-center"
+          className={" bg-[#E2E3E7]  rounded-t-2xl  text-center py-3 mb-0 "}
         />
-        <Row>
+        <div className=" row py-3 ps-3 pe-4">
           <Col md={6}>
             <div
               onClick={() => {
@@ -122,8 +123,8 @@ const HighlightComponent = ({ data }) => {
                 );
               })}
           </Col>
-        </Row>
-      </Container>
+        </div>
+      </div>
     </div>
   );
 };

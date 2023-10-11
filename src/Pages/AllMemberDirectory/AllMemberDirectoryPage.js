@@ -6,8 +6,8 @@ import axios from "axios";
 import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
 import MemberModal from "./MemberModal";
-import './AllMemberDirectoryPage.css';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -129,6 +129,7 @@ const AllMemberDirectoryPage = () => {
         batchCadre();
     }, [accessToken])
 
+
     useEffect(() => {
         setLoading(true);
         const batchData = async () => {
@@ -172,7 +173,6 @@ const AllMemberDirectoryPage = () => {
 
     }, [batch, BcsList])
 
-
     const [searchData, setSearchData] = useState({
         batch: batch,
         searchKeyword: "",
@@ -183,6 +183,7 @@ const AllMemberDirectoryPage = () => {
         designation: "",
         district: "",
     });
+
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
 
     const getSearchData = (event) => {
@@ -258,10 +259,11 @@ const AllMemberDirectoryPage = () => {
     if (BcsAddress) {
         console.log(BcsAddress)
     }
+
+
     if (loading) {
         return <Loader></Loader>
     }
-
 
 
     return (
@@ -290,7 +292,7 @@ const AllMemberDirectoryPage = () => {
                                     </div>
                                 </div>
 
-                                <div className=" me-lg-0 me-md-2 me-0">
+                                <div className=" me-lg-0 me-md-2 me-0 mt-lg-2">
                                     <select onChange={getSearchData} name="rank" className="form-select mt-lg-0 mt-2   mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
                                         {
@@ -330,7 +332,7 @@ const AllMemberDirectoryPage = () => {
                                     </select>
                                 </div>
 
-                                <button type="submit" className=" btn btn-primary w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
+                                <button type="submit" className=" btn btn-outline-secondary w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
 
                             </form>
                         </div>

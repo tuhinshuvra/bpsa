@@ -62,7 +62,7 @@ const AllEventPage = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <Link className='btn btn-outline-secondary text-black btn-sm w-100 minTopMargin' to={`/events/${item?.id}`}>Show Details</Link>
+                                        <Link className='btn btn-outline-secondary   btn-sm w-full minTopMargin' to={`/events/${item?.id}`}>Show Details</Link>
                                     </div>
                                 );
                             })}

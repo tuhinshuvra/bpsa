@@ -24,7 +24,7 @@ const ObjectivesComponent = () => {
                       alt=""
                       className="h-[250px] w-full object-cover rounded-lg"
                     />
-                    <div className="absolute  bg-fifth/80 rounded-md top-0 h-[250px] p-4 text-white">
+                    <div className="absolute  bg-black/60 rounded-md top-0 h-[250px] p-4 text-white">
                       <p className="text-center text-xl flex items-center justify-center relative top-[50%] translate-y-[-50%] ">
                         {item?.title}
                       </p>

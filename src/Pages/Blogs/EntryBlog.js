@@ -140,8 +140,8 @@ const EntryBlog = () => {
             </JoditEditor>
             <input type='file' name='image' className='input input-bordered w-full my-2 bg-white' placeholder='Enter post image'></input><br />
             <div className='flex justify-between mt-2 mb-5'>
-              <input de className='btn btn-primary btn-sm  w-25 ' type="reset" value="reset" />
-              <input className='btn btn-primary  btn-sm w-25  ' type="submit" value="submit" />
+              <input de className='btn btn-outline-secondary  btn-sm  w-25 ' type="reset" value="reset" />
+              <input className='btn btn-outline-secondary  btn-sm w-25  ' type="submit" value="submit" />
             </div>
           </form>
 
