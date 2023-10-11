@@ -47,7 +47,7 @@ const GalleryPage = () => {
   }
   return (
     <div>
-      <GalleryComponent data={galleryData} video={videoData} />
+      <GalleryComponent data={galleryData} video={videoData} key={galleryData?.id} />
     </div>
   );
 };
