@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AllContext } from '../../hooks/ContextData';
 import { isAuth } from '../../utlis/helper';
 import Loader from '../../Components/Common/Loader';
-import '../MemberProfile/MemberProfilePage.css';
+import '../MemberProfile/MemberProfileComp.css';
 
 const MemberImageUpload = () => {
     const { user, setUser, loading, setLoading, showImageUpload, setShowImageUpload } = useContext(AllContext);

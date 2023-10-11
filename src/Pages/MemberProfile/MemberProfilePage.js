@@ -6,8 +6,8 @@ import Loader from '../../Components/Common/Loader';
 import useTitle from '../../hooks/useTitle';
 import './MemberProfilePage.css';
 import '../Blogs/BlogListShow.css';
-import MemberProfileSample from './MemberProfileSample';
 import MemberProfileComp from './MemberProfileComp';
+import MemberProfileCompOld from './MemberProfileCompOld';
 import MemberShipFeeComp from './MemberShipFeeComp';
 import ApprovedBlogComp from './ApprovedBlogComp';
 import PendingBlogComp from './PendingBlogComp';
@@ -31,8 +31,8 @@ const MemberProfilePage = () => {
     };
     const data = 'grant_type=client_credentials';
 
-    console.log("Profile Page Login User Data:", user);
-    console.log("Profile Page Login member police database Data:", memberData);
+    // console.log("Profile Page Login User Data:", user);
+    // console.log("Profile Page Login member police database Data:", memberData);
 
     useEffect(() => {
         const getAccessToken = async () => {
@@ -118,19 +118,19 @@ const MemberProfilePage = () => {
     return (
         <div className=' col-md-10 mx-auto'>
 
-            <MemberProfileSample
+            <MemberProfileComp
                 member={memberData}
                 userNewData={userNewData}
-            ></MemberProfileSample>
+            ></MemberProfileComp>
 
             <section style={{ backgroundColor: "#eee" }}>
-                <div className="container pt-3 pb-3 ">
-                    <MemberProfileComp
+                <div className="container pt-1 pb-3 ">
+                    {/* <MemberProfileCompOld
                         memberData={memberData}
                         userNewData={userNewData}
-                    ></MemberProfileComp>
+                    ></MemberProfileCompOld> */}
 
-                    <MemberShipFeeComp></MemberShipFeeComp>
+                    {/* <MemberShipFeeComp></MemberShipFeeComp> */}
 
                     <ApprovedBlogComp
                         approvedPosts={approvedPosts}

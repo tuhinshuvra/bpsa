@@ -20,7 +20,7 @@ const MemberCoCurriculamActivitiesEntry = () => {
         fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                console.log("MemberCoCurriculamActivitiesEntry user new  Data: ", data)
+                // console.log("MemberCoCurriculamActivitiesEntry user new  Data: ", data)
                 setUserNewData(data?.member)
                 setLoading(false)
             })
@@ -74,12 +74,12 @@ const MemberCoCurriculamActivitiesEntry = () => {
                 <div className="">
                     <textarea
                         name='CoCurriculumActivities'
-                        className="form-control formArea"
+                        className="form-control formArea mb-0"
                         id="floatingTextarea"
                         maxlength="90"
                         defaultValue={userNewData?.CoCurriculumActivities}
                     />
-                    <label className=' text-main text-xs' for="floatingTextarea"> Co-Curricular activities max 90 character</label>
+                    <label className=' text-main text-xs mt-0' for="floatingTextarea"> Hobbies maximum 90 character</label>
                 </div>
 
                 <div className=' d-flex justify-between mb-1'>

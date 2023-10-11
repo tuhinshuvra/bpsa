@@ -30,7 +30,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
 
     return (
         <div>
-            <div className="row mt-5 mb-2">
+            <div className="row mt-4 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
                         <h4 className=' text-center'>Non Approved Posts</h4>

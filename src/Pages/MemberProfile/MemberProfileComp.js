@@ -1,11 +1,13 @@
-import React from 'react';
 import { useContext } from 'react';
 import { AllContext } from '../../hooks/ContextData';
-import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
 import MemberImageUpload from './MemberImageUpload';
+import MemberCoCurriculamActivitiesEntry from './MemberCoCurriculamActivitiesEntry';
+import "./MemberProfileComp.css";
 
-const MemberProfileComp = ({ memberData, userNewData }) => {
+const MemberProfileComp = ({ member, userNewData }) => {
     const { user, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
+
+    // console.log("Login Member Data: ", member);
 
     const toggleImageUpload = () => {
         setShowImageUpload(!showImageUpload);
@@ -15,52 +17,46 @@ const MemberProfileComp = ({ memberData, userNewData }) => {
         setShowCoCurricular(!showCoCurricular);
     };
 
-    return (
-        <div>
+    // console.log("MemberProfileSample memberData : ", member);
+    // blood_group cadre  current_designation dateofbirth degree email employeecode employeename employeenameinenglish fathername gift gov_email
+    // gov_mob homedistrict idsex main_unit marital_status mobilephone mothername pic rank rankinenglish religion sub_sub_unit sub_unit unit  
 
-            <nav aria-label="breadcrumb" className="mx-1 bg-light rounded-3 p-2 mb-4">
-                <h2 className='fw-bold text-center'>{memberData?.employeenameinenglish} PROFILE</h2>
-            </nav>
-            <div className="row">
-                <div className="col-lg-4 my-1 my-lg-0">
-                    <div className="card  proCard shadow-lg">
-                        <div className="card-body proCardBody ">
+    return (
+        <div className="py-4  bg-[#EEE]">
+            <section>
+                <div className='container mx-auto '>
+
+                    <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2 mb-4 mx-1">
+                        <h2 className='fw-bold text-center  '>{member?.employeenameinenglish} PROFILE</h2>
+                    </nav>
+                    <div className="row    bg-white mx-1    rounded-xl  py-3 ">
+
+                        <div className="col-lg-5 my-auto">
+
                             {userNewData?.image ?
                                 <>
-                                    <img src={userNewData?.image} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", maxHeight: "178px" }} />
+                                    <img src={userNewData?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
                                 </>
                                 :
                                 <>
-                                    <img src={`data:image/jpeg;base64,${memberData?.pic}`} alt="avatar" className="rounded-circle img-fluid mx-auto shadow-lg mb-0" style={{ width: "165px", height: "165px" }} />
+                                    <img src={`data:image/jpeg;base64,${member?.pic}`} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
                                 </>
                             }
-
-                            <div className='text-center mt-[-11px] mb-[-7px] '>
+                            <div className='col-lg-9 mx-auto text-center mt-1  mb-[-7px] '>
                                 {showImageUpload ? (
                                     <div>
                                         <MemberImageUpload />
                                     </div>
                                 ) : (
-                                    <button className='imageUpload' onClick={toggleImageUpload}>
-                                        {userNewData?.image ? <>Update Image</> : <>Image Upload</>}
+                                    <button className='profileUpdate' onClick={toggleImageUpload}>
+                                        {/* {userNewData?.image ? <>Update Profile Picture</> : <>Upload Profile Picture</>} */}
+                                        Update Profile Picture
                                     </button>
                                 )}
                             </div>
 
-                            <div className=' text-center'>
-                                <h6 className="my-0 fw-bold">{memberData?.employeenameinenglish?.slice(0, 40)}
-                                </h6>
-                                <h6 className="my-0 fs-6 ">
-                                    {memberData?.current_designation && <>
-                                        {memberData?.current_designation},&nbsp;
-                                    </>}
-                                    {memberData?.unit &&
-                                        <>
-                                            {memberData?.unit}
-                                        </>
-                                    }
+                            <div className=' col-lg-9 mx-auto text-center mt-3'>
 
-                                </h6>
                                 {userNewData?.CoCurriculumActivities &&
                                     <p className="mt-1 mb-0 coCurriculur"> <b>Interest on</b> : {userNewData?.CoCurriculumActivities} </p>
                                 }
@@ -71,70 +67,120 @@ const MemberProfileComp = ({ memberData, userNewData }) => {
                                         <MemberCoCurriculamActivitiesEntry />
                                     </div>
                                 ) : (
-                                    <button className='coCurricularUpload' onClick={toggleCoCurricularUpload}>
-                                        {userNewData?.CoCurriculumActivities ? <>Update Co-Curricular Activities</> : <>  CoCurricular Activities Upload</>}
+                                    <button className='profileUpdate' onClick={toggleCoCurricularUpload}>
+                                        {userNewData?.CoCurriculumActivities ? <>Update Hobbies</> : <> Add Hobbies</>}
                                     </button>
                                 )}
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                        <div className="col-lg-7">
+                            <div className="about-text go-to">
+                                <h4 className=" text-black fw-bold">{member?.employeename}</h4>
+                                <h6 className=" text-black lead">
+                                    {member?.current_designation && <> {member?.current_designation}, </>}
+                                    {member?.main_unit && <> {member?.main_unit}</>}
+                                    {member?.unit && <>, {member?.unit}</>}
+                                    {member?.sub_unit && <>, {member?.sub_unit}</>}
+                                    {member?.sub_sub_unit && <>, {member?.sub_sub_unit}</>}
+                                </h6>
+                                <p className=' fw-bold'>{member?.rank}<> </> ({member?.rankinenglish})</p>
+                                <div className="row about-list">
+                                    <div className="col-md-6">
 
+                                        <div className="media">
+                                            <label>Work Place:</label>
+                                            <p> {member?.main_unit && <> {member?.main_unit}</>}
+                                                {member?.unit && <>/ {member?.unit}</>}
+                                                {member?.sub_unit && <>/ {member?.sub_unit}</>}
+                                                {member?.sub_sub_unit && <>/ {member?.sub_sub_unit}</>}
+                                            </p>
+                                        </div>
 
-                <div className="col-lg-8">
-                    <div className="row">
-                        <div className="col-md-6 my-1 my-lg-0">
-                            <div className="card proCard shadow-lg">
-                                <div className="card-body proCardBody my-auto">
-                                    <p className="my-0"><b> Rank</b>: {memberData?.rank}({memberData?.rankinenglish})</p>
-                                    {memberData?.current_designation &&
-                                        <p className="my-0"><b> Designation</b>: {memberData?.current_designation}</p>
-                                    }
-                                    <p className="my-0"><b> BP ID</b>: {memberData?.employeecode}</p>
-                                    <p className="my-0"><b> BCS Batch</b>: {memberData?.cadre}th</p>
-                                    <p className="my-0"><b> Unit</b>:
-                                        {memberData?.main_unit &&
-                                            <> {memberData?.main_unit}</>
+                                        <div className="media">
+                                            <label>BCS Batch:</label>
+                                            <p>{member?.cadre}th</p>
+                                        </div>
+
+                                        <div className="media">
+                                            <label>Phone:</label>
+                                            <p>{member?.mobilephone}</p>
+                                        </div>
+
+                                        <div className="media">
+                                            <label>BPID:</label>
+                                            <p>{member?.employeecode}</p>
+                                        </div>
+
+                                        <div className="media">
+                                            <label>E-mail:</label>
+                                            <p>{member?.email}</p>
+                                        </div>
+
+                                        {member?.gov_email &&
+                                            <div className="media">
+                                                <label>Gov-Email:</label>
+                                                <p>{member?.gov_email}</p>
+                                            </div>
                                         }
-                                        {memberData?.unit &&
-                                            <>, {memberData?.unit}</>
+
+                                        <div className="media">
+                                            <label>Blood Group:</label>
+                                            <p>{member?.blood_group}</p>
+                                        </div>
+                                        <div className="media">
+                                            <label>Medel:</label>
+                                            <p>{member?.gift}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div className="media">
+                                            <label>Father's Name:</label>
+                                            <p>{member?.fathername}</p>
+                                        </div>
+                                        <div className="media">
+                                            <label>Mother's Name:</label>
+                                            <p>{member?.mothername}</p>
+                                        </div>
+
+                                        {member?.gov_mob &&
+                                            <div className="media">
+                                                <label>Gov-Phone:</label>
+                                                <p>{member?.gov_mob}</p>
+                                            </div>
                                         }
-                                        {memberData?.sub_unit &&
-                                            <>, {memberData?.sub_unit}</>
-                                        }
-                                        {memberData?.sub_sub_unit &&
-                                            <>, {memberData?.sub_sub_unit}</>
-                                        }
-                                    </p>
-                                    <p className="my-0"><b> Phone no  </b>    : {memberData?.mobilephone}
-                                        {memberData?.gov_mob && <>,&nbsp;{memberData?.gov_mob}</>}
-                                    </p>
-                                    <p className="my-0"> <b> Email</b>    : <small>{memberData?.email}</small>
-                                        {memberData?.gov_email && <>, <small className=' my-0'>  {memberData?.gov_email}</small></>}
-                                    </p>
-                                    <p className="my-0"><b> Medal </b> : {memberData?.gift}</p>
+
+                                        <div className="media">
+                                            <label>Birthday:</label>
+                                            <p>{new Date(member?.dateofbirth).toDateString()}</p>
+                                        </div>
+
+                                        <div className="media">
+                                            <label>Marital Status:</label>
+                                            <p>{member?.marital_status}</p>
+                                        </div>
+
+                                        <div className="media">
+                                            <label>Education:</label>
+                                            <p>{member?.degree}</p>
+                                        </div>
+                                        <div className="media">
+                                            <label>Religion:</label>
+                                            <p>{member?.religion}</p>
+                                        </div>
+                                        <div className="media">
+                                            <label>HomeDistrict:</label>
+                                            <p>{member?.homedistrict}</p>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 my-1 my-lg-0">
-                            <div className="card proCard shadow-lg">
-                                <div className="card-body proCardBody">
-                                    <p className="my-0"><b> Father’s Name </b> : {memberData?.fathername} </p>
-                                    <p className="my-0"><b> Mother’s Name </b>: {memberData?.mothername}</p>
-                                    <p className="my-0"><b> Education </b> : {memberData?.degree}</p>
-                                    <p className="my-0"><b> DOB  </b>  :  {new Date(memberData?.dateofbirth).toDateString()}</p>
-                                    <p className="my-0"><b> Marital Status </b>: {memberData?.marital_status}</p>
-                                    <p className="my-0"><b> Blood Group  </b>  : {memberData?.blood_group} </p>
-                                    <p className="my-0"><b> Religion    </b>  : {memberData?.religion}</p>
-                                    <p className="my-0"><b> Home District </b> : {memberData?.homedistrict}</p>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };
