@@ -12,14 +12,14 @@ const MemberImageUpload = () => {
 
     const [userNewData, setUserNewData] = useState();
     const navigate = useNavigate();
-    console.log(" MemberImageUpload Login user :", user);
+    // console.log(" MemberImageUpload Login user :", user);
 
     // user new data
     useEffect(() => {
         fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
-                console.log("Member Image Upload user Data: ", data?.member)
+                // console.log("Member Image Upload user Data: ", data?.member)
                 setUserNewData(data?.member);
                 setLoading(false);
             })
@@ -83,7 +83,7 @@ const MemberImageUpload = () => {
         <div className='col-10 mx-auto  my-1 '>
             <form onSubmit={handleImageUpload} className='text-center my-0 ' >
                 <input type="file" name="image" className=" bg-secondary text-white text-xs " id="image" aria-describedby="emailHelp" />
-                <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" id="floatingTextarea" maxLength="80" hidden />
+                <textarea defaultValue={user?.CoCurriculumActivities} name='CoCurriculumActivities' className="form-control" id="floatingTextarea" hidden />
 
                 <div className='col-9 mx-auto d-flex justify-content-between mt-1'>
                     <input className='profileUpdateBtn' type="reset" value="Reset" />

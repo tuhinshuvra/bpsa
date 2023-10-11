@@ -7,6 +7,7 @@ import { getCookie } from '../../utlis/helper';
 import imageCompression from 'browser-image-compression';
 import axios from 'axios';
 import useTitle from '../../hooks/useTitle';
+import { TextField } from '@mui/material';
 
 const EntryBlog = () => {
   useTitle("PostEntry");
@@ -16,7 +17,7 @@ const EntryBlog = () => {
   const navigate = useNavigate();
   const { user } = useContext(AllContext);
 
-  console.log(" EntryBlog user", user);
+  // console.log(" EntryBlog user", user);
 
   const handleBlock = async (e) => {
     e.preventDefault();
@@ -126,6 +127,8 @@ const EntryBlog = () => {
           </nav>
 
           <form className='   ' onSubmit={handleBlock}>
+
+
             <input type='text' name='block_title' className='input input-bordered w-full my-2 bg-white' placeholder='Enter post title' required></input><br />
             <input type='text' name='block_summery' className='input input-bordered w-full my-2 bg-white' placeholder='Enter post summary'></input><br />
             {
@@ -140,7 +143,7 @@ const EntryBlog = () => {
             </JoditEditor>
             <input type='file' name='image' className='input input-bordered w-full my-2 bg-white' placeholder='Enter post image'></input><br />
             <div className='flex justify-between mt-2 mb-5'>
-              <input de className='btn btn-outline-secondary  btn-sm  w-25 ' type="reset" value="reset" />
+              <input className='btn btn-outline-secondary  btn-sm  w-25 ' type="reset" value="reset" />
               <input className='btn btn-outline-secondary  btn-sm w-25  ' type="submit" value="submit" />
             </div>
           </form>

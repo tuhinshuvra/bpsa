@@ -61,7 +61,8 @@ const MemberProfilePage = () => {
             })
                 .then(result => {
                     setMemberData(result.data.items[0]);
-                    setLocalStorage("loginUserPhoto", result.data.items[0]?.pic)
+
+                    setLocalStorage("loginUserPhoto", result.data.items[0]?.pic || "no picture")
                     setMemberBCSBatch(result.data.items[0]?.cadre)
                     setLoading(false)
                 })

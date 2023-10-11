@@ -22,7 +22,7 @@ const MemberBlogDetails = () => {
     const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
 
-    console.log("MemberPostDetails : ", blog);
+    // console.log("MemberPostDetails : ", blog);
 
     useEffect(() => {
         setLoading(true)

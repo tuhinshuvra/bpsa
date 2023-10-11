@@ -76,10 +76,10 @@ const MemberCoCurriculamActivitiesEntry = () => {
                         name='CoCurriculumActivities'
                         className="form-control formArea mb-0"
                         id="floatingTextarea"
-                        maxlength="90"
+                        maxLength="90"
                         defaultValue={userNewData?.CoCurriculumActivities}
                     />
-                    <label className=' text-main text-xs mt-0' for="floatingTextarea"> Hobbies maximum 90 character</label>
+                    <label className=' text-main text-xs mt-0' htmlFor="floatingTextarea"> Hobbies maximum 90 character</label>
                 </div>
 
                 <div className=' d-flex justify-between mb-1'>

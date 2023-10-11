@@ -73,14 +73,14 @@ export const signout = (next) => {
     next();
 };
 
-export const updateUser = (response, next) => {
-    if (typeof window !== "undefined") {
-        let auth = JSON.parse(localStorage.getItem("user"));
+// export const updateUser = (response, next) => {
+//     if (typeof window !== "undefined") {
+//         let auth = JSON.parse(localStorage.getItem("user"));
 
-        auth = { ...auth, name: response.data.name }; // Update the name property with the new value
+//         auth = { ...auth, name: response.data.name }; // Update the name property with the new value
 
-        localStorage.setItem("user", JSON.stringify(auth));
-        isAuth()
-    }
-    next();
-}; 
+//         localStorage.setItem("user", JSON.stringify(auth));
+//         isAuth()
+//     }
+//     next();
+// }; 
