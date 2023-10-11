@@ -7,7 +7,7 @@ import "./MemberProfileComp.css";
 const MemberProfileComp = ({ member, userNewData }) => {
     const { user, showImageUpload, setShowImageUpload, showCoCurricular, setShowCoCurricular } = useContext(AllContext);
 
-    // console.log("Login Member Data: ", member);
+    // console.log("MemberProfileComp Member Data: ", member);
 
     const toggleImageUpload = () => {
         setShowImageUpload(!showImageUpload);
@@ -38,8 +38,9 @@ const MemberProfileComp = ({ member, userNewData }) => {
                                     <img src={userNewData?.image} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
                                 </>
                                 :
-                                <>
+                                <>{member?.pic &&
                                     <img src={`data:image/jpeg;base64,${member?.pic}`} alt="avatar" className="memberImage mx-auto   mb-0" style={{ width: "300px", height: "340px" }} />
+                                }
                                 </>
                             }
                             <div className='col-lg-9 mx-auto text-center mt-1  mb-[-7px] '>
