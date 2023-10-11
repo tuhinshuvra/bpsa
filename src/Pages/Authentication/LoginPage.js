@@ -34,7 +34,7 @@ const LoginPage = () => {
     // setLoading(true);
     axios({
       method: "POST",
-      url: `https://admin.bpsa.com.bd/api/login`,
+      url: `https://dev.bpsa.com.bd/api/login`,
       data: { email, password },
     })
       .then((response) => {

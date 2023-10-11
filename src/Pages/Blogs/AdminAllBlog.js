@@ -20,7 +20,7 @@ const AdminAllBlog = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("https://admin.bpsa.com.bd/api/blog", {
+        fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`,

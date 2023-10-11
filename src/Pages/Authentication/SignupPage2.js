@@ -124,7 +124,7 @@ const SignupPage = () => {
             .then(result => {
                 if (result.items[0]) {
                     setUser(result.items[0])
-                    axios.get(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`)
+                    axios.get(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}`)
                         .then(loggedUser => {
                             console.log(loggedUser.data);
                         })
@@ -135,7 +135,7 @@ const SignupPage = () => {
             })
 
 
-        fetch(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${birth_year}`, {
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${birth_year}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -252,7 +252,7 @@ const SignupPage = () => {
         }
         console.log("userData : ", userData);
 
-        axios.post("https://admin.bpsa.com.bd/api/signup", userData)
+        axios.post("https://dev.bpsa.com.bd/api/signup", userData)
             .then(result => {
                 console.log(result);
                 if (result.status == 201) {
@@ -273,7 +273,7 @@ const SignupPage = () => {
                 }
             })
 
-        // fetch(`https://admin.bpsa.com.bd/api/signup`, {
+        // fetch(`https://dev.bpsa.com.bd/api/signup`, {
         //     method: "POST",
         //     headers: {
         //         'content-type': 'application/json'
@@ -301,7 +301,7 @@ const SignupPage = () => {
 
     const handleResendOTP = (e) => {
         e.preventDefault();
-        fetch(`https://admin.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${year}`, {
+        fetch(`https://dev.bpsa.com.bd/api/verify?PIMS_ID=${unique_id}&birth=${year}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",

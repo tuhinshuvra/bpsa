@@ -31,7 +31,7 @@ const PublishedBlogs = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("https://admin.bpsa.com.bd/api/Approvedblog")
+        fetch("https://dev.bpsa.com.bd/api/Approvedblog")
             .then((res) => res.json())
             .then((result) => {
                 setPosts(result.data.blog);

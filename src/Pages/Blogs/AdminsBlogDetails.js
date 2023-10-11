@@ -27,7 +27,7 @@ const AdminsBlogDetails = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("https://admin.bpsa.com.bd/api/blog", {
+        fetch("https://dev.bpsa.com.bd/api/blog", {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`,
@@ -76,7 +76,7 @@ const AdminsBlogDetails = () => {
         console.log("Post Approved Data : ", data)
 
         setLoading(true);
-        await fetch("https://admin.bpsa.com.bd/api/blog-status", {
+        await fetch("https://dev.bpsa.com.bd/api/blog-status", {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`,

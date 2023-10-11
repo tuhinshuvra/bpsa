@@ -37,7 +37,7 @@ const CommitteePage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://admin.bpsa.com.bd/api/committee/session/${year}`)
+    fetch(`https://dev.bpsa.com.bd/api/committee/session/${year}`)
       .then(res => res.json())
       .then(result => {
         console.log("result", result);
@@ -54,7 +54,7 @@ const CommitteePage = () => {
 
   const handleChangeYear = (id) => {
     setLoading(true);
-    fetch(`https://admin.bpsa.com.bd/api/committee/session/${id}`)
+    fetch(`https://dev.bpsa.com.bd/api/committee/session/${id}`)
       .then(res => res.json())
       .then(result => {
         setYear(id);

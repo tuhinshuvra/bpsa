@@ -26,7 +26,7 @@ const MemberBlogDetails = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://admin.bpsa.com.bd/api/blog/${user.id}`, {
+        fetch(`https://dev.bpsa.com.bd/api/blog/${user.id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getCookie("token")}`, // Replace with your actual authentication token

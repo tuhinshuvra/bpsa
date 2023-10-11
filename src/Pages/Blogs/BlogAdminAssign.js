@@ -13,7 +13,7 @@ const BlogAdminAssign = () => {
 
     useEffect(() => {
         // Fetch the initial member list data at the time of page load
-        fetch(`https://admin.bpsa.com.bd/api/adminlist/admin`)
+        fetch(`https://dev.bpsa.com.bd/api/adminlist/admin`)
             .then((res) => res.json())
             .then((data) => {
                 console.log("Admin List: ", data?.data?.admin);
@@ -36,7 +36,7 @@ const BlogAdminAssign = () => {
         }
 
         // Fetch the member data using the entered BPID
-        fetch(`https://admin.bpsa.com.bd/api/profile/${bpid}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${bpid}`)
             .then((res) => res.json())
             .then((data) => {
                 if (data?.member) {
@@ -68,7 +68,7 @@ const BlogAdminAssign = () => {
         }
 
         // Update the member role first
-        fetch(`https://admin.bpsa.com.bd/api/member-status?pmsid=${BPID}&role=${newRole}`, {
+        fetch(`https://dev.bpsa.com.bd/api/member-status?pmsid=${BPID}&role=${newRole}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const BlogAdminAssign = () => {
                 toast.success(data?.message);
 
                 // Fetch the updated member list after making the role change
-                fetch(`https://admin.bpsa.com.bd/api/adminlist/member`)
+                fetch(`https://dev.bpsa.com.bd/api/adminlist/member`)
                     .then((res) => res.json())
                     .then((data) => {
                         console.log("Updated Admin List: ", data?.data?.admin);

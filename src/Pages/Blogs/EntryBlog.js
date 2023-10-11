@@ -89,7 +89,7 @@ const EntryBlog = () => {
 
     // Proceed to create the post post with the updated post object
     try {
-      const createPostResponse = await fetch('https://admin.bpsa.com.bd/api/blog-create', {
+      const createPostResponse = await fetch('https://dev.bpsa.com.bd/api/blog-create', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${getCookie("token")}`,

@@ -24,7 +24,7 @@ const EventDetailsPage = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`https://admin.bpsa.com.bd/api/get-event/${eventId}`)
+        fetch(`https://dev.bpsa.com.bd/api/get-event/${eventId}`)
             .then(response => response.json())
             .then(data => {
                 // console.log("Events Details data: ", data.data.event);

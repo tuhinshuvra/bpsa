@@ -16,7 +16,7 @@ const MemberImageUpload = () => {
 
     // user new data
     useEffect(() => {
-        fetch(`https://admin.bpsa.com.bd/api/profile/${user?.BPID}`)
+        fetch(`https://dev.bpsa.com.bd/api/profile/${user?.BPID}`)
             .then(res => res.json())
             .then(data => {
                 console.log("Member Image Upload user Data: ", data?.member)
@@ -52,7 +52,7 @@ const MemberImageUpload = () => {
             if (imageData.data && imageData.data.display_url) {
                 member.image = imageData.data.display_url;
 
-                const createBlogResponse = await fetch(`https://admin.bpsa.com.bd/api/profile-update/${user?.id}`, {
+                const createBlogResponse = await fetch(`https://dev.bpsa.com.bd/api/profile-update/${user?.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
