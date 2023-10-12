@@ -3,7 +3,7 @@ import './MemberModal.css';
 const MemberModal = ({ isOpen, onClose, modalMember }) => {
     return (
         isOpen && (
-            <div className=" col-xl-3 col-lg-5 col-md-7 mx-auto  modal-overlay bg-white">
+            <div className=" col-xl-4 col-lg-5 col-md-7 mx-auto  modal-overlay bg-white">
                 <div className="modal-content">
 
                     {/* blood_group  cadre current_designation degree email employeecode  employeename  employeenameinenglish  

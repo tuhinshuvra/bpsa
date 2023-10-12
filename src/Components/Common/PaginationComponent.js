@@ -4,7 +4,7 @@ import React from "react";
 const PaginationComponent = ({
   pageNumber,
   handleChange,
-  count,
+  count = 0,
   className,
   start,
   end,

@@ -31,7 +31,7 @@ export const setLocalStorage = (key, value) => {
 };
 // set in localstorage
 export const getLocalStorage = (key) => {
-    console.log("key", key);
+    // console.log("key", key);
     if (window !== "undefined") {
         return JSON.parse(localStorage.getItem(key));
     }
@@ -77,7 +77,7 @@ export const updateUser = (response, next) => {
     if (typeof window !== "undefined") {
         let auth = JSON.parse(localStorage.getItem("user"));
 
-        auth = { ...auth, name: response.data.name }; // Update the name property with the new value
+        auth = { ...auth, name: response.data.name };
 
         localStorage.setItem("user", JSON.stringify(auth));
         isAuth()

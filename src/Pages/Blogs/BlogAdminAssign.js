@@ -1,107 +1,241 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useTitle from '../../hooks/useTitle';
 import './BlogAdminAssign.css';
-
-
-const handleAddAdminRole = (event) => {
-    event.preventDefault()
-
-    console.log('handleAddAdminRole');
-}
-
-const handleRemoveAdminRole = (event) => {
-    event.preventDefault()
-    console.log('handleRemoveAdminRole');
-}
-
-const handleListMembers = (event) => {
-    event.preventDefault()
-    console.log('handleListMembers');
-}
+import { AllContext } from '../../hooks/ContextData';
+import toast from 'react-hot-toast';
+import Loader from '../../Components/Common/Loader';
+import swal from 'sweetalert';
 
 const BlogAdminAssign = () => {
     useTitle("AssignPostAdmin")
+    const { user, loading, setLoading } = useContext(AllContext);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [memberList, setMemberList] = useState([]);
 
     useEffect(() => {
-        fetch('/data/bpsa_member_data.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+        fetch(`https://dev.bpsa.com.bd/api/adminlist/admin`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Admin List: ", data?.data?.admin);
+                setMemberList(data?.data?.admin); // Set the initial member list
+                setErrorMessage("");
             })
-            .then(data => console.log("BPSA Member Data: ", data))
-            .catch(error => console.error("Fetch error: ", error));
-    }, []);
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+                toast("An error occurred while fetching member data");
+            });
+
+    }, [])
+
+    const handleAddMember = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const BpId = form.bpid.value;
+
+        if (!BpId) {
+            toast("Please enter a BPID");
+            setErrorMessage("Please enter a BPID");
+            return;
+        }
+        const matchMember = memberList.find(member => member.BPID == BpId);
+        if (matchMember) {
+            toast("The member already added");
+            setErrorMessage("The member already added");
+            return;
+        }
+
+        if (memberList.length >= 5) {
+            toast("Already 5 members added here. Please remove member");
+            setErrorMessage("Already 5 members added here");
+            return;
+        }
+        setErrorMessage("");
+        // Fetch the member data using the entered BPID
+        fetch(`https://dev.bpsa.com.bd/api/profile/${BpId}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data?.member) {
+
+                    setMemberList([...memberList, data?.member]); // Add the new member to the list
+                    console.log("Member User table Data: ", data?.member);
+                    console.log("AdminAssing MemberList: ", memberList);
+                    form.reset();
+                } else {
+                    toast("This member does not exist in our system");
+                    setErrorMessage("This member does not exist in our system");
+                }
+            })
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+                toast("An error occurred while fetching member data");
+            });
+    };
+
+    const handleRemoveMember = (mem) => {
+
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete status from it!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    if (mem.MemberRole == 'admin') {
+                        fetch(`https://dev.bpsa.com.bd/api/admin-status?pmsid=${mem.BPID}&role=member`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                // toast.success(data?.message);
+
+                                // Fetch the updated member list after making the role change
+                                fetch(`https://dev.bpsa.com.bd/api/adminlist/admin`)
+                                    .then((res) => res.json())
+                                    .then((data) => {
+                                        console.log("Updated Admin List: ", data?.data?.admin);
+                                        const oldMember = memberList.filter(member => member.MemberRole != 'admin');
+                                        setMemberList([...data?.data?.admin, ...oldMember]);
+                                        swal("Removed his role from here!", {
+                                            icon: "success",
+                                        });
+                                        setErrorMessage("");
+                                    })
+                                    .catch((error) => {
+                                        console.error("Fetch error: ", error);
+                                        toast("An error occurred while fetching updated member data");
+                                    });
+                            })
+                            .catch((error) => {
+                                console.error("Fetch error: ", error);
+                                toast("An error occurred while updating member role");
+                            });
+                    }
+                    else {
+                        setMemberList(memberList.filter(member => member.BPID != mem.BPID));
+                        swal("delete from here", {
+                            icon: "success",
+                        });
+                    }
+                } else {
+                    swal("no update role!");
+                }
+            });
+    }
+
+    const handleRoleUpdate = (BPID, role) => {
+
+        const matchAdmin = memberList.filter(member => member.MemberRole == 'admin');
+        if (matchAdmin.length >= 3 && role == 'member') {
+            toast("The system has already 3 admin");
+            setErrorMessage("The system has already 3 admin");
+            return;
+        }
+
+        let newRole;
+        if (role === 'member') {
+            newRole = 'admin';
+        } else if (role === 'admin') {
+            newRole = 'member';
+        }
+
+        // Update the member role first
+        fetch(`https://dev.bpsa.com.bd/api/admin-status?pmsid=${BPID}&role=${newRole}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                toast.success(data?.message);
+
+                // Fetch the updated member list after making the role change
+                fetch(`https://dev.bpsa.com.bd/api/adminlist/admin`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log("Updated Admin List: ", data?.data?.admin);
+                        // console.log(data?.data)
+
+                        const oldMember = memberList.filter(member => member.MemberRole != 'admin' && member.BPID != BPID);
+                        setMemberList([...data?.data?.admin, ...oldMember]);
+
+                        setErrorMessage("");
+                    })
+                    .catch((error) => {
+                        console.error("Fetch error: ", error);
+                        toast("An error occurred while fetching updated member data");
+                    });
+            })
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+                toast("An error occurred while updating member role");
+            });
+    };
+
+
+    if (loading) {
+        return <Loader></Loader>
+    }
 
     return (
-        // <div className=' container col-xl-4 col-lg-6 col-md-8 mx-auto'>
         <div className=' col-md-10 mx-auto'>
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container pt-3 pb-1 ">
                     <nav aria-label="" className="bg-light rounded-3 p-2 ">
                         <h3 className='fw-bold text-center text-success'>Post Admin Assign</h3>
                     </nav>
-                    <div className='  col-lg-6 col-md-8 mx-auto  my-4'>
-                        <form className='adminAssign'>
-                            <div className=' d-flex justify-content-evenly align-items-baseline'>
-                                <div className="mb-3 d-flex align-items-baseline ">
-                                    <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
-                                    <input type="text" className="form-control" id="bpid" placeholder='Enter member BPID' aria-describedby="bpidHelp" />
-                                </div>
-                                <button className=' btn btn-primary btn-sm w-25 ms-md-0 ms-1'>Add</button>
+                    <div className='col-xl-7  col-lg-10 mx-auto  my-4 adminAssign'>
+                        <p className=' text-danger fw-bold text-center'>{errorMessage}</p>
+                        <form onSubmit={handleAddMember} className=' d-flex justify-content-between align-items-baseline'>
+                            <div className="mb-3 d-flex align-items-baseline ">
+                                <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
+                                <input className="form-control" type="text" name='bpid' id="bpid" placeholder='Enter member BPID' />
                             </div>
-                            <h5 className=' text-primary text-center fw-bold'>Post Admins</h5>
+                            <button className=' btn btn-outline-secondary btn-sm w-20   ms-md-0 me-2'>Add</button>
+                        </form>
+                        <div className="">
                             <table className="table table-striped table-hover adminAssignTable">
                                 <thead>
                                     <tr className=' bg-secondary text-white'>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Name</th>
+                                        <th className=' fw-bold' scope="col">SL</th>
+                                        <th className=' fw-bold' scope="col">Name</th>
+                                        <th className=' fw-bold' scope="col">BPID</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Role Update</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Abdur Zabbar</td>
-                                        <td className=' text-success fst-italic fw-bold'>Admin</td>
-                                        <td className=' text-center '> <button onClick={handleRemoveAdminRole} className=' btn btn-primary btn-sm adminAssignBtn'>RemoveAdmin</button> </td>
-                                        <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Takia Islam</td>
-                                        <td className=' text-primary fst-italic fw-bold'>Member</td>
-                                        <td className=' text-center '> <button onClick={handleAddAdminRole} className=' btn btn-success btn-sm adminAssignBtn'>Make Admin</button> </td>
-                                        <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Khorshed Alam</td>
-                                        <td className=' text-primary fst-italic fw-bold'>Member</td>
-                                        <td className=' text-center '> <button onClick={handleAddAdminRole} className=' btn btn-success btn-sm adminAssignBtn'>Make Admin</button> </td>
-                                        <td className=' text-center '> <button onClick={handleListMembers} className=' btn btn-primary btn-sm adminAssignBtn'>Delete</button> </td>
-                                    </tr>
+                                    {memberList.map((member, index) =>
+                                        <tr key={index}>
+                                            <th scope="row">{index + 1}</th>
+                                            <td>{member?.Name}</td>
+                                            <td className=' small'>{member?.BPID}</td>
+                                            <td>{member?.MemberRole === 'admin' ? <>Admin</> : <>Member</>}</td>
+                                            <td className='  '>
+                                                {member?.MemberRole === 'member' ?
+                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-outline-secondary btn-sm">Make Admin</button>
+                                                    :
+                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-outline-secondary btn-sm "> Make Member</button>
+                                                }
+                                            </td>
+                                            <td className='   '>
+                                                <button onClick={() => handleRemoveMember(member)} className=' btn btn-outline-secondary btn-sm adminAssignBtn'> <span> X </span></button>
+                                            </td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </table>
-
-                            {/* <div className=' d-flex justify-content-between'>
-                        <button type="reset" className="btn btn-primary btn-sm">Reset</button>
-                        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
-                    </div> */}
-                        </form>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
-
-
-
-
-
-        // </div>
     );
 };
 

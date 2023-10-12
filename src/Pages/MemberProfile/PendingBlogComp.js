@@ -30,7 +30,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
 
     return (
         <div>
-            <div className="row mt-5 mb-2">
+            <div className="row mt-4 mb-2">
                 <div className="col">
                     <nav aria-label="breadcrumb" className="bg-light rounded-3 p-2  ">
                         <h4 className=' text-center'>Non Approved Posts</h4>
@@ -73,7 +73,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
                                     </div>
                                     <div className="my-auto">
                                         <p className=' fw-bold text-center '>{post?.status}</p>
-                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-outline-secondary btn-sm ms-3 w-24 '>Edit</Link>
                                     </div>
                                 </div>
                             </>
@@ -102,7 +102,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
                                     </div>
                                     <div className="my-auto">
                                         <p className=' fw-bold text-center '>{post?.status}</p>
-                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-primary btn-sm ms-3 w-24 '>Edit</Link>
+                                        <Link to={`/updateBlog/${post?.id}`} className=' btn btn-outline-secondary btn-sm ms-3 w-24 '>Edit</Link>
                                     </div>
                                 </div>
                             </>
@@ -110,7 +110,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
                     </div>
                 </div>
 
-            )) : <h5 className=' fw-bold text-center'>No blog to show</h5>
+            )) : <h5 className=' fw-bold text-center'>No post to show</h5>
             }
 
             {totalPendingPosts > 5 &&

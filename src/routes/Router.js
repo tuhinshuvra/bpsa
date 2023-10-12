@@ -19,7 +19,6 @@ import SSLCommerz from "../Pages/MemberShipFeePage/SSLCommerz";
 import MemberImageUpload from "../Pages/MemberProfile/MemberImageUpload";
 import MemberCoCurriculamActivitiesEntry from "../Pages/MemberProfile/MemberCoCurriculamActivitiesEntry";
 import AllMemberDirectoryPage from "../Pages/AllMemberDirectory/AllMemberDirectoryPage";
-import AllMemberDirectorySearchResultPage from "../Pages/AllMemberDirectory/AllMemberDirectorySearchResultPage";
 import HomePage from "../Pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 import WrongRoute from "./WrongRoute/WrongRoute";
@@ -123,10 +122,7 @@ const router = createBrowserRouter([
                 path: "/memberDirectory",
                 element: <PrivateRoute><AllMemberDirectoryPage></AllMemberDirectoryPage></PrivateRoute>
             },
-            {
-                path: "/memberDirectorySearchResult",
-                element: <PrivateRoute><AllMemberDirectorySearchResultPage></AllMemberDirectorySearchResultPage></PrivateRoute>
-            },
+
 
             {
                 path: "/membershipFee/:id",

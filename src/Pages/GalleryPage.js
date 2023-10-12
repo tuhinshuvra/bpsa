@@ -15,7 +15,7 @@ const GalleryPage = () => {
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [videoData, setVideoData] = useState([]);
 
-  console.log("galleryData", galleryData);
+  // console.log("galleryData", galleryData);
   const getGalleryData = async () => {
     try {
       setGalleryLoading(true);
@@ -47,7 +47,7 @@ const GalleryPage = () => {
   }
   return (
     <div>
-      <GalleryComponent data={galleryData} video={videoData} />
+      <GalleryComponent data={galleryData} video={videoData} key={galleryData?.id} />
     </div>
   );
 };

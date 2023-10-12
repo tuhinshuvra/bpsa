@@ -19,48 +19,6 @@
     line-height: 1.1;
 }
 
-
-.imageUpload {
-    background-color: rgb(32, 79, 235);
-    font-size: 12px;
-    color: white;
-    width: 84px;
-    padding: 0px 4px;
-    border-radius: 25px;
-    margin: 0 0;
-}
-
-.imageUpload:hover {
-    background-color: rgb(17, 46, 139);
-}
-
-.coCurricularUpload {
-    background-color: rgb(32, 79, 235);
-    font-size: 12px;
-    color: white;
-    width: 175px;
-    padding: 0px 4px;
-    border-radius: 25px;
-    margin: 0 0;
-}
-
-.coCurricularUpload:hover {
-    background-color: rgb(17, 46, 139);
-}
-
-.coCurriculur {
-    font-size: 15px;
-    line-height: 18px;
-}
-
-.profileUpdateBtn {
-    background-color: rgb(32, 79, 235);
-    font-size: 12px;
-    color: white;
-    width: 50px;
-    border-radius: 10px;
-}
-
 .formArea {
     font-size: 14px !important;
 }

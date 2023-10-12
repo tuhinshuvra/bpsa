@@ -49,19 +49,20 @@ const summaryData = [
 
 const SummaryComp = ({ data }) => {
   return (
-    <div className={`${Styles.summaryMain__style} py-3 my-3 rounded-2xl   `}>
-      <Container>
+    <div className={`${Styles.summaryMain__style} pb-3 my-3 rounded-2xl   `}>
+      <div>
         <HeadingComponent1
           first=" Association -  "
           second=" At A Glance"
-          className="text-white text-center pb-4"
+          // className="text-white text-center pb-4"
+          className={" bg-[#E2E3E7]  rounded-t-2xl  text-center py-3  mb-3 "}
         />
         <Row>
           {data &&
             data?.map((item, index) => {
               return (
                 <Col className="py-3 " key={index} md={4}>
-                  <div className={`${Styles.successCard}  bg-third/60 text-center  text-white hover:bg-third/90 py-2  transition-all duration-300   mx-auto rounded-2xl`}>
+                  <div className={`${Styles.successCard}  bg-[#3F9888]/80 text-center  text-white hover:bg-[#3F9888] py-2  transition-all duration-300   mx-auto rounded-2xl`}>
                     {item?.image ?
                       <>
                         <ImageComponent
@@ -84,7 +85,7 @@ const SummaryComp = ({ data }) => {
               );
             })}
         </Row>
-      </Container>
+      </div>
     </div>
   );
 };

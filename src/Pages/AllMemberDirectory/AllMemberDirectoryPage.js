@@ -6,8 +6,8 @@ import axios from "axios";
 import PaginationComponent from "../../Components/Common/PaginationComponent";
 import Loader from "../../Components/Common/Loader";
 import MemberModal from "./MemberModal";
-import './AllMemberDirectoryPage.css';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import './AllMemberDirectoryPage.css';
 
 const AllMemberDirectoryPage = () => {
     useTitle("Directory");
@@ -129,6 +129,7 @@ const AllMemberDirectoryPage = () => {
         batchCadre();
     }, [accessToken])
 
+
     useEffect(() => {
         setLoading(true);
         const batchData = async () => {
@@ -148,7 +149,7 @@ const AllMemberDirectoryPage = () => {
                 setFilterData(response.data?.items)
                 setLoading(false);
                 // console.log(apiResponse)
-                setRank([...new Set(response.data?.items.map(obj => obj.rank))]);
+                setRank([...new Set(response.data?.items.map((obj) => obj.rank))]);
                 setMainUnit([...new Set(response.data?.items.map(obj => obj.main_unit))]);
                 setBlood([...new Set(response.data?.items.map(obj => obj.blood_group))]);
                 setDesignation([...new Set(response.data?.items.map(obj => obj.current_designation))]);
@@ -172,7 +173,6 @@ const AllMemberDirectoryPage = () => {
 
     }, [batch, BcsList])
 
-
     const [searchData, setSearchData] = useState({
         batch: batch,
         searchKeyword: "",
@@ -183,6 +183,7 @@ const AllMemberDirectoryPage = () => {
         designation: "",
         district: "",
     });
+
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
 
     const getSearchData = (event) => {
@@ -258,10 +259,11 @@ const AllMemberDirectoryPage = () => {
     if (BcsAddress) {
         console.log(BcsAddress)
     }
+
+
     if (loading) {
         return <Loader></Loader>
     }
-
 
 
     return (
@@ -290,11 +292,11 @@ const AllMemberDirectoryPage = () => {
                                     </div>
                                 </div>
 
-                                <div className=" me-lg-0 me-md-2 me-0">
+                                <div className=" me-lg-0 me-md-2 me-0 mt-lg-2">
                                     <select onChange={getSearchData} name="rank" className="form-select mt-lg-0 mt-2   mx-lg-0 mx-1" >
                                         <option defaultValue>Select Rank</option>
                                         {
-                                            rank && rank.map(rank => <option value={rank} key={rank}>{rank}</option>)
+                                            rank && rank.map((rank, index) => <option value={rank} key={index}>{rank}</option>)
                                         }
                                     </select>
                                 </div>
@@ -303,13 +305,13 @@ const AllMemberDirectoryPage = () => {
                                     <select onChange={getSearchData} name="unit" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Main Unit</option>
                                         {
-                                            MainUnit && MainUnit.map(MainUnit => <option value={MainUnit} key={MainUnit}>{MainUnit}</option>)
+                                            MainUnit && MainUnit.map((MainUnit, index) => <option value={MainUnit} key={index}>{MainUnit}</option>)
                                         }
                                     </select>
                                     <select onChange={getSearchData} name="blood" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Blood group</option>
                                         {
-                                            blood && blood.map(blood => <option value={blood} key={blood}>{blood}</option>)
+                                            blood && blood.map((blood, index) => <option value={blood} key={index}>{blood}</option>)
                                         }
                                     </select>
                                 </div>
@@ -318,19 +320,19 @@ const AllMemberDirectoryPage = () => {
                                     <select onChange={getSearchData} name="designation" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Select Designation</option>
                                         {
-                                            Designation && Designation.map(Designation => <option value={Designation} key={Designation}>{Designation}</option>)
+                                            Designation && Designation.map((Designation, index) => <option value={Designation} key={index}>{Designation}</option>)
                                         }
                                     </select>
 
                                     <select onChange={getSearchData} name="district" className="form-select my-2 mx-lg-0 mx-1">
                                         <option defaultValue>Own District</option>
                                         {
-                                            district && district.map(district => <option value={district} key={district}>{district}</option>)
+                                            district && district.map((district, index) => <option value={district} key={index}>{district}</option>)
                                         }
                                     </select>
                                 </div>
 
-                                <button type="submit" className=" btn btn-primary w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
+                                <button type="submit" className=" btn btn-outline-secondary w-full btn-sm   mt-2 mb-lg-0 mb-4">Search</button>
 
                             </form>
                         </div>
@@ -351,8 +353,8 @@ const AllMemberDirectoryPage = () => {
                                             </li>
 
                                             {
-                                                BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="">
+                                                BcsList && BcsList.slice(BcsAddress - 4, BcsAddress).map((BCS, index) => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="" key={index}>
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
                                                             color: BCS?.display_value == batch ? 'white' : 'initial',
@@ -367,8 +369,8 @@ const AllMemberDirectoryPage = () => {
                                                 </li>
                                             } */}
                                             {
-                                                BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className="">
+                                                BcsList && BcsList.slice(BcsAddress, BcsAddress + 1).map((BCS, index) => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className="" key={index}>
                                                         <Link className="page-link" href="#" style={{
                                                             backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',
                                                             color: BCS?.display_value == batch ? 'white' : 'initial',
@@ -377,8 +379,8 @@ const AllMemberDirectoryPage = () => {
                                                 ))
                                             }
                                             {
-                                                BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map(BCS => (
-                                                    <li onClick={() => setBatch(BCS?.display_value)} className=" ">
+                                                BcsList && BcsList.slice(BcsAddress + 1, BcsAddress + 5).map((BCS, index) => (
+                                                    <li onClick={() => setBatch(BCS?.display_value)} className=" " key={index}>
                                                         <Link className="page-link" href="#"
                                                             style={{
                                                                 backgroundColor: BCS?.display_value == batch ? '#3F9888' : 'initial',

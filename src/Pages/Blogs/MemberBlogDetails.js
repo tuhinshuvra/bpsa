@@ -22,7 +22,7 @@ const MemberBlogDetails = () => {
     const { user, loading, setLoading } = useContext(AllContext);
     const [blog, setBlogs] = useState([]);
 
-    console.log("MemberPostDetails : ", blog);
+    // console.log("MemberPostDetails : ", blog);
 
     useEffect(() => {
         setLoading(true)
@@ -74,7 +74,7 @@ const MemberBlogDetails = () => {
                             <p>{blog?.summery}</p>
                             <BlogDetailsComponent data={blog} />
                             <div className=' d-flex justify-content-end'>
-                                <Link to={"/memberProfile"} className='btn btn-primary btn-sm w-28'>Back</Link>
+                                <Link to={"/memberProfile"} className='btn btn-outline-secondary btn-sm w-28'>Back</Link>
                             </div>
                         </div>
 

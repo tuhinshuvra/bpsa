@@ -40,7 +40,7 @@ const CommitteePage = () => {
     fetch(`https://dev.bpsa.com.bd/api/committee/session/${year}`)
       .then(res => res.json())
       .then(result => {
-        console.log("result", result);
+        // console.log("result", result);
         setAllYearData(result.data.committees);
         setCommGroup([...new Set(result.data.committees.map(obj => obj.commGroup))]);
         setYearCommittee(result.data.committees)
