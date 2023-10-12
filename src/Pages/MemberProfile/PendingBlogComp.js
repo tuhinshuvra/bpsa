@@ -110,7 +110,7 @@ const PendingBlogComp = ({ pendingPosts }) => {
                     </div>
                 </div>
 
-            )) : <h5 className=' fw-bold text-center'>No blog to show</h5>
+            )) : <h5 className=' fw-bold text-center'>No post to show</h5>
             }
 
             {totalPendingPosts > 5 &&

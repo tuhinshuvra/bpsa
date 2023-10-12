@@ -89,7 +89,7 @@ const ApprovedBlogComp = ({ approvedPosts }) => {
                         </div>
                     </div>
                 </div>
-            )) : <h5 className=' fw-bold text-center'>No blog to show</h5>}
+            )) : <h5 className=' fw-bold text-center'>No post to show</h5>}
 
             {/* pagination start */}
             {totalApprovedPosts > 5 &&
