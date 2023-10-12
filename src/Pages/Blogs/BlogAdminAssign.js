@@ -13,7 +13,6 @@ const BlogAdminAssign = () => {
     const [memberList, setMemberList] = useState([]);
 
     useEffect(() => {
-        // Fetch the initial member list data at the time of page load
         fetch(`https://dev.bpsa.com.bd/api/adminlist/admin`)
             .then((res) => res.json())
             .then((data) => {
@@ -40,21 +39,14 @@ const BlogAdminAssign = () => {
         }
         const matchMember = memberList.find(member => member.BPID == BpId);
         if (matchMember) {
-            toast("Already add member");
-            setErrorMessage("Already add member");
+            toast("The member already added");
+            setErrorMessage("The member already added");
             return;
         }
 
-        // const matchAdmin = memberList.filter(member => member.MemberRole == 'admin');
-        // if (matchAdmin.length >= 3) {
-        //     toast("Already 3 member had admin");
-        //     setErrorMessage("Already 3 member had admin");
-        //     return;
-        // }
-
         if (memberList.length >= 5) {
-            toast("Already 5 member had here. Please remove member");
-            setErrorMessage("Already 5 member had here");
+            toast("Already 5 members added here. Please remove member");
+            setErrorMessage("Already 5 members added here");
             return;
         }
         setErrorMessage("");
@@ -83,7 +75,7 @@ const BlogAdminAssign = () => {
 
         swal({
             title: "Are you sure?",
-            text: "you want to delete status from it!",
+            text: "You want to delete status from it!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -108,7 +100,7 @@ const BlogAdminAssign = () => {
                                         console.log("Updated Admin List: ", data?.data?.admin);
                                         const oldMember = memberList.filter(member => member.MemberRole != 'admin');
                                         setMemberList([...data?.data?.admin, ...oldMember]);
-                                        swal("removed his role from here!", {
+                                        swal("Removed his role from here!", {
                                             icon: "success",
                                         });
                                         setErrorMessage("");
@@ -139,8 +131,8 @@ const BlogAdminAssign = () => {
 
         const matchAdmin = memberList.filter(member => member.MemberRole == 'admin');
         if (matchAdmin.length >= 3 && role == 'member') {
-            toast("Already 3 member had admin");
-            setErrorMessage("Already 3 member had admin");
+            toast("The system has already 3 admin");
+            setErrorMessage("The system has already 3 admin");
             return;
         }
 
@@ -172,7 +164,6 @@ const BlogAdminAssign = () => {
                         const oldMember = memberList.filter(member => member.MemberRole != 'admin' && member.BPID != BPID);
                         setMemberList([...data?.data?.admin, ...oldMember]);
 
-                        // setMemberList(data?.data?.admin);
                         setErrorMessage("");
                     })
                     .catch((error) => {
@@ -185,6 +176,8 @@ const BlogAdminAssign = () => {
                 toast("An error occurred while updating member role");
             });
     };
+
+
     if (loading) {
         return <Loader></Loader>
     }
@@ -203,7 +196,7 @@ const BlogAdminAssign = () => {
                                 <label htmlFor="bpid" className="form-label col-2 fw-bold">BPID </label>
                                 <input className="form-control" type="text" name='bpid' id="bpid" placeholder='Enter member BPID' />
                             </div>
-                            <button className=' btn btn-primary btn-sm w-20   ms-md-0 me-5'>Add</button>
+                            <button className=' btn btn-outline-secondary btn-sm w-20   ms-md-0 me-2'>Add</button>
                         </form>
                         <div className="">
                             <table className="table table-striped table-hover adminAssignTable">
@@ -214,7 +207,7 @@ const BlogAdminAssign = () => {
                                         <th className=' fw-bold' scope="col">BPID</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Role Update</th>
-                                        {/* <th scope="col">Action</th> */}
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -226,13 +219,13 @@ const BlogAdminAssign = () => {
                                             <td>{member?.MemberRole === 'admin' ? <>Admin</> : <>Member</>}</td>
                                             <td className='  '>
                                                 {member?.MemberRole === 'member' ?
-                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm">Make Admin</button>
+                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-outline-secondary btn-sm">Make Admin</button>
                                                     :
-                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-primary btn-sm "> Make Member</button>
+                                                    <button onClick={() => handleRoleUpdate(member?.BPID, member?.MemberRole)} className="btn btn-outline-secondary btn-sm "> Make Member</button>
                                                 }
                                             </td>
                                             <td className='   '>
-                                                <button onClick={() => handleRemoveMember(member)} className=' btn btn-primary btn-sm adminAssignBtn'> <span> X </span></button>
+                                                <button onClick={() => handleRemoveMember(member)} className=' btn btn-outline-secondary btn-sm adminAssignBtn'> <span> X </span></button>
                                             </td>
                                         </tr>
                                     )}
