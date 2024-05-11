@@ -74,9 +74,6 @@ const EventDetailsPage = () => {
                             <p className="card-text mt-4"> <b></b>{eventDetails?.description}</p>
 
                         </div>
-
-
-
                     </div>
                 </div>
 
